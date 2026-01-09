@@ -82,7 +82,7 @@ Given a sequence of token representations $X \in \mathbb{R}^{T \times D}$ (`X �
 **LaTeX:**
 $$Q = XW_Q, \quad K = XW_K, \quad V = XW_V$$
 
-$$\text{Attention}(X) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_h}} + M\right) V$$
+$$\text{Attention}(X) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_h}}\right) V$$
 
 **Plain text:**
 ```
@@ -90,14 +90,26 @@ Q = X · W_Q    (queries)
 K = X · W_K    (keys)  
 V = X · W_V    (values)
 
-Attention(X) = softmax(Q · K^T / √d_h + M) · V
+Attention(X) = softmax(Q · K^T / √d_h) · V
 ```
 
 The division by $\sqrt{d_h}$ (`√d_h`) prevents the dot products from growing too large as dimension increases. Without this scaling, the softmax would saturate—putting nearly all attention on one token and making gradients vanishingly small.
 
 ### Causal Masking
 
-For language modeling, token 5 shouldn't see tokens 6, 7, 8... (that would be cheating—using the future to predict the future). The causal mask $M$ sets attention weights to negative infinity for future positions:
+The equation above is general attention. For language modeling, we need an additional constraint: token 5 shouldn't see tokens 6, 7, 8... (that would be cheating—using the future to predict the future).
+
+We enforce this by adding a causal mask $M$ (`M`) to the attention scores before softmax:
+
+**LaTeX:**
+$$\text{Attention}(X) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_h}} + M\right) V$$
+
+**Plain text:**
+```
+Attention(X) = softmax(Q · K^T / √d_h + M) · V
+```
+
+The mask $M$ is defined as:
 
 **LaTeX:**
 $$M_{ij} = \begin{cases} 0 & \text{if } i \geq j \\ -\infty & \text{otherwise} \end{cases}$$
@@ -107,7 +119,7 @@ $$M_{ij} = \begin{cases} 0 & \text{if } i \geq j \\ -\infty & \text{otherwise} \
 M_{ij} = 0 if i ≥ j, else -∞
 ```
 
-After softmax, $e^{-\infty} = 0$, so future tokens get zero attention weight.
+How does this work? When we add $-\infty$ to an attention score and then apply softmax, we get $e^{-\infty} = 0$. This means future tokens receive exactly zero attention weight—it's mathematically impossible for a token to attend to positions that come after it.
 
 ### Multiple Heads
 
