@@ -334,6 +334,7 @@ This project successfully demonstrates that **Continuous-Depth Transformers** ar
 ```
 ├── README.md                                        # This file
 ├── MATH_EXPLAINER.md                                # Detailed mathematical guide with intuitive analogies
+├── PLAIN_LANGUAGE_EXPLAINER.md                      # Non-technical guide to the project and results
 ├── hybrid_ode_transformer_control_dynamics.ipynb    # Validated notebook with all experiments
 ├── gradient_flow_results.png                        # Experiment 1: Training dynamics visualization
 └── control_interpolation.png                        # Experiment 3: Continuous control demonstration
