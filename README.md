@@ -285,6 +285,7 @@ Building on the gradient flow validation (Section 7), the full prototype proceed
 - **Weeks 3-4**: Introduce control-aware training. Train with varied $u$, using attribute classifiers (sentiment, formality) as auxiliary signals.
 - **Weeks 5-6**: Evaluate control effectiveness. Measure attribute-$u$ correlations, control orthogonality, and capability preservation (perplexity delta).
 - **Weeks 7-10**: Ablations (number of steps, replaced layers, control dimensionality). Head-to-head comparison with activation steering (ActAdd). Write up results.
+- **Beyond this prototype:** The architectural principles—ODE flow modules, learned control dynamics, hybrid placement—are agnostic to the specific transformer variant. Scaling experiments would ideally use Anthropic's internal architecture; the results demonstrated here on GPT-2 should transfer directly.
 
 ---
 
