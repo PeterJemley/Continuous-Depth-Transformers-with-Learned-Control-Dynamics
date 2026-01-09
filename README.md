@@ -58,18 +58,24 @@ Recent work addresses limitations of basic activation addition. IBM's Conditiona
 
 ### 3.1 Continuous-Depth Flow Module
 
-Let H(τ) ∈ ℝ^(n×d) denote the sequence hidden state at continuous depth τ ∈ [0,1]. We replace k consecutive residual blocks with:
+Let $H(\tau) \in \mathbb{R}^{n \times d}$ (`H(τ) ∈ ℝ^{n×d}`) denote the sequence hidden state at continuous depth $\tau \in [0,1]$ (`τ ∈ [0,1]`). We replace k consecutive residual blocks with:
 
+**LaTeX:**
+$$\frac{dH}{d\tau} = F_\theta(H, \tau, u)$$
+
+$$H(1) = \text{ODESolve}(F_\theta, H(0), [0,1])$$
+
+**Plain text:**
 ```
 dH/dτ = F_θ(H, τ, u)
 H(1) = ODESolve(F_θ, H(0), [0,1])
 ```
 
-Here F_θ is a neural network parameterizing the vector field, and u ∈ ℝ^c is a low-dimensional control signal (c ≪ d). The vector field incorporates self-attention to couple token dynamics, making this a *graph-coupled dynamical system* over the token interaction graph.
+Here $F_\theta$ (`F_θ`) is a neural network parameterizing the vector field, and $u \in \mathbb{R}^c$ (`u ∈ ℝ^c`) is a low-dimensional control signal ($c \ll d$, i.e., `c ≪ d`). The vector field incorporates self-attention to couple token dynamics, making this a *graph-coupled dynamical system* over the token interaction graph.
 
 ### 3.2 Control Signal Design
 
-The control signal u enters F_θ via concatenation or FiLM-style conditioning. At inference, u defaults to a neutral value (e.g., 0) for standard generation. Users or downstream systems can set u to bias trajectories:
+The control signal $u$ enters $F_\theta$ via concatenation or FiLM-style conditioning. At inference, $u$ defaults to a neutral value (e.g., 0) for standard generation. Users or downstream systems can set $u$ to bias trajectories:
 
 - `u[0]`: creativity/novelty axis
 - `u[1]`: formality axis
@@ -83,31 +89,43 @@ We do not replace the entire stack. A practical design: layers 1-8 and 17-24 rem
 
 ### 3.4 Stability via Learned Output Scaling
 
-A standard residual block computes H_{n+1} = H_n + F(H_n), which is exactly forward Euler integration with step size Δτ = 1. For stable training, this implicitly requires ||F(H)|| to be O(1) or smaller—if the update magnitude is too large, the dynamics overshoot and gradients explode.
+A standard residual block computes $H_{n+1} = H_n + F(H_n)$ (`H_{n+1} = H_n + F(H_n)`), which is exactly forward Euler integration with step size $\Delta\tau = 1$ (`Δτ = 1`). For stable training, this implicitly requires $\|F(H)\|$ (`||F(H)||`) to be O(1) or smaller—if the update magnitude is too large, the dynamics overshoot and gradients explode.
 
-Our continuous formulation makes this constraint explicit and learnable. The vector field includes a scalar parameter α (initialized to 0.1):
+Our continuous formulation makes this constraint explicit and learnable. The vector field includes a scalar parameter $\alpha$ (`α`), initialized to 0.1:
 
+**LaTeX:**
+$$\frac{dH}{d\tau} = \alpha \cdot F_\theta(H, \tau, u)$$
+
+**Plain text:**
 ```
 dH/dτ = α · F_θ(H, τ, u)
 ```
 
-With m = 4 Euler steps over [0,1], the effective step size per integration step is α · Δτ ≈ 0.025. This conservative initialization ensures stable dynamics from the start while allowing the model to learn larger α if stronger dynamics prove beneficial.
+With $m = 4$ Euler steps over $[0,1]$, the effective step size per integration step is $\alpha \cdot \Delta\tau \approx 0.025$ (`α · Δτ ≈ 0.025`). This conservative initialization ensures stable dynamics from the start while allowing the model to learn larger $\alpha$ if stronger dynamics prove beneficial.
 
-The stability guarantee follows from gradient flow analysis. For an ODE dH/dτ = f(H), the sensitivity of the final state to the initial state satisfies:
+The stability guarantee follows from gradient flow analysis. For an ODE $\frac{dH}{d\tau} = f(H)$ (`dH/dτ = f(H)`), the sensitivity of the final state to the initial state satisfies:
 
+**LaTeX:**
+$$\frac{d}{d\tau} \left[\frac{\partial H(\tau)}{\partial H(0)}\right] = \frac{\partial f}{\partial H} \cdot \frac{\partial H(\tau)}{\partial H(0)}$$
+
+**Plain text:**
 ```
 d/dτ [∂H(τ)/∂H(0)] = (∂f/∂H) · (∂H(τ)/∂H(0))
 ```
 
-If the Jacobian ∂f/∂H has eigenvalues with large positive real parts, this sensitivity grows exponentially—gradients explode during backpropagation. Our parameterization inherently bounds the Jacobian norm:
+If the Jacobian $\frac{\partial f}{\partial H}$ (`∂f/∂H`) has eigenvalues with large positive real parts, this sensitivity grows exponentially—gradients explode during backpropagation. Our parameterization inherently bounds the Jacobian norm:
 
+**LaTeX:**
+$$\left\|\frac{\partial (\alpha F)}{\partial H}\right\| = \alpha \cdot \left\|\frac{\partial F}{\partial H}\right\|$$
+
+**Plain text:**
 ```
 ||∂(αF)/∂H|| = α · ||∂F/∂H||
 ```
 
-By initializing α = 0.1, we reduce the effective Jacobian norm by an order of magnitude compared to standard residual blocks, preventing exponential gradient growth without requiring explicit spectral regularization.
+By initializing $\alpha = 0.1$, we reduce the effective Jacobian norm by an order of magnitude compared to standard residual blocks, preventing exponential gradient growth without requiring explicit spectral regularization.
 
-The preliminary results (Section 7) confirm this design: zero vanishing or exploding gradient steps across 500 training iterations, with gradient statistics nearly identical to the baseline transformer. The learned α provides a "speed limit" on the dynamics that can be relaxed during training if the optimization benefits from stronger updates.
+The preliminary results (Section 7) confirm this design: zero vanishing or exploding gradient steps across 500 training iterations, with gradient statistics nearly identical to the baseline transformer. The learned $\alpha$ provides a "speed limit" on the dynamics that can be relaxed during training if the optimization benefits from stronger updates.
 
 ---
 
@@ -119,22 +137,36 @@ A critical engineering concern is the FLOPS overhead introduced by ODE solving. 
 
 Per the Chinchilla scaling analysis, a single transformer block's forward-pass FLOPS (ignoring attention's quadratic term) is approximately:
 
+**LaTeX:**
+$$\text{FLOPS}_{\text{block}} \approx 24 \times n \times d^2$$
+
+**Plain text:**
 ```
 FLOPS_block ≈ 24 × n × d²
 ```
 
-where n is sequence length and d is model dimension. This accounts for QKV projections (6nd²), output projection (2nd²), and two FFN layers (16nd² for 4d intermediate).
+where $n$ is sequence length and $d$ is model dimension. This accounts for QKV projections ($6nd^2$, i.e., `6nd²`), output projection ($2nd^2$, i.e., `2nd²`), and two FFN layers ($16nd^2$ for $4d$ intermediate, i.e., `16nd²` for `4d` intermediate).
 
 ### 4.2 ODE Flow Module
 
-If F_θ has comparable structure to a transformer block (attention + FFN), and we use m fixed Euler steps to integrate over [0,1], the ODE module costs:
+If $F_\theta$ has comparable structure to a transformer block (attention + FFN), and we use $m$ fixed Euler steps to integrate over $[0,1]$, the ODE module costs:
 
+**LaTeX:**
+$$\text{FLOPS}_{\text{ODE}} \approx m \times 24 \times n \times d^2$$
+
+**Plain text:**
 ```
 FLOPS_ODE ≈ m × 24 × n × d²
 ```
 
-If this module replaces k=8 blocks, the overhead ratio is m/k. For m=4 steps replacing k=8 blocks:
+If this module replaces $k=8$ blocks, the overhead ratio is $m/k$. For $m=4$ steps replacing $k=8$ blocks:
 
+**LaTeX:**
+$$\text{Overhead} = \frac{4 \times 24nd^2}{8 \times 24nd^2} = 50\% \text{ of replaced blocks}$$
+
+$$= 50\% \times \frac{8}{24} \approx 17\% \text{ of total model FLOPS for a 24-layer model}$$
+
+**Plain text:**
 ```
 Overhead = (4 × 24nd²) / (8 × 24nd²) = 50% of replaced blocks
          = 50% × (8/24) ≈ 17% of total model FLOPS for a 24-layer model
@@ -154,25 +186,25 @@ This proposal connects to several active research directions in AI safety and in
 
 ### 5.1 Trajectory Inspection
 
-Unlike discrete blocks, ODE flows produce continuous trajectories H(τ) that can be sampled at arbitrary depth. This enables visualizing how representations evolve, potentially revealing intermediate reasoning states. Tong et al. (2025) demonstrate that Lyapunov exponent analysis of such trajectories yields interpretable sensitivity metrics.
+Unlike discrete blocks, ODE flows produce continuous trajectories $H(\tau)$ (`H(τ)`) that can be sampled at arbitrary depth. This enables visualizing how representations evolve, potentially revealing intermediate reasoning states. Tong et al. (2025) demonstrate that Lyapunov exponent analysis of such trajectories yields interpretable sensitivity metrics.
 
 ### 5.2 Predictable Steerability
 
-If control signal u produces smooth, monotonic changes in output attributes, the model becomes more predictable and auditable. This contrasts with prompt-based control, where small input changes can cause discontinuous output shifts. Predictable steerability is directly relevant to alignment: operators can verify that control behaves as intended before deployment.
+If control signal $u$ produces smooth, monotonic changes in output attributes, the model becomes more predictable and auditable. This contrasts with prompt-based control, where small input changes can cause discontinuous output shifts. Predictable steerability is directly relevant to alignment: operators can verify that control behaves as intended before deployment.
 
 ### 5.3 Connection to Activation Steering Research
 
-Our learned control signal u can be viewed as a *native* steering interface, trained end-to-end rather than discovered post-hoc. This may yield steering dimensions that are more orthogonal (less interference between attributes) and more robust (less degradation of general capabilities). Validating this hypothesis is a key experimental goal.
+Our learned control signal $u$ can be viewed as a *native* steering interface, trained end-to-end rather than discovered post-hoc. This may yield steering dimensions that are more orthogonal (less interference between attributes) and more robust (less degradation of general capabilities). Validating this hypothesis is a key experimental goal.
 
 ---
 
 ## 6. Training Objective and Regularization
 
-The model trains end-to-end with standard next-token cross-entropy loss. The learned output scale α (Section 3.4) provides inherent stability; the following regularizers are optional supplements for particularly deep or aggressive configurations:
+The model trains end-to-end with standard next-token cross-entropy loss. The learned output scale $\alpha$ (Section 3.4) provides inherent stability; the following regularizers are optional supplements for particularly deep or aggressive configurations:
 
-- **Trajectory energy**: L_energy = Σ_j ||F_θ(H_j, τ_j, u)||² discourages excessively large vector field magnitudes that could indicate chaotic dynamics.
-- **Control smoothness**: Encourage ||dH/du|| to be bounded, ensuring control signal changes produce proportionate output changes.
-- **Spectral regularization**: Constrain eigenvalues of the Jacobian dF/dH to prevent exponential blowup. Note: with α = 0.1, spectral properties are already bounded; explicit regularization may be unnecessary (see Section 7 results).
+- **Trajectory energy**: $\mathcal{L}_{\text{energy}} = \sum_j \|F_\theta(H_j, \tau_j, u)\|^2$ (`L_energy = Σ_j ||F_θ(H_j, τ_j, u)||²`) discourages excessively large vector field magnitudes that could indicate chaotic dynamics.
+- **Control smoothness**: Encourage $\|\partial H / \partial u\|$ (`||dH/du||`) to be bounded, ensuring control signal changes produce proportionate output changes.
+- **Spectral regularization**: Constrain eigenvalues of the Jacobian $\partial F / \partial H$ (`dF/dH`) to prevent exponential blowup. Note: with $\alpha = 0.1$, spectral properties are already bounded; explicit regularization may be unnecessary (see Section 7 results).
 
 ---
 
@@ -182,12 +214,12 @@ Before proposing a full-scale implementation, we validate the core architectural
 
 ### 7.1 Experimental Setup
 
-We implement two 6-layer transformer variants with d=256 and 4 attention heads:
+We implement two 6-layer transformer variants with $d=256$ and 4 attention heads:
 
 - **Baseline**: Standard transformer (6 residual blocks)
 - **Hybrid**: Layers 2-4 replaced with a single ODE flow module using 4 fixed Euler steps
 
-The ODE vector field F_θ contains attention and MLP components matching the replaced blocks, plus time and control embeddings. Both models train for 500 steps on WikiText-2 with batch size 32, sequence length 64, and learning rate 3×10⁻⁴. Training uses a single T4 GPU.
+The ODE vector field $F_\theta$ contains attention and MLP components matching the replaced blocks, plus time and control embeddings. Both models train for 500 steps on WikiText-2 with batch size 32, sequence length 64, and learning rate $3 \times 10^{-4}$ (`3×10⁻⁴`). Training uses a single T4 GPU.
 
 ### 7.2 Results
 
@@ -213,7 +245,7 @@ The ODE vector field F_θ contains attention and MLP components matching the rep
 
 ### 7.3 Interpretation
 
-These results validate the architectural feasibility of ODE flow blocks in transformers. Gradients propagate through the ODE solver without vanishing or exploding, and training dynamics are comparable to—or slightly better than—the baseline. The experiment does not yet demonstrate *controllability* (whether u produces interpretable steering)—this requires the full prototype with control-aware training, outlined in Section 10.
+These results validate the architectural feasibility of ODE flow blocks in transformers. Gradients propagate through the ODE solver without vanishing or exploding, and training dynamics are comparable to—or slightly better than—the baseline. The experiment does not yet demonstrate *controllability* (whether $u$ produces interpretable steering)—this requires the full prototype with control-aware training, outlined in Section 10.
 
 ---
 
@@ -222,13 +254,13 @@ These results validate the architectural feasibility of ODE flow blocks in trans
 ### 8.1 Quantitative Metrics
 
 - **Baseline preservation**: Perplexity on standard benchmarks should not degrade significantly (target: <5% increase).
-- **Control effectiveness**: For attributes like sentiment or formality, measure classifier accuracy as u varies. Target: monotonic relationship between u magnitude and attribute strength.
-- **Control orthogonality**: Varying u[0] should minimally affect attributes controlled by u[1]. Measure cross-attribute interference.
+- **Control effectiveness**: For attributes like sentiment or formality, measure classifier accuracy as $u$ varies. Target: monotonic relationship between $u$ magnitude and attribute strength.
+- **Control orthogonality**: Varying $u_0$ (`u[0]`) should minimally affect attributes controlled by $u_1$ (`u[1]`). Measure cross-attribute interference.
 - **Novelty (for creativity axis)**: Distinct-n metrics and embedding distance from greedy baseline.
 
 ### 8.2 Qualitative Stress Tests
 
-For fixed prompts, sweep u continuously and verify: smooth output transitions without mode collapse, preserved grammaticality across the control range, and absence of degenerate behaviors (repetition, incoherence) at extreme u values.
+For fixed prompts, sweep $u$ continuously and verify: smooth output transitions without mode collapse, preserved grammaticality across the control range, and absence of degenerate behaviors (repetition, incoherence) at extreme $u$ values.
 
 ### 8.3 Comparison to Activation Steering
 
@@ -238,10 +270,10 @@ Direct comparison against ActAdd on matched attributes (sentiment, toxicity). Ke
 
 ## 9. Risks and Mitigations
 
-- **Training instability**: Mitigation: the learned output scale α (Section 3.4) inherently bounds gradient magnitudes. Additional safeguards include conservative learning rates and energy regularization if needed. *Preliminary results (Section 7) demonstrate stability is achieved with standard hyperparameters and no explicit regularization.*
+- **Training instability**: Mitigation: the learned output scale $\alpha$ (Section 3.4) inherently bounds gradient magnitudes. Additional safeguards include conservative learning rates and energy regularization if needed. *Preliminary results (Section 7) demonstrate stability is achieved with standard hyperparameters and no explicit regularization.*
 - **No perplexity improvement**: This is expected. The proposal targets controllability, not raw performance. Success criterion is effective steering with minimal capability degradation.
-- **Control dimensions not interpretable**: Post-training calibration may be required. Alternatively, supervised control training (pairing u values with labeled attributes) during fine-tuning.
-- **Overhead exceeds benefit**: If m steps don't capture useful dynamics, reduce scope: fewer replaced blocks, simpler F_θ architecture.
+- **Control dimensions not interpretable**: Post-training calibration may be required. Alternatively, supervised control training (pairing $u$ values with labeled attributes) during fine-tuning.
+- **Overhead exceeds benefit**: If $m$ steps don't capture useful dynamics, reduce scope: fewer replaced blocks, simpler $F_\theta$ architecture.
 
 ---
 
@@ -250,8 +282,8 @@ Direct comparison against ActAdd on matched attributes (sentiment, toxicity). Ke
 Building on the gradient flow validation (Section 7), the full prototype proceeds as follows:
 
 - **Weeks 1-2**: Scale ODEFlowBlock to GPT-2 small (124M). Validate stability and throughput at scale. Benchmark against baseline on OpenWebText subset.
-- **Weeks 3-4**: Introduce control-aware training. Train with varied u, using attribute classifiers (sentiment, formality) as auxiliary signals.
-- **Weeks 5-6**: Evaluate control effectiveness. Measure attribute-u correlations, control orthogonality, and capability preservation (perplexity delta).
+- **Weeks 3-4**: Introduce control-aware training. Train with varied $u$, using attribute classifiers (sentiment, formality) as auxiliary signals.
+- **Weeks 5-6**: Evaluate control effectiveness. Measure attribute-$u$ correlations, control orthogonality, and capability preservation (perplexity delta).
 - **Weeks 7-10**: Ablations (number of steps, replaced layers, control dimensionality). Head-to-head comparison with activation steering (ActAdd). Write up results.
 
 ---
