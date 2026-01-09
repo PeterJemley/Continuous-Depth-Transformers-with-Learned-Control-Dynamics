@@ -81,6 +81,34 @@ The semantics of each dimension emerge from training; post-training calibration 
 
 We do not replace the entire stack. A practical design: layers 1-8 and 17-24 remain standard residual blocks; layers 9-16 are replaced by the ODE flow module. This preserves early feature extraction and late task-specific processing while introducing continuous dynamics in the middle layers where representations are most malleable.
 
+### 3.4 Stability via Learned Output Scaling
+
+A standard residual block computes H_{n+1} = H_n + F(H_n), which is exactly forward Euler integration with step size Δτ = 1. For stable training, this implicitly requires ||F(H)|| to be O(1) or smaller—if the update magnitude is too large, the dynamics overshoot and gradients explode.
+
+Our continuous formulation makes this constraint explicit and learnable. The vector field includes a scalar parameter α (initialized to 0.1):
+
+```
+dH/dτ = α · F_θ(H, τ, u)
+```
+
+With m = 4 Euler steps over [0,1], the effective step size per integration step is α · Δτ ≈ 0.025. This conservative initialization ensures stable dynamics from the start while allowing the model to learn larger α if stronger dynamics prove beneficial.
+
+The stability guarantee follows from gradient flow analysis. For an ODE dH/dτ = f(H), the sensitivity of the final state to the initial state satisfies:
+
+```
+d/dτ [∂H(τ)/∂H(0)] = (∂f/∂H) · (∂H(τ)/∂H(0))
+```
+
+If the Jacobian ∂f/∂H has eigenvalues with large positive real parts, this sensitivity grows exponentially—gradients explode during backpropagation. Our parameterization inherently bounds the Jacobian norm:
+
+```
+||∂(αF)/∂H|| = α · ||∂F/∂H||
+```
+
+By initializing α = 0.1, we reduce the effective Jacobian norm by an order of magnitude compared to standard residual blocks, preventing exponential gradient growth without requiring explicit spectral regularization.
+
+The preliminary results (Section 7) confirm this design: zero vanishing or exploding gradient steps across 500 training iterations, with gradient statistics nearly identical to the baseline transformer. The learned α provides a "speed limit" on the dynamics that can be relaxed during training if the optimization benefits from stronger updates.
+
 ---
 
 ## 4. Compute Overhead Analysis
@@ -140,11 +168,11 @@ Our learned control signal u can be viewed as a *native* steering interface, tra
 
 ## 6. Training Objective and Regularization
 
-The model trains end-to-end with standard next-token cross-entropy loss. Optional regularizers address potential instabilities:
+The model trains end-to-end with standard next-token cross-entropy loss. The learned output scale α (Section 3.4) provides inherent stability; the following regularizers are optional supplements for particularly deep or aggressive configurations:
 
 - **Trajectory energy**: L_energy = Σ_j ||F_θ(H_j, τ_j, u)||² discourages excessively large vector field magnitudes that could indicate chaotic dynamics.
 - **Control smoothness**: Encourage ||dH/du|| to be bounded, ensuring control signal changes produce proportionate output changes.
-- **Spectral regularization**: Constrain eigenvalues of the Jacobian dF/dH to prevent exponential blowup.
+- **Spectral regularization**: Constrain eigenvalues of the Jacobian dF/dH to prevent exponential blowup. Note: with α = 0.1, spectral properties are already bounded; explicit regularization may be unnecessary (see Section 7 results).
 
 ---
 
@@ -210,7 +238,7 @@ Direct comparison against ActAdd on matched attributes (sentiment, toxicity). Ke
 
 ## 9. Risks and Mitigations
 
-- **Training instability**: Mitigation: start with small learning rates, conservative step sizes (m=2), and energy regularization. *Preliminary results (Section 7) demonstrate stability is achievable with standard hyperparameters.*
+- **Training instability**: Mitigation: the learned output scale α (Section 3.4) inherently bounds gradient magnitudes. Additional safeguards include conservative learning rates and energy regularization if needed. *Preliminary results (Section 7) demonstrate stability is achieved with standard hyperparameters and no explicit regularization.*
 - **No perplexity improvement**: This is expected. The proposal targets controllability, not raw performance. Success criterion is effective steering with minimal capability degradation.
 - **Control dimensions not interpretable**: Post-training calibration may be required. Alternatively, supervised control training (pairing u values with labeled attributes) during fine-tuning.
 - **Overhead exceeds benefit**: If m steps don't capture useful dynamics, reduce scope: fewer replaced blocks, simpler F_θ architecture.
