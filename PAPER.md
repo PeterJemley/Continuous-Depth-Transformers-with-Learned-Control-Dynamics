@@ -227,11 +227,6 @@ We demonstrated that continuous-depth transformers with learned control dynamics
 
 Future work includes adaptive computation (dynamic step counts), scaling validation, and multi-dimensional control semantics.
 
----
-
-## Code Availability
-
-Implementation and experiments are available at: https://github.com/PeterJemley/continuous-depth-transformers
 
 ---
 
