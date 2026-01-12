@@ -219,7 +219,7 @@ We swept the control signal $u$ from -2 to +2 and recorded NFE at each value. Ra
 
 *Figure 3: Solver effort reveals two dynamical regimes. The control signal partitions the vector field into regions of different curvature, with the transition aligned to the semantic crossover.*
 
-We validated this finding through additional probes: (1) two different adaptive solvers (dopri5, adaptive_heun) agreed on step counts within 15%, confirming NFE measures the dynamics rather than solver artifacts; (2) NFE scales sublinearly with tolerance ($14 \rightarrow 26$ for 1000× tighter tolerance), indicating smooth rather than fractal dynamics; (3) trajectory analysis revealed peak curvature at $\tau \approx 0.67$, suggesting a discrete "decision point" within the continuous flow. These results demonstrate that continuous-depth architectures enable inspection of learned representations through solver behavior—a form of interpretability unavailable in discrete transformer stacks.
+We validated this finding through additional probes: (1) two different adaptive solvers (dopri5, adaptive_heun) agreed on step counts within 15%, confirming NFE measures the dynamics rather than solver artifacts; (2) NFE scales sublinearly with tolerance ($14 \rightarrow 26$ for 1000× tighter tolerance), indicating smooth rather than fractal dynamics (Figure 4); (3) trajectory analysis revealed peak curvature at $\tau \approx 0.67$, suggesting a discrete "decision point" within the continuous flow. These results demonstrate that continuous-depth architectures enable inspection of learned representations through solver behavior—a form of interpretability unavailable in discrete transformer stacks.
 
 ![Resolution scaling toward continuous limit](figures/fig4_continuous_limit.png)
 
