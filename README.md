@@ -52,24 +52,24 @@ pip install torch torchdiffeq datasets tiktoken
 
 ## Quick Start
 
+`model.py` holds the one shared definition of the model. The falsification and benchmark notebooks import it, and download it automatically when opened in Colab.
+
 ```python
-from model import HybridODETransformer
+import torch
+from model import HybridTransformer, DEFAULT_CONFIG
 
-# Initialize model
-model = HybridODETransformer(
-    vocab_size=50257,
-    d_model=256,
-    n_heads=4,
-    n_layers=6,
-    ode_start=2,
-    ode_end=4,
-    control_dim=4
-)
+# Six layers, with the ODE block in place of layers 2-3
+model = HybridTransformer(DEFAULT_CONFIG)
 
-# Forward pass with control signal
-control = torch.zeros(batch_size, 4)
-control[:, 0] = 1.0  # Positive sentiment
-logits = model(input_ids, control=control)
+batch_size = 2
+input_ids = torch.randint(0, DEFAULT_CONFIG['vocab_size'], (batch_size, DEFAULT_CONFIG['seq_len']))
+
+# Control signal u (it steers the output once the model has been trained)
+control = torch.zeros(batch_size, DEFAULT_CONFIG['control_dim'])
+control[:, 0] = 1.0
+
+logits = model(input_ids, control)                              # Fixed 4-step Euler solver, as in training
+logits_adaptive = model(input_ids, control, use_adaptive=True)  # Adaptive Dopri5 solver
 ```
 
 ## Experiments
@@ -120,9 +120,10 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 ## Repository Structure
 
 ```
+├── model.py                                                # Shared model definition
 ├── continuous_depth_transformer_falsification_test.ipynb   # Solver Invariance Test & Linear Probes
 ├── continuous_depth_transformer_efficiency_benchmark.ipynb # Latency Benchmark
-├── main.tex                                                # Paper source (LaTeX)
+├── continuous_depth_transformers_experiments.ipynb         # Early prototype with its own model definition
 ├── PAPER.md                                                # Paper (Markdown)
 ├── figures/
 │   ├── fig1_gradient_flow.png
@@ -130,28 +131,32 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 │   ├── fig3_control_topology.png
 │   └── fig4_continuous_limit.png
 ├── README.md
+├── README_LATEX.md
 ├── MATH_EXPLAINER.md
 ├── PLAIN_LANGUAGE_EXPLAINER.md
-└── DEVELOPMENT_NOTES.md
+├── DEVELOPMENT_NOTES.md
+└── AUDIO_TTS_RELEVANCE.md
 ```
 
 ## Core Components
 
-### ODEFunc
+### ControlledVectorField and ContinuousDepthBlock
 
-The vector field parameterization:
+The vector field concatenates the control signal onto the hidden state, and the block integrates it from τ = 0 to τ = 1 (excerpt from `model.py`):
 
 ```python
-class ODEFunc(nn.Module):
-    def forward(self, t, x):
-        # Time embedding
-        t_emb = self.time_embed(t)
-        # Control embedding  
-        c_emb = self.control_embed(self.control)
-        # Dynamics
-        h = x + t_emb + c_emb
-        dh = self.attn(self.ln1(h)) + self.mlp(self.ln2(h))
-        return self.output_scale * dh  # α · F_θ
+class ControlledVectorField(nn.Module):
+    def forward(self, t, h, u):
+        # Broadcast u across the sequence and concatenate it onto the hidden state
+        u_expanded = u.unsqueeze(1).expand(-1, h.shape[1], -1)
+        return self.net(torch.cat([h, u_expanded], dim=-1))  # F_θ(H, τ, u)
+
+class ContinuousDepthBlock(nn.Module):
+    def forward(self, h, u, use_adaptive=False):
+        def func(t, x):
+            return self.alpha * self.vector_field(t, x, u)   # α · F_θ
+        # Fixed Euler steps in training; Dopri5 when use_adaptive=True
+        ...
 ```
 
 ### Hybrid Unfreeze Training
