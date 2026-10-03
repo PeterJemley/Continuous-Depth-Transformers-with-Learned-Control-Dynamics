@@ -1,0 +1,14 @@
+{
+  "job": {
+    "job": "wt103_study",
+    "args": [
+      "--stage",
+      "2"
+    ],
+    "description": "WikiText-103 study, stage 2: the 12 main runs, 6 seeds of each model, one full pass over WikiText-103 each. About 11 GPU-hours in total, so it will take several sessions. Each session continues where the last one stopped; just choose Run all again whenever a session ends.",
+    "expected_minutes": 660
+  },
+  "code_commit": "dcfa01d31ed35d79b5c91b41a7bafdaf0fbff8f5",
+  "run_id": "20261003-205057",
+  "gpu": "Tesla T4"
+}
