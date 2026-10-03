@@ -469,7 +469,14 @@ def stage1(store, meta, total_steps):
             r = train_run(store, meta, f'sweep_{kind}_lr{lr:g}', kind, SWEEP_SEED, lr, sweep_steps)
             finals[lr] = r['final_val_loss']
         choice[kind] = {'chosen_lr': min(finals, key=finals.get), 'sweep_final_val_loss': {f'{k:g}': v for k, v in finals.items()}}
-        spread = train_run(store, meta, f'spread_{kind}_seed{SPREAD_SEED}', kind, SPREAD_SEED, choice[kind]['chosen_lr'], sweep_steps)
+        lr = choice[kind]['chosen_lr']
+        legacy = store.L(f'results/spread_{kind}_seed{SPREAD_SEED}.json')  # named before the amendment, without the rate
+        if legacy.exists() and json.loads(legacy.read_text())['peak_lr'] == lr:
+            spread = json.loads(legacy.read_text())
+            log(f'spread_{kind}_seed{SPREAD_SEED}: already finished at the chosen rate {lr:g}, reusing')
+        else:
+            spread = train_run(store, meta, f'spread_{kind}_seed{SPREAD_SEED}_lr{lr:g}', kind, SPREAD_SEED, lr, sweep_steps)
+        choice[kind]['spread_run'] = spread['tag']
         choice[kind]['spread_pair'] = [finals[choice[kind]['chosen_lr']], spread['final_val_loss']]
     summary = {'sweep_steps': sweep_steps, 'total_steps_main': total_steps, 'choice': choice}
     store.L('results/stage1_summary.json').write_text(json.dumps(summary, indent=2))
