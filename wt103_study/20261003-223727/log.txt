@@ -1,0 +1,37 @@
+22:37:34 device: cuda | fp16: True | test mode: False | local folder: /content/cdt_local/wt103_study | Drive folder: /content/drive/MyDrive/cdt-colab/wt103_study
+22:37:35 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+22:37:35 main_baseline_seed1001: already finished, skipping
+Traceback (most recent call last):
+  File "/content/repo/experiments/wikitext103-training/study.py", line 566, in main
+    stage2(store, meta, total_steps)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/experiments/wikitext103-training/study.py", line 494, in stage2
+    train_run(store, meta, f'main_{kind}_seed{seed}', kind, seed, choice[kind]['chosen_lr'], total_steps)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/experiments/wikitext103-training/study.py", line 354, in train_run
+    gen.set_state(ck['gen']); state = ck['state']; state['resumes'] += 1
+    ~~~~~~~~~~~~~^^^^^^^^^^^
+TypeError: RNG state must be a torch.ByteTensor
+22:37:37 copied 14 result files for upload
+22:37:37 waiting for background Drive saves to finish (up to 15 minutes)
+22:37:37 Drive saves finished
+Traceback (most recent call last):
+  File "/content/repo/colab/jobs/wt103_study.py", line 7, in <module>
+    runpy.run_path(sys.argv[0], run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/content/repo/experiments/wikitext103-training/study.py", line 589, in <module>
+    main()
+    ~~~~^^
+  File "/content/repo/experiments/wikitext103-training/study.py", line 566, in main
+    stage2(store, meta, total_steps)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/experiments/wikitext103-training/study.py", line 494, in stage2
+    train_run(store, meta, f'main_{kind}_seed{seed}', kind, seed, choice[kind]['chosen_lr'], total_steps)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/experiments/wikitext103-training/study.py", line 354, in train_run
+    gen.set_state(ck['gen']); state = ck['state']; state['resumes'] += 1
+    ~~~~~~~~~~~~~^^^^^^^^^^^
+TypeError: RNG state must be a torch.ByteTensor
