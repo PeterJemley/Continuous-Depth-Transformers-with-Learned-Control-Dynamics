@@ -131,3 +131,12 @@ Results seen before this entry: the stage 1 sweep and spread runs only. No stage
 - **Final rates for stage 2.** Baseline 0.0024; Model A 0.0006.
 - **Updated spread estimate.** Model A minus baseline was 0.7270 at seed 100 and 0.7388 at seed 101. That gives a paired standard deviation of about 0.0083 nats, and an estimated smallest detectable effect for 6 pairs of about 0.012 nats. That is below the 0.02 margin, so no seeds are added.
 
+
+### Stage 2 resume fix, 2026-10-03
+
+A code fix only. The procedure, the decision rules and the results seen are unchanged.
+
+- **What happened.** The first stage 2 session finished `main_baseline_seed1001` (final validation loss 3.8518) and was stopped at about step 28,200 of `main_hybrid_seed1001`. The next session failed while resuming that run, with `TypeError: RNG state must be a torch.ByteTensor`. Source: `colab-results` branch, `wt103_study/20261003-205057` and `wt103_study/20261003-223727`.
+- **Cause.** Checkpoints were loaded with `map_location` set to the GPU, which moved the saved random-number states onto the GPU, and PyTorch accepts them only on the CPU. Earlier resume tests ran on a CPU, so they never hit this.
+- **Fix.** Checkpoints are now loaded to the CPU; the model and optimiser move their own tensors to the GPU when loaded. A test that interrupts a run part-way and resumes it gives exactly the same validation curve and training losses as an uninterrupted run. The interrupted run resumes from its last checkpoint, so the resumed run is the same run that would have completed without the interruption.
+- **Upload message.** The runner now reports when the job stopped with an error, instead of printing "Done" after any upload.

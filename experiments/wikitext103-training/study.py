@@ -349,7 +349,9 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     gen = torch.Generator().manual_seed(seed)
     state = {'step': 0, 'train_loss': [], 'val': [], 'alpha': [], 'skipped_steps': 0, 'seconds': 0.0, 'resumes': 0}
     if ck_path.exists():
-        ck = torch.load(ck_path, map_location=DEV, weights_only=False)
+        # Load to the CPU: the generator and RNG states must stay CPU byte tensors. The model and
+        # optimiser move their own tensors to the model's device when loading.
+        ck = torch.load(ck_path, map_location='cpu', weights_only=False)
         model.load_state_dict(ck['model']); opt.load_state_dict(ck['opt']); scaler.load_state_dict(ck['scaler'])
         gen.set_state(ck['gen']); state = ck['state']; state['resumes'] += 1
         torch.set_rng_state(ck['torch_rng'])

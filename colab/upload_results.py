@@ -56,7 +56,12 @@ def main():
             run(f'git pull -q --rebase origin {args.branch}', cwd=R, check=False)
             time.sleep(2 ** (attempt + 1))
     run('git remote remove origin', cwd=R)
-    print(f'Done. Results uploaded to the {args.branch} branch as {args.job}/{args.run_id}. Tell Claude it finished.')
+    where = f'the {args.branch} branch as {args.job}/{args.run_id}'
+    log = os.path.join(args.out, 'log.txt')
+    if os.path.exists(log) and 'Traceback (most recent call last)' in open(log, errors='replace').read():
+        print(f'The job STOPPED WITH AN ERROR. Its log was uploaded to {where}. Tell Claude it stopped with an error.')
+        return 1
+    print(f'Done. Results uploaded to {where}. Tell Claude it finished.')
     return 0
 
 
