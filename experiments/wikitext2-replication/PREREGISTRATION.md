@@ -1,6 +1,6 @@
 # Preregistration: WikiText-2 replication of the paper's experiments
 
-Status: **draft for review**. Nothing below has been run. Once approved, this file is committed unchanged before the first run, and its git timestamp records that it came first. Later changes go in the deviation log at the end.
+Status: **approved by the author on 2026-10-03, final**. Nothing below had been run when this version was committed, and its git timestamp records that it came first. From here on, the only changes are dated entries in the deviation log at the end.
 
 Type: confirmatory for hypotheses H1 to H8 exactly as stated. Anything else is exploratory and is labelled so.
 
