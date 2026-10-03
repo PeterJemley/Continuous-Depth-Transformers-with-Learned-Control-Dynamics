@@ -122,3 +122,12 @@ Results seen before this entry: the stage 1 learning-rate sweep and spread runs 
 - **Spread estimate.** Model A minus baseline was 0.5492 at seed 100 and 0.5570 at seed 101. That gives a paired standard deviation of about 0.0055 nats, and an estimated smallest detectable effect for 6 pairs of about (2.571 + 0.920) × 0.0055 / √6 ≈ 0.008 nats. That is below the 0.02 margin, so no seeds are added. The estimate has one degree of freedom and comes from short runs, so it is very rough.
 - **Amendment, approved by the author.** The baseline's best learning rate was the largest in the grid, so its true optimum may lie beyond it. That would leave the baseline under-tuned and favour Model A. Both models' grids are therefore extended with 0.0024, using the same procedure: one more sweep run each, at seed 100 and 2,879 steps. The best of the four rates is then chosen per model, and a seed-101 spread run is added for any model whose choice changes. If 0.0024 is chosen and is again the largest rate tried, it is kept, the grid is not extended further, and the boundary is reported as a limitation. This was decided before any stage 2 run. The decision rules for S1 to S3 are unchanged.
 
+### Stage 1 rerun with the wider grid, 2026-10-03
+
+Results seen before this entry: the stage 1 sweep and spread runs only. No stage 2 run had started, and no test-set loss had been computed.
+
+- **Sweep results with 0.0024 added.** The baseline scored 4.7720 at 0.0024, and its choice moved there. Model A scored 6.2437 at 0.0024, and its choice stayed at 0.0006. Source: `colab-results` branch, `wt103_study/20261003-202835`.
+- **Boundary rule applied.** 0.0024 is again the largest rate tried for the baseline. As fixed in the amendment above, it is kept, the grid is not extended further, and this is reported as a limitation: the baseline's optimum may lie above 0.0024. If so, the baseline is still under-tuned, which favours Model A in S1.
+- **Final rates for stage 2.** Baseline 0.0024; Model A 0.0006.
+- **Updated spread estimate.** Model A minus baseline was 0.7270 at seed 100 and 0.7388 at seed 101. That gives a paired standard deviation of about 0.0083 nats, and an estimated smallest detectable effect for 6 pairs of about 0.012 nats. That is below the 0.02 margin, so no seeds are added.
+
