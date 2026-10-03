@@ -43,3 +43,5 @@ Choose **Runtime > Change runtime type**, select **T4 GPU**, and click **Save**.
 Without a token, the last cell downloads a zip of the results instead. Attach it in the chat with Claude.
 
 If Colab disconnects or runs out of GPU time, reopen the notebook and choose **Run all** again. Long jobs pick up from their last checkpoint on Drive.
+
+Jobs work on the Colab machine's own disk and save copies to Drive in the background, so a slow or dropped Drive doesn't stop training. If Drive drops partway through, the session still finishes and uploads its results to GitHub. Only the checkpoints written after the drop are missing from Drive, which can mean a later session repeats some training.

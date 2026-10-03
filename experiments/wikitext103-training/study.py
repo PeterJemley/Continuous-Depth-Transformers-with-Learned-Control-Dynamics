@@ -5,10 +5,13 @@ Three stages, each run as a Colab job through colab/runner.ipynb:
   stage 2  the 12 main runs: 6 seeds x {baseline, Model A}
   stage 3  test loss for every final model, and the solver-dependence test (S3)
 
-Every run checkpoints to the Drive working folder about every 10 minutes and
-resumes from there, and a finished run is never repeated, so pressing Run all
-again simply continues. Results accumulate in <work>/results and are copied to
-the job's output folder for upload.
+Working files live on the Colab machine's own disk, so training never waits on
+Google Drive. Checkpoints (about every 10 minutes), finished results and final
+weights are copied to the Drive working folder in the background, with time
+limits, so a slow or disconnected Drive cannot stall or stop training. Each new
+session first pulls back from Drive whatever earlier sessions saved, then resumes;
+a finished run is never repeated, so pressing Run all again simply continues.
+Results are also copied to the job's output folder for upload to GitHub.
 
 Training length: total steps = floor(training tokens / 4096), one pass's worth of
 tokens. Windows are sampled at random, as in the paper's code, from a generator
@@ -22,6 +25,7 @@ import os
 import shutil
 import subprocess
 import sys
+import threading
 import time
 import traceback
 import urllib.request
@@ -82,6 +86,104 @@ def env_record():
             'code_commit': git_commit(), 'test_mode': TEST}
 
 
+# ------------------------------------------------------------------ storage
+
+class Store:
+    """Local working files, mirrored to Google Drive in the background.
+
+    Drive operations run in daemon threads with time limits. A failure or a hang
+    is logged and never stops training; the data is still on the local disk and
+    in the upload folder.
+    """
+
+    def __init__(self, drive, local):
+        self.drive, self.local = Path(drive), Path(local)
+        self.local.mkdir(parents=True, exist_ok=True)
+        self.threads = {}
+        self.failures = []
+
+    def L(self, rel):
+        p = self.local / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        return p
+
+    def _timed(self, fn, timeout):
+        box = {}
+
+        def run():
+            try:
+                box['value'] = fn()
+            except Exception as e:  # noqa: BLE001
+                box['error'] = f'{type(e).__name__}: {e}'
+        t = threading.Thread(target=run, daemon=True)
+        t.start()
+        t.join(timeout)
+        if t.is_alive():
+            return False, f'timed out after {timeout}s'
+        return ('error' not in box), box.get('error', box.get('value'))
+
+    def pull(self, rel, timeout=900):
+        """Copy a file from Drive if it is there and missing locally. Returns True if the local file exists."""
+        dst = self.L(rel)
+        if dst.exists():
+            return True
+
+        def copy():
+            src = self.drive / rel
+            if not src.exists():
+                return False
+            tmp = dst.with_name(dst.name + '.part')
+            shutil.copyfile(src, tmp)
+            os.replace(tmp, dst)
+            return True
+        ok, value = self._timed(copy, timeout)
+        if not ok:
+            log(f'Drive: could not read {rel} ({value}); continuing without it')
+            self.failures.append(f'pull {rel}: {value}')
+        return dst.exists()
+
+    def pull_dir(self, rel, timeout=300):
+        ok, names = self._timed(lambda: sorted(p.name for p in (self.drive / rel).glob('*') if p.is_file()), timeout)
+        if not ok:
+            log(f'Drive: could not list {rel} ({names})')
+            return
+        for n in names:
+            self.pull(f'{rel}/{n}')
+
+    def push(self, rel, wait=False, timeout=900):
+        """Copy a local file to Drive in the background. Skipped if the last copy of it is still running."""
+        prev = self.threads.get(rel)
+        if prev is not None and prev.is_alive():
+            return
+
+        def copy():
+            dst = self.drive / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            tmp = dst.with_name(dst.name + '.part')
+            shutil.copyfile(self.L(rel), tmp)
+            os.replace(tmp, dst)
+
+        def runner():
+            try:
+                copy()
+            except Exception as e:  # noqa: BLE001
+                log(f'Drive: could not save {rel} ({type(e).__name__}: {e}); it stays on the local disk')
+                self.failures.append(f'push {rel}: {type(e).__name__}')
+        t = threading.Thread(target=runner, daemon=True)
+        t.start()
+        self.threads[rel] = t
+        if wait:
+            t.join(timeout)
+
+    def flush(self, timeout=900):
+        deadline = time.time() + timeout
+        for rel, t in self.threads.items():
+            t.join(max(0, deadline - time.time()))
+            if t.is_alive():
+                log(f'Drive: saving {rel} did not finish in time')
+                self.failures.append(f'push {rel}: unfinished')
+
+
 # ------------------------------------------------------------------ data
 
 def safe_split(row):
@@ -106,13 +208,22 @@ def encode_rows(enc, rows, rows_per_chunk=20000):
     return np.concatenate(out)
 
 
-def prepare_data(work, max_train_rows=None):
-    """Download and verify the four WikiText-103 files, then build or check the token files."""
+def prepare_data(store, max_train_rows=None):
+    """Use token files saved on Drive if they verify; otherwise download, verify and build them."""
     import pyarrow.parquet as pq
     entry = json.loads((REPO / 'data' / 'MANIFEST.json').read_text())['wikitext-103-raw-v1']
-    ddir = work / 'data'
-    ddir.mkdir(parents=True, exist_ok=True)
+    ddir = store.L('data/x').parent
+    meta_rel = 'data/' + ('tokens_meta_test.json' if TEST else 'tokens_meta.json')
+    if store.pull(meta_rel):
+        meta = json.loads(store.L(meta_rel).read_text())
+        good = all(store.pull(f"data/{meta[s]['file']}") and sha256_file(ddir / meta[s]['file']) == meta[s]['sha256']
+                   for s in ('train', 'validation', 'test'))
+        if good:
+            log('token files verified:', {s: meta[s]['tokens'] for s in ('train', 'validation', 'test')})
+            return meta
+        raise SystemExit('Saved token files do not match their recorded fingerprints. Delete the data folder on Drive and rerun.')
     for name, meta in entry['files'].items():
+        store.pull(f'data/{name}')
         p = ddir / name
         if not p.exists() or p.stat().st_size != meta['bytes'] or sha256_file(p) != meta['sha256']:
             log('downloading', name)
@@ -123,18 +234,10 @@ def prepare_data(work, max_train_rows=None):
         if sha256_file(p) != meta['sha256']:
             raise SystemExit(f'{name}: SHA-256 differs from data/MANIFEST.json. Stopping.')
     log('all four files match their fingerprints')
-    meta_path = ddir / ('tokens_meta_test.json' if TEST else 'tokens_meta.json')
+    meta_path = store.L(meta_rel)
     enc = gpt2_encoding()
     splits = {'train': ['train-00000-of-00002.parquet', 'train-00001-of-00002.parquet'],
               'validation': ['validation-00000-of-00001.parquet'], 'test': ['test-00000-of-00001.parquet']}
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text())
-        for split in splits:
-            f = ddir / meta[split]['file']
-            if sha256_file(f) != meta[split]['sha256']:
-                raise SystemExit(f'{split} token file changed since it was built. Delete {f} and rerun.')
-        log('token files verified:', {s: meta[s]['tokens'] for s in splits})
-        return meta
     meta = {}
     for split, files in splits.items():
         rows = []
@@ -151,11 +254,14 @@ def prepare_data(work, max_train_rows=None):
         log(f'{split}: {len(rows):,} rows -> {len(toks):,} tokens in {time.time() - t:.0f}s')
     meta['created_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
     meta_path.write_text(json.dumps(meta, indent=2))
+    for split in splits:
+        store.push(f"data/{meta[split]['file']}")
+    store.push(meta_rel)
     return meta
 
 
-def load_tokens(work, meta, split):
-    return np.memmap(work / 'data' / meta[split]['file'], dtype=np.uint16, mode='r')
+def load_tokens(store, meta, split):
+    return np.memmap(store.L(f"data/{meta[split]['file']}"), dtype=np.uint16, mode='r')
 
 
 def windows(tokens, limit=None):
@@ -225,16 +331,17 @@ def lr_at(step, total, peak):
 
 # ------------------------------------------------------------------ training
 
-def train_run(work, meta, tag, kind, seed, peak_lr, total_steps):
+def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     """One training run, resumable. Returns its result record."""
-    res_path = work / 'results' / f'{tag}.json'
+    res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
         log(f'{tag}: already finished, skipping')
         return json.loads(res_path.read_text())
-    ck_path = work / 'ckpt' / f'{tag}.pt'
-    ck_path.parent.mkdir(parents=True, exist_ok=True)
-    train = load_tokens(work, meta, 'train')
-    vx, vy = windows(load_tokens(work, meta, 'validation'), limit=64 if TEST else None)
+    ck_rel = f'ckpt/{tag}.pt'
+    store.pull(ck_rel)
+    ck_path = store.L(ck_rel)
+    train = load_tokens(store, meta, 'train')
+    vx, vy = windows(load_tokens(store, meta, 'validation'), limit=64 if TEST else None)
     model = new_model(kind, seed)
     opt = torch.optim.AdamW(model.parameters(), lr=peak_lr)
     scaler = torch.amp.GradScaler('cuda', enabled=AMP)
@@ -257,6 +364,7 @@ def train_run(work, meta, tag, kind, seed, peak_lr, total_steps):
                     'gen': gen.get_state(), 'state': state, 'torch_rng': torch.get_rng_state(),
                     'cuda_rng': torch.cuda.get_rng_state_all() if DEV.type == 'cuda' else None}, tmp)
         os.replace(tmp, ck_path)
+        store.push(ck_rel)
 
     model.train()
     last_ck, t_seg, bad = time.time(), time.time(), 0
@@ -299,9 +407,8 @@ def train_run(work, meta, tag, kind, seed, peak_lr, total_steps):
             save_ckpt(); last_ck = time.time()
     state['seconds'] += time.time() - t_seg
     save_ckpt()
-    final_dir = work / 'final'
-    final_dir.mkdir(exist_ok=True)
-    torch.save(model.state_dict(), final_dir / f'{tag}.pt')
+    torch.save(model.state_dict(), store.L(f'final/{tag}.pt'))
+    store.push(f'final/{tag}.pt')
     vals = state['val']
     last10 = [v for s, v in vals if s >= 0.9 * total_steps]
     before = [v for s, v in vals if s < 0.9 * total_steps]
@@ -315,18 +422,19 @@ def train_run(work, meta, tag, kind, seed, peak_lr, total_steps):
               'config': {**CFG, 'seq': SEQ, 'batch': BATCH, 'warmup': WARMUP, 'min_lr_ratio': MIN_LR_RATIO},
               'data': {s: {k: meta[s][k] for k in ('tokens', 'sha256')} for s in ('train', 'validation', 'test')},
               'environment': env_record()}
-    res_path.parent.mkdir(exist_ok=True)
     res_path.write_text(json.dumps(result, indent=2))
+    store.push(f'results/{tag}.json')
     log(f'{tag}: finished, final validation loss {vals[-1][1]:.4f}, {state["seconds"] / 3600:.2f} h')
     return result
 
 
-def amp_gradient_check(work, meta):
+def amp_gradient_check(store, meta):
     """Sanity check: fp16 mixed-precision gradients point the same way as fp32 ones, for both models."""
-    out_path = work / 'results' / ('amp_check_test.json' if TEST else 'amp_check.json')
+    rel = 'results/' + ('amp_check_test.json' if TEST else 'amp_check.json')
+    out_path = store.L(rel)
     if out_path.exists():
         return json.loads(out_path.read_text())
-    train = load_tokens(work, meta, 'train')
+    train = load_tokens(store, meta, 'train')
     batch = torch.from_numpy(np.stack([np.asarray(train[i:i + SEQ + 1], dtype=np.int64) for i in range(0, BATCH * 997, 997)])).to(DEV)
     x, y = batch[:, :-1], batch[:, 1:]
     res = {}
@@ -342,53 +450,56 @@ def amp_gradient_check(work, meta):
         cos = F.cosine_similarity(grads[False], grads[True], dim=0).item()
         res[kind] = {'cosine_fp32_vs_fp16': cos}
     res['passed'] = all(v['cosine_fp32_vs_fp16'] > 0.99 for k, v in res.items() if isinstance(v, dict))
-    out_path.parent.mkdir(exist_ok=True)
     out_path.write_text(json.dumps(res, indent=2))
+    store.push(rel)
     log('fp16 gradient check:', res)
     if not res['passed']:
         raise SystemExit('fp16 gradients disagree with fp32. Stopping before training; tell Claude.')
     return res
 
 
-def stage1(work, meta, total_steps):
-    amp_gradient_check(work, meta)
+def stage1(store, meta, total_steps):
+    amp_gradient_check(store, meta)
     sweep_steps = max(1, round(SWEEP_FRACTION * total_steps))
     choice = {}
     for kind in ('baseline', 'hybrid'):
         finals = {}
         for lr in SWEEP_LRS:
-            r = train_run(work, meta, f'sweep_{kind}_lr{lr:g}', kind, SWEEP_SEED, lr, sweep_steps)
+            r = train_run(store, meta, f'sweep_{kind}_lr{lr:g}', kind, SWEEP_SEED, lr, sweep_steps)
             finals[lr] = r['final_val_loss']
         choice[kind] = {'chosen_lr': min(finals, key=finals.get), 'sweep_final_val_loss': {f'{k:g}': v for k, v in finals.items()}}
-        spread = train_run(work, meta, f'spread_{kind}_seed{SPREAD_SEED}', kind, SPREAD_SEED, choice[kind]['chosen_lr'], sweep_steps)
+        spread = train_run(store, meta, f'spread_{kind}_seed{SPREAD_SEED}', kind, SPREAD_SEED, choice[kind]['chosen_lr'], sweep_steps)
         choice[kind]['spread_pair'] = [finals[choice[kind]['chosen_lr']], spread['final_val_loss']]
     summary = {'sweep_steps': sweep_steps, 'total_steps_main': total_steps, 'choice': choice}
-    (work / 'results' / 'stage1_summary.json').write_text(json.dumps(summary, indent=2))
+    store.L('results/stage1_summary.json').write_text(json.dumps(summary, indent=2))
+    store.push('results/stage1_summary.json')
     log('stage 1 complete:', json.dumps(summary))
 
 
-def stage2(work, meta, total_steps):
-    s1 = work / 'results' / 'stage1_summary.json'
+def stage2(store, meta, total_steps):
+    s1 = store.L('results/stage1_summary.json')
     if not s1.exists():
         raise SystemExit('Stage 1 has not finished; run stage 1 first.')
     choice = json.loads(s1.read_text())['choice']
     for seed in MAIN_SEEDS:
         for kind in ('baseline', 'hybrid'):
-            train_run(work, meta, f'main_{kind}_seed{seed}', kind, seed, choice[kind]['chosen_lr'], total_steps)
+            train_run(store, meta, f'main_{kind}_seed{seed}', kind, seed, choice[kind]['chosen_lr'], total_steps)
     log('stage 2 complete: all main runs finished')
 
 
-def stage3(work, meta):
-    tx, ty = windows(load_tokens(work, meta, 'test'), limit=64 if TEST else None)
+def stage3(store, meta):
+    tx, ty = windows(load_tokens(store, meta, 'test'), limit=64 if TEST else None)
     cx, cy = tx[:512], ty[:512]
     for seed in MAIN_SEEDS:
         for kind in ('baseline', 'hybrid'):
             tag = f'main_{kind}_seed{seed}'
-            out = work / 'results' / f'test_{tag}.json'
+            out = store.L(f'results/test_{tag}.json')
             if out.exists():
                 continue
+            if not store.pull(f'final/{tag}.pt'):
+                raise SystemExit(f'Final weights for {tag} are not on Drive or this machine. Stage 2 must finish first.')
             m = new_model(kind, seed)
-            m.load_state_dict(torch.load(work / 'final' / f'{tag}.pt', map_location=DEV))
+            m.load_state_dict(torch.load(store.L(f'final/{tag}.pt'), map_location=DEV))
             m.eval()
             rec = {'tag': tag, 'kind': kind, 'seed': seed, 'test_loss': eval_loss(m, tx, ty), 'environment': env_record()}
             if kind == 'hybrid':
@@ -414,6 +525,7 @@ def stage3(work, meta):
                 rec['solver_controls'] = {str(s): table(cx, cy, scale=s) for s in SCALES}
                 rec['alpha'] = m.ode_block.func.output_scale.item()
             out.write_text(json.dumps(rec, indent=2))
+            store.push(f'results/test_{tag}.json')
             log(f"{tag}: test loss {rec['test_loss']:.4f}")
     log('stage 3 complete')
 
@@ -424,20 +536,28 @@ def main():
     ap.add_argument('--work', required=True)
     ap.add_argument('--stage', required=True, choices=['1', '2', '3'])
     ap.add_argument('--max-train-rows', type=int, default=None, help='test mode only')
+    ap.add_argument('--local', default=None, help='local working folder; defaults to the Colab disk')
     args = ap.parse_args()
     work, out = Path(args.work), Path(args.out)
-    (work / 'results').mkdir(parents=True, exist_ok=True)
+    if args.local:
+        local = Path(args.local)
+    elif Path('/content').is_dir() and not TEST:
+        local = Path('/content/cdt_local') / work.name
+    else:
+        local = work.parent / f'_local_{work.name}'
+    store = Store(work, local)
     out.mkdir(parents=True, exist_ok=True)
-    log('device:', DEV, '| fp16:', AMP, '| test mode:', TEST)
+    log('device:', DEV, '| fp16:', AMP, '| test mode:', TEST, '| local folder:', local, '| Drive folder:', work)
+    store.pull_dir('results')
     try:
-        meta = prepare_data(work, args.max_train_rows if TEST else None)
+        meta = prepare_data(store, args.max_train_rows if TEST else None)
         total_steps = (meta['train']['tokens'] // (SEQ * BATCH)) if not TEST else 60
         if args.stage == '1':
-            stage1(work, meta, total_steps)
+            stage1(store, meta, total_steps)
         elif args.stage == '2':
-            stage2(work, meta, total_steps)
+            stage2(store, meta, total_steps)
         else:
-            stage3(work, meta)
+            stage3(store, meta)
     except BaseException:
         traceback.print_exc()
         raise
@@ -445,12 +565,16 @@ def main():
         # Copy every finished result to the upload folder, including ones from earlier sessions.
         dest = out / 'results'
         dest.mkdir(exist_ok=True)
-        for f in (work / 'results').glob('*.json'):
+        for f in (store.local / 'results').glob('*.json'):
             shutil.copy(f, dest / f.name)
-        meta_file = work / 'data' / ('tokens_meta_test.json' if TEST else 'tokens_meta.json')
+        meta_file = store.L('data/' + ('tokens_meta_test.json' if TEST else 'tokens_meta.json'))
         if meta_file.exists():
             shutil.copy(meta_file, out / meta_file.name)
         log(f'copied {len(list(dest.glob("*.json")))} result files for upload')
+        log('waiting for background Drive saves to finish (up to 15 minutes)')
+        store.flush()
+        (out / 'drive_sync.json').write_text(json.dumps({'failures': store.failures}, indent=2))
+        log('Drive saves finished' if not store.failures else f'Drive problems this session: {store.failures}')
 
 
 if __name__ == '__main__':
