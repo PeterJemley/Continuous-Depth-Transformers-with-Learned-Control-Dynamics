@@ -1,0 +1,9 @@
+{
+  "baseline": {
+    "cosine_fp32_vs_fp16": 0.9988829493522644
+  },
+  "hybrid": {
+    "cosine_fp32_vs_fp16": 0.998843252658844
+  },
+  "passed": true
+}

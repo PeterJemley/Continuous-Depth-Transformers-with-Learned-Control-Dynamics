@@ -1,0 +1,28 @@
+20:28:39 device: cuda | fp16: True | test mode: False | local folder: /content/cdt_local/wt103_study | Drive folder: /content/drive/MyDrive/cdt-colab/wt103_study
+20:28:41 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+20:28:41 sweep_baseline_lr0.0003: already finished, skipping
+20:28:41 sweep_baseline_lr0.0006: already finished, skipping
+20:28:41 sweep_baseline_lr0.0012: already finished, skipping
+20:28:42 sweep_baseline_lr0.0024: starting, baseline, seed 100, peak lr 0.0024, 2879 steps
+20:29:27 sweep_baseline_lr0.0024: step 500/2879, validation loss 6.0720
+20:31:38 sweep_baseline_lr0.0024: step 2000/2879, validation loss 4.9509
+20:32:57 sweep_baseline_lr0.0024: step 2879/2879, validation loss 4.7720
+20:33:04 sweep_baseline_lr0.0024: finished, final validation loss 4.7720, 0.07 h
+20:33:04 spread_baseline_seed101_lr0.0024: starting, baseline, seed 101, peak lr 0.0024, 2879 steps
+20:33:52 spread_baseline_seed101_lr0.0024: step 500/2879, validation loss 6.0914
+20:36:05 spread_baseline_seed101_lr0.0024: step 2000/2879, validation loss 4.9576
+20:37:26 spread_baseline_seed101_lr0.0024: step 2879/2879, validation loss 4.7771
+20:37:30 spread_baseline_seed101_lr0.0024: finished, final validation loss 4.7771, 0.07 h
+20:37:30 sweep_hybrid_lr0.0003: already finished, skipping
+20:37:30 sweep_hybrid_lr0.0006: already finished, skipping
+20:37:30 sweep_hybrid_lr0.0012: already finished, skipping
+20:37:31 sweep_hybrid_lr0.0024: starting, hybrid, seed 100, peak lr 0.0024, 2879 steps
+20:38:41 sweep_hybrid_lr0.0024: step 500/2879, validation loss 6.3996
+20:42:00 sweep_hybrid_lr0.0024: step 2000/2879, validation loss 6.3569
+20:43:57 sweep_hybrid_lr0.0024: step 2879/2879, validation loss 6.2437
+20:43:58 sweep_hybrid_lr0.0024: finished, final validation loss 6.2437, 0.11 h
+20:43:58 spread_hybrid_seed101: already finished at the chosen rate 0.0006, reusing
+20:43:58 stage 1 complete: {"sweep_steps": 2879, "total_steps_main": 28789, "choice": {"baseline": {"chosen_lr": 0.0024, "sweep_final_val_loss": {"0.0003": 5.703444292729287, "0.0006": 5.275235757378332, "0.0012": 4.949758348904515, "0.0024": 4.7720237467216124}, "spread_run": "spread_baseline_seed101_lr0.0024", "spread_pair": [4.7720237467216124, 4.7770881475036715]}, "hybrid": {"chosen_lr": 0.0006, "sweep_final_val_loss": {"0.0003": 5.772962573153685, "0.0006": 5.499039711697863, "0.0012": 5.629301528496053, "0.0024": 6.243749909917041}, "spread_run": "spread_hybrid_seed101", "spread_pair": [5.499039711697863, 5.515861700878805]}}}
+20:43:58 copied 13 result files for upload
+20:43:58 waiting for background Drive saves to finish (up to 15 minutes)
+20:44:01 Drive saves finished

@@ -1,0 +1,14 @@
+{
+  "job": {
+    "job": "wt103_study",
+    "args": [
+      "--stage",
+      "1"
+    ],
+    "description": "WikiText-103 study, stage 1 again with the wider learning-rate grid: skips the 8 finished runs, adds a 0.0024 run for each model, re-picks each model's learning rate, and adds a spread run if a choice changes.",
+    "expected_minutes": 25
+  },
+  "code_commit": "3992e18d071e33e695a1863b18d2357eaec1f82a",
+  "run_id": "20261003-202835",
+  "gpu": "Tesla T4"
+}
