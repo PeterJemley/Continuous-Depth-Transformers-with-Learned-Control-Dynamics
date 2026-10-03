@@ -1,0 +1,14 @@
+environment: {'python': '3.13.15', 'torch': '2.11.0+cu130', 'cuda_available': True, 'gpu': 'Tesla T4', 'gpu_mem_gb': 15.637086208}
+pinned data: 2391884 tokens; ok = True
+Google Drive write and read: ok
+/content/repo/colab/jobs/connection_test.py:33: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp)
+baseline len  64 fp16 False: 24,347 tokens/s, 84 ms/step, ~1.3 h per WikiText-103 pass
+baseline len  64 fp16 True : 39,080 tokens/s, 52 ms/step, ~0.8 h per WikiText-103 pass
+baseline len 128 fp16 False: 25,236 tokens/s, 162 ms/step, ~1.3 h per WikiText-103 pass
+baseline len 128 fp16 True : 49,081 tokens/s, 83 ms/step, ~0.7 h per WikiText-103 pass
+hybrid   len  64 fp16 False: 19,292 tokens/s, 106 ms/step, ~1.7 h per WikiText-103 pass
+hybrid   len  64 fp16 True : 24,990 tokens/s, 82 ms/step, ~1.3 h per WikiText-103 pass
+hybrid   len 128 fp16 False: 20,195 tokens/s, 203 ms/step, ~1.6 h per WikiText-103 pass
+hybrid   len 128 fp16 True : 32,997 tokens/s, 124 ms/step, ~1.0 h per WikiText-103 pass
+wrote /content/out/connection_test/20261003-165406/results.json | errors: 0
