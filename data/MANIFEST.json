@@ -1,0 +1,23 @@
+{
+  "gpt2_tokenizer": {
+    "description": "GPT-2 byte-pair encoding files, byte-identical to OpenAI's originals",
+    "files": {
+      "gpt2/vocab.bpe": {
+        "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+      },
+      "gpt2/encoder.json": {
+        "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+      }
+    }
+  },
+  "wikitext-2-raw-v1": {
+    "description": "WikiText-2 raw, one file per split; each line is one row of the Hugging Face dataset",
+    "status": "pending: run scripts/fetch_wikitext2.py once to pin the files",
+    "expected": {
+      "rows": {"train": 36718, "validation": 3760, "test": 4358},
+      "train_tokens_gpt2": 2391884,
+      "source_of_expected_values": "printed by the original Colab run of the full experiments notebook (git commit 6b65d64)"
+    },
+    "files": {}
+  }
+}

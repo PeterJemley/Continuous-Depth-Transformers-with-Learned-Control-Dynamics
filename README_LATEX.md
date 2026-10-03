@@ -119,6 +119,9 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 
 ```
 ├── model.py                                                # Shared model definition
+├── pinned_data.py                                          # Offline, checksum-verified data loading
+├── data/                                                   # Pinned GPT-2 tokenizer and WikiText-2 (see data/README.md)
+├── scripts/fetch_wikitext2.py                              # One-time fetch that pins WikiText-2
 ├── continuous_depth_transformer_falsification_test.ipynb   # Solver Invariance Test & Linear Probes
 ├── continuous_depth_transformer_efficiency_benchmark.ipynb # Latency Benchmark
 ├── continuous_depth_transformers_experiments.ipynb         # Early prototype with its own model definition
