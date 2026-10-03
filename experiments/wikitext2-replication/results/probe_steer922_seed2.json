@@ -1,0 +1,105 @@
+{
+  "name": "probe_steer922_seed2",
+  "written_at": "2026-10-03T18:07:57Z",
+  "git": {
+    "commit": "40b9cc75a22532f40f7233786c2b3e0589e8aa7a",
+    "dirty": false
+  },
+  "environment": {
+    "python": "3.11.15",
+    "torch": "2.14.1+cu130",
+    "torchdiffeq": "0.2.5",
+    "numpy": "2.4.6",
+    "sklearn": "1.9.1",
+    "platform": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "torch_threads": 4
+  },
+  "data": {
+    "wikitext-2-raw-v1": {
+      "wikitext-2-raw-v1/train.jsonl.gz": {
+        "sha256_gz": "4e651b855be82b04d7bc57b25a0bc92c4c90a30bfbd7ab20a2da129824215de7",
+        "sha256_text": "67f12e158c3c4ac50e56da3e2b830afe3f702227b310ff4afbffaea62f6759fc",
+        "source_parquet_sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7"
+      },
+      "wikitext-2-raw-v1/validation.jsonl.gz": {
+        "sha256_gz": "92aae2618ce712ddcf959414f30afee7ba7308461dd42cf0d9b2bbc31fcf2acf",
+        "sha256_text": "b7fa33aee6ef63d15dd4b411f03501fdee2eaad9ec7f584abd4424cb3786143a",
+        "source_parquet_sha256": "204929b7ff9d6184953f867dedb860e40aa69c078fc1e54b3baaa8fb28511c4c"
+      },
+      "wikitext-2-raw-v1/test.jsonl.gz": {
+        "sha256_gz": "59f7b130c17f0e7d2930b9fce772e8a242bddaf01184d8dab1783cfd27b7fd2b",
+        "sha256_text": "3e0a921f6e5a2a337cd1d5752e9653d39216eeaa101df184183842bfa414c62d",
+        "source_parquet_sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91"
+      }
+    },
+    "gpt2": {
+      "gpt2/vocab.bpe": {
+        "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+      },
+      "gpt2/encoder.json": {
+        "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+      }
+    }
+  },
+  "test_mode": false,
+  "result": {
+    "seed": 2,
+    "model": "steer922",
+    "rows": [
+      {
+        "tau": 0.0,
+        "accuracy": 0.494140625,
+        "control_accuracy": 0.505859375,
+        "selectivity": -0.01171875,
+        "accuracy_wilson95": [
+          0.4510392692749189,
+          0.5373292499732
+        ]
+      },
+      {
+        "tau": 0.5,
+        "accuracy": 0.92578125,
+        "control_accuracy": 0.509765625,
+        "selectivity": 0.416015625,
+        "accuracy_wilson95": [
+          0.8997688822373519,
+          0.9454520523993329
+        ]
+      },
+      {
+        "tau": 0.67,
+        "accuracy": 0.962890625,
+        "control_accuracy": 0.5078125,
+        "selectivity": 0.455078125,
+        "accuracy_wilson95": [
+          0.9427707548350789,
+          0.9761162245635188
+        ]
+      },
+      {
+        "tau": 0.8,
+        "accuracy": 0.97265625,
+        "control_accuracy": 0.509765625,
+        "selectivity": 0.462890625,
+        "accuracy_wilson95": [
+          0.9546295058258882,
+          0.9836432748258443
+        ]
+      },
+      {
+        "tau": 1.0,
+        "accuracy": 0.982421875,
+        "control_accuracy": 0.517578125,
+        "selectivity": 0.46484375,
+        "accuracy_wilson95": [
+          0.9669335149084249,
+          0.9907250669964426
+        ]
+      }
+    ],
+    "n_train": 512,
+    "n_test": 512
+  }
+}

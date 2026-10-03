@@ -1,0 +1,32 @@
+# Pinned data
+
+These files make the experiments runnable with no network access. Every load through `pinned_data.py` checks the SHA-256 fingerprints in `MANIFEST.json`.
+
+## GPT-2 tokenizer: `gpt2/`
+
+`vocab.bpe` and `encoder.json` are OpenAI's GPT-2 byte-pair encoding files. Their fingerprints match the ones the `tiktoken` library pins for its `gpt2` encoding, so they are byte-identical to the files `tiktoken` downloads. This copy was taken from the `gpt-3-encoder` npm package, version 1.1.4.
+
+OpenAI released these files with GPT-2 under the modified MIT license reproduced in `gpt2/LICENSE`, taken from the `openai/gpt-2` repository.
+
+## WikiText-2 raw: `wikitext-2-raw-v1/`
+
+Status: pinned on 2026-10-03 from the Hugging Face copy, with the source commit recorded in `MANIFEST.json`. `scripts/fetch_wikitext2.py` downloaded it and pins one gzip-compressed JSON Lines file per split. Each line holds one row of the dataset as a JSON string, which keeps the dataset's empty rows exact.
+
+The script stops unless the copy reproduces the original run exactly:
+
+| Check | Expected |
+|---|---|
+| Rows in train / validation / test | 36,718 / 3,760 / 4,358 |
+| GPT-2 tokens in train, joined as in the notebook | 2,391,884 |
+
+These values were printed by the original Colab run of the full experiments notebook, in git commit `6b65d64`.
+
+WikiText was created by Stephen Merity, Caiming Xiong, James Bradbury and Richard Socher from Wikipedia articles. It is distributed under the Creative Commons Attribution-ShareAlike 3.0 license, so the files in `wikitext-2-raw-v1/` stay under that license rather than the repository's MIT license.
+
+> Merity, S., Xiong, C., Bradbury, J., & Socher, R. (2016). Pointer sentinel mixture models. arXiv:1609.07843.
+
+## WikiText-103 raw: fingerprinted, not stored
+
+WikiText-103's training text is about 314 MB as parquet, too large for git. `MANIFEST.json` records the exact Hugging Face revision, URL, size, row count and SHA-256 of each file. Colab jobs download them at run time and stop if any fingerprint differs.
+
+Its validation and test files are byte-identical to WikiText-2's. A model trained on WikiText-103 is therefore scored on exactly the same held-out text as the WikiText-2 replication, and that text is already pinned here. The same Creative Commons Attribution-ShareAlike 3.0 license applies.
