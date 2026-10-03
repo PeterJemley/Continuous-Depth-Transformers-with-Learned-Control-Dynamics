@@ -1,0 +1,14 @@
+{
+  "job": {
+    "job": "wt103_study",
+    "args": [
+      "--stage",
+      "1"
+    ],
+    "description": "WikiText-103 study, stage 1: downloads and checks the data, builds the token files on your Drive, checks fp16 training, then runs the learning-rate sweep for both models and one extra run each to measure seed spread. If Colab disconnects, run all again and it continues where it stopped.",
+    "expected_minutes": 60
+  },
+  "code_commit": "095de0bf3bf39e45c6024b44e9ff89f7bfad56d5",
+  "run_id": "20261003-201639",
+  "gpu": "Tesla T4"
+}

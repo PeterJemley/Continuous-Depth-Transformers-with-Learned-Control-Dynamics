@@ -1,0 +1,18 @@
+20:16:45 device: cuda | fp16: True | test mode: False | local folder: /content/cdt_local/wt103_study | Drive folder: /content/drive/MyDrive/cdt-colab/wt103_study
+20:16:57 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+20:16:57 sweep_baseline_lr0.0003: already finished, skipping
+20:16:57 sweep_baseline_lr0.0006: already finished, skipping
+20:16:57 sweep_baseline_lr0.0012: already finished, skipping
+20:16:57 spread_baseline_seed101: already finished, skipping
+20:16:57 sweep_hybrid_lr0.0003: already finished, skipping
+20:16:57 sweep_hybrid_lr0.0006: already finished, skipping
+20:16:57 sweep_hybrid_lr0.0012: already finished, skipping
+20:17:02 spread_hybrid_seed101: starting, hybrid, seed 101, peak lr 0.0006, 2879 steps
+20:18:09 spread_hybrid_seed101: step 500/2879, validation loss 6.5477
+20:21:25 spread_hybrid_seed101: step 2000/2879, validation loss 5.6191
+20:23:22 spread_hybrid_seed101: step 2879/2879, validation loss 5.5159
+20:23:33 spread_hybrid_seed101: finished, final validation loss 5.5159, 0.11 h
+20:23:33 stage 1 complete: {"sweep_steps": 2879, "total_steps_main": 28789, "choice": {"baseline": {"chosen_lr": 0.0012, "sweep_final_val_loss": {"0.0003": 5.703444292729287, "0.0006": 5.275235757378332, "0.0012": 4.949758348904515}, "spread_pair": [4.949758348904515, 4.958896559918254]}, "hybrid": {"chosen_lr": 0.0006, "sweep_final_val_loss": {"0.0003": 5.772962573153685, "0.0006": 5.499039711697863, "0.0012": 5.629301528496053}, "spread_pair": [5.499039711697863, 5.515861700878805]}}}
+20:23:33 copied 10 result files for upload
+20:23:33 waiting for background Drive saves to finish (up to 15 minutes)
+20:23:35 Drive saves finished
