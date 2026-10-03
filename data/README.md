@@ -10,7 +10,7 @@ OpenAI released these files with GPT-2 under the modified MIT license reproduced
 
 ## WikiText-2 raw: `wikitext-2-raw-v1/`
 
-Status: pending. Running `scripts/fetch_wikitext2.py` once downloads the Hugging Face copy and pins one gzip-compressed text file per split. Each line of a file is one row of the dataset.
+Status: pinned on 2026-10-03 from the Hugging Face copy, with the source commit recorded in `MANIFEST.json`. `scripts/fetch_wikitext2.py` downloaded it and pins one gzip-compressed JSON Lines file per split. Each line holds one row of the dataset as a JSON string, which keeps the dataset's empty rows exact.
 
 The script stops unless the copy reproduces the original run exactly:
 

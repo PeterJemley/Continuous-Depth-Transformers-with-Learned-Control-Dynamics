@@ -68,13 +68,13 @@ def wikitext2_rows(split='train'):
     if split not in SPLITS:
         raise ValueError(f'split must be one of {SPLITS}')
     entry = _manifest()['wikitext-2-raw-v1']
-    meta = entry['files'].get(f'wikitext-2-raw-v1/{split}.txt.gz')
+    meta = entry['files'].get(f'wikitext-2-raw-v1/{split}.jsonl.gz')
     if meta is None:
         raise FileNotFoundError('WikiText-2 is not pinned yet. Run scripts/fetch_wikitext2.py once.')
-    text = gzip.decompress(_read_verified(f'wikitext-2-raw-v1/{split}.txt.gz', meta['sha256_gz']))
+    text = gzip.decompress(_read_verified(f'wikitext-2-raw-v1/{split}.jsonl.gz', meta['sha256_gz']))
     if _sha256(text) != meta['sha256_text']:
         raise ValueError(f'{split}: decompressed text does not match MANIFEST.json')
-    rows = [line + '\n' for line in text.decode('utf-8').split('\n')[:-1]]
+    rows = [json.loads(line) for line in text.decode('utf-8').split('\n')[:-1]]
     if len(rows) != entry['expected']['rows'][split]:
         raise ValueError(f'{split}: {len(rows)} rows, expected {entry["expected"]["rows"][split]}')
     return rows

@@ -1,7 +1,7 @@
 """One-time fetch that pins WikiText-2 raw into data/wikitext-2-raw-v1/.
 
 Downloads the three Hugging Face parquet files (or reads them from --from-dir),
-writes one gzip-compressed text file per split, checks the row counts and the
+writes one gzip-compressed JSON Lines file per split, one row per line, checks the row counts and the
 train token count against the original run, and records SHA-256 fingerprints
 in data/MANIFEST.json. After this, pinned_data.py works with no network access.
 
@@ -55,18 +55,15 @@ def main():
         rows = pq.read_table(io.BytesIO(raw)).column('text').to_pylist()
         if len(rows) != expected['rows'][split]:
             sys.exit(f'{split}: got {len(rows)} rows, expected {expected["rows"][split]}')
-        bad = [i for i, r in enumerate(rows) if not r.endswith('\n') or '\n' in r[:-1]]
-        if bad:
-            sys.exit(f'{split}: rows {bad[:5]} do not hold exactly one trailing newline')
-        text = ''.join(rows).encode('utf-8')
-        if [l + '\n' for l in text.decode('utf-8').split('\n')[:-1]] != rows:
-            sys.exit(f'{split}: text file would not round-trip to the same rows')
+        text = ''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in rows).encode('utf-8')
+        if [json.loads(l) for l in text.decode('utf-8').split('\n')[:-1]] != rows:
+            sys.exit(f'{split}: file would not round-trip to the same rows')
 
         buf = io.BytesIO()
         with gzip.GzipFile(filename='', mode='wb', fileobj=buf, compresslevel=9, mtime=0) as gz:
             gz.write(text)
         gz_bytes = buf.getvalue()
-        rel = f'wikitext-2-raw-v1/{split}.txt.gz'
+        rel = f'wikitext-2-raw-v1/{split}.jsonl.gz'
         outputs[rel] = gz_bytes
         if split == 'train':
             train_rows = rows
