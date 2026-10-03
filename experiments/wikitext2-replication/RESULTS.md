@@ -9,6 +9,7 @@ Seeds with complete training results: 8 of 8.
 | Hypothesis | Claim | Outcome | Basis |
 |---|---|---|---|
 | R0 | Seed 42 reproduces the original run | reproduced | all four within tolerance |
+| H1 | Training is stable | untestable with this detector | 0 events across 8 seeds; control detector fired: False |
 | H2 | Comparable to, or slightly better than, the baseline | supported: comparable | mean +0.0301, 95% [+0.0247, +0.0356], p = 0.0078, n = 8 |
 | H3 | α converges to about 0.065 | refuted | mean 0.1677, range 0.1597 to 0.1773 |
 | H4 | Behaves as a continuous ODE under more accurate solvers | supported | trained model failed in any seed: False; test failed for some scaled control: True |
@@ -17,6 +18,7 @@ Seeds with complete training results: 8 of 8.
 | H5c | Neutral u favours " good" in at least 7 of 8 seeds | refuted | 6 of 8 seeds |
 | H5d | Path check: no effect without the control input | passed | max logit difference ≤ 1e-6 in every seed |
 | H6 | Negative u needs more solver effort in at least 7 of 8 seeds | refuted | 2 of 8 seeds |
+| H7 | Latency parity, ratio at most 1.05 | refuted | 1.068, 1.067, 1.109 |
 | H8 | Probe selectivity is flat across τ > 0 | supported | range of mean selectivity 0.026 |
 
 Each hypothesis is reported separately, so no multiple-comparison correction is applied. Any claim that combines several would need a Holm correction.
@@ -44,6 +46,8 @@ Source: `train_baseline_seed42.json` and `train_hybrid_seed42.json`, keys `step0
 | 4 | 0 | 0.2093 | 0 | 0.2093 |
 | 5 | 0 | 0.1259 | 0 | 0.1334 |
 | 6 | 0 | 0.1396 | 0 | 0.1490 |
+
+Must-fail control, an unstable run with α = 10 and learning rate 0.1: the paper's detector flagged {'vanishing': 0, 'exploding': 0}; before clipping, {'vanishing': 0, 'exploding': 0}. Largest norm after clipping 0.8911; before clipping 3.4208.
 
 Source: `train_hybrid_seed*.json`, `log.ode_grad_norm` and `log.ode_grad_norm_preclip`; `h1_control.json`.
 
@@ -268,6 +272,12 @@ Steered with token 220. Function evaluations at u = −2 to 2 in steps of 0.2; d
 Source: `nfe220_seed*.json`.
 
 ## H7. Latency
+
+| Process | Baseline median | Model A median | Ratio |
+|---|---|---|---|
+| 0 | 584 ms | 624 ms | 1.068 |
+| 1 | 598 ms | 637 ms | 1.067 |
+| 2 | 575 ms | 638 ms | 1.109 |
 
 Source: `latency.json`.
 
