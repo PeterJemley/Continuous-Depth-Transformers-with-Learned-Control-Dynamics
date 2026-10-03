@@ -24,3 +24,9 @@ These values were printed by the original Colab run of the full experiments note
 WikiText was created by Stephen Merity, Caiming Xiong, James Bradbury and Richard Socher from Wikipedia articles. It is distributed under the Creative Commons Attribution-ShareAlike 3.0 license, so the files in `wikitext-2-raw-v1/` stay under that license rather than the repository's MIT license.
 
 > Merity, S., Xiong, C., Bradbury, J., & Socher, R. (2016). Pointer sentinel mixture models. arXiv:1609.07843.
+
+## WikiText-103 raw: fingerprinted, not stored
+
+WikiText-103's training text is about 314 MB as parquet, too large for git. `MANIFEST.json` records the exact Hugging Face revision, URL, size, row count and SHA-256 of each file. Colab jobs download them at run time and stop if any fingerprint differs.
+
+Its validation and test files are byte-identical to WikiText-2's. A model trained on WikiText-103 is therefore scored on exactly the same held-out text as the WikiText-2 replication, and that text is already pinned here. The same Creative Commons Attribution-ShareAlike 3.0 license applies.
