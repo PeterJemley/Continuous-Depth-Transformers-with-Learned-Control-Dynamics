@@ -203,7 +203,8 @@ def forward(model, x, solver=None, scale=None):
 
 @torch.no_grad()
 def eval_loss(model, xs, ys, solver=None, scale=None, batch=32):
-    """Mean next-token cross-entropy in nats, computed in fp32."""
+    """Mean next-token cross-entropy in nats, computed in fp32. Restores the model's previous mode."""
+    was_training = model.training
     model.eval()
     total, count = 0.0, 0
     for i in range(0, len(xs), batch):
@@ -211,7 +212,7 @@ def eval_loss(model, xs, ys, solver=None, scale=None, batch=32):
         logits = forward(model, x, solver, scale).float()
         total += F.cross_entropy(logits.reshape(-1, logits.size(-1)), y.reshape(-1), reduction='sum').item()
         count += y.numel()
-    model.train()
+    model.train(was_training)
     return total / count
 
 
@@ -391,6 +392,7 @@ def stage3(work, meta):
             m.eval()
             rec = {'tag': tag, 'kind': kind, 'seed': seed, 'test_loss': eval_loss(m, tx, ty), 'environment': env_record()}
             if kind == 'hybrid':
+                m.eval()
                 with torch.no_grad():
                     xb = tx[:8].to(DEV)
                     rec['must_match_max_diff'] = (forward(m, xb, solver='euler4') - m(xb)).abs().max().item()

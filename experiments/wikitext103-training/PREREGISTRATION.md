@@ -98,4 +98,10 @@ Merity, S., Xiong, C., Bradbury, J., & Socher, R. (2016). Pointer sentinel mixtu
 
 ## Deviation log
 
-- (none yet)
+All entries below were made on 2026-10-03, while building the code and before any real run. Results seen before the change: no, for every entry. None changes a prediction, threshold, or decision rule.
+
+- **Encoding in pieces.** WikiText-103's training text is too large to encode as one string within free Colab's memory. It is encoded in pieces, cut only before rows that start with one space followed by a non-space character, where the cut cannot change the tokens. On WikiText-2 this reproduced the whole-string encoding exactly for all three splits. The validation and test splits are small and are encoded whole.
+- **fp16 gradient check.** Before any training, both models' gradients on one batch are computed in fp32 and in fp16 mixed precision. Training stops if their cosine similarity is 0.99 or lower, so the precision choice can't silently distort training.
+- **Evaluation precision.** Validation and test losses are computed in fp32, even though training uses fp16.
+- **Resuming.** Each run saves its model, optimiser, loss scaler and random states to Google Drive about every 10 minutes, and resumes from there after a disconnect. In a local test, a run crashed at its midpoint and resumed finished with exactly the same weights and validation loss as an uninterrupted run.
+- **Validation schedule.** Validation loss is recorded at step 500, every 2,000 steps, and at the end of every run.

@@ -1,5 +1,6 @@
 {
-  "job": "connection_test",
-  "description": "Checks the whole Colab loop and measures GPU speed: confirms a GPU, loads the pinned data, writes to Google Drive, times training steps of both models, and uploads the results.",
-  "expected_minutes": 10
+  "job": "wt103_study",
+  "args": ["--stage", "1"],
+  "description": "WikiText-103 study, stage 1: downloads and checks the data, builds the token files on your Drive, checks fp16 training, then runs the learning-rate sweep for both models and one extra run each to measure seed spread. If Colab disconnects, run all again and it continues where it stopped.",
+  "expected_minutes": 60
 }
