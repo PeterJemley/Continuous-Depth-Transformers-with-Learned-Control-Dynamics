@@ -1,0 +1,10 @@
+{
+  "job": {
+    "job": "connection_test",
+    "description": "Checks the whole Colab loop and measures GPU speed: confirms a GPU, loads the pinned data, writes to Google Drive, times training steps of both models, and uploads the results.",
+    "expected_minutes": 10
+  },
+  "code_commit": "50ae0597f8f45536fedfe9c7e2231c7ea8121a92",
+  "run_id": "20261003-171746",
+  "gpu": "Tesla T4"
+}

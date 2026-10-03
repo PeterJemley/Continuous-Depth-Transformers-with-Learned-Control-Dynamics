@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "pinned_wikitext2_tokens": 2391884,
+    "pinned_data_ok": true,
+    "tokenizer_decodes_922": " good",
+    "drive_ok": true
+  },
+  "throughput": [
+    {
+      "kind": "baseline",
+      "seq_len": 64,
+      "amp_fp16": false,
+      "median_step_s": 0.08439298000030249,
+      "tokens_per_s": 24267.421294906988,
+      "loss_finite": true,
+      "peak_mem_gb": 1.864717824,
+      "hours_per_wt103_pass_est": 1.3531510639466278
+    },
+    {
+      "kind": "baseline",
+      "seq_len": 64,
+      "amp_fp16": true,
+      "median_step_s": 0.05179022400034228,
+      "tokens_per_s": 39544.142539071945,
+      "loss_finite": true,
+      "peak_mem_gb": 1.601381888,
+      "hours_per_wt103_pass_est": 0.8304007834282681
+    },
+    {
+      "kind": "baseline",
+      "seq_len": 128,
+      "amp_fp16": false,
+      "median_step_s": 0.16279530100018746,
+      "tokens_per_s": 25160.431381218328,
+      "loss_finite": true,
+      "peak_mem_gb": 3.394470912,
+      "hours_per_wt103_pass_est": 1.305124162893203
+    },
+    {
+      "kind": "baseline",
+      "seq_len": 128,
+      "amp_fp16": true,
+      "median_step_s": 0.08328364799990595,
+      "tokens_per_s": 49181.32308523067,
+      "loss_finite": true,
+      "peak_mem_gb": 2.813743104,
+      "hours_per_wt103_pass_est": 0.6676820566119674
+    },
+    {
+      "kind": "hybrid",
+      "seq_len": 64,
+      "amp_fp16": false,
+      "median_step_s": 0.10600062200001048,
+      "tokens_per_s": 19320.641344913973,
+      "loss_finite": true,
+      "peak_mem_gb": 1.784842752,
+      "hours_per_wt103_pass_est": 1.6996064653458662
+    },
+    {
+      "kind": "hybrid",
+      "seq_len": 64,
+      "amp_fp16": true,
+      "median_step_s": 0.08141593299978922,
+      "tokens_per_s": 25154.78143578238,
+      "loss_finite": true,
+      "peak_mem_gb": 1.552295424,
+      "hours_per_wt103_pass_est": 1.3054173031984093
+    },
+    {
+      "kind": "hybrid",
+      "seq_len": 128,
+      "amp_fp16": false,
+      "median_step_s": 0.20404901800020525,
+      "tokens_per_s": 20073.60799940669,
+      "loss_finite": true,
+      "peak_mem_gb": 3.228019712,
+      "hours_per_wt103_pass_est": 1.6358537511251097
+    },
+    {
+      "kind": "hybrid",
+      "seq_len": 128,
+      "amp_fp16": true,
+      "median_step_s": 0.12480516799996622,
+      "tokens_per_s": 32819.153770948884,
+      "loss_finite": true,
+      "peak_mem_gb": 2.711552512,
+      "hours_per_wt103_pass_est": 1.0005586120112513
+    }
+  ],
+  "errors": [],
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "cuda_available": true,
+    "gpu": "Tesla T4",
+    "gpu_mem_gb": 15.637086208
+  },
+  "wt103_tokens_estimate": 118214953
+}
