@@ -8,6 +8,14 @@ This repository contains the implementation and experiments for:
 
 📄 **[Read the full paper](PAPER.md)** | 📓 **[Falsification Test](continuous_depth_transformer_falsification_test.ipynb)** | ⚡ **[Efficiency Benchmark](continuous_depth_transformer_efficiency_benchmark.ipynb)**
 
+> **Status, October 2026: the results below are being re-examined.** An audit of this repository found problems with several headline results:
+> - the steering target labelled " good" is GPT-2 token 220, which is a space;
+> - the solver test presented as new was published earlier by Ott et al. (2020);
+> - the reported α of 0.065 appears in no saved output;
+> - the solver, probe, and latency results come from a different model, trained for 50 steps on random tokens or not trained at all.
+>
+> Two preregistered studies are under way: a replication of the paper's experiments on WikiText-2, in [`experiments/wikitext2-replication/`](experiments/wikitext2-replication/), and the same model properly trained on WikiText-103, in [`experiments/wikitext103-training/`](experiments/wikitext103-training/). Until they finish, treat the results below as unverified. Known limitations of the original experiments are listed in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
+
 ## Abstract
 
 We present a hybrid transformer architecture that replaces discrete middle layers with a continuous-depth Neural Ordinary Differential Equation (ODE) block, enabling inference-time control over generation attributes via a learned steering signal. The control signal `u` steers the model's output through a continuous manifold of semantic states, achieving 98%/88% accuracy for positive/negative sentiment control with **latency parity** compared to standard transformers.
@@ -122,6 +130,15 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 ├── pinned_data.py                                          # Offline, checksum-verified data loading
 ├── data/                                                   # Pinned GPT-2 tokenizer and WikiText-2 (see data/README.md)
 ├── scripts/fetch_wikitext2.py                              # One-time fetch that pins WikiText-2
+├── experiments/
+│   ├── wikitext2-replication/                              # Preregistered replication of the paper's experiments
+│   │   ├── PREREGISTRATION.md                              # The plan, fixed before any run
+│   │   ├── KNOWN_LIMITATIONS.md                            # Limitations of the original experiments
+│   │   └── results/                                        # One JSON record per run
+│   └── wikitext103-training/                               # The same model properly trained on WikiText-103
+│       ├── PREREGISTRATION.md
+│       └── study.py
+├── colab/                                                  # Runs GPU jobs on Colab (see colab/README.md)
 ├── continuous_depth_transformer_falsification_test.ipynb   # Solver Invariance Test & Linear Probes
 ├── continuous_depth_transformer_efficiency_benchmark.ipynb # Latency Benchmark
 ├── continuous_depth_transformers_experiments.ipynb         # Early prototype with its own model definition
