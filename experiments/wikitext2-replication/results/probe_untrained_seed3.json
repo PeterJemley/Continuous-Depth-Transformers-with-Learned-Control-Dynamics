@@ -1,0 +1,105 @@
+{
+  "name": "probe_untrained_seed3",
+  "written_at": "2026-10-03T19:17:23Z",
+  "git": {
+    "commit": "cd3b4781288e037ccbbbb38376a52dbd12bedd21",
+    "dirty": false
+  },
+  "environment": {
+    "python": "3.11.15",
+    "torch": "2.14.1+cu130",
+    "torchdiffeq": "0.2.5",
+    "numpy": "2.4.6",
+    "sklearn": "1.9.1",
+    "platform": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "torch_threads": 4
+  },
+  "data": {
+    "wikitext-2-raw-v1": {
+      "wikitext-2-raw-v1/train.jsonl.gz": {
+        "sha256_gz": "4e651b855be82b04d7bc57b25a0bc92c4c90a30bfbd7ab20a2da129824215de7",
+        "sha256_text": "67f12e158c3c4ac50e56da3e2b830afe3f702227b310ff4afbffaea62f6759fc",
+        "source_parquet_sha256": "e83889baabc497075506f91975be5fac0d45c5290b6b20582c8cd1e853d0c9f7"
+      },
+      "wikitext-2-raw-v1/validation.jsonl.gz": {
+        "sha256_gz": "92aae2618ce712ddcf959414f30afee7ba7308461dd42cf0d9b2bbc31fcf2acf",
+        "sha256_text": "b7fa33aee6ef63d15dd4b411f03501fdee2eaad9ec7f584abd4424cb3786143a",
+        "source_parquet_sha256": "204929b7ff9d6184953f867dedb860e40aa69c078fc1e54b3baaa8fb28511c4c"
+      },
+      "wikitext-2-raw-v1/test.jsonl.gz": {
+        "sha256_gz": "59f7b130c17f0e7d2930b9fce772e8a242bddaf01184d8dab1783cfd27b7fd2b",
+        "sha256_text": "3e0a921f6e5a2a337cd1d5752e9653d39216eeaa101df184183842bfa414c62d",
+        "source_parquet_sha256": "5f1bea067869d04849c0f975a2b29c4ff47d867f484f5010ea5e861eab246d91"
+      }
+    },
+    "gpt2": {
+      "gpt2/vocab.bpe": {
+        "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5"
+      },
+      "gpt2/encoder.json": {
+        "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+      }
+    }
+  },
+  "test_mode": false,
+  "result": {
+    "seed": 3,
+    "model": "untrained",
+    "rows": [
+      {
+        "tau": 0.0,
+        "accuracy": 0.5,
+        "control_accuracy": 0.49609375,
+        "selectivity": 0.00390625,
+        "accuracy_wilson95": [
+          0.4568520688807405,
+          0.5431479311192595
+        ]
+      },
+      {
+        "tau": 0.5,
+        "accuracy": 0.634765625,
+        "control_accuracy": 0.490234375,
+        "selectivity": 0.14453125,
+        "accuracy_wilson95": [
+          0.5921988132307927,
+          0.67532524406247
+        ]
+      },
+      {
+        "tau": 0.67,
+        "accuracy": 0.6875,
+        "control_accuracy": 0.490234375,
+        "selectivity": 0.197265625,
+        "accuracy_wilson95": [
+          0.6460801253291865,
+          0.7261272587310049
+        ]
+      },
+      {
+        "tau": 0.8,
+        "accuracy": 0.728515625,
+        "control_accuracy": 0.48828125,
+        "selectivity": 0.240234375,
+        "accuracy_wilson95": [
+          0.6883982089518286,
+          0.7652295403715297
+        ]
+      },
+      {
+        "tau": 1.0,
+        "accuracy": 0.796875,
+        "control_accuracy": 0.486328125,
+        "selectivity": 0.310546875,
+        "accuracy_wilson95": [
+          0.7598748959431196,
+          0.8294534621521834
+        ]
+      }
+    ],
+    "n_train": 512,
+    "n_test": 512
+  }
+}
