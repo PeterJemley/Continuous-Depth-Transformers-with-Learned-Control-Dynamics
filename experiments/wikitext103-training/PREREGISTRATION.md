@@ -105,3 +105,20 @@ All entries below were made on 2026-10-03, while building the code and before an
 - **Evaluation precision.** Validation and test losses are computed in fp32, even though training uses fp16.
 - **Resuming.** Each run saves its model, optimiser, loss scaler and random states to Google Drive about every 10 minutes, and resumes from there after a disconnect. In a local test, a run crashed at its midpoint and resumed finished with exactly the same weights and validation loss as an uninterrupted run.
 - **Validation schedule.** Validation loss is recorded at step 500, every 2,000 steps, and at the end of every run.
+
+### Stage 1 record and amendment, 2026-10-03
+
+Results seen before this entry: the stage 1 learning-rate sweep and spread runs only, which are selection steps. No stage 2 run had started, and no test-set loss had been computed.
+
+- **Stage 1 record.** WikiText-103's training text is 117,920,140 tokens, so a main run is 28,789 steps. The fp16 gradient check passed, with cosine similarity 0.9989 for both models. Sweep validation losses after 2,879 steps:
+
+  | Learning rate | Baseline | Model A |
+  |---|---|---|
+  | 0.0003 | 5.7034 | 5.7730 |
+  | 0.0006 | 5.2752 | 5.4990 |
+  | 0.0012 | 4.9498 | 5.6293 |
+
+  The baseline chose 0.0012 and Model A chose 0.0006. Source: `colab-results` branch, `wt103_study/20261003-201639`.
+- **Spread estimate.** Model A minus baseline was 0.5492 at seed 100 and 0.5570 at seed 101. That gives a paired standard deviation of about 0.0055 nats, and an estimated smallest detectable effect for 6 pairs of about (2.571 + 0.920) × 0.0055 / √6 ≈ 0.008 nats. That is below the 0.02 margin, so no seeds are added. The estimate has one degree of freedom and comes from short runs, so it is very rough.
+- **Amendment, approved by the author.** The baseline's best learning rate was the largest in the grid, so its true optimum may lie beyond it. That would leave the baseline under-tuned and favour Model A. Both models' grids are therefore extended with 0.0024, using the same procedure: one more sweep run each, at seed 100 and 2,879 steps. The best of the four rates is then chosen per model, and a seed-101 spread run is added for any model whose choice changes. If 0.0024 is chosen and is again the largest rate tried, it is kept, the grid is not extended further, and the boundary is reported as a limitation. This was decided before any stage 2 run. The decision rules for S1 to S3 are unchanged.
+

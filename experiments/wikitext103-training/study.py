@@ -51,7 +51,8 @@ AMP = DEV.type == 'cuda'
 CFG = dict(vocab_size=50257, d_model=256, n_heads=4, n_layers=6, max_seq_len=128, dropout=0.1)
 HYB = dict(ode_start=2, ode_end=4, control_dim=4, n_steps=4)
 SEQ, BATCH, WARMUP, MIN_LR_RATIO = 128, 32, 500, 0.1
-SWEEP_LRS, SWEEP_FRACTION, SWEEP_SEED, SPREAD_SEED = [3e-4, 6e-4, 1.2e-3], 0.1, 100, 101
+# 2.4e-3 added by the dated amendment in PREREGISTRATION.md, for both models, before stage 2.
+SWEEP_LRS, SWEEP_FRACTION, SWEEP_SEED, SPREAD_SEED = [3e-4, 6e-4, 1.2e-3, 2.4e-3], 0.1, 100, 101
 MAIN_SEEDS = [1001, 1002, 1003, 1004, 1005, 1006]
 VAL_EVERY, CKPT_SECONDS = 2000, 600
 SOLVERS = {'euler4': dict(method='euler', n_steps=4), 'euler8': dict(method='euler', n_steps=8),
