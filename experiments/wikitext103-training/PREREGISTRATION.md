@@ -1,6 +1,6 @@
 # Preregistration: the paper's model, properly trained on WikiText-103
 
-Status: **draft for review**. Nothing below has been run. Once approved, this file is committed unchanged before the first run, and later changes go only in the dated deviation log at the end.
+Status: **approved by the author on 2026-10-03, final**. Nothing below had been run when this version was committed. Runs use free Colab, so jobs save checkpoints to Google Drive and resume across sessions. From here on, the only changes are dated entries in the deviation log at the end.
 
 Type: confirmatory for S1 to S3 exactly as stated. Everything else is exploratory and labelled so.
 
