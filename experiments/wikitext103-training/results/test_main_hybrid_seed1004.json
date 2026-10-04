@@ -1,0 +1,155 @@
+{
+  "tag": "main_hybrid_seed1004",
+  "kind": "hybrid",
+  "seed": 1004,
+  "test_loss": 5.083457500321586,
+  "environment": {
+    "torch": "2.11.0+cu130",
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "amp_fp16": true,
+    "code_commit": "276b090ce15635bd66d47f51bf2e7de7bbde3e77",
+    "test_mode": false
+  },
+  "must_match_max_diff": 0.0,
+  "solver_test": {
+    "euler4": {
+      "loss": 5.083457500321586,
+      "seconds": 5.461787939071655,
+      "rel_change_vs_euler4": 0.0
+    },
+    "euler8": {
+      "loss": 5.106138055269609,
+      "seconds": 6.581648588180542,
+      "rel_change_vs_euler4": 0.004461639533051688
+    },
+    "euler16": {
+      "loss": 5.130220226179245,
+      "seconds": 8.771381616592407,
+      "rel_change_vs_euler4": 0.00919900006141496
+    },
+    "rk4_4": {
+      "loss": 5.113651148937861,
+      "seconds": 8.812313079833984,
+      "rel_change_vs_euler4": 0.005939589071879712
+    },
+    "dopri5_1e-5": {
+      "loss": 5.154756464141556,
+      "seconds": 949.899658203125,
+      "rel_change_vs_euler4": 0.014025683074061242
+    }
+  },
+  "solver_controls": {
+    "2": {
+      "euler4": {
+        "loss": 5.4184578359127045,
+        "seconds": 1.2601022720336914,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 5.407661288976669,
+        "seconds": 1.5239753723144531,
+        "rel_change_vs_euler4": 0.001992549773937024
+      },
+      "euler16": {
+        "loss": 5.475740760564804,
+        "seconds": 2.0189197063446045,
+        "rel_change_vs_euler4": 0.010571813306811617
+      },
+      "rk4_4": {
+        "loss": 5.402848839759827,
+        "seconds": 2.030559539794922,
+        "rel_change_vs_euler4": 0.002880708243113711
+      },
+      "dopri5_1e-5": {
+        "loss": 5.5654677748680115,
+        "seconds": 310.4499373435974,
+        "rel_change_vs_euler4": 0.02713132470662552
+      }
+    },
+    "4": {
+      "euler4": {
+        "loss": 6.222908854484558,
+        "seconds": 1.252450704574585,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 6.11226886510849,
+        "seconds": 1.5013635158538818,
+        "rel_change_vs_euler4": 0.01777946487137363
+      },
+      "euler16": {
+        "loss": 6.125527441501617,
+        "seconds": 2.0028116703033447,
+        "rel_change_vs_euler4": 0.01564885735274147
+      },
+      "rk4_4": {
+        "loss": 6.1951746344566345,
+        "seconds": 2.0199694633483887,
+        "rel_change_vs_euler4": 0.0044567935472711985
+      },
+      "dopri5_1e-5": {
+        "loss": 6.258408844470978,
+        "seconds": 384.9216079711914,
+        "rel_change_vs_euler4": 0.005704726007811685
+      }
+    },
+    "8": {
+      "euler4": {
+        "loss": 6.829180836677551,
+        "seconds": 1.2577648162841797,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 6.619323164224625,
+        "seconds": 1.5046360492706299,
+        "rel_change_vs_euler4": 0.030729552705039218
+      },
+      "euler16": {
+        "loss": 6.606806635856628,
+        "seconds": 2.00274395942688,
+        "rel_change_vs_euler4": 0.03256235354416381
+      },
+      "rk4_4": {
+        "loss": 6.97699910402298,
+        "seconds": 2.0144903659820557,
+        "rel_change_vs_euler4": 0.021645094906777015
+      },
+      "dopri5_1e-5": {
+        "loss": null,
+        "error": "AssertionError: max_num_steps exceeded (1000>=1000)",
+        "seconds": 29.45948314666748,
+        "rel_change_vs_euler4": null
+      }
+    },
+    "16": {
+      "euler4": {
+        "loss": 7.186096519231796,
+        "seconds": 1.252835988998413,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 6.898260742425919,
+        "seconds": 1.5066721439361572,
+        "rel_change_vs_euler4": 0.040054538098056015
+      },
+      "euler16": {
+        "loss": 6.909784257411957,
+        "seconds": 2.009302854537964,
+        "rel_change_vs_euler4": 0.03845095332081312
+      },
+      "rk4_4": {
+        "loss": 7.593009650707245,
+        "seconds": 2.0108087062835693,
+        "rel_change_vs_euler4": 0.05662505789985523
+      },
+      "dopri5_1e-5": {
+        "loss": null,
+        "error": "AssertionError: max_num_steps exceeded (1000>=1000)",
+        "seconds": 29.423396825790405,
+        "rel_change_vs_euler4": null
+      }
+    }
+  },
+  "alpha": 1.00327467918396
+}
