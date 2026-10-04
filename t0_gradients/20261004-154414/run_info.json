@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "t0_gradients",
+    "args": [],
+    "description": "Test T0: compares the gradients Model A was trained with against the exact gradients of the same computation, on the six trained WikiText-103 models. Reads the saved models from the wt103_study folder on Drive and changes nothing there. No training.",
+    "expected_minutes": 60
+  },
+  "code_commit": "155ea334b8463f36f80a927d3a01af73fc775456",
+  "run_id": "20261004-154414",
+  "gpu": "Tesla T4"
+}

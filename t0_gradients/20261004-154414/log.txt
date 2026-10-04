@@ -1,0 +1,4 @@
+15:44:16 device: cuda | test mode: False | study folder: /content/drive/MyDrive/cdt-colab/wt103_study | torchdiffeq: {'version': '0.2.5', 'per_interval_state_reset': True, 'runs_odeint_per_interval': True}
+15:44:27 first window of batch 1, decoded: ' and Ai \'s presence in Karhide means his own downfall ; he resigns immediately after Estraven \'s death . \n\n = = = Obsle , Yegey , and Shusgis = = = \n\n Obsle , Yegey , and Shusgis are Commensals , three of the thirty @-@ three councilmen that rule Orgoreyn . Obsle and Yegey are members of the " Open '
+15:44:28 Drive: could not read final/main_hybrid_seed1001.pt (ConnectionAbortedError: [Errno 103] Software caused connection abort: '/content/drive/MyDrive/cdt-colab/wt103_study/final/main_hybrid_seed1001.pt'); continuing without it
+main_hybrid_seed1001: final weights or test record not found in /content/drive/MyDrive/cdt-colab/wt103_study.
