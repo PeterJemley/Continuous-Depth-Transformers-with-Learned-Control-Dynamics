@@ -148,3 +148,11 @@ Results seen before this entry: only test-mode runs of `t0_gradients.py`, on two
 - **A4. Two clarifications of wording.** Must-match control 4 sets α to the absolute value 0.001. S3 scales each model's learned α by 0.001, 0.1, 0.5, 1 and 2. The precondition applies to the noise reference of the primary vector.
 - **A5. Controls are recorded, not acted on, during the run.** The job computes every measure and `t0_analyze.py` applies the decision rule, so a failed control never loses the other measurements. The rule itself is unchanged: any failed control makes the result untestable.
 - **Updated cost:** about 6,800 backward passes in fp32, including the secondary measures. That is about 45 to 60 minutes on a T4, not under 30.
+
+### First attempt stopped by a Drive error, 2026-10-04
+
+Results seen before this entry: none. No gradient was computed.
+
+- The first Colab run (`colab-results` branch, `t0_gradients/20261004-154414`) verified the token files and decoded a sample batch, then failed to read `final/main_hybrid_seed1001.pt` from Google Drive with "Software caused connection abort". It stopped before loading any model.
+- As the stopping rule says, the job is rerun unchanged. The only code change is that file reads from Drive are retried up to four times, with waits of 15, 30 and 45 seconds, and the error message now explains how to reconnect Drive.
+

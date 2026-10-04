@@ -227,6 +227,17 @@ def controls(model, x, y):
     return c
 
 
+def pull(store, rel, attempts=4):
+    """Store.pull with retries: Drive reads on Colab sometimes fail once and then work."""
+    for i in range(attempts):
+        if store.pull(rel):
+            return True
+        if i < attempts - 1:
+            log(f'retrying {rel} in {15 * (i + 1)} s')
+            time.sleep(15 * (i + 1))
+    return False
+
+
 def check_torchdiffeq():
     src = inspect.getsource(tdq_adjoint.OdeintAdjointMethod.backward)
     return {'version': getattr(torchdiffeq, '__version__', 'unknown'),
@@ -260,11 +271,11 @@ def main():
                          'Stopping before any gradient, as preregistered.')
 
     meta_rel = 'data/' + ('tokens_meta_test.json' if TEST else 'tokens_meta.json')
-    if not store.pull(meta_rel):
+    if not pull(store, meta_rel):
         raise SystemExit(f'{meta_rel} not found in {source}')
     meta = json.loads(store.L(meta_rel).read_text())
     for split in ('train', 'test'):
-        if not store.pull(f"data/{meta[split]['file']}") or study.sha256_file(store.L(f"data/{meta[split]['file']}")) != meta[split]['sha256']:
+        if not pull(store, f"data/{meta[split]['file']}") or study.sha256_file(store.L(f"data/{meta[split]['file']}")) != meta[split]['sha256']:
             raise SystemExit(f'{split} token file missing or does not match its fingerprint.')
     train = study.load_tokens(store, meta, 'train')
     gen = torch.Generator().manual_seed(BATCH_SEED)
@@ -282,8 +293,9 @@ def main():
     rec['weight_check'] = {}
     for seed in SEEDS:
         tag = f'main_hybrid_seed{seed}'
-        if not (store.pull(f'final/{tag}.pt') and store.pull(f'results/test_{tag}.json')):
-            raise SystemExit(f'{tag}: final weights or test record not found in {source}.')
+        if not (pull(store, f'final/{tag}.pt') and pull(store, f'results/test_{tag}.json')):
+            raise SystemExit(f'{tag}: could not read the final weights or test record from {source}. If the log shows a '
+                             'Drive error, choose Runtime > Disconnect and delete runtime, then Run all, to reconnect Drive.')
         m = study.new_model('hybrid', seed)
         m.load_state_dict(torch.load(store.L(f'final/{tag}.pt'), map_location='cpu'))
         recorded = json.loads(store.L(f'results/test_{tag}.json').read_text())['test_loss']
