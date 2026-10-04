@@ -59,6 +59,9 @@ SOLVERS = {'euler4': dict(method='euler', n_steps=4), 'euler8': dict(method='eul
            'euler16': dict(method='euler', n_steps=16), 'rk4_4': dict(method='rk4', n_steps=4),
            'dopri5_1e-5': dict(method='dopri5', rtol=1e-5, atol=1e-5)}
 SCALES = [2, 4, 8, 16]
+# A dopri5 solve that needs more steps than this stops with an error, which stage 3 records
+# for that solver and moves on. Set before any test loss was computed; see PREREGISTRATION.md.
+DOPRI5_MAX_STEPS = 1000
 if TEST:
     CFG.update(d_model=32, n_heads=2)
     WARMUP, VAL_EVERY, CKPT_SECONDS = 5, 20, 5
@@ -299,7 +302,8 @@ def forward(model, x, solver=None, scale=None):
         if kw['method'] in ('euler', 'rk4'):
             out = odeint(func, h, torch.linspace(0, 1, kw['n_steps'] + 1, device=x.device), method=kw['method'])
         else:
-            out = odeint(func, h, torch.tensor([0.0, 1.0], device=x.device), method='dopri5', rtol=kw['rtol'], atol=kw['atol'])
+            out = odeint(func, h, torch.tensor([0.0, 1.0], device=x.device), method='dopri5', rtol=kw['rtol'], atol=kw['atol'],
+                         options={'max_num_steps': DOPRI5_MAX_STEPS})
     finally:
         func.output_scale.data.copy_(saved)
     h = out[-1]
@@ -523,10 +527,14 @@ def stage3(store, meta):
                 def table(xs, ys, scale=None):
                     t = {}
                     for name in SOLVERS:
+                        t0 = time.time()
                         try:
                             t[name] = {'loss': eval_loss(m, xs, ys, solver=name, scale=scale)}
                         except Exception as e:
                             t[name] = {'loss': None, 'error': f'{type(e).__name__}: {e}'[:300]}
+                        t[name]['seconds'] = time.time() - t0
+                        log(f"{tag}: solver {name}, alpha x {scale or 1}: "
+                            + ('done' if t[name]['loss'] is not None else 'error, recorded') + f" ({t[name]['seconds']:.0f} s)")
                     base = t['euler4']['loss']
                     for v in t.values():
                         v['rel_change_vs_euler4'] = None if (v['loss'] is None or base is None) else abs(v['loss'] - base) / base
