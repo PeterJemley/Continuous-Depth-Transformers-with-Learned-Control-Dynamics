@@ -1,0 +1,188 @@
+23:13:17 device: cuda | fp16: True | test mode: False | local folder: /content/cdt_local/wt103_study | Drive folder: /content/drive/MyDrive/cdt-colab/wt103_study
+23:13:27 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+23:13:27 main_baseline_seed1001: already finished, skipping
+23:13:27 main_hybrid_seed1001: already finished, skipping
+23:13:33 main_baseline_seed1002: starting, baseline, seed 1002, peak lr 0.0024, 28789 steps
+23:14:19 main_baseline_seed1002: step 500/28789, validation loss 6.0783
+23:16:37 main_baseline_seed1002: step 2000/28789, validation loss 5.0236
+23:19:45 main_baseline_seed1002: step 4000/28789, validation loss 4.6653
+23:22:52 main_baseline_seed1002: step 6000/28789, validation loss 4.4573
+23:26:01 main_baseline_seed1002: step 8000/28789, validation loss 4.3286
+23:29:09 main_baseline_seed1002: step 10000/28789, validation loss 4.2315
+23:32:17 main_baseline_seed1002: step 12000/28789, validation loss 4.1656
+23:35:26 main_baseline_seed1002: step 14000/28789, validation loss 4.0983
+23:38:34 main_baseline_seed1002: step 16000/28789, validation loss 4.0372
+23:41:41 main_baseline_seed1002: step 18000/28789, validation loss 3.9899
+23:44:50 main_baseline_seed1002: step 20000/28789, validation loss 3.9526
+23:47:57 main_baseline_seed1002: step 22000/28789, validation loss 3.9214
+23:51:05 main_baseline_seed1002: step 24000/28789, validation loss 3.8929
+23:54:13 main_baseline_seed1002: step 26000/28789, validation loss 3.8730
+23:57:21 main_baseline_seed1002: step 28000/28789, validation loss 3.8579
+23:58:37 main_baseline_seed1002: step 28789/28789, validation loss 3.8549
+23:58:38 main_baseline_seed1002: finished, final validation loss 3.8549, 0.75 h
+23:58:39 main_hybrid_seed1002: starting, hybrid, seed 1002, peak lr 0.0006, 28789 steps
+23:59:53 main_hybrid_seed1002: step 500/28789, validation loss 6.5371
+00:03:23 main_hybrid_seed1002: step 2000/28789, validation loss 5.4093
+00:08:00 main_hybrid_seed1002: step 4000/28789, validation loss 5.4028
+00:12:36 main_hybrid_seed1002: step 6000/28789, validation loss 5.2639
+00:17:12 main_hybrid_seed1002: step 8000/28789, validation loss 5.2547
+00:21:49 main_hybrid_seed1002: step 10000/28789, validation loss 5.2325
+00:26:25 main_hybrid_seed1002: step 12000/28789, validation loss 5.1526
+00:31:02 main_hybrid_seed1002: step 14000/28789, validation loss 5.0750
+00:35:38 main_hybrid_seed1002: step 16000/28789, validation loss 5.0185
+00:40:15 main_hybrid_seed1002: step 18000/28789, validation loss 4.9760
+00:44:51 main_hybrid_seed1002: step 20000/28789, validation loss 4.9364
+00:49:27 main_hybrid_seed1002: step 22000/28789, validation loss 4.9074
+00:54:04 main_hybrid_seed1002: step 24000/28789, validation loss 4.8847
+00:58:40 main_hybrid_seed1002: step 26000/28789, validation loss 4.8593
+01:03:18 main_hybrid_seed1002: step 28000/28789, validation loss 4.8462
+01:05:10 main_hybrid_seed1002: step 28789/28789, validation loss 4.8457
+01:05:11 main_hybrid_seed1002: finished, final validation loss 4.8457, 1.11 h
+01:05:12 main_baseline_seed1003: starting, baseline, seed 1003, peak lr 0.0024, 28789 steps
+01:06:03 main_baseline_seed1003: step 500/28789, validation loss 6.1070
+01:08:24 main_baseline_seed1003: step 2000/28789, validation loss 5.0249
+01:11:31 main_baseline_seed1003: step 4000/28789, validation loss 4.6587
+01:14:39 main_baseline_seed1003: step 6000/28789, validation loss 4.4626
+01:17:47 main_baseline_seed1003: step 8000/28789, validation loss 4.3396
+01:20:55 main_baseline_seed1003: step 10000/28789, validation loss 4.2336
+01:24:02 main_baseline_seed1003: step 12000/28789, validation loss 4.1525
+01:27:11 main_baseline_seed1003: step 14000/28789, validation loss 4.0943
+01:30:18 main_baseline_seed1003: step 16000/28789, validation loss 4.0343
+01:33:26 main_baseline_seed1003: step 18000/28789, validation loss 3.9915
+01:36:34 main_baseline_seed1003: step 20000/28789, validation loss 3.9486
+01:39:42 main_baseline_seed1003: step 22000/28789, validation loss 3.9161
+01:42:49 main_baseline_seed1003: step 24000/28789, validation loss 3.8895
+01:45:58 main_baseline_seed1003: step 26000/28789, validation loss 3.8662
+01:49:05 main_baseline_seed1003: step 28000/28789, validation loss 3.8538
+01:50:22 main_baseline_seed1003: step 28789/28789, validation loss 3.8514
+01:50:23 main_baseline_seed1003: finished, final validation loss 3.8514, 0.75 h
+01:50:24 main_hybrid_seed1003: starting, hybrid, seed 1003, peak lr 0.0006, 28789 steps
+01:51:37 main_hybrid_seed1003: step 500/28789, validation loss 6.5514
+01:55:07 main_hybrid_seed1003: step 2000/28789, validation loss 5.6524
+01:59:44 main_hybrid_seed1003: step 4000/28789, validation loss 5.4701
+02:04:21 main_hybrid_seed1003: step 6000/28789, validation loss 5.3516
+02:08:56 main_hybrid_seed1003: step 8000/28789, validation loss 5.3100
+02:13:33 main_hybrid_seed1003: step 10000/28789, validation loss 5.2609
+02:18:10 main_hybrid_seed1003: step 12000/28789, validation loss 5.1703
+02:22:46 main_hybrid_seed1003: step 14000/28789, validation loss 5.1486
+02:27:21 main_hybrid_seed1003: step 16000/28789, validation loss 5.0656
+02:31:58 main_hybrid_seed1003: step 18000/28789, validation loss 5.0325
+02:36:33 main_hybrid_seed1003: step 20000/28789, validation loss 4.9640
+02:41:11 main_hybrid_seed1003: step 22000/28789, validation loss 4.9366
+02:45:47 main_hybrid_seed1003: step 24000/28789, validation loss 4.9443
+02:50:23 main_hybrid_seed1003: step 26000/28789, validation loss 4.9118
+02:55:01 main_hybrid_seed1003: step 28000/28789, validation loss 4.8974
+02:56:54 main_hybrid_seed1003: step 28789/28789, validation loss 4.8942
+02:56:55 main_hybrid_seed1003: finished, final validation loss 4.8942, 1.11 h
+02:56:56 main_baseline_seed1004: starting, baseline, seed 1004, peak lr 0.0024, 28789 steps
+02:57:46 main_baseline_seed1004: step 500/28789, validation loss 6.0927
+03:00:08 main_baseline_seed1004: step 2000/28789, validation loss 5.0273
+03:03:14 main_baseline_seed1004: step 4000/28789, validation loss 4.6680
+03:06:22 main_baseline_seed1004: step 6000/28789, validation loss 4.4683
+03:09:30 main_baseline_seed1004: step 8000/28789, validation loss 4.3401
+03:12:37 main_baseline_seed1004: step 10000/28789, validation loss 4.2368
+03:15:45 main_baseline_seed1004: step 12000/28789, validation loss 4.1572
+03:18:53 main_baseline_seed1004: step 14000/28789, validation loss 4.0940
+03:22:01 main_baseline_seed1004: step 16000/28789, validation loss 4.0413
+03:25:08 main_baseline_seed1004: step 18000/28789, validation loss 3.9973
+03:28:16 main_baseline_seed1004: step 20000/28789, validation loss 3.9503
+03:31:24 main_baseline_seed1004: step 22000/28789, validation loss 3.9166
+03:34:31 main_baseline_seed1004: step 24000/28789, validation loss 3.8918
+03:37:39 main_baseline_seed1004: step 26000/28789, validation loss 3.8680
+03:40:47 main_baseline_seed1004: step 28000/28789, validation loss 3.8578
+03:42:03 main_baseline_seed1004: step 28789/28789, validation loss 3.8541
+03:42:04 main_baseline_seed1004: finished, final validation loss 3.8541, 0.75 h
+03:42:06 main_hybrid_seed1004: starting, hybrid, seed 1004, peak lr 0.0006, 28789 steps
+03:43:19 main_hybrid_seed1004: step 500/28789, validation loss 6.5365
+03:46:48 main_hybrid_seed1004: step 2000/28789, validation loss 5.7706
+03:51:24 main_hybrid_seed1004: step 4000/28789, validation loss 5.6854
+03:56:00 main_hybrid_seed1004: step 6000/28789, validation loss 5.5757
+04:00:35 main_hybrid_seed1004: step 8000/28789, validation loss 5.4839
+04:05:11 main_hybrid_seed1004: step 10000/28789, validation loss 5.3948
+04:09:47 main_hybrid_seed1004: step 12000/28789, validation loss 5.3498
+04:14:22 main_hybrid_seed1004: step 14000/28789, validation loss 5.2977
+04:18:57 main_hybrid_seed1004: step 16000/28789, validation loss 5.2580
+04:23:33 main_hybrid_seed1004: step 18000/28789, validation loss 5.2202
+04:28:07 main_hybrid_seed1004: step 20000/28789, validation loss 5.1656
+04:32:41 main_hybrid_seed1004: step 22000/28789, validation loss 5.1333
+04:37:16 main_hybrid_seed1004: step 24000/28789, validation loss 5.1188
+04:41:51 main_hybrid_seed1004: step 26000/28789, validation loss 5.0966
+04:46:27 main_hybrid_seed1004: step 28000/28789, validation loss 5.0888
+04:48:19 main_hybrid_seed1004: step 28789/28789, validation loss 5.0832
+04:48:20 main_hybrid_seed1004: finished, final validation loss 5.0832, 1.10 h
+04:48:21 main_baseline_seed1005: starting, baseline, seed 1005, peak lr 0.0024, 28789 steps
+04:49:11 main_baseline_seed1005: step 500/28789, validation loss 6.0961
+04:51:32 main_baseline_seed1005: step 2000/28789, validation loss 5.0218
+04:54:39 main_baseline_seed1005: step 4000/28789, validation loss 4.6496
+04:57:47 main_baseline_seed1005: step 6000/28789, validation loss 4.4485
+05:00:55 main_baseline_seed1005: step 8000/28789, validation loss 4.3302
+05:04:03 main_baseline_seed1005: step 10000/28789, validation loss 4.2307
+05:07:11 main_baseline_seed1005: step 12000/28789, validation loss 4.1521
+05:10:20 main_baseline_seed1005: step 14000/28789, validation loss 4.0900
+05:13:27 main_baseline_seed1005: step 16000/28789, validation loss 4.0399
+05:16:35 main_baseline_seed1005: step 18000/28789, validation loss 3.9874
+05:19:44 main_baseline_seed1005: step 20000/28789, validation loss 3.9439
+05:22:52 main_baseline_seed1005: step 22000/28789, validation loss 3.9122
+05:25:59 main_baseline_seed1005: step 24000/28789, validation loss 3.8841
+05:29:08 main_baseline_seed1005: step 26000/28789, validation loss 3.8659
+05:32:15 main_baseline_seed1005: step 28000/28789, validation loss 3.8521
+05:33:32 main_baseline_seed1005: step 28789/28789, validation loss 3.8501
+05:33:33 main_baseline_seed1005: finished, final validation loss 3.8501, 0.75 h
+05:33:34 main_hybrid_seed1005: starting, hybrid, seed 1005, peak lr 0.0006, 28789 steps
+05:34:47 main_hybrid_seed1005: step 500/28789, validation loss 6.5466
+05:38:17 main_hybrid_seed1005: step 2000/28789, validation loss 5.9095
+05:42:53 main_hybrid_seed1005: step 4000/28789, validation loss 5.7766
+05:47:30 main_hybrid_seed1005: step 6000/28789, validation loss 5.6531
+05:52:05 main_hybrid_seed1005: step 8000/28789, validation loss 5.5673
+05:56:42 main_hybrid_seed1005: step 10000/28789, validation loss 5.5795
+06:01:17 main_hybrid_seed1005: step 12000/28789, validation loss 5.4688
+06:05:53 main_hybrid_seed1005: step 14000/28789, validation loss 5.4228
+06:10:29 main_hybrid_seed1005: step 16000/28789, validation loss 5.3966
+06:15:04 main_hybrid_seed1005: step 18000/28789, validation loss 5.2998
+06:19:40 main_hybrid_seed1005: step 20000/28789, validation loss 5.2558
+06:24:17 main_hybrid_seed1005: step 22000/28789, validation loss 5.2086
+06:28:52 main_hybrid_seed1005: step 24000/28789, validation loss 5.1745
+06:33:29 main_hybrid_seed1005: step 26000/28789, validation loss 5.1502
+06:38:05 main_hybrid_seed1005: step 28000/28789, validation loss 5.1414
+06:39:57 main_hybrid_seed1005: step 28789/28789, validation loss 5.1396
+06:39:58 main_hybrid_seed1005: finished, final validation loss 5.1396, 1.11 h
+06:39:59 main_baseline_seed1006: starting, baseline, seed 1006, peak lr 0.0024, 28789 steps
+06:40:49 main_baseline_seed1006: step 500/28789, validation loss 6.1202
+06:43:11 main_baseline_seed1006: step 2000/28789, validation loss 5.0262
+06:46:18 main_baseline_seed1006: step 4000/28789, validation loss 4.6554
+06:49:26 main_baseline_seed1006: step 6000/28789, validation loss 4.4681
+06:52:33 main_baseline_seed1006: step 8000/28789, validation loss 4.3247
+06:55:41 main_baseline_seed1006: step 10000/28789, validation loss 4.2310
+06:58:49 main_baseline_seed1006: step 12000/28789, validation loss 4.1569
+07:01:58 main_baseline_seed1006: step 14000/28789, validation loss 4.0901
+07:05:05 main_baseline_seed1006: step 16000/28789, validation loss 4.0325
+07:08:13 main_baseline_seed1006: step 18000/28789, validation loss 3.9920
+07:11:22 main_baseline_seed1006: step 20000/28789, validation loss 3.9478
+07:14:29 main_baseline_seed1006: step 22000/28789, validation loss 3.9152
+07:17:37 main_baseline_seed1006: step 24000/28789, validation loss 3.8895
+07:20:45 main_baseline_seed1006: step 26000/28789, validation loss 3.8663
+07:23:52 main_baseline_seed1006: step 28000/28789, validation loss 3.8517
+07:25:09 main_baseline_seed1006: step 28789/28789, validation loss 3.8491
+07:25:10 main_baseline_seed1006: finished, final validation loss 3.8491, 0.75 h
+07:25:11 main_hybrid_seed1006: starting, hybrid, seed 1006, peak lr 0.0006, 28789 steps
+07:26:24 main_hybrid_seed1006: step 500/28789, validation loss 6.5518
+07:29:53 main_hybrid_seed1006: step 2000/28789, validation loss 5.6207
+07:34:30 main_hybrid_seed1006: step 4000/28789, validation loss 5.4246
+07:39:06 main_hybrid_seed1006: step 6000/28789, validation loss 5.3627
+07:43:40 main_hybrid_seed1006: step 8000/28789, validation loss 5.3207
+07:48:17 main_hybrid_seed1006: step 10000/28789, validation loss 5.2825
+07:52:52 main_hybrid_seed1006: step 12000/28789, validation loss 5.2386
+07:57:27 main_hybrid_seed1006: step 14000/28789, validation loss 5.1834
+08:02:02 main_hybrid_seed1006: step 16000/28789, validation loss 5.1093
+08:06:39 main_hybrid_seed1006: step 18000/28789, validation loss 5.0488
+08:11:14 main_hybrid_seed1006: step 20000/28789, validation loss 4.9958
+08:15:50 main_hybrid_seed1006: step 22000/28789, validation loss 4.9506
+08:20:26 main_hybrid_seed1006: step 24000/28789, validation loss 4.9169
+08:25:02 main_hybrid_seed1006: step 26000/28789, validation loss 4.8939
+08:29:40 main_hybrid_seed1006: step 28000/28789, validation loss 4.8791
+08:31:32 main_hybrid_seed1006: step 28789/28789, validation loss 4.8750
+08:31:33 main_hybrid_seed1006: finished, final validation loss 4.8750, 1.11 h
+08:31:33 stage 2 complete: all main runs finished
+08:31:33 copied 25 result files for upload
+08:31:33 waiting for background Drive saves to finish (up to 15 minutes)
+08:31:34 Drive saves finished

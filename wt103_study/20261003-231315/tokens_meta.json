@@ -1,0 +1,24 @@
+{
+  "train": {
+    "file": "train.u16",
+    "rows": 1801350,
+    "tokens": 117920140,
+    "sha256": "13c36b78c2ea560c41c0740c7e579520384dce6204bc0de0e014cc8675adb9e8",
+    "encode_seconds": 74.02720713615417
+  },
+  "validation": {
+    "file": "validation.u16",
+    "rows": 3760,
+    "tokens": 247289,
+    "sha256": "966a92f8dcf229af60a86f827a064cb01051fdc535b7b261b66d42b336d35735",
+    "encode_seconds": 0.25096797943115234
+  },
+  "test": {
+    "file": "test.u16",
+    "rows": 4358,
+    "tokens": 283287,
+    "sha256": "595e5c248cd44417b24083e36fd4faa4cecccb1997147e6de1efb32cad19437d",
+    "encode_seconds": 0.29558753967285156
+  },
+  "created_utc": "2026-10-03T18:56:51Z"
+}
