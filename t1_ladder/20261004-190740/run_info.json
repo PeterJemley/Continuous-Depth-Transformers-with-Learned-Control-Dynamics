@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "t1_ladder",
+    "args": [],
+    "description": "Test T1: trains five model variants for 10% of the WikiText-103 budget, 5 seeds each, plus learning-rate sweeps and controls; 47 short runs. About 4 hours on a T4. Resumable: if a session ends, choose Run all again and finished runs are skipped.",
+    "expected_minutes": 240
+  },
+  "code_commit": "24c7713a90bf5f3b6dfac991cee2da7d88d62b96",
+  "run_id": "20261004-190740",
+  "gpu": "Tesla T4"
+}
