@@ -1,6 +1,6 @@
 # Preregistration T0: are Model A's training gradients the gradients of its own forward pass?
 
-Date: 2026-10-04    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-04    Status: **approved by the author on 2026-10-04, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
