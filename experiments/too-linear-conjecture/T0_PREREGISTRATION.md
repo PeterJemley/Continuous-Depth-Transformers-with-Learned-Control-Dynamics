@@ -138,4 +138,13 @@ Each is reported for every model, labelled as secondary.
 
 ## Deviation log
 
-None yet.
+### Amendment before any real result, 2026-10-04: awaiting the author's approval
+
+Results seen before this entry: only test-mode runs of `t0_gradients.py`, on two tiny models (width 32, trained for 60 steps) built to test the code. No gradient of any real WikiText-103 model had been computed.
+
+- **A1. The primary vector leaves out α.** In the test runs, the must-fail control failed for the vector of every ODE block parameter. Flipping signs at random gave a cosine of 0.90, not about 0, because α's single gradient value held 64% of the vector's squared length. A cosine over that vector mostly measures one number. The primary outcome and the decision rule therefore use the vector field's parameters: every ODE block parameter except `output_scale` (α). α's own gradient is reported separately as S8: the training mean, the exact mean, and a second exact mean. The all-parameter version is still computed and reported for comparison. At the real model size and at initialisation, α held under 1% of the squared length, so the amendment matters only if α's gradient dominates at the trained state, which is unknown.
+- **A2. Must-match control 4 uses a time-independent field.** The test runs refined the explanation: the adjoint evaluates the time embedding at the end of each step too, and that error does not shrink as α shrinks. So agreement at small α is guaranteed only for a time-independent field. Control 4 now zeroes the time embedding's output, sets α to 0.001 and switches dropout off, and requires a cosine of at least 0.999. In the test runs it gave 0.99995 and 0.99990. The original version, time embedding intact, is kept as secondary S9, which measures the time-mismatch floor.
+- **A3. Seeds for more draws.** With K draws, the training and exact gradients share seeds 0 to K − 1, and the noise reference uses seeds K to 2K − 1. This generalises the plan's 0–15 and 16–31. If the draws are doubled, all models are recomputed at the new K.
+- **A4. Two clarifications of wording.** Must-match control 4 sets α to the absolute value 0.001. S3 scales each model's learned α by 0.001, 0.1, 0.5, 1 and 2. The precondition applies to the noise reference of the primary vector.
+- **A5. Controls are recorded, not acted on, during the run.** The job computes every measure and `t0_analyze.py` applies the decision rule, so a failed control never loses the other measurements. The rule itself is unchanged: any failed control makes the result untestable.
+- **Updated cost:** about 6,800 backward passes in fp32, including the secondary measures. That is about 45 to 60 minutes on a T4, not under 30.
