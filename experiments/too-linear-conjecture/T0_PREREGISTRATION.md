@@ -138,7 +138,7 @@ Each is reported for every model, labelled as secondary.
 
 ## Deviation log
 
-### Amendment before any real result, 2026-10-04: awaiting the author's approval
+### Amendment before any real result, 2026-10-04: approved by the author
 
 Results seen before this entry: only test-mode runs of `t0_gradients.py`, on two tiny models (width 32, trained for 60 steps) built to test the code. No gradient of any real WikiText-103 model had been computed.
 
