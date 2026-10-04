@@ -1,0 +1,95 @@
+{
+  "checks": {
+    "construction": {
+      "params": {
+        "B6": 30503424,
+        "B5": 29713664,
+        "T4": 29713664,
+        "AX": 29781249,
+        "AA": 29781249
+      },
+      "block_params": 789760,
+      "pass": true
+    },
+    "same_model": [
+      {
+        "seed": 2001,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 2002,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 2003,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 2004,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 2005,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "sample_text": " from 2D graphics to 3D environments overlaid on pre @-@ rendered backgrounds was accompanied by a focus on a more realistic presentation . While the extra storage capacity and computer graphics gave the team the means to implement more than 40 minutes of full motion video ( FMV ) movies , this innovation brought with it the added difficulty of ensuring that the inferiority of the in @-@ game graphics in comparison to the FMV sequences was not too obvious . Kitase has described the process of making the in @-@ game environments as detailed as possible to be \" a daunting task . \" The series ' long @-@ time character designer",
+    "train_start_text": " = Valkyria Chronicles III = \n\n Senj\u014d no Valkyria 3 : Unrecorded Chronicles ( Japanese : \u6226\u5834\u306e\u30f4\u30a1\u30eb\u30ad\u30e5\u30ea\u30a23 , lit . Valkyria of the Battlefield 3 ) , commonly referred to as Valkyria Chronicles III outside Japan , is a tactical role @-@ playing video game developed by Sega and Media.Vision for the PlayStation Portable . Released in January 2011 in Japan , it is the third game in the Valkyria series . Employing the same fusion of tactical and real @-@ time gameplay as its predecessors , the story runs parallel to the first game and follows the \" Nameless \" , a penal military unit serving the nation of Gallia during the Second Europan War who perform secret black operations and are pitted against the Imperial unit \" Calamaty Raven \" . \n\n The game began development in 2010 , carrying over a large portion of the work done on Valkyria Chronicles II . While it"
+  },
+  "learning_rates": {
+    "B6": 0.0024,
+    "B5": 0.0024,
+    "T4": 0.0024,
+    "AX": 0.0024,
+    "AA": 0.0006
+  },
+  "sweeps": {
+    "B5": {
+      "0.0003": 5.741163161923267,
+      "0.0006": 5.319844965487796,
+      "0.0012": 4.989845653200075,
+      "0.0024": 4.795204897484959
+    },
+    "T4": {
+      "0.0003": 5.688746206875233,
+      "0.0006": 5.286004242780973,
+      "0.0012": 4.966955731163242,
+      "0.0024": 4.779186701169599
+    },
+    "AX": {
+      "0.0003": 5.759956567291149,
+      "0.0006": 5.325630124772169,
+      "0.0012": 4.998795715284619,
+      "0.0024": 4.825327631724677
+    }
+  },
+  "stage1_sweeps": {
+    "B6": {
+      "0.0003": 5.703444292729287,
+      "0.0006": 5.275235757378332,
+      "0.0012": 4.949758348904515,
+      "0.0024": 4.7720237467216124
+    },
+    "AA": {
+      "0.0003": 5.772962573153685,
+      "0.0006": 5.499039711697863,
+      "0.0012": 5.629301528496053,
+      "0.0024": 6.243749909917041
+    }
+  }
+}

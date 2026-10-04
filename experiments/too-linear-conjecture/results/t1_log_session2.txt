@@ -1,0 +1,366 @@
+19:07:42 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | T1 folder: /content/drive/MyDrive/cdt-colab/t1_ladder | local: /content/cdt_local/t1_ladder
+19:08:00 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+19:08:00 construction check: True {'B6': 30503424, 'B5': 29713664, 'T4': 29713664, 'AX': 29781249, 'AA': 29781249}
+19:08:00 same-model check: [True, True, True, True, True]
+19:08:00 sweep_B5_lr0.0003: already finished, skipping
+19:08:00 sweep_B5_lr0.0006: already finished, skipping
+19:08:00 sweep_B5_lr0.0012: already finished, skipping
+19:08:00 sweep_B5_lr0.0024: already finished, skipping
+19:08:00 sweep_T4_lr0.0003: already finished, skipping
+19:08:00 sweep_T4_lr0.0006: already finished, skipping
+19:08:00 sweep_T4_lr0.0012: already finished, skipping
+19:08:00 sweep_T4_lr0.0024: already finished, skipping
+19:08:00 sweep_AX_lr0.0003: already finished, skipping
+19:08:00 sweep_AX_lr0.0006: already finished, skipping
+19:08:00 sweep_AX_lr0.0012: already finished, skipping
+19:08:00 sweep_AX_lr0.0024: already finished, skipping
+19:08:00 learning rates: {'B6': 0.0024, 'B5': 0.0024, 'T4': 0.0024, 'AX': 0.0024, 'AA': 0.0006}
+19:08:00 main_B6_seed2001: already finished, skipping
+19:08:00 main_B5_seed2001: already finished, skipping
+19:08:00 main_T4_seed2001: already finished, skipping
+19:08:06 main_AX_seed2001: starting, AX, seed 2001, peak lr 0.0024, 2879 steps
+19:08:49 main_AX_seed2001: step 400/2879, validation loss 6.2707
+19:09:03 main_AX_seed2001: step 500/2879, validation loss 6.1019
+19:09:39 main_AX_seed2001: step 800/2879, validation loss 5.6714
+19:10:24 main_AX_seed2001: step 1200/2879, validation loss 5.3487
+19:11:09 main_AX_seed2001: step 1600/2879, validation loss 5.1355
+19:11:55 main_AX_seed2001: step 2000/2879, validation loss 4.9843
+19:12:40 main_AX_seed2001: step 2400/2879, validation loss 4.8748
+19:13:25 main_AX_seed2001: step 2800/2879, validation loss 4.8179
+19:13:38 main_AX_seed2001: step 2879/2879, validation loss 4.8102
+19:13:39 main_AX_seed2001: finished, final validation loss 4.8102, 0.09 h
+19:13:39 main_AA_seed2001: starting, AA, seed 2001, peak lr 0.0006, 2879 steps
+19:14:38 main_AA_seed2001: step 400/2879, validation loss 6.7069
+19:14:56 main_AA_seed2001: step 500/2879, validation loss 6.5347
+19:15:41 main_AA_seed2001: step 800/2879, validation loss 6.1436
+19:16:40 main_AA_seed2001: step 1200/2879, validation loss 5.8407
+19:17:39 main_AA_seed2001: step 1600/2879, validation loss 5.8050
+19:18:37 main_AA_seed2001: step 2000/2879, validation loss 5.7003
+19:19:36 main_AA_seed2001: step 2400/2879, validation loss 5.6356
+19:20:34 main_AA_seed2001: step 2800/2879, validation loss 5.6049
+19:20:49 main_AA_seed2001: step 2879/2879, validation loss 5.5999
+19:20:50 main_AA_seed2001: finished, final validation loss 5.5999, 0.12 h
+19:20:50 main_B6_seed2002: starting, B6, seed 2002, peak lr 0.0024, 2879 steps
+19:21:31 main_B6_seed2002: step 400/2879, validation loss 6.2643
+19:21:44 main_B6_seed2002: step 500/2879, validation loss 6.1092
+19:22:15 main_B6_seed2002: step 800/2879, validation loss 5.6561
+19:22:56 main_B6_seed2002: step 1200/2879, validation loss 5.3345
+19:23:36 main_B6_seed2002: step 1600/2879, validation loss 5.1314
+19:24:17 main_B6_seed2002: step 2000/2879, validation loss 4.9595
+19:24:57 main_B6_seed2002: step 2400/2879, validation loss 4.8519
+19:25:38 main_B6_seed2002: step 2800/2879, validation loss 4.7906
+19:25:49 main_B6_seed2002: step 2879/2879, validation loss 4.7821
+19:25:50 main_B6_seed2002: finished, final validation loss 4.7821, 0.08 h
+19:25:50 main_B5_seed2002: starting, B5, seed 2002, peak lr 0.0024, 2879 steps
+19:26:29 main_B5_seed2002: step 400/2879, validation loss 6.2752
+19:26:41 main_B5_seed2002: step 500/2879, validation loss 6.1155
+19:27:11 main_B5_seed2002: step 800/2879, validation loss 5.6600
+19:27:50 main_B5_seed2002: step 1200/2879, validation loss 5.3409
+19:28:29 main_B5_seed2002: step 1600/2879, validation loss 5.1430
+19:29:07 main_B5_seed2002: step 2000/2879, validation loss 4.9721
+19:29:46 main_B5_seed2002: step 2400/2879, validation loss 4.8657
+19:30:24 main_B5_seed2002: step 2800/2879, validation loss 4.8059
+19:30:35 main_B5_seed2002: step 2879/2879, validation loss 4.7979
+19:30:36 main_B5_seed2002: finished, final validation loss 4.7979, 0.08 h
+19:30:36 main_T4_seed2002: starting, T4, seed 2002, peak lr 0.0024, 2879 steps
+19:31:20 main_T4_seed2002: step 400/2879, validation loss 6.2738
+19:31:35 main_T4_seed2002: step 500/2879, validation loss 6.1083
+19:32:09 main_T4_seed2002: step 800/2879, validation loss 5.6791
+19:32:52 main_T4_seed2002: step 1200/2879, validation loss 5.3496
+19:33:36 main_T4_seed2002: step 1600/2879, validation loss 5.1446
+19:34:20 main_T4_seed2002: step 2000/2879, validation loss 4.9710
+19:35:04 main_T4_seed2002: step 2400/2879, validation loss 4.8589
+19:35:47 main_T4_seed2002: step 2800/2879, validation loss 4.7964
+19:36:00 main_T4_seed2002: step 2879/2879, validation loss 4.7889
+19:36:01 main_T4_seed2002: finished, final validation loss 4.7889, 0.09 h
+19:36:01 main_AX_seed2002: starting, AX, seed 2002, peak lr 0.0024, 2879 steps
+19:36:46 main_AX_seed2002: step 400/2879, validation loss 6.2832
+19:37:01 main_AX_seed2002: step 500/2879, validation loss 6.1181
+19:37:36 main_AX_seed2002: step 800/2879, validation loss 5.6726
+19:38:22 main_AX_seed2002: step 1200/2879, validation loss 5.3615
+19:39:07 main_AX_seed2002: step 1600/2879, validation loss 5.1564
+19:39:52 main_AX_seed2002: step 2000/2879, validation loss 4.9898
+19:40:37 main_AX_seed2002: step 2400/2879, validation loss 4.8882
+19:41:23 main_AX_seed2002: step 2800/2879, validation loss 4.8281
+19:41:35 main_AX_seed2002: step 2879/2879, validation loss 4.8207
+19:41:36 main_AX_seed2002: finished, final validation loss 4.8207, 0.09 h
+19:41:36 main_AA_seed2002: starting, AA, seed 2002, peak lr 0.0006, 2879 steps
+19:42:35 main_AA_seed2002: step 400/2879, validation loss 6.7131
+19:42:53 main_AA_seed2002: step 500/2879, validation loss 6.5465
+19:43:38 main_AA_seed2002: step 800/2879, validation loss 6.1483
+19:44:37 main_AA_seed2002: step 1200/2879, validation loss 6.0124
+19:45:36 main_AA_seed2002: step 1600/2879, validation loss 5.8956
+19:46:34 main_AA_seed2002: step 2000/2879, validation loss 5.8201
+19:47:32 main_AA_seed2002: step 2400/2879, validation loss 5.7741
+19:48:31 main_AA_seed2002: step 2800/2879, validation loss 5.7375
+19:48:46 main_AA_seed2002: step 2879/2879, validation loss 5.7306
+19:48:47 main_AA_seed2002: finished, final validation loss 5.7306, 0.12 h
+19:48:47 main_B6_seed2003: starting, B6, seed 2003, peak lr 0.0024, 2879 steps
+19:49:28 main_B6_seed2003: step 400/2879, validation loss 6.2852
+19:49:41 main_B6_seed2003: step 500/2879, validation loss 6.1058
+19:50:12 main_B6_seed2003: step 800/2879, validation loss 5.6789
+19:50:53 main_B6_seed2003: step 1200/2879, validation loss 5.3509
+19:51:33 main_B6_seed2003: step 1600/2879, validation loss 5.1246
+19:52:14 main_B6_seed2003: step 2000/2879, validation loss 4.9640
+19:52:54 main_B6_seed2003: step 2400/2879, validation loss 4.8543
+19:53:35 main_B6_seed2003: step 2800/2879, validation loss 4.7931
+19:53:46 main_B6_seed2003: step 2879/2879, validation loss 4.7858
+19:53:47 main_B6_seed2003: finished, final validation loss 4.7858, 0.08 h
+19:53:47 main_B5_seed2003: starting, B5, seed 2003, peak lr 0.0024, 2879 steps
+19:54:26 main_B5_seed2003: step 400/2879, validation loss 6.2907
+19:54:38 main_B5_seed2003: step 500/2879, validation loss 6.1012
+19:55:08 main_B5_seed2003: step 800/2879, validation loss 5.6725
+19:55:47 main_B5_seed2003: step 1200/2879, validation loss 5.3567
+19:56:25 main_B5_seed2003: step 1600/2879, validation loss 5.1369
+19:57:04 main_B5_seed2003: step 2000/2879, validation loss 4.9806
+19:57:42 main_B5_seed2003: step 2400/2879, validation loss 4.8750
+19:58:21 main_B5_seed2003: step 2800/2879, validation loss 4.8141
+19:58:31 main_B5_seed2003: step 2879/2879, validation loss 4.8069
+19:58:32 main_B5_seed2003: finished, final validation loss 4.8069, 0.08 h
+19:58:33 main_T4_seed2003: starting, T4, seed 2003, peak lr 0.0024, 2879 steps
+19:59:16 main_T4_seed2003: step 400/2879, validation loss 6.2763
+19:59:31 main_T4_seed2003: step 500/2879, validation loss 6.1055
+20:00:05 main_T4_seed2003: step 800/2879, validation loss 5.6808
+20:00:49 main_T4_seed2003: step 1200/2879, validation loss 5.3567
+20:01:32 main_T4_seed2003: step 1600/2879, validation loss 5.1262
+20:02:16 main_T4_seed2003: step 2000/2879, validation loss 4.9685
+20:03:00 main_T4_seed2003: step 2400/2879, validation loss 4.8584
+20:03:43 main_T4_seed2003: step 2800/2879, validation loss 4.7952
+20:03:56 main_T4_seed2003: step 2879/2879, validation loss 4.7880
+20:03:56 main_T4_seed2003: finished, final validation loss 4.7880, 0.09 h
+20:03:57 main_AX_seed2003: starting, AX, seed 2003, peak lr 0.0024, 2879 steps
+20:04:42 main_AX_seed2003: step 400/2879, validation loss 6.2966
+20:04:57 main_AX_seed2003: step 500/2879, validation loss 6.1129
+20:05:32 main_AX_seed2003: step 800/2879, validation loss 5.7094
+20:06:17 main_AX_seed2003: step 1200/2879, validation loss 5.3876
+20:07:03 main_AX_seed2003: step 1600/2879, validation loss 5.1612
+20:07:48 main_AX_seed2003: step 2000/2879, validation loss 5.0071
+20:08:33 main_AX_seed2003: step 2400/2879, validation loss 4.9025
+20:09:18 main_AX_seed2003: step 2800/2879, validation loss 4.8421
+20:09:31 main_AX_seed2003: step 2879/2879, validation loss 4.8354
+20:09:32 main_AX_seed2003: finished, final validation loss 4.8354, 0.09 h
+20:09:32 main_AA_seed2003: starting, AA, seed 2003, peak lr 0.0006, 2879 steps
+20:10:30 main_AA_seed2003: step 400/2879, validation loss 6.7171
+20:10:49 main_AA_seed2003: step 500/2879, validation loss 6.5495
+20:11:34 main_AA_seed2003: step 800/2879, validation loss 6.1534
+20:12:32 main_AA_seed2003: step 1200/2879, validation loss 5.8398
+20:13:31 main_AA_seed2003: step 1600/2879, validation loss 5.7401
+20:14:29 main_AA_seed2003: step 2000/2879, validation loss 5.6774
+20:15:28 main_AA_seed2003: step 2400/2879, validation loss 5.6086
+20:16:26 main_AA_seed2003: step 2800/2879, validation loss 5.5829
+20:16:41 main_AA_seed2003: step 2879/2879, validation loss 5.5792
+20:16:42 main_AA_seed2003: finished, final validation loss 5.5792, 0.12 h
+20:16:42 main_B6_seed2004: starting, B6, seed 2004, peak lr 0.0024, 2879 steps
+20:17:23 main_B6_seed2004: step 400/2879, validation loss 6.2865
+20:17:36 main_B6_seed2004: step 500/2879, validation loss 6.1149
+20:18:07 main_B6_seed2004: step 800/2879, validation loss 5.6728
+20:18:48 main_B6_seed2004: step 1200/2879, validation loss 5.3469
+20:19:28 main_B6_seed2004: step 1600/2879, validation loss 5.1163
+20:20:09 main_B6_seed2004: step 2000/2879, validation loss 4.9601
+20:20:49 main_B6_seed2004: step 2400/2879, validation loss 4.8487
+20:21:30 main_B6_seed2004: step 2800/2879, validation loss 4.7837
+20:21:41 main_B6_seed2004: step 2879/2879, validation loss 4.7753
+20:21:42 main_B6_seed2004: finished, final validation loss 4.7753, 0.08 h
+20:21:42 main_B5_seed2004: starting, B5, seed 2004, peak lr 0.0024, 2879 steps
+20:22:21 main_B5_seed2004: step 400/2879, validation loss 6.2780
+20:22:34 main_B5_seed2004: step 500/2879, validation loss 6.1184
+20:23:04 main_B5_seed2004: step 800/2879, validation loss 5.6850
+20:23:42 main_B5_seed2004: step 1200/2879, validation loss 5.3563
+20:24:21 main_B5_seed2004: step 1600/2879, validation loss 5.1390
+20:24:59 main_B5_seed2004: step 2000/2879, validation loss 4.9795
+20:25:38 main_B5_seed2004: step 2400/2879, validation loss 4.8695
+20:26:16 main_B5_seed2004: step 2800/2879, validation loss 4.8078
+20:26:27 main_B5_seed2004: step 2879/2879, validation loss 4.7998
+20:26:27 main_B5_seed2004: finished, final validation loss 4.7998, 0.08 h
+20:26:28 main_T4_seed2004: starting, T4, seed 2004, peak lr 0.0024, 2879 steps
+20:27:12 main_T4_seed2004: step 400/2879, validation loss 6.2749
+20:27:26 main_T4_seed2004: step 500/2879, validation loss 6.1142
+20:28:00 main_T4_seed2004: step 800/2879, validation loss 5.6810
+20:28:44 main_T4_seed2004: step 1200/2879, validation loss 5.3559
+20:29:28 main_T4_seed2004: step 1600/2879, validation loss 5.1291
+20:30:12 main_T4_seed2004: step 2000/2879, validation loss 4.9677
+20:30:55 main_T4_seed2004: step 2400/2879, validation loss 4.8569
+20:31:39 main_T4_seed2004: step 2800/2879, validation loss 4.7918
+20:31:51 main_T4_seed2004: step 2879/2879, validation loss 4.7838
+20:31:52 main_T4_seed2004: finished, final validation loss 4.7838, 0.09 h
+20:31:52 main_AX_seed2004: starting, AX, seed 2004, peak lr 0.0024, 2879 steps
+20:32:38 main_AX_seed2004: step 400/2879, validation loss 6.3015
+20:32:53 main_AX_seed2004: step 500/2879, validation loss 6.1195
+20:33:28 main_AX_seed2004: step 800/2879, validation loss 5.6883
+20:34:13 main_AX_seed2004: step 1200/2879, validation loss 5.3683
+20:34:59 main_AX_seed2004: step 1600/2879, validation loss 5.1515
+20:35:44 main_AX_seed2004: step 2000/2879, validation loss 4.9966
+20:36:30 main_AX_seed2004: step 2400/2879, validation loss 4.8917
+20:37:15 main_AX_seed2004: step 2800/2879, validation loss 4.8303
+20:37:28 main_AX_seed2004: step 2879/2879, validation loss 4.8225
+20:37:28 main_AX_seed2004: finished, final validation loss 4.8225, 0.09 h
+20:37:29 main_AA_seed2004: starting, AA, seed 2004, peak lr 0.0006, 2879 steps
+20:38:27 main_AA_seed2004: step 400/2879, validation loss 6.7179
+20:38:45 main_AA_seed2004: step 500/2879, validation loss 6.5462
+20:39:30 main_AA_seed2004: step 800/2879, validation loss 6.1423
+20:40:29 main_AA_seed2004: step 1200/2879, validation loss 5.9516
+20:41:27 main_AA_seed2004: step 1600/2879, validation loss 5.7962
+20:42:26 main_AA_seed2004: step 2000/2879, validation loss 5.6770
+20:43:24 main_AA_seed2004: step 2400/2879, validation loss 5.6207
+20:44:23 main_AA_seed2004: step 2800/2879, validation loss 5.5871
+20:44:38 main_AA_seed2004: step 2879/2879, validation loss 5.5826
+20:44:39 main_AA_seed2004: finished, final validation loss 5.5826, 0.12 h
+20:44:39 main_B6_seed2005: starting, B6, seed 2005, peak lr 0.0024, 2879 steps
+20:45:20 main_B6_seed2005: step 400/2879, validation loss 6.2616
+20:45:33 main_B6_seed2005: step 500/2879, validation loss 6.0907
+20:46:04 main_B6_seed2005: step 800/2879, validation loss 5.6548
+20:46:45 main_B6_seed2005: step 1200/2879, validation loss 5.3418
+20:47:25 main_B6_seed2005: step 1600/2879, validation loss 5.1155
+20:48:06 main_B6_seed2005: step 2000/2879, validation loss 4.9537
+20:48:46 main_B6_seed2005: step 2400/2879, validation loss 4.8371
+20:49:27 main_B6_seed2005: step 2800/2879, validation loss 4.7765
+20:49:38 main_B6_seed2005: step 2879/2879, validation loss 4.7718
+20:49:39 main_B6_seed2005: finished, final validation loss 4.7718, 0.08 h
+20:49:40 main_B5_seed2005: starting, B5, seed 2005, peak lr 0.0024, 2879 steps
+20:50:18 main_B5_seed2005: step 400/2879, validation loss 6.2743
+20:50:31 main_B5_seed2005: step 500/2879, validation loss 6.0938
+20:51:01 main_B5_seed2005: step 800/2879, validation loss 5.6611
+20:51:39 main_B5_seed2005: step 1200/2879, validation loss 5.3477
+20:52:18 main_B5_seed2005: step 1600/2879, validation loss 5.1306
+20:52:56 main_B5_seed2005: step 2000/2879, validation loss 4.9726
+20:53:35 main_B5_seed2005: step 2400/2879, validation loss 4.8588
+20:54:14 main_B5_seed2005: step 2800/2879, validation loss 4.8006
+20:54:24 main_B5_seed2005: step 2879/2879, validation loss 4.7951
+20:54:25 main_B5_seed2005: finished, final validation loss 4.7951, 0.08 h
+20:54:25 main_T4_seed2005: starting, T4, seed 2005, peak lr 0.0024, 2879 steps
+20:55:09 main_T4_seed2005: step 400/2879, validation loss 6.2669
+20:55:24 main_T4_seed2005: step 500/2879, validation loss 6.0928
+20:55:58 main_T4_seed2005: step 800/2879, validation loss 5.6687
+20:56:41 main_T4_seed2005: step 1200/2879, validation loss 5.3549
+20:57:25 main_T4_seed2005: step 1600/2879, validation loss 5.1268
+20:58:09 main_T4_seed2005: step 2000/2879, validation loss 4.9681
+20:58:52 main_T4_seed2005: step 2400/2879, validation loss 4.8484
+20:59:36 main_T4_seed2005: step 2800/2879, validation loss 4.7897
+20:59:48 main_T4_seed2005: step 2879/2879, validation loss 4.7843
+20:59:49 main_T4_seed2005: finished, final validation loss 4.7843, 0.09 h
+20:59:49 main_AX_seed2005: starting, AX, seed 2005, peak lr 0.0024, 2879 steps
+21:00:35 main_AX_seed2005: step 400/2879, validation loss 6.2827
+21:00:50 main_AX_seed2005: step 500/2879, validation loss 6.1033
+21:01:25 main_AX_seed2005: step 800/2879, validation loss 5.6674
+21:02:10 main_AX_seed2005: step 1200/2879, validation loss 5.3677
+21:02:55 main_AX_seed2005: step 1600/2879, validation loss 5.1475
+21:03:40 main_AX_seed2005: step 2000/2879, validation loss 4.9944
+21:04:26 main_AX_seed2005: step 2400/2879, validation loss 4.8809
+21:05:11 main_AX_seed2005: step 2800/2879, validation loss 4.8246
+21:05:24 main_AX_seed2005: step 2879/2879, validation loss 4.8187
+21:05:25 main_AX_seed2005: finished, final validation loss 4.8187, 0.09 h
+21:05:25 main_AA_seed2005: starting, AA, seed 2005, peak lr 0.0006, 2879 steps
+21:06:24 main_AA_seed2005: step 400/2879, validation loss 6.7179
+21:06:42 main_AA_seed2005: step 500/2879, validation loss 6.5421
+21:07:27 main_AA_seed2005: step 800/2879, validation loss 6.1405
+21:08:25 main_AA_seed2005: step 1200/2879, validation loss 5.8399
+21:09:24 main_AA_seed2005: step 1600/2879, validation loss 5.7497
+21:10:22 main_AA_seed2005: step 2000/2879, validation loss 5.6675
+21:11:20 main_AA_seed2005: step 2400/2879, validation loss 5.6065
+21:12:18 main_AA_seed2005: step 2800/2879, validation loss 5.5769
+21:12:34 main_AA_seed2005: step 2879/2879, validation loss 5.5745
+21:12:35 main_AA_seed2005: finished, final validation loss 5.5745, 0.12 h
+21:12:35 null_B6_seed2001: starting, B6, seed 2001, peak lr 0.0024, 2879 steps
+21:13:15 null_B6_seed2001: step 400/2879, validation loss 6.2501
+21:13:29 null_B6_seed2001: step 500/2879, validation loss 6.0939
+21:14:00 null_B6_seed2001: step 800/2879, validation loss 5.6691
+21:14:41 null_B6_seed2001: step 1200/2879, validation loss 5.3408
+21:15:21 null_B6_seed2001: step 1600/2879, validation loss 5.1179
+21:16:02 null_B6_seed2001: step 2000/2879, validation loss 4.9574
+21:16:42 null_B6_seed2001: step 2400/2879, validation loss 4.8444
+21:17:23 null_B6_seed2001: step 2800/2879, validation loss 4.7854
+21:17:34 null_B6_seed2001: step 2879/2879, validation loss 4.7792
+21:17:35 null_B6_seed2001: finished, final validation loss 4.7792, 0.08 h
+21:17:35 short_B6_seed2001: starting, B6, seed 2001, peak lr 0.0024, 2303 steps
+21:18:16 short_B6_seed2001: step 400/2303, validation loss 6.2615
+21:18:29 short_B6_seed2001: step 500/2303, validation loss 6.0891
+21:19:00 short_B6_seed2001: step 800/2303, validation loss 5.6599
+21:19:41 short_B6_seed2001: step 1200/2303, validation loss 5.3313
+21:20:21 short_B6_seed2001: step 1600/2303, validation loss 5.1016
+21:21:02 short_B6_seed2001: step 2000/2303, validation loss 4.9616
+21:21:33 short_B6_seed2001: step 2303/2303, validation loss 4.9036
+21:21:35 short_B6_seed2001: finished, final validation loss 4.9036, 0.07 h
+21:21:35 null_B6_seed2002: starting, B6, seed 2002, peak lr 0.0024, 2879 steps
+21:22:16 null_B6_seed2002: step 400/2879, validation loss 6.2684
+21:22:29 null_B6_seed2002: step 500/2879, validation loss 6.1078
+21:23:00 null_B6_seed2002: step 800/2879, validation loss 5.6627
+21:23:40 null_B6_seed2002: step 1200/2879, validation loss 5.3369
+21:24:21 null_B6_seed2002: step 1600/2879, validation loss 5.1312
+21:25:02 null_B6_seed2002: step 2000/2879, validation loss 4.9554
+21:25:42 null_B6_seed2002: step 2400/2879, validation loss 4.8497
+21:26:23 null_B6_seed2002: step 2800/2879, validation loss 4.7869
+21:26:34 null_B6_seed2002: step 2879/2879, validation loss 4.7790
+21:26:35 null_B6_seed2002: finished, final validation loss 4.7790, 0.08 h
+21:26:35 short_B6_seed2002: starting, B6, seed 2002, peak lr 0.0024, 2303 steps
+21:27:15 short_B6_seed2002: step 400/2303, validation loss 6.2643
+21:27:29 short_B6_seed2002: step 500/2303, validation loss 6.1092
+21:28:00 short_B6_seed2002: step 800/2303, validation loss 5.6538
+21:28:41 short_B6_seed2002: step 1200/2303, validation loss 5.3225
+21:29:21 short_B6_seed2002: step 1600/2303, validation loss 5.1105
+21:30:02 short_B6_seed2002: step 2000/2303, validation loss 4.9617
+21:30:33 short_B6_seed2002: step 2303/2303, validation loss 4.9100
+21:30:35 short_B6_seed2002: finished, final validation loss 4.9100, 0.07 h
+21:30:35 null_B6_seed2003: starting, B6, seed 2003, peak lr 0.0024, 2879 steps
+21:31:15 null_B6_seed2003: step 400/2879, validation loss 6.2687
+21:31:29 null_B6_seed2003: step 500/2879, validation loss 6.0925
+21:32:00 null_B6_seed2003: step 800/2879, validation loss 5.6734
+21:32:41 null_B6_seed2003: step 1200/2879, validation loss 5.3436
+21:33:21 null_B6_seed2003: step 1600/2879, validation loss 5.1150
+21:34:01 null_B6_seed2003: step 2000/2879, validation loss 4.9564
+21:34:42 null_B6_seed2003: step 2400/2879, validation loss 4.8492
+21:35:22 null_B6_seed2003: step 2800/2879, validation loss 4.7853
+21:35:33 null_B6_seed2003: step 2879/2879, validation loss 4.7801
+21:35:34 null_B6_seed2003: finished, final validation loss 4.7801, 0.08 h
+21:35:34 short_B6_seed2003: starting, B6, seed 2003, peak lr 0.0024, 2303 steps
+21:36:15 short_B6_seed2003: step 400/2303, validation loss 6.2852
+21:36:28 short_B6_seed2003: step 500/2303, validation loss 6.1058
+21:36:59 short_B6_seed2003: step 800/2303, validation loss 5.6763
+21:37:40 short_B6_seed2003: step 1200/2303, validation loss 5.3389
+21:38:20 short_B6_seed2003: step 1600/2303, validation loss 5.1070
+21:39:01 short_B6_seed2003: step 2000/2303, validation loss 4.9654
+21:39:32 short_B6_seed2003: step 2303/2303, validation loss 4.9122
+21:39:33 short_B6_seed2003: finished, final validation loss 4.9122, 0.07 h
+21:39:33 null_B6_seed2004: starting, B6, seed 2004, peak lr 0.0024, 2879 steps
+21:40:14 null_B6_seed2004: step 400/2879, validation loss 6.2875
+21:40:27 null_B6_seed2004: step 500/2879, validation loss 6.1282
+21:40:59 null_B6_seed2004: step 800/2879, validation loss 5.6898
+21:41:39 null_B6_seed2004: step 1200/2879, validation loss 5.3499
+21:42:19 null_B6_seed2004: step 1600/2879, validation loss 5.1219
+21:43:00 null_B6_seed2004: step 2000/2879, validation loss 4.9621
+21:43:40 null_B6_seed2004: step 2400/2879, validation loss 4.8492
+21:44:21 null_B6_seed2004: step 2800/2879, validation loss 4.7852
+21:44:32 null_B6_seed2004: step 2879/2879, validation loss 4.7766
+21:44:33 null_B6_seed2004: finished, final validation loss 4.7766, 0.08 h
+21:44:33 short_B6_seed2004: starting, B6, seed 2004, peak lr 0.0024, 2303 steps
+21:45:14 short_B6_seed2004: step 400/2303, validation loss 6.2865
+21:45:27 short_B6_seed2004: step 500/2303, validation loss 6.1149
+21:45:58 short_B6_seed2004: step 800/2303, validation loss 5.6707
+21:46:39 short_B6_seed2004: step 1200/2303, validation loss 5.3324
+21:47:19 short_B6_seed2004: step 1600/2303, validation loss 5.0994
+21:48:00 short_B6_seed2004: step 2000/2303, validation loss 4.9533
+21:48:32 short_B6_seed2004: step 2303/2303, validation loss 4.9040
+21:48:33 short_B6_seed2004: finished, final validation loss 4.9040, 0.07 h
+21:48:33 null_B6_seed2005: starting, B6, seed 2005, peak lr 0.0024, 2879 steps
+21:49:14 null_B6_seed2005: step 400/2879, validation loss 6.2686
+21:49:27 null_B6_seed2005: step 500/2879, validation loss 6.0834
+21:49:58 null_B6_seed2005: step 800/2879, validation loss 5.6586
+21:50:39 null_B6_seed2005: step 1200/2879, validation loss 5.3387
+21:51:19 null_B6_seed2005: step 1600/2879, validation loss 5.1177
+21:51:59 null_B6_seed2005: step 2000/2879, validation loss 4.9566
+21:52:40 null_B6_seed2005: step 2400/2879, validation loss 4.8370
+21:53:20 null_B6_seed2005: step 2800/2879, validation loss 4.7790
+21:53:32 null_B6_seed2005: step 2879/2879, validation loss 4.7738
+21:53:33 null_B6_seed2005: finished, final validation loss 4.7738, 0.08 h
+21:53:33 short_B6_seed2005: starting, B6, seed 2005, peak lr 0.0024, 2303 steps
+21:54:13 short_B6_seed2005: step 400/2303, validation loss 6.2616
+21:54:27 short_B6_seed2005: step 500/2303, validation loss 6.0907
+21:54:58 short_B6_seed2005: step 800/2303, validation loss 5.6521
+21:55:39 short_B6_seed2005: step 1200/2303, validation loss 5.3273
+21:56:19 short_B6_seed2005: step 1600/2303, validation loss 5.0948
+21:57:00 short_B6_seed2005: step 2000/2303, validation loss 4.9564
+21:57:31 short_B6_seed2005: step 2303/2303, validation loss 4.9018
+21:57:32 short_B6_seed2005: finished, final validation loss 4.9018, 0.07 h
+21:57:32 T1 complete: all runs finished
+21:57:32 copied 48 result files for upload
+21:57:32 waiting for background Drive saves to finish (up to 15 minutes)
+21:57:34 Drive saves finished
