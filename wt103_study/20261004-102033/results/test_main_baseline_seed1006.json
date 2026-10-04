@@ -1,0 +1,14 @@
+{
+  "tag": "main_baseline_seed1006",
+  "kind": "baseline",
+  "seed": 1006,
+  "test_loss": 3.862198114718348,
+  "environment": {
+    "torch": "2.11.0+cu130",
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "amp_fp16": true,
+    "code_commit": "276b090ce15635bd66d47f51bf2e7de7bbde3e77",
+    "test_mode": false
+  }
+}

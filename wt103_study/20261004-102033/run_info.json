@@ -1,0 +1,14 @@
+{
+  "job": {
+    "job": "wt103_study",
+    "args": [
+      "--stage",
+      "3"
+    ],
+    "description": "WikiText-103 study, stage 3: test loss for all 12 final models, then the solver test on the 6 Model A runs. Probably 1 to 3 hours. If a session ends, choose Run all again; finished models are skipped.",
+    "expected_minutes": 120
+  },
+  "code_commit": "276b090ce15635bd66d47f51bf2e7de7bbde3e77",
+  "run_id": "20261004-102033",
+  "gpu": "Tesla T4"
+}
