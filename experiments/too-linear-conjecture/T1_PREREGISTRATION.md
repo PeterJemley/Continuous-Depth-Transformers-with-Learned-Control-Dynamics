@@ -1,6 +1,6 @@
 # Preregistration T1: where does Model A's loss gap come from?
 
-Date: 2026-10-04    Status: **draft, awaiting the author's approval.** Nothing below has been run. Written while T0 was queued and before any T0 result existed.
+Date: 2026-10-04    Status: **approved by the author on 2026-10-04, final.** Nothing below had been run when this version was committed. Written while T0 was queued and before any T0 result existed; approved while T0's second run was in progress, before any T0 result existed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the four contrasts below and their decision rules. Everything else is secondary or exploratory and labelled so.
 
