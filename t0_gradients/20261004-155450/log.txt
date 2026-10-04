@@ -1,0 +1,37 @@
+15:54:52 device: cuda | test mode: False | study folder: /content/drive/MyDrive/cdt-colab/wt103_study | torchdiffeq: {'version': '0.2.5', 'per_interval_state_reset': True, 'runs_odeint_per_interval': True}
+15:55:03 first window of batch 1, decoded: ' and Ai \'s presence in Karhide means his own downfall ; he resigns immediately after Estraven \'s death . \n\n = = = Obsle , Yegey , and Shusgis = = = \n\n Obsle , Yegey , and Shusgis are Commensals , three of the thirty @-@ three councilmen that rule Orgoreyn . Obsle and Yegey are members of the " Open '
+15:55:17 main_hybrid_seed1001: test loss recorded 4.888515, recomputed 4.888515
+15:55:34 main_hybrid_seed1002: test loss recorded 4.851443, recomputed 4.851443
+15:55:59 main_hybrid_seed1003: test loss recorded 4.897454, recomputed 4.897454
+15:56:16 main_hybrid_seed1004: test loss recorded 5.083458, recomputed 5.083458
+15:56:32 main_hybrid_seed1005: test loss recorded 5.139804, recomputed 5.139804
+15:56:48 main_hybrid_seed1006: test loss recorded 4.880451, recomputed 4.880451
+15:56:52 controls: {"mm1": true, "mm2": true, "mm3": true, "mf1_ode": true, "injected_ode": true, "mf1_field": true, "injected_field": true}
+15:57:09 mm4, time-independent field, alpha 0.001: {'1001': 0.998222, '1002': 0.998997, '1003': 0.998828, '1004': 0.998667, '1005': 0.999196, '1006': 0.99899}
+15:57:28 primary measurement with 16 draws per gradient type
+15:58:42 seed 1001: done (75 s)
+16:00:00 seed 1002: done (77 s)
+16:01:18 seed 1003: done (79 s)
+16:02:38 seed 1004: done (79 s)
+16:03:57 seed 1005: done (80 s)
+16:05:17 seed 1006: done (80 s)
+16:05:17 noise reference below 0.95 in some model; doubling the draws to 32, as preregistered
+16:05:17 primary measurement with 32 draws per gradient type
+16:07:56 seed 1001: done (159 s)
+16:10:37 seed 1002: done (160 s)
+16:13:17 seed 1003: done (160 s)
+16:15:58 seed 1004: done (160 s)
+16:18:38 seed 1005: done (160 s)
+16:21:18 seed 1006: done (160 s)
+16:21:18 noise reference below 0.95 in some model; doubling the draws to 64, as preregistered
+16:21:18 primary measurement with 64 draws per gradient type
+16:26:39 seed 1001: done (320 s)
+16:31:59 seed 1002: done (320 s)
+16:37:19 seed 1003: done (320 s)
+16:42:39 seed 1004: done (320 s)
+16:48:00 seed 1005: done (321 s)
+16:53:19 seed 1006: done (320 s)
+16:53:19 secondary: dose-response in alpha, dropout off (S2, S3)
+16:54:59 secondary: freshly initialised models (S4)
+17:26:55 exploratory: fp16 training gradient (S7)
+17:44:14 T0 complete in 109.4 min; results in results/t0_results.json
