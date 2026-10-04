@@ -336,8 +336,9 @@ def lr_at(step, total, peak):
 
 # ------------------------------------------------------------------ training
 
-def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
-    """One training run, resumable. Returns its result record."""
+def train_run(store, meta, tag, kind, seed, peak_lr, total_steps, init_seed=None):
+    """One training run, resumable. Returns its result record. The seed fixes the data order and,
+    unless init_seed is given, the initial weights too."""
     res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
         log(f'{tag}: already finished, skipping')
@@ -347,7 +348,8 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     ck_path = store.L(ck_rel)
     train = load_tokens(store, meta, 'train')
     vx, vy = windows(load_tokens(store, meta, 'validation'), limit=64 if TEST else None)
-    model = new_model(kind, seed)
+    model = new_model(kind, seed if init_seed is None else init_seed)
+    has_ode = hasattr(model, 'ode_block')
     opt = torch.optim.AdamW(model.parameters(), lr=peak_lr)
     scaler = torch.amp.GradScaler('cuda', enabled=AMP)
     gen = torch.Generator().manual_seed(seed)
@@ -403,7 +405,7 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
         state['step'] = step + 1
         if step % 50 == 0:
             state['train_loss'].append([step, loss.item()])
-            if kind == 'hybrid':
+            if has_ode:
                 state['alpha'].append([step, model.ode_block.func.output_scale.item()])
         if state['step'] in (500,) or state['step'] % VAL_EVERY == 0 or state['step'] == total_steps:
             vl = eval_loss(model, vx, vy)
@@ -419,11 +421,12 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     vals = state['val']
     last10 = [v for s, v in vals if s >= 0.9 * total_steps]
     before = [v for s, v in vals if s < 0.9 * total_steps]
-    result = {'tag': tag, 'kind': kind, 'seed': seed, 'peak_lr': peak_lr, 'total_steps': total_steps,
+    result = {'tag': tag, 'kind': kind, 'seed': seed, 'init_seed': seed if init_seed is None else init_seed,
+              'peak_lr': peak_lr, 'total_steps': total_steps,
               'final_val_loss': vals[-1][1], 'val_curve': vals, 'val_at_500': next((v for s, v in vals if s == 500), None),
               'improvement_last_10pct': (before[-1] - last10[-1]) if before and last10 else None,
               'train_loss_every_50': state['train_loss'], 'alpha_every_50': state['alpha'],
-              'alpha_final': model.ode_block.func.output_scale.item() if kind == 'hybrid' else None,
+              'alpha_final': model.ode_block.func.output_scale.item() if has_ode else None,
               'skipped_steps_fp16': state['skipped_steps'], 'train_seconds': state['seconds'], 'resumes': state['resumes'],
               'n_params': sum(p.numel() for p in model.parameters()),
               'config': {**CFG, 'seq': SEQ, 'batch': BATCH, 'warmup': WARMUP, 'min_lr_ratio': MIN_LR_RATIO},

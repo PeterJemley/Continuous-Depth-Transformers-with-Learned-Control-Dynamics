@@ -154,4 +154,12 @@ T1's design does not depend on T0's result. AX is run whatever T0 shows. This su
 
 ## Deviation log
 
-None yet.
+### Implementation details fixed before any real run, 2026-10-04
+
+Results seen before this entry: only test-mode runs of `t1_ladder.py` on tiny models (width 32, 60 steps), built to test the code. No real T1 run had started, and no T0 result existed.
+
+- **How AX differs from AA in code.** AX replaces `ODEFlowBlock.forward` on the model instance with a version that calls `torchdiffeq.odeint`, not `odeint_adjoint`. The plan described this as a flag. The model class, its weights and the forward computation are unchanged, and must-match check 1 confirms it before training.
+- **The study's training function gained two options,** with its defaults unchanged. `train_run` accepts `init_seed`, used only by the null contrast, and logs α for any model with an ODE block, not only the one named "hybrid". The finished WikiText-103 runs are unaffected.
+- **Validation schedule.** The study's rule records validation loss at step 500 and at every multiple of the interval. With an interval of 400, that is steps 400, 500, 800, 1,200 and so on, then the end.
+- **Learning rates for B6 and AA** are recomputed from stage 1's sweep records in `experiments/wikitext103-training/results/`, by the same lowest-validation-loss rule. They come to 2.4e-3 and 6e-4, as stage 1 recorded.
+- **Storage.** T1 reads token files from the study's Drive folder without writing to it, and keeps its own checkpoints and results in `cdt-colab/t1_ladder`.
