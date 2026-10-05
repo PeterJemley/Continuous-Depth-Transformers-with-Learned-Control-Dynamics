@@ -200,3 +200,7 @@ Under the rule as written, the untrained models meet the "supported: distinct re
 **Code.** `g1_regimes.py` is unchanged: it already records every window's mean log curvature at each control value, so it computes everything both rules need. `g1_analyze.py` applies the amended rule.
 - It was tested on synthetic records built to fall in each branch: supported, refuted, intermediate, untestable through the manipulation check, and untestable through the must-fail control. Each gave the expected verdict.
 - Synthetic records copying the five untrained models' log ratios come out "refuted", where the original rule would have said "supported".
+
+### The run, 2026-10-05
+
+The job ran once, in one Colab session on a T4, from code commit 9374217, with no resumes and no Drive failures (`colab-results` branch `g1_regimes/20261005-204242`). Nothing was changed after the amendment. The results are in `G1_RESULTS.md` and `G1_NOTE.md`.

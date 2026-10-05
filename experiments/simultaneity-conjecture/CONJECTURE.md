@@ -78,6 +78,8 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 **G3, a control signal per voice.** Giving each strand its own control signal, entering the vector field multiplicatively as in conjecture C1 of the "too linear" note, makes the regimes more distinct and tracking more accurate than one shared additive control.
 - Forbids: no gain from per-strand multiplicative control over shared additive control, at matched size.
 
+**G1 result, 2026-10-05: refuted at this scale.** With exact gradients, additive control and two tasks, the trained control changed curvature by factors of only 1.08 to 1.27, against the factor of 2 required. The models clearly used u, and the shuffled-control models showed no difference. Exploratory: the two control values differed about fivefold in how fast they contract the state. See `G1_NOTE.md`.
+
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 
 | Outcome | What we would learn | Next |
