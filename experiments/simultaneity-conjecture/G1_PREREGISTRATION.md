@@ -1,6 +1,6 @@
 # Preregistration G1: does a trained control signal partition the vector field into distinct dynamical regimes?
 
-Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
+Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final; amendment A1 to the decision rule approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -160,7 +160,7 @@ Finlay, C., Jacobsen, J.-H., Nurbekyan, L., et al. (2020). *How to train your ne
 
 Kelly, J., Bettencourt, J., Johnson, M. J., et al. (2020). *Learning differential equations that are easy to solve*. arXiv. https://doi.org/10.48550/arxiv.2007.04504
 
-### Proposed amendment A1, before any real result, 2026-10-05: awaiting the author's approval
+### Amendment A1, before any real result, 2026-10-05: approved by the author
 
 Results seen before this entry:
 - the test-mode runs above, on tiny models (width 32, 60 steps);
