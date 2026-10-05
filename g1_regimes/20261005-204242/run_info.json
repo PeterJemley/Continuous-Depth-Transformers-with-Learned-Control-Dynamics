@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "g1_regimes",
+    "args": [],
+    "description": "Test G1: trains Model A with exact gradients while its control u selects the task (next token or the token after next), 5 seeds plus 5 shuffled-control models, then measures trajectory curvature under each control value. 10 short runs and 10 measurements. About 2 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 120
+  },
+  "code_commit": "937421728b25dad877995287c02faef2a1faa7dc",
+  "run_id": "20261005-204242",
+  "gpu": "Tesla T4"
+}

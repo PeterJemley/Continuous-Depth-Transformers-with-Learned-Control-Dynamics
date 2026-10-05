@@ -1,0 +1,131 @@
+20:42:44 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | G1 folder: /content/drive/MyDrive/cdt-colab/g1_regimes | local: /content/cdt_local/g1_regimes
+20:42:56 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+20:43:02 next-task example: input ends ' 21 began captive flight @-@ testing on 22 December 1964'; targets end ' began captive flight @-@ testing on 22 December 1964 .'
+20:43:02 skip-task example: input ends ' the Wason experiments had not actually demonstrated a bias towards confirmation'; targets end 'ason experiments had not actually demonstrated a bias towards confirmation . Instead'
+20:43:07 analytic curvature check: True {'line': '0.0e+00', 'circle': '8.2e-06', 'circle_fast': '2.0e-05', 'helix': '7.2e-06', 'parabola': '4.7e-08'}
+20:43:07 batch check, targets at i+1 and i+2: True
+20:43:07 same-model check: [True, True, True, True, True]
+20:43:08 train_main_seed3001: starting, seed 3001, peak lr 0.0024, 2879 steps
+20:43:49 train_main_seed3001: step 400/2879, validation loss next-token (u=+1) 6.5038, token after next (u=-1) 7.0567
+20:44:01 train_main_seed3001: step 500/2879, validation loss next-token (u=+1) 6.3003, token after next (u=-1) 6.9451
+20:44:34 train_main_seed3001: step 800/2879, validation loss next-token (u=+1) 5.8600, token after next (u=-1) 6.6739
+20:45:16 train_main_seed3001: step 1200/2879, validation loss next-token (u=+1) 5.5287, token after next (u=-1) 6.4201
+20:45:58 train_main_seed3001: step 1600/2879, validation loss next-token (u=+1) 5.3197, token after next (u=-1) 6.2866
+20:46:41 train_main_seed3001: step 2000/2879, validation loss next-token (u=+1) 5.1465, token after next (u=-1) 6.1603
+20:47:23 train_main_seed3001: step 2400/2879, validation loss next-token (u=+1) 5.0321, token after next (u=-1) 6.0772
+20:48:05 train_main_seed3001: step 2800/2879, validation loss next-token (u=+1) 4.9587, token after next (u=-1) 6.0280
+20:48:15 train_main_seed3001: step 2879/2879, validation loss next-token (u=+1) 4.9538, token after next (u=-1) 6.0237
+20:48:41 train_main_seed3001: finished in 0.09 h; next-token loss with u=+1 5.0505, with u=-1 6.9617
+20:48:41 train_shuf_seed3001: starting, seed 3001, peak lr 0.0024, 2879 steps
+20:49:24 train_shuf_seed3001: step 400/2879, validation loss next-token (u=+1) 6.7107, token after next (u=-1) 7.1891
+20:49:36 train_shuf_seed3001: step 500/2879, validation loss next-token (u=+1) 6.5435, token after next (u=-1) 7.1374
+20:50:08 train_shuf_seed3001: step 800/2879, validation loss next-token (u=+1) 6.1680, token after next (u=-1) 6.9107
+20:50:50 train_shuf_seed3001: step 1200/2879, validation loss next-token (u=+1) 5.8806, token after next (u=-1) 6.6824
+20:51:32 train_shuf_seed3001: step 1600/2879, validation loss next-token (u=+1) 5.6777, token after next (u=-1) 6.6012
+20:52:14 train_shuf_seed3001: step 2000/2879, validation loss next-token (u=+1) 5.5539, token after next (u=-1) 6.4488
+20:52:57 train_shuf_seed3001: step 2400/2879, validation loss next-token (u=+1) 5.4384, token after next (u=-1) 6.3953
+20:53:39 train_shuf_seed3001: step 2800/2879, validation loss next-token (u=+1) 5.3589, token after next (u=-1) 6.3645
+20:53:49 train_shuf_seed3001: step 2879/2879, validation loss next-token (u=+1) 5.3718, token after next (u=-1) 6.3398
+20:54:15 train_shuf_seed3001: finished in 0.09 h; next-token loss with u=+1 5.4582, with u=-1 5.4574
+20:54:50 geom_main_seed3001: measured in 35s; mean log curvature u=+1 -3.568, u=-1 -3.650, u=+0 -3.233
+20:55:27 geom_shuf_seed3001: measured in 37s; mean log curvature u=+1 -3.629, u=-1 -3.620, u=+0 -3.626
+20:55:28 train_main_seed3002: starting, seed 3002, peak lr 0.0024, 2879 steps
+20:56:10 train_main_seed3002: step 400/2879, validation loss next-token (u=+1) 6.4933, token after next (u=-1) 7.0682
+20:56:22 train_main_seed3002: step 500/2879, validation loss next-token (u=+1) 6.2964, token after next (u=-1) 6.9513
+20:56:54 train_main_seed3002: step 800/2879, validation loss next-token (u=+1) 5.8841, token after next (u=-1) 6.6637
+20:57:37 train_main_seed3002: step 1200/2879, validation loss next-token (u=+1) 5.5649, token after next (u=-1) 6.4626
+20:58:19 train_main_seed3002: step 1600/2879, validation loss next-token (u=+1) 5.3341, token after next (u=-1) 6.2954
+20:59:01 train_main_seed3002: step 2000/2879, validation loss next-token (u=+1) 5.1660, token after next (u=-1) 6.1821
+20:59:43 train_main_seed3002: step 2400/2879, validation loss next-token (u=+1) 5.0449, token after next (u=-1) 6.0927
+21:00:25 train_main_seed3002: step 2800/2879, validation loss next-token (u=+1) 4.9794, token after next (u=-1) 6.0451
+21:00:36 train_main_seed3002: step 2879/2879, validation loss next-token (u=+1) 4.9716, token after next (u=-1) 6.0354
+21:01:01 train_main_seed3002: finished in 0.09 h; next-token loss with u=+1 5.0613, with u=-1 6.9488
+21:01:02 train_shuf_seed3002: starting, seed 3002, peak lr 0.0024, 2879 steps
+21:01:44 train_shuf_seed3002: step 400/2879, validation loss next-token (u=+1) 6.7390, token after next (u=-1) 7.1732
+21:01:56 train_shuf_seed3002: step 500/2879, validation loss next-token (u=+1) 6.5528, token after next (u=-1) 7.1121
+21:02:28 train_shuf_seed3002: step 800/2879, validation loss next-token (u=+1) 6.2039, token after next (u=-1) 6.8834
+21:03:11 train_shuf_seed3002: step 1200/2879, validation loss next-token (u=+1) 5.8981, token after next (u=-1) 6.7321
+21:03:53 train_shuf_seed3002: step 1600/2879, validation loss next-token (u=+1) 5.7319, token after next (u=-1) 6.5533
+21:04:35 train_shuf_seed3002: step 2000/2879, validation loss next-token (u=+1) 5.5535, token after next (u=-1) 6.4794
+21:05:17 train_shuf_seed3002: step 2400/2879, validation loss next-token (u=+1) 5.4516, token after next (u=-1) 6.3930
+21:05:59 train_shuf_seed3002: step 2800/2879, validation loss next-token (u=+1) 5.3879, token after next (u=-1) 6.3542
+21:06:09 train_shuf_seed3002: step 2879/2879, validation loss next-token (u=+1) 5.3991, token after next (u=-1) 6.3303
+21:06:35 train_shuf_seed3002: finished in 0.09 h; next-token loss with u=+1 5.4828, with u=-1 5.4821
+21:07:10 geom_main_seed3002: measured in 34s; mean log curvature u=+1 -3.687, u=-1 -3.800, u=+0 -3.371
+21:07:43 geom_shuf_seed3002: measured in 33s; mean log curvature u=+1 -4.085, u=-1 -4.092, u=+0 -4.090
+21:07:44 train_main_seed3003: starting, seed 3003, peak lr 0.0024, 2879 steps
+21:08:26 train_main_seed3003: step 400/2879, validation loss next-token (u=+1) 6.4857, token after next (u=-1) 7.0706
+21:08:38 train_main_seed3003: step 500/2879, validation loss next-token (u=+1) 6.2886, token after next (u=-1) 6.9434
+21:09:10 train_main_seed3003: step 800/2879, validation loss next-token (u=+1) 5.8712, token after next (u=-1) 6.6684
+21:09:52 train_main_seed3003: step 1200/2879, validation loss next-token (u=+1) 5.5630, token after next (u=-1) 6.4782
+21:10:35 train_main_seed3003: step 1600/2879, validation loss next-token (u=+1) 5.3209, token after next (u=-1) 6.2976
+21:11:17 train_main_seed3003: step 2000/2879, validation loss next-token (u=+1) 5.1435, token after next (u=-1) 6.1644
+21:11:59 train_main_seed3003: step 2400/2879, validation loss next-token (u=+1) 5.0211, token after next (u=-1) 6.0774
+21:12:41 train_main_seed3003: step 2800/2879, validation loss next-token (u=+1) 4.9602, token after next (u=-1) 6.0347
+21:12:51 train_main_seed3003: step 2879/2879, validation loss next-token (u=+1) 4.9540, token after next (u=-1) 6.0291
+21:13:18 train_main_seed3003: finished in 0.09 h; next-token loss with u=+1 5.0512, with u=-1 6.9218
+21:13:18 train_shuf_seed3003: starting, seed 3003, peak lr 0.0024, 2879 steps
+21:14:00 train_shuf_seed3003: step 400/2879, validation loss next-token (u=+1) 6.7138, token after next (u=-1) 7.2236
+21:14:12 train_shuf_seed3003: step 500/2879, validation loss next-token (u=+1) 6.5445, token after next (u=-1) 7.1438
+21:14:44 train_shuf_seed3003: step 800/2879, validation loss next-token (u=+1) 6.2106, token after next (u=-1) 6.8893
+21:15:26 train_shuf_seed3003: step 1200/2879, validation loss next-token (u=+1) 5.9019, token after next (u=-1) 6.7839
+21:16:09 train_shuf_seed3003: step 1600/2879, validation loss next-token (u=+1) 5.7251, token after next (u=-1) 6.5983
+21:16:51 train_shuf_seed3003: step 2000/2879, validation loss next-token (u=+1) 5.5815, token after next (u=-1) 6.4559
+21:17:33 train_shuf_seed3003: step 2400/2879, validation loss next-token (u=+1) 5.4480, token after next (u=-1) 6.4033
+21:18:15 train_shuf_seed3003: step 2800/2879, validation loss next-token (u=+1) 5.4152, token after next (u=-1) 6.3423
+21:18:25 train_shuf_seed3003: step 2879/2879, validation loss next-token (u=+1) 5.4027, token after next (u=-1) 6.3477
+21:18:51 train_shuf_seed3003: finished in 0.09 h; next-token loss with u=+1 5.4868, with u=-1 5.4875
+21:19:24 geom_main_seed3003: measured in 33s; mean log curvature u=+1 -3.781, u=-1 -3.855, u=+0 -3.405
+21:20:02 geom_shuf_seed3003: measured in 38s; mean log curvature u=+1 -3.894, u=-1 -3.890, u=+0 -3.895
+21:20:03 train_main_seed3004: starting, seed 3004, peak lr 0.0024, 2879 steps
+21:20:45 train_main_seed3004: step 400/2879, validation loss next-token (u=+1) 6.4779, token after next (u=-1) 7.0541
+21:20:57 train_main_seed3004: step 500/2879, validation loss next-token (u=+1) 6.2909, token after next (u=-1) 6.9421
+21:21:29 train_main_seed3004: step 800/2879, validation loss next-token (u=+1) 5.8814, token after next (u=-1) 6.6779
+21:22:12 train_main_seed3004: step 1200/2879, validation loss next-token (u=+1) 5.5493, token after next (u=-1) 6.4398
+21:22:54 train_main_seed3004: step 1600/2879, validation loss next-token (u=+1) 5.3271, token after next (u=-1) 6.2937
+21:23:36 train_main_seed3004: step 2000/2879, validation loss next-token (u=+1) 5.1566, token after next (u=-1) 6.1708
+21:24:18 train_main_seed3004: step 2400/2879, validation loss next-token (u=+1) 5.0423, token after next (u=-1) 6.0894
+21:25:00 train_main_seed3004: step 2800/2879, validation loss next-token (u=+1) 4.9668, token after next (u=-1) 6.0333
+21:25:10 train_main_seed3004: step 2879/2879, validation loss next-token (u=+1) 4.9610, token after next (u=-1) 6.0306
+21:25:36 train_main_seed3004: finished in 0.09 h; next-token loss with u=+1 5.0565, with u=-1 6.9638
+21:25:36 train_shuf_seed3004: starting, seed 3004, peak lr 0.0024, 2879 steps
+21:26:19 train_shuf_seed3004: step 400/2879, validation loss next-token (u=+1) 6.6756, token after next (u=-1) 7.1859
+21:26:31 train_shuf_seed3004: step 500/2879, validation loss next-token (u=+1) 6.5437, token after next (u=-1) 7.1045
+21:27:03 train_shuf_seed3004: step 800/2879, validation loss next-token (u=+1) 6.1631, token after next (u=-1) 6.9273
+21:27:45 train_shuf_seed3004: step 1200/2879, validation loss next-token (u=+1) 5.9647, token after next (u=-1) 6.6505
+21:28:28 train_shuf_seed3004: step 1600/2879, validation loss next-token (u=+1) 5.7016, token after next (u=-1) 6.5668
+21:29:10 train_shuf_seed3004: step 2000/2879, validation loss next-token (u=+1) 5.5702, token after next (u=-1) 6.4389
+21:29:52 train_shuf_seed3004: step 2400/2879, validation loss next-token (u=+1) 5.4435, token after next (u=-1) 6.3833
+21:30:34 train_shuf_seed3004: step 2800/2879, validation loss next-token (u=+1) 5.3735, token after next (u=-1) 6.3331
+21:30:44 train_shuf_seed3004: step 2879/2879, validation loss next-token (u=+1) 5.3685, token after next (u=-1) 6.3307
+21:31:10 train_shuf_seed3004: finished in 0.09 h; next-token loss with u=+1 5.4586, with u=-1 5.4577
+21:31:44 geom_main_seed3004: measured in 33s; mean log curvature u=+1 -3.584, u=-1 -3.819, u=+0 -3.300
+21:32:17 geom_shuf_seed3004: measured in 34s; mean log curvature u=+1 -4.091, u=-1 -4.081, u=+0 -4.088
+21:32:18 train_main_seed3005: starting, seed 3005, peak lr 0.0024, 2879 steps
+21:33:00 train_main_seed3005: step 400/2879, validation loss next-token (u=+1) 6.4926, token after next (u=-1) 7.0569
+21:33:12 train_main_seed3005: step 500/2879, validation loss next-token (u=+1) 6.3176, token after next (u=-1) 6.9583
+21:33:44 train_main_seed3005: step 800/2879, validation loss next-token (u=+1) 5.8793, token after next (u=-1) 6.6731
+21:34:27 train_main_seed3005: step 1200/2879, validation loss next-token (u=+1) 5.5422, token after next (u=-1) 6.4320
+21:35:09 train_main_seed3005: step 1600/2879, validation loss next-token (u=+1) 5.3071, token after next (u=-1) 6.2717
+21:35:51 train_main_seed3005: step 2000/2879, validation loss next-token (u=+1) 5.1493, token after next (u=-1) 6.1573
+21:36:33 train_main_seed3005: step 2400/2879, validation loss next-token (u=+1) 5.0362, token after next (u=-1) 6.0735
+21:37:16 train_main_seed3005: step 2800/2879, validation loss next-token (u=+1) 4.9774, token after next (u=-1) 6.0314
+21:37:26 train_main_seed3005: step 2879/2879, validation loss next-token (u=+1) 4.9687, token after next (u=-1) 6.0249
+21:37:52 train_main_seed3005: finished in 0.09 h; next-token loss with u=+1 5.0606, with u=-1 6.9645
+21:37:52 train_shuf_seed3005: starting, seed 3005, peak lr 0.0024, 2879 steps
+21:38:34 train_shuf_seed3005: step 400/2879, validation loss next-token (u=+1) 6.7133, token after next (u=-1) 7.1905
+21:38:46 train_shuf_seed3005: step 500/2879, validation loss next-token (u=+1) 6.6011, token after next (u=-1) 7.1092
+21:39:19 train_shuf_seed3005: step 800/2879, validation loss next-token (u=+1) 6.1959, token after next (u=-1) 6.8958
+21:40:01 train_shuf_seed3005: step 1200/2879, validation loss next-token (u=+1) 5.9113, token after next (u=-1) 6.7042
+21:40:43 train_shuf_seed3005: step 1600/2879, validation loss next-token (u=+1) 5.7066, token after next (u=-1) 6.5617
+21:41:25 train_shuf_seed3005: step 2000/2879, validation loss next-token (u=+1) 5.5747, token after next (u=-1) 6.4601
+21:42:07 train_shuf_seed3005: step 2400/2879, validation loss next-token (u=+1) 5.4433, token after next (u=-1) 6.4027
+21:42:50 train_shuf_seed3005: step 2800/2879, validation loss next-token (u=+1) 5.3944, token after next (u=-1) 6.3653
+21:43:00 train_shuf_seed3005: step 2879/2879, validation loss next-token (u=+1) 5.3763, token after next (u=-1) 6.3689
+21:43:26 train_shuf_seed3005: finished in 0.09 h; next-token loss with u=+1 5.4643, with u=-1 5.4649
+21:43:58 geom_main_seed3005: measured in 32s; mean log curvature u=+1 -3.752, u=-1 -3.931, u=+0 -3.451
+21:44:34 geom_shuf_seed3005: measured in 36s; mean log curvature u=+1 -4.303, u=-1 -4.306, u=+0 -4.306
+21:44:34 G1 complete: all runs and measurements finished
+21:44:34 copied 21 result files for upload
+21:44:34 waiting for background Drive saves to finish (up to 15 minutes)
+21:44:34 Drive saves finished
