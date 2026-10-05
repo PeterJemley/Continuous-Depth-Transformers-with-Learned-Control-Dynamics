@@ -46,6 +46,47 @@ each strand followed continuously, all at once, distinct from one another, and i
 
 **V3, interaction: voices that inform each other.** On texts where strands affect each other ("A gave B the key"), V2's model with modulated coupling beats the same model with the coupling switched off, by more than on texts where strands are independent. Without this, the voices are parallel but not polyphonic in the musical sense, where lines answer each other. This draws on the earlier "too linear" conjecture C3.
 
+## Dynamical regimes as voices
+
+Added 2026-10-05, from the author's clarification.
+
+**The idea.** The paper reported that "adaptive ODE solvers reveal geometric structure in the learned dynamics: the control signal partitions the vector field into distinct dynamical regimes with different curvature characteristics." The author's aim links that claim to polyphony. If a control signal can place trajectories in geometrically distinct regions of a vector field, each with its own curvature, then several strands of meaning could be carried at once as continuous trajectories through distinct regimes. Each strand would be a voice with its own character, guided by the ODE, and the voices would be told apart by their geometry.
+
+The analogy has a precise counterpart in music. Listeners track a voice better when the voices differ in timbre (Siedenburg et al., 2021). Here, a regime's curvature plays the part of a voice's timbre.
+
+**The ODE block already has many simultaneous trajectories.** Each token's state traces its own path through the block's depth, all of them at the same time, coupled through attention. So the block is already a set of simultaneous, interacting trajectories. What has not been shown is that the control signal, or a strand's identity, sends them through distinct regimes.
+
+**What the evidence says so far.** The paper's measure was solver effort: dopri5 needed more function evaluations at negative control. The WikiText-2 replication tested this as H6 and refuted it. Negative control needed more effort in only 2 of 8 seeds, and in most seeds the count was the same at every control value. That refutation stands for the model as built.
+
+But that model was trained with adjoint gradients that T1 found costly. Its control signal was also attached after training, on one prompt. And solver effort is only a coarse measure of geometry. Kelly et al. (2020) show that an adaptive solver's cost is governed by the higher-order derivatives of the trajectories, so it reflects curvature only indirectly and in coarse steps of 6 evaluations. So whether a properly trained model forms distinct regimes is untested, not refuted. Testing it is a new conjecture, not a rescue of H6.
+
+**Measures, more direct than solver effort.**
+- The curvature of each trajectory: how sharply it turns, computed from its velocity and acceleration along the path.
+- The local Jacobian spectrum of the vector field along the path: whether it contracts, expands or rotates the state, and how strongly.
+- Solver effort, kept as a secondary measure for comparison with the paper.
+
+Prior work shows trajectory geometry can also be shaped deliberately by regularisation (Finlay et al., 2020; Kelly et al., 2020).
+
+**G1, regimes exist when trained for.** In a model trained with exact gradients, with the control signal used throughout training, different control values send trajectories through geometrically distinct regimes. The differences in curvature and Jacobian spectrum between control values exceed the spread within each control value.
+- Forbids: no separation beyond the within-control spread.
+- Must fail: an untrained model, and a model trained with shuffled control labels, show no separation.
+- Must match: two runs at the same control value give the same geometry.
+
+**G2, regimes as voices.** In texts with several strands, token trajectories group into regimes by strand. Strands whose regimes are more distinct are tracked more accurately, the analogue of timbre.
+- Forbids: no relation between how distinct a strand's regime is and how well it is tracked, measured with TV1's tracking measure.
+
+**G3, a control signal per voice.** Giving each strand its own control signal, entering the vector field multiplicatively as in conjecture C1 of the "too linear" note, makes the regimes more distinct and tracking more accurate than one shared additive control.
+- Forbids: no gain from per-strand multiplicative control over shared additive control, at matched size.
+
+G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
+
+| Outcome | What we would learn | Next |
+|---|---|---|
+| G1: distinct regimes appear when the control is trained in, and not in the controls | The paper's geometric picture holds for a properly trained model, with a direct measure of geometry. This is a new result; H6's refutation of the original model stands. | G2 |
+| G1: no distinct regimes even when trained for | Control in this architecture shifts the dynamics without partitioning them, at least by these measures. | Test multiplicative control (G3) before giving up the geometric picture. |
+| G2: regime distinctness predicts tracking | Geometry is how the model keeps its voices apart, and gives a design target. | G3 |
+| G2: no relation | Voices are kept apart some other way, if at all. The timbre analogy does not carry over. | Return to V2's explicit-voice design. |
+
 ## Rivals
 
 | Rival | What it predicts that differs | How the test tells them apart |
@@ -91,11 +132,15 @@ each strand followed continuously, all at once, distinct from one another, and i
 
 Drożdż, K., & Heilbron, M. (2026). *Entity tracking emerges in sub-billion parameter language models and exceeds human performance in naturalistic narratives*. arXiv. https://doi.org/10.48550/arxiv.2608.18083 (preprint)
 
+Finlay, C., Jacobsen, J.-H., Nurbekyan, L., et al. (2020). *How to train your neural ODE: The world of Jacobian and kinetic regularization*. arXiv. https://doi.org/10.48550/arxiv.2002.02798
+
 Goyal, A., Lamb, A., Hoffmann, J., et al. (2019). *Recurrent independent mechanisms*. arXiv. https://doi.org/10.48550/arxiv.1909.10893
 
 Huron, D. (1991). The avoidance of part-crossing in polyphonic music: Perceptual evidence and musical practice. *Music Perception, 9*(1), 93–103. https://doi.org/10.2307/40286160
 
 Ji, Y., Tan, C., Martschat, S., et al. (2017). Dynamic entity representations in neural language models. In *Proceedings of EMNLP 2017* (pp. 1830–1839). https://doi.org/10.18653/v1/d17-1195
+
+Kelly, J., Bettencourt, J., Johnson, M. J., et al. (2020). *Learning differential equations that are easy to solve*. arXiv. https://doi.org/10.48550/arxiv.2007.04504
 
 Kidger, P., Morrill, J., Foster, J., et al. (2020). *Neural controlled differential equations for irregular time series*. arXiv. https://doi.org/10.48550/arxiv.2005.08926
 
