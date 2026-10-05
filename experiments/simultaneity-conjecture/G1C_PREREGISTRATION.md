@@ -1,6 +1,6 @@
 # Preregistration G1c: does a trained control signal set how strongly the dynamics contract?
 
-Date: 2026-10-05    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -178,7 +178,32 @@ G1's trained models, by contrast, had rates of 0.87 to 8.5. So the rule treats r
 
 ## Deviation log
 
-None yet.
+### Implementation details fixed before any real run, 2026-10-05
+
+Results seen before this entry: only test-mode runs of `g1c_contraction.py` on tiny models (width 32, 60 steps), and the analytic checks, which use no data. No real G1c run had started.
+
+- **Code.**
+  - `g1c_contraction.py` trains and measures. Its training is G1's `train_g1`, unchanged.
+  - `g1c_analyze.py` applies the decision rule and writes `G1C_RESULTS.md`.
+  - The Colab job is `colab/jobs/g1c_contraction.py`.
+- **Integration times.** The block is integrated by dopri5 directly to the five depths, not to G1's 17 with five picked out. At tolerance 1e-5 the states agree to that tolerance.
+- **Probes.**
+  - Each batch of 32 windows draws 8 ±1 probe vectors, shared by the three control values and by S3. Shared probes make differences between control values less noisy.
+  - Must-match B uses a second, independent set of 8, for u = +1 and u = −1.
+  - The probe generator is seeded from the model's seed plus 500, and plus 1,500 for the second set.
+- **Must-fail A** counts a shuffled-control model as passing when R is between 0.8 and 1.25. If both of its rates are below 0.1, which R cannot score, it passes when the two differ by less than 0.1, as in must-fail B.
+- **Must-match A and B,** when a model's R is not defined because a rate is below 0.1, require the two halves, or the two probe sets, to fall in the same case of the scoring table.
+- **S2's normalised contraction** is computed at model level, as c̄ / √(D · f̄). f̄ is the mean squared Frobenius norm per token, estimated from the same probes as the mean of ‖(∂f/∂h)z‖², and D is 256.
+- **S5** reruns G1's geometry measurement on windows 257–512.
+- **Tests before this entry.**
+  - The divergence check passed: diagonal error 1.4e-8, dense error 0.19%.
+  - On a tiny model, the estimator matched the exact Jacobian trace, computed from the full Jacobian, within its expected noise, and the Frobenius norm to 0.02%.
+  - `g1c_analyze.py` gave the expected verdict on synthetic records for all 13 branches:
+    - supported, both by ratio and by the "u = +1 does not contract" case;
+    - refuted, three ways: ratio near 1, reversed direction, and u = −1 not contracting;
+    - intermediate, two ways;
+    - untestable through each of the six preconditions.
+  - A second run of the job skipped all finished work.
 
 ## References
 
