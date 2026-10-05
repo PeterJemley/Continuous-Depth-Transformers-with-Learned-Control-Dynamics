@@ -1,6 +1,6 @@
 # Preregistration G1: does a trained control signal partition the vector field into distinct dynamical regimes?
 
-Date: 2026-10-05    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -140,10 +140,63 @@ The thresholds 0.2 and 0.8 are the conventional small and large effect sizes, ch
 
 ## Deviation log
 
-None yet.
+### Implementation details fixed before any real run, 2026-10-05
+
+Results seen before this entry: only test-mode runs of `g1_regimes.py` on tiny models (width 32, 60 steps), built to test the code, and the analytic check, which uses no data. No real G1 run had started.
+
+- **Code.** `g1_regimes.py` trains and measures; `g1_analyze.py` applies the decision rule and writes `G1_RESULTS.md`. Both are committed before any real run. The Colab job is `colab/jobs/g1_regimes.py`.
+- **Exact gradients** are implemented as in T1: the model's `ODEFlowBlock.forward` is replaced on the instance by a version that calls `torchdiffeq.odeint`. The same-model check, run before training, confirms the exact and adjoint versions give the same weights, the same first-batch loss and the same downstream gradients with u given.
+- **Random streams.** For a seed, the windows come from a generator seeded by the seed, the tasks from a second generator (seed × 10 + 1), and the shuffled models' u from a third (seed × 10 + 2). A seed's main and shuffled models therefore start from the same weights and see the same windows and tasks; only u differs.
+- **Validation windows** are non-overlapping 128-token inputs, each with the two following tokens so that both tasks have targets at every position. The first 256 are the geometry windows. The manipulation check and S8 use all of them in the split. During training, the curves use the first 512.
+- **Points excluded from log curvature.** Points where the speed or the curvature is exactly zero, or the curvature is not finite, are excluded and counted, as the plan says for zero speed. Zero curvature also gives an undefined logarithm, so it is treated the same way.
+- **Curvature is computed in float64** from the float32 velocity and acceleration. The model and the integration stay in float32. The dopri5 step limit is 10,000.
+- **S4** uses depths 0, 0.25, 0.5, 0.75 and 1, which are 5 of the 17 depths, and Rademacher probes. The trace is divided by the number of tokens. **S5** counts function evaluations per batch of 32 windows, as solver effort depends on the batch. **S6** trains on windows 1, 3, 5… and tests on windows 2, 4, 6…, numbered from 1; both control values of a window fall on the same side.
+- **The analytic check** also includes the circle at three times the speed, which must give the same curvature, and a parabola traced by a time-dependent field, which checks the ∂f/∂τ term. The check runs with no data and passed before this entry: worst relative error 2.0e-5. Separately, the forward-mode acceleration was compared with a finite-difference estimate on an untrained tiny model; the median relative difference in curvature was 7e-5.
+- **If the analytic check fails,** the job still trains and measures so that the cause can be found, but the verdict is untestable, as preregistered.
 
 ## References
 
 Finlay, C., Jacobsen, J.-H., Nurbekyan, L., et al. (2020). *How to train your neural ODE: The world of Jacobian and kinetic regularization*. arXiv. https://doi.org/10.48550/arxiv.2002.02798
 
 Kelly, J., Bettencourt, J., Johnson, M. J., et al. (2020). *Learning differential equations that are easy to solve*. arXiv. https://doi.org/10.48550/arxiv.2007.04504
+
+### Proposed amendment A1, before any real result, 2026-10-05: awaiting the author's approval
+
+Results seen before this entry:
+- the test-mode runs above, on tiny models (width 32, 60 steps);
+- the geometry of five **untrained** full-size models, seeds 3001–3005 at initialisation, on the first 64 validation windows of the test-mode token file. That file holds the start of the real WikiText-103 validation split.
+
+No full-size model had been trained, and no real G1 run had started.
+
+**The problem.** The preregistered statistic does not measure what the decision rule assumes.
+- Each window's value is the mean of log curvature over 128 tokens and 17 depths. That average varies very little from window to window: the standard deviation across windows was 0.019 to 0.023 in the untrained models.
+- Cohen's d divides by that spread, so any consistent shift between u = +1 and u = −1 gives a large d, however small the shift.
+- In the untrained models, adding ±u through the randomly initialised `control_embed` alone gave d = −3.5, +6.0, −2.9, +0.9 and +3.3. Four of five exceed 0.8 in absolute value.
+- The curvature itself differed by factors of only 1.07, 1.16, 1.06, 1.02 and 1.07.
+
+Under the rule as written, the untrained models meet the "supported: distinct regimes" threshold, |d| of at least 0.8 in 4 of 5. Only the manipulation check would stop that verdict. The thresholds 0.2 and 0.8 are conventional small and large effects for spreads like those of individual measurements, not for averages this stable. The must-fail control could catch the problem only if the shuffled models kept their initial shift. If training shrank u's effect in the shuffled models, any modest shift in the main models would count as distinct regimes. Either way the rule would not answer the question asked.
+
+**The amendment.** It measures the size of the difference in curvature itself, on a scale that means something geometrically.
+
+- **A1a. Primary statistic: the curvature ratio.**
+  - For each model, the log ratio is the mean over the 256 windows of κ̄(w, +1) − κ̄(w, −1), where κ̄ is the window's mean log curvature, as preregistered.
+  - The curvature ratio is exp(|log ratio|), the larger curvature over the smaller, as a geometric mean. A ratio of 2 means trajectories under one control value turn twice as sharply as under the other.
+- **A1b. Decision rule.**
+  - Supported: distinct regimes, if the ratio is at least 2 in at least 4 of 5 main models.
+  - Refuted: no distinct regimes, if the ratio is below 1.25 in at least 4 of 5 main models.
+  - Intermediate otherwise.
+  - Preconditions 1 (manipulation) and 2 (analytic) are unchanged.
+- **A1c. Must fail.** The shuffled-control models must give a ratio below 1.25 in at least 4 of 5.
+- **A1d. Must match.** In every main model, the log ratio computed from windows 1, 3, 5… and from windows 2, 4, 6… must differ by less than 0.1, a factor of about 1.1. This is far smaller than the gap between the two thresholds, log 2 − log 1.25 = 0.47.
+- **A1e. Secondary measures.**
+  - The original statistic, Cohen's d with the pooled standard deviation across windows, is kept as secondary S0c.
+  - S2, S7 and S9 report log ratios in place of d. S0 and S0b are unchanged.
+
+**Why these thresholds.**
+- Random control embeddings at initialisation gave ratios of 1.02 to 1.16. The refutation threshold, 1.25, sits just above that range: below it, the trained control does no more than an untrained one.
+- A ratio of 2, a doubling of how sharply trajectories turn, is the smallest difference I would call distinct regimes rather than a nudge. It lies well clear of both the initial range and the refutation threshold.
+- These numbers were chosen after seeing untrained models only. They are a judgement, not a convention, and the report states them as such.
+
+**Code.** `g1_regimes.py` is unchanged: it already records every window's mean log curvature at each control value, so it computes everything both rules need. `g1_analyze.py` applies the amended rule.
+- It was tested on synthetic records built to fall in each branch: supported, refuted, intermediate, untestable through the manipulation check, and untestable through the must-fail control. Each gave the expected verdict.
+- Synthetic records copying the five untrained models' log ratios come out "refuted", where the original rule would have said "supported".
