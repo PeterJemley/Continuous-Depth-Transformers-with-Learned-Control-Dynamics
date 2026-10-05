@@ -1,108 +1,106 @@
-# Conjecture note: perceiving language at once, not as an extrusion
+# Conjecture note: reading language polyphonically
 
 Date: 2026-10-05    Status: conjecture, untested
 
-Written with the scientific-experimentation skill (conjecture-note template). Nothing here is a finding.
+Written with the scientific-experimentation skill (conjecture-note template). Nothing here is a finding. Revised the same day after the author corrected the first version, which had misread the aim as setting word order aside.
 
 ## The question
 
-**As the author put it.** Sight and hearing let us perceive more than one thing at a time. Language reaches us "extruded": one word after another, in an order grammar imposes, such as subject, verb, object. That order is correct, but it limits how meaning is perceived. The aim is not to fix language. It is to let an AI perceive a text's dimensions, ideas and interconnections as smoothly and naturally as sight and hearing take in a scene or a chord. This is why the project began.
+**As the author put it.** Sight and hearing let us perceive more than one thing at a time: many notes sound and are heard together, and the elements of an image are taken in together. Language reaches us one word after another, in grammatical order. That order is right and stays. The aim is an AI that traces and follows meaning throughout a text *simultaneously*, perhaps using ODEs: its dimensions, ideas, and how they interact and interconnect, as naturally as a listener follows several voices in music or a viewer takes in a scene. This is why the project began.
 
-**Restated against the systems at hand.** A text is a one-dimensional sequence of tokens. Is the meaning a model builds tied to the order the text arrived in, or does the model recover the order-independent structure of what is said: who did what to whom, and how the ideas relate? And would a different design let it do so more completely, earlier in its depth, or from less data?
+**Restated against the systems at hand.** A text, like music, unfolds in order. A listener to a fugue does not hear one note at a time. They hear several voices at once, each a continuous line with its own course, and hear how the lines relate. The question is whether an AI reading a text holds its many strands the same way:
+- the characters and their changing states;
+- the arguments and themes;
+- who knows or wants what;
+- the tone;
 
-Linguistics has a name for the speaker's side of this: the linearization problem. Thought can be multidimensional, but speech must put it in a single order. Levelt (1981) put the open question this way: "An important question is whether the linearization requirement is enforced by the oral modality of speech or whether it is a deeper modality-independent property of language use." This project asks the listener's side of the same question, for machines.
+each strand followed continuously, all at once, distinct from one another, and in interaction. And would a design built for this, with each strand a continuous trajectory along the text, governed by coupled differential equations, do it better than today's models?
 
 ## Readings
 
-"Extruded" has several readings in today's language models. They make different predictions, so they are kept apart.
+"Following meaning simultaneously" has several parts. Each is a property a model can have or lack, and each predicts something different.
 
-| Reading | Where it shows | What it predicts |
+| Reading | What it means for a model | What it predicts |
 |---|---|---|
-| E1. Reading is serial | **Not true of transformers.** Self-attention takes in the whole context at once and compares every position with every other in one step. The models here do not read word by word. | Nothing. This reading is set aside. The extrusion, if any, lies elsewhere. |
-| E2. Seeing is one-way | Language models use a causal mask: each position sees only what came before it, as hearing receives sound in time. A word cannot be understood in the light of what follows it until a later position. | Meaning that depends on later words is assembled late, or only at the end of the sentence. |
-| E3. Position is a line | Each token's position is a single coordinate on a line. Structure such as a tree, or a graph of relations, has to be recovered from that line. | Paraphrases that put the same meaning in different orders give different representations, at least in early layers. |
-| E4. Output is serial | Generation produces one token at a time. | Outside this note's scope, which is about perception, not production. |
+| P1. How many voices at once | The number of strands whose current state can be read from the model at a given point in the text | Readout degrades as the number of concurrent strands rises, as listeners' tracking degrades with more voices |
+| P2. Voices stay distinct | Strands don't blend into each other, even when they share words or alternate closely | More errors when strands are similar or interleave tightly, the analogue of voices crossing in music |
+| P3. Voices interact | A change in one strand updates the strands it affects: "A gave B the key" changes both A and B | Errors concentrate where strands interact, if interaction is handled poorly |
+| P4. Each voice is continuous | A strand's state is carried and updated through the text, not reconstructed only when it is mentioned | A strand's state stays readable at points where it is not mentioned |
 
 ## What the evidence already says
 
-- **Models already recover some structure the line hides.** Hewitt and Manning (2019) found that whole syntax trees are embedded in the geometry of BERT's and ELMo's word vectors: "such transformations exist for both ELMo and BERT but not in baselines, providing evidence that entire syntax trees are embedded implicitly in deep models' vector geometry." So the sequence is not simply what the model keeps. Some of it is undone. Whether meaning beyond syntax is recovered independently of order is the open part.
-- **Human languages use simultaneity where the medium allows it.** Sign languages layer meaning across both hands, the face and space at once (Loos et al., 2022). That is natural evidence that some of language's linearity comes from the vocal channel, as Levelt asked. They are also "unexpectedly sequential" in places, and fully simultaneous production of two predicates is rare (Dushkina, 2019). So simultaneity has limits in cognition too, not only in speech. Any conjecture that assumes unlimited simultaneity is criticised by this.
-- **Meaning can be written down without order.** Abstract Meaning Representation writes a sentence's meaning as a graph that "abstracts away from syntactic features such as word order" (Azin & Eryiğit, 2019). It gives one concrete target for order-independent meaning.
-- **This project's own results don't test the inspiration.** The continuous-depth block changed how a representation evolves through the model's depth, not how the model takes in the sequence: it saw the same tokens, in the same order, under the same causal mask. Its studies refuted the paper's claims and, through T1, traced most of its loss gap to a training defect. Neither says anything for or against perceiving language at once. The project's first design addressed a different axis from the one that inspired it. That is worth knowing.
+- **In music, tracking voices has limits, and distinctness helps.** Listeners followed a cued voice in Bach's *The Art of the Fugue* less well as the voices increased from 2 to 4. For young listeners, the decline was smaller when the voices were played on different instruments: "performance degraded less drastically with an increase in the number of voices for timbrally heterogeneous mixtures" (Siedenburg et al., 2021). Bach himself kept voices from crossing in pitch, apparently to limit "perceptual confusion as the density of auditory images increases" (Huron, 1991). A model of polyphonic reading should expect the same pressures: number, distinctness and crossing.
+- **Today's language models already track several entities.** In natural narratives, entity tracking "is already present at 410 million parameters" and improves with scale. In humans, it "degrades specifically with narrative complexity, not narrative length" (Drożdż & Heilbron, 2026). That preprint also reports earlier probing evidence that most of the measured accuracy came from trivial cases. So the measure has to exclude cases a model can answer without tracking.
+- **Explicit voices have been tried.** EntityNLM gives each entity its own representation and updates it through the text (Ji et al., 2017). Slot attention gives each object in an image its own slot (Locatello et al., 2020). Recurrent Independent Mechanisms run several modules with their own dynamics that interact sparingly (Goyal et al., 2019). Neural controlled differential equations let a continuous state evolve driven by an input path (Kidger et al., 2020). Taken together, these are the parts a polyphonic design would be built from.
+- **This project's results don't test the idea.** The continuous-depth block evolved one representation through the model's depth, not several strands along the text. So the ODE this idea calls for, many voices each running continuously along the text, has not been tried here, and the refuted claims say nothing against it. One finding carries over: any continuous design should be trained with exact gradients, since T1 found the adjoint method cost Model A about 0.8 nats.
 
 ## Conjectures
 
-**S1, descriptive: trained models already partly perceive meaning independently of order.** At some depth, a trained language model's representation of a sentence is similar for paraphrases that say the same thing in different orders, and different for sentences with the same words in roles that change the meaning.
+**V1, descriptive: models have a limit on how many voices they can hold, set by voices, not length.** For a language model reading texts with k interleaved strands, the accuracy of reading each strand's current state falls as k rises, more steeply than when the text simply gets longer with k fixed. It falls further when strands are similar or cross. This is also a measurement of how many voices today's models hold.
+- Forbids: accuracy flat in k at matched length, in every model tested.
+- A crossing effect absent where strands are similar would criticise the music analogy.
 
-- Paraphrases: "The dog chased the cat" and "The cat was chased by the dog"; "She gave the book to him" and "She gave him the book".
-- Role swaps: "The dog chased the cat" and "The cat chased the dog".
-- Consequence: a linearization-invariance score, paraphrase similarity minus role-swap similarity, rises above zero at some layer and grows with depth.
-- Forbids: no layer, in any model tested, where paraphrases are reliably more similar than role swaps.
-- What kind of claim: a measurement of existing models, the foundation every later test needs.
+**V2, design: continuous, separate voices hold more at once.** A model with k explicit strand states, each evolving continuously along the text and driven by it (a controlled differential equation), is compared with a transformer of matched size, compute and training data. The strands are coupled through interactions that the strands' content modulates. The polyphonic model's accuracy falls less as k rises.
+- What kind of claim: learnability, not capacity. A transformer can in principle hold the same information.
+- Forbids: the same slope of decline at matched budgets, or a lower slope only at k = 1, where polyphony isn't needed.
 
-**S2, design: the one-way view is part of what extrudes meaning.** A model allowed to see in both directions builds order-independent meaning earlier in its depth, and from less training data, than a causal model of the same size.
-
-- This is a claim about learnability. A causal model can represent the same meaning by the sentence's last word.
-- Consequence: matched bidirectional and causal models, trained on the same data, differ in how early and how strongly S1's score appears.
-- Forbids: matched models with the same invariance profile.
-
-**S3, the inspiration as a design.** A model that holds a text as a set of units whose interactions are modulated by what they mean perceives the text's relations more completely than one that holds it as a sequence. This draws on the earlier "too linear" conjecture C3. Its test depends on S1's measure and on knowing what S2 shows, so it comes last.
+**V3, interaction: voices that inform each other.** On texts where strands affect each other ("A gave B the key"), V2's model with modulated coupling beats the same model with the coupling switched off, by more than on texts where strands are independent. Without this, the voices are parallel but not polyphonic in the musical sense, where lines answer each other. This draws on the earlier "too linear" conjecture C3.
 
 ## Rivals
 
 | Rival | What it predicts that differs | How the test tells them apart |
 |---|---|---|
-| Word overlap | Paraphrases share more words than unrelated sentences, so similarity rises for that reason alone | Role swaps share every word. The score subtracts them, so overlap alone gives a score near zero. |
-| Length and position | Pairs of different length or with words moved differ for surface reasons | Match lengths in the item set, and compare against a bag-of-words baseline and an untrained model. |
-| The probe or similarity measure creates the effect | Any model, even an untrained one, shows a positive score | An untrained model of the same architecture must score near zero. That is the must-fail control. |
-| Too few items | Chance produces a positive score | Preregister at least 200 pairs of each kind, and check the chance range in advance. |
-
-## Prior art
-
-- Levelt (1981), the speaker's linearization problem.
-- Hewitt and Manning (2019), syntax trees in the geometry of word vectors.
-- Loos et al. (2022) and Dushkina (2019), simultaneity in sign languages and its limits.
-- Abstract Meaning Representation, described by Azin and Eryiğit (2019).
-
-None of these measures order-independent meaning directly, in the sense S1 does, as far as this search found. That is a statement about the search, not a novelty claim. Paraphrase and sentence-similarity work exists and should be searched further before any claim of novelty.
+| Length, not voices | Accuracy falls with the number of tokens, whatever k is | A length-matched control: the same length with fewer strands, padded with neutral sentences |
+| Shortcuts: the answer is the last mention | Accuracy high whenever the queried strand was mentioned recently | Query points chosen so the last mention does not give the answer; report accuracy by distance since the last mention |
+| Too few items, or chance | Apparent slopes from noise | Preregistered item counts per k, with the chance range checked in advance |
+| Matched budgets not matched | V2's model wins by having more parameters or compute | Match parameters and compute, with equal tuning, as in T1 |
+| Training defects | A continuous design loses because of its gradients | Exact gradients, after T1 |
 
 ## Proposed tests, in order
 
-**TS1. Measure S1 on existing models.**
-- Models: our WikiText-103 baseline and Model A checkpoints, and public pretrained models of a few sizes, so the measure is checked across scales.
-- Items: a preregistered set of at least 200 paraphrase pairs and 200 role-swap pairs, built from templates and checked by hand, with lengths matched.
-- Primary outcome: the invariance score by layer, with an interval across items.
-- Must fail: the same architecture untrained, and a bag-of-words representation, both scoring near zero.
-- Must match: a sentence compared with itself gives the maximum.
-- Cost: no training. It runs on a CPU in this environment once the models' weights are downloaded.
+**TV1. Measure V1 on existing models, with no training.**
+- **Texts:** generated from templates, with k = 1 to 8 interleaved strands, such as characters whose locations, possessions or moods change. Each text is checked by code to have one correct state per strand at every query point.
+- **Queries:** at chosen points, ask each strand's current state, by prompting and by probing the hidden states, with the shortcut controls above.
+- **Models:** public pretrained models at a few sizes, which tests the measure against scale, plus our own small WikiText-103 models.
+- **Primary outcome:** the slope of accuracy against k at matched length.
+- **Controls:** must fail, shuffled answers and an untrained model at chance; must match, near-perfect accuracy at k = 1 for the larger models.
+- **Cost:** runs on a CPU here, or briefly on Colab for larger models.
 
-**TS2. S2, if TS1 finds a usable measure.** Matched small causal and bidirectional models trained on the same pinned data, with S1's score as the primary outcome.
+**TV2. Test V2 by training.** Small transformer and polyphonic models, matched, trained on the same pinned data with strand-tracking texts mixed in, using TV1's measure.
 
-**TS3. S3, only after TS1 and TS2.**
+**TV3. Test V3 by switching the coupling off,** on texts with and without interacting strands.
 
 ## What each outcome would teach
 
 | Outcome | What we would learn | Next |
 |---|---|---|
-| TS1: invariance appears and grows with depth | Models already partly perceive meaning independently of order. The measure works and can steer design. | TS2: does the one-way view limit it? |
-| TS1: invariance only in large models | Order-independent meaning emerges with scale; small models stay closer to the sequence. | Design tests at a scale where it appears, or ask what small models lack. |
-| TS1: no invariance in any model | Today's models keep meaning tied to order, at least by this measure. The inspiration names a real gap. | Check the measure against AMR-annotated sentences, then go straight to design tests such as S3. |
-| TS1: the controls fail | The measure is not trustworthy. | Redesign the measure before any conclusion. |
+| TV1: a clear limit set by voices, worse with crossing | Models have a polyphony limit like listeners'. The measure works, and the target is concrete. | TV2: does a continuous, separate-voice design raise the limit? |
+| TV1: the limit grows with scale and vanishes in large models | Polyphonic reading emerges with scale in standard models. | Ask what small models lack, and whether a design gives it to them cheaply, which is TV2 at small scale. |
+| TV1: no effect of voices, only of length | Models are limited by length, not by holding several strands at once, at least by this measure. The analogy to listening may not carry over. | Revise V1, for example toward interacting strands (V3), before any design work. |
+| TV2: the polyphonic model's decline is smaller | Separate, continuous voices make holding many strands easier to learn. | TV3, and then natural texts. |
+| TV2: no difference | The design adds nothing at this scale. | Look at where errors fall (P2, P3) before trying other designs. |
+| Controls fail | The measure isn't trustworthy. | Repair the measure first. |
 
 ## What this note does not claim
 
-- That language should be changed, or that serial order is a defect. Order carries meaning: "she married and became pregnant" and "she became pregnant and married" differ, as Levelt notes.
-- That the continuous-depth model addressed this aim. It addressed another axis, and its results stand as they are.
-- Novelty, beyond what the search shows.
+- That word order is a defect or should change. Order stays; the aim is to follow many strands at once within it.
+- That the continuous-depth model addressed this aim. It did not, and its results stand as they are.
+- Novelty. Each component has prior art above; only their combination for this purpose appears untried in what was searched, and the search should be widened before any claim.
 
 ## References
 
-Azin, Z., & Eryiğit, G. (2019). Towards Turkish Abstract Meaning Representation. In *Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop* (pp. 43–47). https://doi.org/10.18653/v1/p19-2006
+Drożdż, K., & Heilbron, M. (2026). *Entity tracking emerges in sub-billion parameter language models and exceeds human performance in naturalistic narratives*. arXiv. https://doi.org/10.48550/arxiv.2608.18083 (preprint)
 
-Dushkina, V. A. (2019). Simultaneity in polypredicative constructions in Russian Sign Language. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3499645
+Goyal, A., Lamb, A., Hoffmann, J., et al. (2019). *Recurrent independent mechanisms*. arXiv. https://doi.org/10.48550/arxiv.1909.10893
 
-Hewitt, J., & Manning, C. D. (2019). A structural probe for finding syntax in word representations. In *Proceedings of NAACL-HLT 2019* (pp. 4129–4138). https://doi.org/10.18653/v1/n19-1419
+Huron, D. (1991). The avoidance of part-crossing in polyphonic music: Perceptual evidence and musical practice. *Music Perception, 9*(1), 93–103. https://doi.org/10.2307/40286160
 
-Levelt, W. J. M. (1981). The speaker's linearization problem. *Philosophical Transactions of the Royal Society of London. B, Biological Sciences, 295*(1077), 305–315. https://doi.org/10.1098/rstb.1981.0142
+Ji, Y., Tan, C., Martschat, S., et al. (2017). Dynamic entity representations in neural language models. In *Proceedings of EMNLP 2017* (pp. 1830–1839). https://doi.org/10.18653/v1/d17-1195
 
-Loos, C., German, A., & Meier, R. P. (2022). Simultaneous structures in sign languages: Acquisition and emergence. *Frontiers in Psychology, 13*, 992589. https://doi.org/10.3389/fpsyg.2022.992589
+Kidger, P., Morrill, J., Foster, J., et al. (2020). *Neural controlled differential equations for irregular time series*. arXiv. https://doi.org/10.48550/arxiv.2005.08926
+
+Locatello, F., Weissenborn, D., Unterthiner, T., et al. (2020). *Object-centric learning with slot attention*. arXiv. https://doi.org/10.48550/arxiv.2006.15055
+
+Siedenburg, K., Goldmann, K., & van de Par, S. (2021). Tracking musical voices in Bach's *The Art of the Fugue*: Timbral heterogeneity differentially affects younger normal-hearing listeners and older hearing-aid users. *Frontiers in Psychology, 12*, 608684. https://doi.org/10.3389/fpsyg.2021.608684
+
+Author lists after the third author were not verified.
