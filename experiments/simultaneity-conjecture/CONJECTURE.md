@@ -80,6 +80,8 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 
 **G1 result, 2026-10-05: refuted at this scale.** With exact gradients, additive control and two tasks, the trained control changed curvature by factors of only 1.08 to 1.27, against the factor of 2 required. The models clearly used u, and the shuffled-control models showed no difference. Exploratory: the two control values differed about fivefold in how fast they contract the state. See `G1_NOTE.md`.
 
+**G1c result, 2026-10-06: supported.** That contraction difference was preregistered as a new conjecture and tested on new seeds and windows. The farther-ahead control value contracted the state 4.1 to 10.2 times faster in all five models; shuffled-control and untrained models showed none of it. Regimes exist here in contraction, not curvature. See `G1C_NOTE.md`.
+
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 
 | Outcome | What we would learn | Next |

@@ -212,3 +212,7 @@ Grathwohl, W., Chen, R. T. Q., Bettencourt, J., Sutskever, I., & Duvenaud, D. (2
 Hutchinson, M. F. (1990). A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines. *Communications in Statistics: Simulation and Computation, 19*(2), 433–450. https://doi.org/10.1080/03610919008812866
 
 Lohmiller, W., & Slotine, J.-J. E. (1998). On contraction analysis for non-linear systems. *Automatica, 34*(6), 683–696. https://doi.org/10.1016/s0005-1098(98)00019-3
+
+### The run, 2026-10-05 to 2026-10-06
+
+The job ran once, in one Colab session on a T4, from code commit ca3dcb5, with no resumes and no Drive failures (`colab-results` branch `g1c_contraction/20261005-225340`). Nothing was changed after approval. The results are in `G1C_RESULTS.md` and `G1C_NOTE.md`.
