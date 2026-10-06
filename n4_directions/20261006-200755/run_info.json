@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n4_directions",
+    "args": [],
+    "description": "Test N4: are two coexisting readings kept apart by direction, and does the model need that? Dual-head models with rank-64 readouts, separate or tied, reading two different targets or the same one, on 5 new seeds (20 runs). About 2.5 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 150
+  },
+  "code_commit": "aebb8307e4bd3c84e32a262529bf6fc4229618a6",
+  "run_id": "20261006-200755",
+  "gpu": "Tesla T4"
+}

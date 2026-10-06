@@ -1,0 +1,129 @@
+{
+  "checks": {
+    "must_match": [
+      {
+        "seed": 3501,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "seed": 3502,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "seed": 3503,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "seed": 3504,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "seed": 3505,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      }
+    ],
+    "batch": {
+      "targets_are_i+1_and_i+2": true
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " By the 1880s , oriental @-@ style hash",
+        "target_end": " the 1880s , oriental @-@ style hashish"
+      },
+      "skip_example": {
+        "input_end": " \n\n The impact of the case was immediate and overwhelming .",
+        "target_end": " The impact of the case was immediate and overwhelming . Ibb"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3501,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3502,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3503,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3504,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3505,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "windows": {
+    "measure": [
+      1537,
+      1792
+    ]
+  },
+  "readout_rank": 64,
+  "subspace_rank": 16
+}
