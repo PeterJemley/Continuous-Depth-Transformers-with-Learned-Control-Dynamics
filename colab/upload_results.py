@@ -63,9 +63,9 @@ def main():
     status = json.load(open(status_file)).get('status') if os.path.exists(status_file) else None
     traceback_in_log = os.path.exists(log) and 'Traceback (most recent call last)' in open(log, errors='replace').read()
     if status in ('stopped', 'error') or traceback_in_log:
-        print(f'The job STOPPED WITH AN ERROR. Its log was uploaded to {where}. Tell Claude it stopped with an error.')
+        print(f'The job STOPPED WITH AN ERROR. Its log was uploaded to {where}. Report that it stopped with an error.')
         return 1
-    print(f'Done. Results uploaded to {where}. Tell Claude it finished.')
+    print(f'Done. Results uploaded to {where}. Report that it finished.')
     return 0
 
 

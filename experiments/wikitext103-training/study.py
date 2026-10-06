@@ -464,7 +464,7 @@ def amp_gradient_check(store, meta):
     store.push(rel)
     log('fp16 gradient check:', res)
     if not res['passed']:
-        raise SystemExit('fp16 gradients disagree with fp32. Stopping before training; tell Claude.')
+        raise SystemExit('fp16 gradients disagree with fp32. Stopping before training.')
     return res
 
 

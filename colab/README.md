@@ -1,6 +1,6 @@
 # Running jobs on Colab
 
-Claude prepares each job in this repository. You run it on a Colab GPU with one fixed notebook, `colab/runner.ipynb`. The notebook downloads the latest code, runs whichever job `colab/NEXT_JOB.json` names, and uploads the results to the `colab-results` branch, where Claude reads them.
+Each job is prepared in this repository. You run it on a Colab GPU with one fixed notebook, `colab/runner.ipynb`. The notebook downloads the latest code, runs whichever job `colab/NEXT_JOB.json` names, and uploads the results to the `colab-results` branch, where they are analysed.
 
 ## One-time setup
 
@@ -17,11 +17,11 @@ The token works only on this one repository and expires on its own. You can revo
 
 ### B. Upload the notebook to Colab
 
-1. Get `colab/runner.ipynb`: either the copy Claude sends in the chat, or from GitHub, by opening the file on the working branch and clicking the download button.
+1. Get `colab/runner.ipynb`: either a copy sent to you directly, or from GitHub, by opening the file on the working branch and clicking the download button.
 2. Go to colab.research.google.com and click **Upload notebook**, then choose the file. Colab saves it to your Google Drive.
 3. From then on, open it from **Recents** on the Colab home page. It always runs the newest code, because it downloads the code each time.
 
-The notebook itself changes rarely. When Claude sends a new version, upload it the same way and use it instead of the old one.
+The notebook itself changes rarely. When a new version is provided, upload it the same way and use it instead of the old one.
 
 ### C. Add the token as a Colab secret
 
@@ -42,9 +42,9 @@ Choose **Runtime > Change runtime type**, select **T4 GPU**, and click **Save**.
    - **Connect to Google Drive:** choose your account and allow access. Long jobs keep their checkpoints there, so they can resume after a disconnect.
    - **Secret access:** if Colab asks whether the notebook may use `GITHUB_TOKEN`, click **Grant access**.
    - **"This notebook was not authored by Google":** this appears only when opening from GitHub rather than your copy. Click **Run anyway**.
-4. Keep the tab open until the last cell prints **Done**, then tell Claude.
+4. Keep the tab open until the last cell prints **Done**, then report that it finished.
 
-Without a token, the last cell downloads a zip of the results instead. Attach it in the chat with Claude.
+Without a token, the last cell downloads a zip of the results instead. Share it so the results can be analysed.
 
 If Colab disconnects or runs out of GPU time, reopen the notebook and choose **Run all** again. Long jobs pick up from their last checkpoint on Drive.
 
