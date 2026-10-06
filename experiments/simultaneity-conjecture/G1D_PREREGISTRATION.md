@@ -1,6 +1,6 @@
 # Preregistration G1d: does the model need the farther reading's strong contraction?
 
-Date: 2026-10-06    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -154,7 +154,26 @@ The interval for D is a t-interval at 95% with 4 degrees of freedom (critical va
 
 ## Deviation log
 
-None yet.
+### Implementation details fixed before any real run, 2026-10-06
+
+Results seen before this entry: only test-mode runs of `g1d_functional.py` on tiny models (width 32, 60 steps), unit tests of the penalty, and synthetic records for the analysis. No real G1d run had started.
+
+- **Code.**
+  - `g1d_functional.py` runs the pilot, the three arms and the measurements.
+  - `g1d_analyze.py` applies the decision rule and writes `G1D_RESULTS.md`.
+  - The Colab job is `colab/jobs/g1d_functional.py`.
+- **Changes to G1's training function.** `g1_regimes.train_g1` gained two optional arguments: whether u tells the task, and a penalty callable. The exact Euler forward can now keep its states for the penalty, when a flag is set on the block. With the defaults, G1 and G1c's training is unchanged.
+- **The penalty is computed in fp32,** outside mixed precision, so that a half-precision overflow cannot turn the sham penalty into a non-number. Its probes come from a generator seeded per step, so they are reproducible on resume and do not touch the global random state.
+- **Dropout in the penalty.** The penalty evaluates the vector field in training mode, so its forward pass draws dropout masks. The sham arm therefore differs from the control arm in those draws, which is the difference the null contrast is meant to measure.
+- **The pilot** trains λ values in increasing order and stops at the first that qualifies, so it makes at most 4 runs. Its tag is `pilot_lam<λ>`, and it is measured on the same windows as the main runs.
+- **The analytic check of the penalty uses 65,536 sequences.** With 4,096, the expected sampling error of the gradient (about 2.2%) was close to the 2% limit, so a correct estimator could fail by chance. With 65,536 it is about 0.5%, and the check gave 0.02% (trace) and 0.58% (gradient).
+- **Tests before this entry.**
+  - The sham penalty was exactly zero with all-zero gradients on a batch.
+  - A few optimiser steps on the capped penalty alone, with a cap set below a tiny model's contraction, drove the contraction below the cap within 10 steps, so the penalty pushes in the intended direction.
+  - The job ran end to end on tiny models. Their contraction stays far below the cap, so the capped and sham arms coincided there, as they should.
+  - A second run of the job skips finished work, as in G1c.
+  - `g1d_analyze.py` gave the expected verdict on synthetic records for all 14 branches: supported; refuted (twice); some effect (twice); inconclusive; inconclusive for insensitivity; and untestable through each of the six preconditions, with the "no λ" case reported separately.
+- **Measured cost.** In test mode on a CPU, a penalised run took about twice as long as a plain one.
 
 ## References
 

@@ -58,9 +58,13 @@ CONTROLS = {'plus': 1.0, 'minus': -1.0, 'zero': 0.0}
 # ------------------------------------------------------------------ the model
 
 def _exact_ode_forward(self, x, control=None):
-    """ODEFlowBlock.forward with ordinary backpropagation through the Euler steps, as AX in T1."""
+    """ODEFlowBlock.forward with ordinary backpropagation through the Euler steps, as AX in T1.
+    With keep_states set on the block, the Euler states are kept for a training penalty (G1d)."""
     self.func.control = control
-    return odeint_exact(self.func, x, self.integration_times, method='euler')[-1]
+    out = odeint_exact(self.func, x, self.integration_times, method='euler')
+    if getattr(self, 'keep_states', False):
+        self.states = out
+    return out[-1]
 
 
 def new_model(seed, exact=True):
@@ -117,9 +121,14 @@ def task_loss(model, xs, ys, u_value, batch=32):
 
 # ------------------------------------------------------------------ training
 
-def train_g1(store, meta, variant, seed):
+def train_g1(store, meta, variant, seed, truthful=None, penalty=None):
     """One training run, resumable. The seed fixes the initial weights, the data order and the tasks,
-    so a seed's main and shuffled models differ only in u."""
+    so a seed's main and shuffled models differ only in u.
+
+    Options added for G1d, with defaults that leave G1 and G1c unchanged: `truthful` says whether u
+    tells the task (default: variant == 'main'); `penalty(model, u_sign, step)` returns a term added
+    to the loss and a float to log, or None."""
+    truthful = (variant == 'main') if truthful is None else truthful
     tag = f'train_{variant}_seed{seed}'
     res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
@@ -166,14 +175,15 @@ def train_g1(store, meta, variant, seed):
         for g in opt.param_groups:
             g['lr'] = study.lr_at(step, TOTAL, PEAK_LR)
         x, y1, y2, task = draw_batch(train, gen, task_gen)
-        u_sign = task if variant == 'main' else 1 - 2 * torch.randint(2, (BATCH,), generator=u_gen)
+        u_sign = task if truthful else 1 - 2 * torch.randint(2, (BATCH,), generator=u_gen)
         state['u_matches_task'][0] += int((u_sign == task).sum()); state['u_matches_task'][1] += BATCH
         y = torch.where(task[:, None] == 1, y1, y2)
         x, y = x.to(DEV), y.to(DEV)
         opt.zero_grad(set_to_none=True)
         with torch.autocast(DEV.type, dtype=torch.float16, enabled=AMP):
             loss = F.cross_entropy(model(x, control=control(u_sign)).view(-1, VOCAB), y.reshape(-1))
-        scaler.scale(loss).backward()
+        pen = penalty(model, u_sign, step) if penalty is not None else None
+        scaler.scale(loss if pen is None else loss + pen[0]).backward()
         scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         scale_before = scaler.get_scale()
@@ -191,6 +201,8 @@ def train_g1(store, meta, variant, seed):
         if step % 50 == 0:
             state['train_loss'].append([step, loss.item()])
             state['alpha'].append([step, model.ode_block.func.output_scale.item()])
+            if pen is not None:
+                state.setdefault('penalty', []).append([step, pen[1]])
         if state['step'] == 500 or state['step'] % VAL_EVERY == 0 or state['step'] == TOTAL:
             ln, ls = task_loss(model, vx, vy1, +1), task_loss(model, vx, vy2, -1)
             state['val'].append([state['step'], ln, ls])
@@ -211,6 +223,7 @@ def train_g1(store, meta, variant, seed):
     result = {'tag': tag, 'variant': variant, 'seed': seed, 'peak_lr': PEAK_LR, 'total_steps': TOTAL,
               'final_losses': final, 'final_val_windows': len(fx), 'val_curve': state['val'],
               'train_loss_every_50': state['train_loss'], 'alpha_every_50': state['alpha'],
+              'penalty_every_50': state.get('penalty'), 'truthful_control': truthful,
               'alpha_final': model.ode_block.func.output_scale.item(),
               'u_matches_task_fraction': state['u_matches_task'][0] / max(1, state['u_matches_task'][1]),
               'skipped_steps_fp16': state['skipped_steps'], 'train_seconds': state['seconds'], 'resumes': state['resumes'],
