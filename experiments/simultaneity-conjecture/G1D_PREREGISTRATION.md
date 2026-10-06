@@ -180,3 +180,9 @@ Results seen before this entry: only test-mode runs of `g1d_functional.py` on ti
 Finlay, C., Jacobsen, J.-H., Nurbekyan, L., & Oberman, A. M. (2020). *How to train your neural ODE: The world of Jacobian and kinetic regularization*. arXiv. https://doi.org/10.48550/arxiv.2002.02798
 
 Hutchinson, M. F. (1990). A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines. *Communications in Statistics: Simulation and Computation, 19*(2), 433–450. https://doi.org/10.1080/03610919008812866
+
+### The run, 2026-10-06
+
+The job ran in one Colab session on a T4, from code commit 935f8a9, with no resumes and no Drive failures (`colab-results` branch `g1d_functional/20261006-003944`). The pilot chose λ = 0.01.
+
+After a runtime reconnect the next morning, a second session (`g1d_functional/20261006-093947`) found every run finished and skipped them all; its result files are identical to the first session's. Nothing was changed after approval. The results are in `G1D_RESULTS.md` and `G1D_NOTE.md`.
