@@ -192,6 +192,12 @@ def main():
         L.append(f"| {w} | {f'{st.mean(ud):.3f}' if ud else 'n/a'} | {f'{st.mean(us):.3f}' if us else 'n/a'} | "
                  f"{mean_ov('dual-sep')} | {mean_ov('dual-tied')} | {mean_ov('same-sep')} | {mean_ov('same-tied')} | "
                  f"{mean_ov('dual-sep', 'readout_overlap')} | {mean_ov('same-sep', 'readout_overlap')} |")
+    cond = [min(sub[(FULL, a, s)]['readout_conditioning'].values()) for a in ARMS for s in SEEDS
+            if sub[(FULL, a, s)] and 'readout_conditioning' in sub[(FULL, a, s)]]
+    if cond:
+        L += ['', f'### Conditioning of the trained width-{FULL} readouts', '',
+              f'Smallest over largest singular value of P after training, worst over arms and seeds: {min(cond):.2e} '
+              f'(median {st.median(cond):.2e}). Tied and separate are equivalent at full width only while P stays invertible.']
     for name, iv in (('N5a, D(' + str(FULL) + ')', iv_a), (f'N5b, D({NARROW}) − D({WIDE})', iv_b)):
         if iv:
             L.append(f'\n{name}: {fmt(iv)}.')

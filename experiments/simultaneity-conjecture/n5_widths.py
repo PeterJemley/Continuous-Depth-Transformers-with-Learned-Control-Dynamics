@@ -40,6 +40,13 @@ def rank_check(seed):
     return {'seed': seed, 'width': D_MODEL, 'smallest_over_largest_singular_value': ratio, 'pass': ratio > RANK_TOL}
 
 
+def readout_conditioning(model):
+    """Exploratory: smallest over largest singular value of each trained readout P. At full width, tied and
+    separate are equivalent only while P stays invertible."""
+    return {k: (lambda v: (v[-1] / v[0]).item())(torch.linalg.svdvals(getattr(model, k).weight.detach().double()))
+            for k in ('proj_a', 'proj_b')}
+
+
 def untrained_overlap(seed, w, mx, my1, my2):
     """S4: the overlap of the two heads' subspaces on the untrained model, at width w."""
     set_width(w)
@@ -121,7 +128,8 @@ def main():
                         raise SystemExit(f'weights final/{tag}.pt are missing locally and on Drive.')
                     m = n4.new_n4(seed, arm)
                     m.load_state_dict(torch.load(store.L(f'final/{tag}.pt'), map_location=DEV, weights_only=False))
-                    res = {'tag': tag, 'seed': seed, 'arm': arm, 'width': w, **n4.measure(m, arm, mx, my1, my2)}
+                    res = {'tag': tag, 'seed': seed, 'arm': arm, 'width': w, **n4.measure(m, arm, mx, my1, my2),
+                           'readout_conditioning': readout_conditioning(m)}
                     store.L(rel).write_text(json.dumps(res))
                     store.push(rel)
                     log(f"sub_{tag}: overlap of A and B {res['overlap_AB']:.3f}, readout overlap {res['readout_overlap']:.3f}")

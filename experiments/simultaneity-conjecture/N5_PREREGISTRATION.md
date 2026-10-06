@@ -1,6 +1,6 @@
 # Preregistration N5: is N4's cost a competition for directions? A readout-width sweep
 
-Date: 2026-10-06    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06.** No real N5 run has started.
 
 Type: confirmatory for two hypotheses, N5a and N5b, each with its own decision rule and a Bonferroni-corrected interval. Everything else is secondary or exploratory and labelled so.
 
@@ -168,7 +168,32 @@ The rows are checked in order, and the first that applies is the verdict. So an 
 
 ## Deviation log
 
-None yet.
+### Calibration and implementation details, before any real run, 2026-10-06
+
+Results seen before this entry:
+- the promised calibration on **untrained** full-size models: the full-rank check on N5's seeds and on G1's seeds 3001–3005, and the must-match check and untrained overlap at each new width on seeds 3001 and 3002, using the first 128 validation windows;
+- test-mode runs on tiny models;
+- synthetic records.
+
+No real N5 run had started. No rule, threshold or control was changed, so no amendment was needed.
+
+**What the calibration found.**
+- **Must match.** Separate and tied readouts gave bit-identical logits at initialisation at every width.
+- **The full-rank precondition passes for N5's seeds,** with the smallest singular value of the initial width-256 readout between 2.0e-4 and 2.5e-3 of the largest.
+  - The threshold of 1e-4 sits inside the natural spread for random square matrices: one of the five calibration seeds not used by N5 (3001) came out at 9.9e-5.
+  - Mathematically, any invertible P makes tied and separate equivalent. The threshold only guards against numerically singular readouts, and in fp32 every value seen is far from that.
+  - Since N5's own seeds pass, the precondition is left as written.
+- **The untrained overlap depends on width.** At initialisation the two heads' subspaces overlap about 0.66–0.73 at width 32, 0.48 at 64 (N4), 0.27–0.30 at 128 and 0.20 at 256, identically for dual and same. A narrower shared readout confines both heads' gradients to fewer common directions. This matters only for S4, which reports change from initialisation.
+
+**Implementation details.**
+- **Code.**
+  - `n5_widths.py` runs the checks, the untrained overlaps, the 60 runs (width 256 first, then 32, then 128) and their measurements. It sets N4's readout width and calls N4's own code (`n4_directions.py`) for the models, training and measurement, so nothing but the width differs from N4.
+  - `n5_analyze.py` applies both rules and writes `N5_RESULTS.md`.
+  - The Colab job is `colab/jobs/n5_widths.py`.
+- **Test mode** scales the widths with the model: 32, 4 and 16 for its 32-dimensional state.
+- **An exploratory measure added before the run:** the conditioning of each trained readout P (smallest over largest singular value). At width 256, tied and separate are equivalent only while P stays invertible, so this reports whether training kept it so. It enters no decision rule.
+- **Tests:**
+  - `n5_analyze.py` gave the expected verdicts on synthetic records for 14 cases. These covered both supported; N5a refuted, partly, inconclusive, and supported with a small positive cost; N5b refuted (including the non-monotone case), not sensitive enough, some effect, and inconclusive; untestable through each precondition; and not reached.
 
 ## References
 
