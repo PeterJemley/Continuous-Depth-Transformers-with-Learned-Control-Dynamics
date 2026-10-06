@@ -185,6 +185,76 @@ The recommendation is driven by knowledge gained per hour of compute:
 - **The evolutionary conjecture is mostly beyond reach.** A\* is a reasoned refinement of the author's conjecture, not support for it. Most of its human part lies outside what this project can test.
 - **No AGI claim.** The project could contribute a mechanism and a method; it is not on a path to AGI by itself, and saying otherwise would need evidence it does not have.
 
+## After G1d: what three regime tests add up to, and where next (2026-10-06)
+
+Written after G1d's result. Everything in this section is conjecture.
+
+### What the evidence now says
+
+- **G1:** the trained control barely changes how trajectories turn.
+- **G1c:** it changes how strongly they contract, by a factor of 4 to 10. This replicated twice.
+- **G1d:** removing over 90% of that contraction difference costs nothing differential. Meanwhile the models keep using the control fully: the wrong-control cost was unchanged, and the curvature-profile classifier still told the readings apart.
+
+So the model switches between readings *without* needing the large dynamical difference. The reading is implemented somewhere, or somehow, else.
+
+**A methodological lesson.** A classifier will find *some* geometric difference between two control values almost whenever one exists, and existence is cheap. The bar G1d set, necessity tested by intervention, should be required of every future regime claim.
+
+### New conjectures
+
+**N1. The reading is a direction, not a regime.** This is the deflationary conjecture, and the most likely mundane rival to everything above.
+- **The explanation.** The control enters the vector field by addition. The easiest solution is for each control value to shift the state along its own direction, which later layers read. Then the "regime" differences are side effects of where the shift puts the state.
+- **Predictions:**
+  - The difference in the block's output between u = −1 and u = +1 is nearly the same vector for every window: one direction carries most of its variance.
+  - A model in which u enters *only* as a learned bias added after the ODE block, with no u inside the dynamics, matches the main models on both tasks within 0.05 nats.
+- **Refuted if** the bias-only model is materially worse on either task.
+- **Cost:** cheap. The first prediction runs on saved weights; the second is 5 short training runs.
+- **Why it matters either way:**
+  - **If supported,** the ODE's dynamics are not where the reading happens. The polyphony programme should then either move to representation subspaces, or use tasks where an offset cannot do the job.
+  - **If refuted,** the dynamics do work an offset cannot, and the next task is to find it.
+
+**N2. Regimes become load-bearing only when readings must coexist.**
+- **The explanation.** Switching lets one state serve one reading at a time, so nothing forces the readings apart. When two readings must be held in the same state *at once*, they interfere unless kept separate. One way to keep them separate is for different subspaces of the state to run at different contraction rates: different timescales, like registers in music.
+- **Prior art.** Networks with neurons at multiple timescales develop functional hierarchy (Yamashita & Tani, 2008). State-space sequence models run many decay rates side by side, one per eigenvalue (Gu, Goel & Ré, 2021; Gu & Dao, 2023), though over *time*, where N2 is about *depth*.
+- **The test:**
+  - **The task.** A dual-reading model with two output heads, the next token and the token after next, at every position, in one forward pass and with no control.
+  - **The measures.** How far apart the two heads' readout directions lie, and the contraction restricted to each readout subspace (Hutchinson's estimator with a projection).
+  - **The prediction.** Different contraction per subspace.
+  - **The intervention, G1d-style.** Force equal contraction across the two subspaces; the prediction is that this costs the joint loss.
+- **Must-fail control:** a single-head model shows no such split.
+- **Why it matters.** This is the most direct test yet of the founding idea: polyphony needs simultaneity, and switching was never polyphony.
+
+**N3. Multiplicative control makes regimes cheap, and therefore used (G3, sharpened by N1).**
+- **The explanation.** If additive control naturally produces offsets (N1), control that multiplies parts of the vector field can change its Jacobian directly.
+- **The prediction.** Under multiplicative control, contraction differences are larger *and* pass a G1d-style necessity test.
+- **Refuted if** they are no larger, or not needed.
+
+**N4.** Self-set control (path E) and the probe (path B) are unaffected by G1d and stay on the list.
+
+### Recommended order now
+
+1. **N1.** It is the cheapest and settles where the reading lives, which changes what every later test should look at.
+2. **N2.** The core polyphony question, in its sharpest testable form.
+3. **N3 / G3.**
+4. **The probe (B).**
+5. **The full-budget run (A).**
+
+### What each outcome would teach
+
+| N1 | N2 | What we would learn | Next |
+|---|---|---|---|
+| Supported: an offset is enough | Supported | Switching needs only a direction; simultaneity needs dynamics. Regimes matter exactly when readings coexist, which is the founding idea, in testable form. | Polyphonic ODE (D), then scale (H) |
+| Supported | Refuted | Neither switching nor simultaneity needs depth dynamics at this scale. Readings live in representation geometry. | Move the programme to subspaces and attention; test N3 before leaving dynamics |
+| Refuted: the dynamics matter | Supported | The dynamics carry readings in both cases | Find the mechanism, starting from the Jacobian spectrum |
+| Refuted | Refuted | The dynamics do something for switching, but not by separating timescales | A new conjecture from N1's diagnostics |
+
+### References for this section
+
+Gu, A., & Dao, T. (2023). *Mamba: Linear-time sequence modeling with selective state spaces*. arXiv. https://doi.org/10.48550/arxiv.2312.00752
+
+Gu, A., Goel, K., & Ré, C. (2021). *Efficiently modeling long sequences with structured state spaces*. arXiv. https://doi.org/10.48550/arxiv.2111.00396
+
+Yamashita, Y., & Tani, J. (2008). Emergence of functional hierarchy in a multiple timescale neural network model: A humanoid robot experiment. *PLoS Computational Biology, 4*(11), e1000220. https://doi.org/10.1371/journal.pcbi.1000220 (A correction was published in 2010: https://doi.org/10.1371/annotation/c580e39c-00bc-43a2-9b15-af71350f9d43)
+
 ## References
 
 Barsalou, L. W. (1999). Perceptual symbol systems. *Behavioral and Brain Sciences, 22*(4), 577–660. https://doi.org/10.1017/s0140525x99002149
