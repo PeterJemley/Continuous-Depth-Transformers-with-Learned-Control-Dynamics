@@ -1,0 +1,172 @@
+16:46:23 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N2 folder: /content/drive/MyDrive/cdt-colab/n2_coexist | local: /content/cdt_local/n2_coexist
+16:46:45 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+16:46:45 projected-estimator check: True {'dense_truth': 3.860884, 'dense_estimate': 3.865507, 'dense_relative_error': 0.001197, 'diagonal_worst_relative_error': 0.0, 'gradient_relative_error': 0.004123}
+16:46:45 penalty check: True
+16:46:45 batch check, targets at i+1 and i+2: True
+16:46:45 same-model check: [True, True, True, True, True]
+16:46:45 lambda chosen by the pilot rule: 0.01
+16:46:45 dual_seed3401: already finished, skipping
+16:46:45 same_seed3401: already finished, skipping
+16:46:45 equalised_seed3401: already finished, skipping
+16:46:45 sham_seed3401: already finished, skipping
+16:46:45 dual_seed3402: already finished, skipping
+16:46:51 same_seed3402: starting, same, seed 3402, peak lr 0.0024, to step 2879
+16:47:52 same_seed3402: step 400/2879, validation loss head A 6.2572, head B 6.2551
+16:48:09 same_seed3402: step 500/2879, validation loss head A 6.1012, head B 6.1009
+16:48:56 same_seed3402: step 800/2879, validation loss head A 5.6420, head B 5.6450
+16:49:59 same_seed3402: step 1200/2879, validation loss head A 5.3008, head B 5.2991
+16:51:03 same_seed3402: step 1600/2879, validation loss head A 5.0736, head B 5.0718
+16:52:08 same_seed3402: step 2000/2879, validation loss head A 4.9200, head B 4.9177
+16:53:12 same_seed3402: step 2400/2879, validation loss head A 4.8064, head B 4.8038
+16:54:16 same_seed3402: step 2800/2879, validation loss head A 4.7451, head B 4.7428
+16:54:31 same_seed3402: step 2879/2879, validation loss head A 4.7343, head B 4.7318
+16:54:38 same_seed3402: finished in 0.13 h; head A 4.8336, head B 4.8336
+16:55:30 sub_dual_seed3402: contraction within A 0.0922, within B 0.1155, overlap 0.567
+16:56:10 sub_same_seed3402: contraction within A 0.1004, within B 0.1002, overlap 0.987
+16:56:36 sub_dual_seed3402_mid: contraction within A 0.0420, within B 0.0609, overlap 0.578
+16:56:37 equalised_seed3402: starting from final/mid_dual_seed3402.pt at step 1440
+16:57:33 equalised_seed3402: step 1600/2879, validation loss head A 5.1148, head B 6.1916
+16:59:51 equalised_seed3402: step 2000/2879, validation loss head A 4.9518, head B 6.0704
+17:02:08 equalised_seed3402: step 2400/2879, validation loss head A 4.8434, head B 5.9904
+17:04:26 equalised_seed3402: step 2800/2879, validation loss head A 4.7842, head B 5.9422
+17:04:54 equalised_seed3402: step 2879/2879, validation loss head A 4.7740, head B 5.9339
+17:05:02 equalised_seed3402: finished in 0.14 h; head A 4.8718, head B 6.0305
+17:05:27 sub_equalised_seed3402: contraction within A 0.0949, within B 0.1163, overlap 0.568
+17:05:28 sham_seed3402: starting from final/mid_dual_seed3402.pt at step 1440
+17:06:23 sham_seed3402: step 1600/2879, validation loss head A 5.1135, head B 6.1907
+17:08:37 sham_seed3402: step 2000/2879, validation loss head A 4.9526, head B 6.0708
+17:10:51 sham_seed3402: step 2400/2879, validation loss head A 4.8426, head B 5.9892
+17:13:05 sham_seed3402: step 2800/2879, validation loss head A 4.7833, head B 5.9409
+17:13:33 sham_seed3402: step 2879/2879, validation loss head A 4.7737, head B 5.9333
+17:13:41 sham_seed3402: finished in 0.13 h; head A 4.8722, head B 6.0305
+17:14:06 sub_sham_seed3402: contraction within A 0.0937, within B 0.1172, overlap 0.569
+17:14:06 dual_seed3403: starting, dual, seed 3403, peak lr 0.0024, to step 2879
+17:15:10 dual_seed3403: step 400/2879, validation loss head A 6.3205, head B 6.9709
+17:15:28 dual_seed3403: step 500/2879, validation loss head A 6.1467, head B 6.8663
+17:16:17 dual_seed3403: step 800/2879, validation loss head A 5.6959, head B 6.5869
+17:17:21 dual_seed3403: step 1200/2879, validation loss head A 5.3618, head B 6.3593
+17:17:59 dual_seed3403: mid checkpoint saved at step 1440
+17:18:26 dual_seed3403: step 1600/2879, validation loss head A 5.1154, head B 6.1976
+17:19:30 dual_seed3403: step 2000/2879, validation loss head A 4.9527, head B 6.0735
+17:20:35 dual_seed3403: step 2400/2879, validation loss head A 4.8415, head B 5.9855
+17:21:39 dual_seed3403: step 2800/2879, validation loss head A 4.7786, head B 5.9329
+17:21:53 dual_seed3403: step 2879/2879, validation loss head A 4.7761, head B 5.9306
+17:22:01 dual_seed3403: finished in 0.13 h; head A 4.8837, head B 6.0387
+17:22:02 same_seed3403: starting, same, seed 3403, peak lr 0.0024, to step 2879
+17:23:06 same_seed3403: step 400/2879, validation loss head A 6.2579, head B 6.2597
+17:23:24 same_seed3403: step 500/2879, validation loss head A 6.0883, head B 6.0859
+17:24:13 same_seed3403: step 800/2879, validation loss head A 5.6234, head B 5.6257
+17:25:17 same_seed3403: step 1200/2879, validation loss head A 5.3006, head B 5.3008
+17:26:21 same_seed3403: step 1600/2879, validation loss head A 5.0786, head B 5.0785
+17:27:26 same_seed3403: step 2000/2879, validation loss head A 4.9121, head B 4.9129
+17:28:30 same_seed3403: step 2400/2879, validation loss head A 4.8021, head B 4.8023
+17:29:34 same_seed3403: step 2800/2879, validation loss head A 4.7402, head B 4.7409
+17:29:49 same_seed3403: step 2879/2879, validation loss head A 4.7366, head B 4.7371
+17:29:56 same_seed3403: finished in 0.13 h; head A 4.8380, head B 4.8382
+17:30:37 sub_dual_seed3403: contraction within A 0.1033, within B 0.1181, overlap 0.627
+17:31:18 sub_same_seed3403: contraction within A 0.1040, within B 0.1037, overlap 0.986
+17:31:37 sub_dual_seed3403_mid: contraction within A 0.0529, within B 0.0657, overlap 0.589
+17:31:38 equalised_seed3403: starting from final/mid_dual_seed3403.pt at step 1440
+17:32:34 equalised_seed3403: step 1600/2879, validation loss head A 5.1184, head B 6.1971
+17:34:51 equalised_seed3403: step 2000/2879, validation loss head A 4.9545, head B 6.0732
+17:37:09 equalised_seed3403: step 2400/2879, validation loss head A 4.8409, head B 5.9841
+17:39:27 equalised_seed3403: step 2800/2879, validation loss head A 4.7787, head B 5.9327
+17:39:56 equalised_seed3403: step 2879/2879, validation loss head A 4.7762, head B 5.9299
+17:40:03 equalised_seed3403: finished in 0.14 h; head A 4.8837, head B 6.0385
+17:40:29 sub_equalised_seed3403: contraction within A 0.1053, within B 0.1187, overlap 0.623
+17:40:29 sham_seed3403: starting from final/mid_dual_seed3403.pt at step 1440
+17:41:24 sham_seed3403: step 1600/2879, validation loss head A 5.1150, head B 6.1943
+17:43:38 sham_seed3403: step 2000/2879, validation loss head A 4.9590, head B 6.0763
+17:45:52 sham_seed3403: step 2400/2879, validation loss head A 4.8423, head B 5.9839
+17:48:06 sham_seed3403: step 2800/2879, validation loss head A 4.7795, head B 5.9325
+17:48:34 sham_seed3403: step 2879/2879, validation loss head A 4.7771, head B 5.9298
+17:48:42 sham_seed3403: finished in 0.13 h; head A 4.8847, head B 6.0390
+17:49:07 sub_sham_seed3403: contraction within A 0.1046, within B 0.1196, overlap 0.617
+17:49:07 dual_seed3404: starting, dual, seed 3404, peak lr 0.0024, to step 2879
+17:50:12 dual_seed3404: step 400/2879, validation loss head A 6.3372, head B 6.9943
+17:50:29 dual_seed3404: step 500/2879, validation loss head A 6.1286, head B 6.8681
+17:51:18 dual_seed3404: step 800/2879, validation loss head A 5.7137, head B 6.5981
+17:52:22 dual_seed3404: step 1200/2879, validation loss head A 5.3571, head B 6.3644
+17:53:01 dual_seed3404: mid checkpoint saved at step 1440
+17:53:28 dual_seed3404: step 1600/2879, validation loss head A 5.1352, head B 6.1952
+17:54:32 dual_seed3404: step 2000/2879, validation loss head A 4.9650, head B 6.0724
+17:55:36 dual_seed3404: step 2400/2879, validation loss head A 4.8459, head B 5.9809
+17:56:40 dual_seed3404: step 2800/2879, validation loss head A 4.7885, head B 5.9344
+17:56:54 dual_seed3404: step 2879/2879, validation loss head A 4.7860, head B 5.9333
+17:57:02 dual_seed3404: finished in 0.13 h; head A 4.8887, head B 6.0419
+17:57:03 same_seed3404: starting, same, seed 3404, peak lr 0.0024, to step 2879
+17:58:07 same_seed3404: step 400/2879, validation loss head A 6.2666, head B 6.2695
+17:58:25 same_seed3404: step 500/2879, validation loss head A 6.0655, head B 6.0694
+17:59:13 same_seed3404: step 800/2879, validation loss head A 5.6412, head B 5.6440
+18:00:18 same_seed3404: step 1200/2879, validation loss head A 5.3045, head B 5.3040
+18:01:22 same_seed3404: step 1600/2879, validation loss head A 5.0732, head B 5.0737
+18:02:26 same_seed3404: step 2000/2879, validation loss head A 4.9048, head B 4.9055
+18:03:30 same_seed3404: step 2400/2879, validation loss head A 4.7868, head B 4.7878
+18:04:34 same_seed3404: step 2800/2879, validation loss head A 4.7282, head B 4.7289
+18:04:49 same_seed3404: step 2879/2879, validation loss head A 4.7259, head B 4.7268
+18:04:56 same_seed3404: finished in 0.13 h; head A 4.8306, head B 4.8309
+18:05:38 sub_dual_seed3404: contraction within A 0.0956, within B 0.1167, overlap 0.609
+18:06:19 sub_same_seed3404: contraction within A 0.0941, within B 0.0940, overlap 0.989
+18:06:39 sub_dual_seed3404_mid: contraction within A 0.0438, within B 0.0607, overlap 0.591
+18:06:40 equalised_seed3404: starting from final/mid_dual_seed3404.pt at step 1440
+18:07:36 equalised_seed3404: step 1600/2879, validation loss head A 5.1343, head B 6.1939
+18:09:53 equalised_seed3404: step 2000/2879, validation loss head A 4.9632, head B 6.0717
+18:12:11 equalised_seed3404: step 2400/2879, validation loss head A 4.8471, head B 5.9820
+18:14:29 equalised_seed3404: step 2800/2879, validation loss head A 4.7896, head B 5.9344
+18:14:57 equalised_seed3404: step 2879/2879, validation loss head A 4.7861, head B 5.9331
+18:15:05 equalised_seed3404: finished in 0.14 h; head A 4.8898, head B 6.0426
+18:15:31 sub_equalised_seed3404: contraction within A 0.0961, within B 0.1148, overlap 0.621
+18:15:32 sham_seed3404: starting from final/mid_dual_seed3404.pt at step 1440
+18:16:27 sham_seed3404: step 1600/2879, validation loss head A 5.1341, head B 6.1930
+18:18:41 sham_seed3404: step 2000/2879, validation loss head A 4.9622, head B 6.0724
+18:20:55 sham_seed3404: step 2400/2879, validation loss head A 4.8470, head B 5.9821
+18:23:09 sham_seed3404: step 2800/2879, validation loss head A 4.7882, head B 5.9344
+18:23:37 sham_seed3404: step 2879/2879, validation loss head A 4.7843, head B 5.9329
+18:23:44 sham_seed3404: finished in 0.13 h; head A 4.8880, head B 6.0423
+18:24:10 sub_sham_seed3404: contraction within A 0.0940, within B 0.1145, overlap 0.610
+18:24:10 dual_seed3405: starting, dual, seed 3405, peak lr 0.0024, to step 2879
+18:25:15 dual_seed3405: step 400/2879, validation loss head A 6.3246, head B 6.9857
+18:25:32 dual_seed3405: step 500/2879, validation loss head A 6.1530, head B 6.8875
+18:26:21 dual_seed3405: step 800/2879, validation loss head A 5.6986, head B 6.5906
+18:27:25 dual_seed3405: step 1200/2879, validation loss head A 5.3641, head B 6.3569
+18:28:04 dual_seed3405: mid checkpoint saved at step 1440
+18:28:30 dual_seed3405: step 1600/2879, validation loss head A 5.1284, head B 6.1901
+18:29:35 dual_seed3405: step 2000/2879, validation loss head A 4.9571, head B 6.0666
+18:30:39 dual_seed3405: step 2400/2879, validation loss head A 4.8419, head B 5.9798
+18:31:43 dual_seed3405: step 2800/2879, validation loss head A 4.7899, head B 5.9390
+18:31:58 dual_seed3405: step 2879/2879, validation loss head A 4.7786, head B 5.9308
+18:32:05 dual_seed3405: finished in 0.13 h; head A 4.8884, head B 6.0401
+18:32:06 same_seed3405: starting, same, seed 3405, peak lr 0.0024, to step 2879
+18:33:11 same_seed3405: step 400/2879, validation loss head A 6.2815, head B 6.2808
+18:33:28 same_seed3405: step 500/2879, validation loss head A 6.0892, head B 6.0888
+18:34:17 same_seed3405: step 800/2879, validation loss head A 5.6242, head B 5.6226
+18:35:21 same_seed3405: step 1200/2879, validation loss head A 5.2880, head B 5.2853
+18:36:26 same_seed3405: step 1600/2879, validation loss head A 5.0598, head B 5.0591
+18:37:30 same_seed3405: step 2000/2879, validation loss head A 4.8934, head B 4.8929
+18:38:34 same_seed3405: step 2400/2879, validation loss head A 4.7787, head B 4.7780
+18:39:38 same_seed3405: step 2800/2879, validation loss head A 4.7308, head B 4.7302
+18:39:53 same_seed3405: step 2879/2879, validation loss head A 4.7188, head B 4.7184
+18:40:00 same_seed3405: finished in 0.13 h; head A 4.8322, head B 4.8318
+18:40:41 sub_dual_seed3405: contraction within A 0.0915, within B 0.1141, overlap 0.589
+18:41:22 sub_same_seed3405: contraction within A 0.0967, within B 0.0962, overlap 0.983
+18:41:39 sub_dual_seed3405_mid: contraction within A 0.0359, within B 0.0523, overlap 0.603
+18:41:40 equalised_seed3405: starting from final/mid_dual_seed3405.pt at step 1440
+18:42:36 equalised_seed3405: step 1600/2879, validation loss head A 5.1253, head B 6.1930
+18:44:54 equalised_seed3405: step 2000/2879, validation loss head A 4.9554, head B 6.0678
+18:47:12 equalised_seed3405: step 2400/2879, validation loss head A 4.8404, head B 5.9813
+18:49:30 equalised_seed3405: step 2800/2879, validation loss head A 4.7894, head B 5.9394
+18:49:59 equalised_seed3405: step 2879/2879, validation loss head A 4.7776, head B 5.9314
+18:50:07 equalised_seed3405: finished in 0.14 h; head A 4.8883, head B 6.0416
+18:50:32 sub_equalised_seed3405: contraction within A 0.0914, within B 0.1122, overlap 0.590
+18:50:33 sham_seed3405: starting from final/mid_dual_seed3405.pt at step 1440
+18:51:27 sham_seed3405: step 1600/2879, validation loss head A 5.1231, head B 6.1909
+18:53:42 sham_seed3405: step 2000/2879, validation loss head A 4.9556, head B 6.0680
+18:55:56 sham_seed3405: step 2400/2879, validation loss head A 4.8407, head B 5.9814
+18:58:10 sham_seed3405: step 2800/2879, validation loss head A 4.7898, head B 5.9397
+18:58:38 sham_seed3405: step 2879/2879, validation loss head A 4.7779, head B 5.9316
+18:58:46 sham_seed3405: finished in 0.13 h; head A 4.8891, head B 6.0417
+18:59:11 sub_sham_seed3405: contraction within A 0.0919, within B 0.1121, overlap 0.591
+18:59:11 N2 complete: all runs and measurements finished
+18:59:11 copied 50 result files for upload
+18:59:11 waiting for background Drive saves to finish (up to 15 minutes)
+18:59:11 Drive saves finished

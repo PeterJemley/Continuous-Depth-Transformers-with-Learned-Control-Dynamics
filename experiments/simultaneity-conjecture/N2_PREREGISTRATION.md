@@ -218,3 +218,7 @@ Gu, A., Goel, K., & Ré, C. (2021). *Efficiently modeling long sequences with st
 Hutchinson, M. F. (1990). A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines. *Communications in Statistics: Simulation and Computation, 19*(2), 433–450. https://doi.org/10.1080/03610919008812866
 
 Yamashita, Y., & Tani, J. (2008). Emergence of functional hierarchy in a multiple timescale neural network model: A humanoid robot experiment. *PLoS Computational Biology, 4*(11), e1000220. https://doi.org/10.1371/journal.pcbi.1000220 (A correction was published in 2010.)
+
+### The run, 2026-10-06
+
+The job needed more than one Colab session, the second after a restart. The earlier sessions saved their finished runs and checkpoints to Drive but did not reach the upload step, so their logs are not in the repository. The final session (`colab-results` branch `n2_coexist/20261006-164621`, code commit a7724b7) resumed from Drive, finished the remaining runs, and uploaded all 50 result records. No Drive failures were recorded, and nothing was changed after approval. The results are in `N2_RESULTS.md` and `N2_NOTE.md`.
