@@ -170,7 +170,41 @@ Unlike G1c and N1, the subspace measure has not yet been run on untrained models
 
 ## Deviation log
 
-None yet.
+### Proposed amendment A1, before any real run, 2026-10-06: awaiting the author's approval
+
+Results seen before this entry:
+- the calibration this preregistration promised, on five **untrained** full-size models (G1's seeds 3001–3005, not N2's), using the first 128 windows of the test-mode token file, which N2 does not use;
+- test-mode runs on tiny models;
+- synthetic records.
+
+No real N2 run had started.
+
+**What the calibration found.**
+- **The near-zero floor is in the wrong units.**
+  - N2 measures contraction *per dimension* inside each 16-dimensional subspace. G1c's floor of 0.1, and its "clearly contracts" level of 0.2, were set for a different quantity: the per-token trace summed over all 256 dimensions.
+  - Untrained models gave per-dimension subspace rates of at most 0.0005 in absolute value. Trained per-dimension rates will be of the order of a whole-state trace divided by 256, a few thousandths to a few hundredths.
+  - A floor of 0.1 would therefore classify almost every trained model as "not contracting", and N2a could not come out supported whatever the dynamics did.
+- **Dual and dual-same models are identical at initialisation, as expected.**
+  - An untrained model's gradient covariance depends on how often each token appears as a target, and that is the same for the next token and the token after next.
+  - The two heads' subspaces barely overlap at initialisation (0.066 to 0.075), only because the heads start with different random weights. That is why the must-fail control has two heads too. It can only bite after training, which is where it is applied.
+- **The subspaces are stable.** Odd and even estimation windows gave subspaces overlapping 0.83 to 0.86 at initialisation.
+
+**The amendment.** In the scoring table for R_sub, the near-zero floor becomes **0.002 per dimension**, and "clearly contracts" becomes **0.004 per dimension**, in place of 0.1 and 0.2. The floor is 4 times the largest untrained value seen (0.0005). G1c's floor was about 5.6 times its untrained maximum. Every other rule, threshold and control is unchanged, including the ratios 2 and 1.25 and the 0.05-nat margin.
+
+### Implementation details fixed before any real run, 2026-10-06
+
+- **Code.**
+  - `n2_coexist.py` trains, checkpoints at step 1,440, runs the pilot and the penalised continuations, and measures.
+  - `n2_analyze.py` applies both rules, with amendment A1, and writes `N2_RESULTS.md`.
+  - The Colab job is `colab/jobs/n2_coexist.py`.
+- **The second head** is initialised from its own seed (the model's seed + 99,991), so dual and dual-same start identically for a seed.
+- **The penalty uses batch means.** It is applied to the *batch means* of the per-sequence, per-state contraction estimates, C_A and C_B. Averaging over 128 estimates (32 sequences × 4 states) before squaring reduces the upward bias that squaring a single noisy estimate would add. A small bias remains.
+- **The manipulation check uses fresh subspaces.** The check that the equalising took hold, and the pilot rule, measure R_sub with subspaces re-estimated on the trained model at step 2,879, as in N2a. This way, a model that escaped the penalty by moving its readings to new directions shows up as not equalised. The penalty itself uses the subspaces fixed at step 1,440.
+- **Same batches.** The batch drawn at step 1,440 is fingerprinted in the dual, equalised and sham runs, to confirm the resumed arms see the same batches.
+- **The sham arm** computes the same penalty at weight 0, so its gradient is exactly zero.
+- **Tests:**
+  - The analytic checks passed: dense error 0.12%, diagonal exact, gradient 0.41%.
+  - `n2_analyze.py` gave the expected verdicts on synthetic records for 13 cases. These covered both supported; N2a supported and N2b refuted; N2b with some effect, and inconclusive; N2a refuted, and intermediate; the case where reading A is near zero; and untestable through each precondition of both rules.
 
 ## References
 
