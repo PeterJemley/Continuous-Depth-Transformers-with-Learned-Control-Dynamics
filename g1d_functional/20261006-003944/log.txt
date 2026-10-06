@@ -1,0 +1,210 @@
+00:39:46 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | G1d folder: /content/drive/MyDrive/cdt-colab/g1d_functional | local: /content/cdt_local/g1d_functional
+00:39:47 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+/usr/local/lib/python3.13/dist-packages/torch/autograd/graph.py:869: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:335.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+00:39:51 next-task example: input ends 'ward . At 1000 UTC , small craft were advised to remain'; targets end ' . At 1000 UTC , small craft were advised to remain in'
+00:39:51 skip-task example: input ends ' her parents departed . They corresponded regularly , and she and'; targets end ' departed . They corresponded regularly , and she and her parents'
+00:39:55 penalty check: True estimate error 0.02%, gradient error 0.58%
+00:39:55 divergence check: True
+00:39:55 sham check: True {'sham_value': 0.0, 'sham_gradient_all_zero': True, 'same_initial_weights': True, 'same_first_batch': True}
+00:39:55 batch check, targets at i+1 and i+2: True
+00:39:55 same-model check: [True, True, True, True, True]
+00:39:55 measuring on validation windows 513-768 (256 windows)
+00:39:56 train_pilot_lam0.01_seed100: starting, seed 100, peak lr 0.0024, 2879 steps
+00:40:55 train_pilot_lam0.01_seed100: step 400/2879, validation loss next-token (u=+1) 6.4627, token after next (u=-1) 7.0406
+00:41:11 train_pilot_lam0.01_seed100: step 500/2879, validation loss next-token (u=+1) 6.2839, token after next (u=-1) 6.9343
+00:41:58 train_pilot_lam0.01_seed100: step 800/2879, validation loss next-token (u=+1) 5.8650, token after next (u=-1) 6.6581
+00:42:59 train_pilot_lam0.01_seed100: step 1200/2879, validation loss next-token (u=+1) 5.5253, token after next (u=-1) 6.4328
+00:44:00 train_pilot_lam0.01_seed100: step 1600/2879, validation loss next-token (u=+1) 5.3055, token after next (u=-1) 6.2776
+00:45:01 train_pilot_lam0.01_seed100: step 2000/2879, validation loss next-token (u=+1) 5.1534, token after next (u=-1) 6.1716
+00:46:03 train_pilot_lam0.01_seed100: step 2400/2879, validation loss next-token (u=+1) 5.0292, token after next (u=-1) 6.0795
+00:47:04 train_pilot_lam0.01_seed100: step 2800/2879, validation loss next-token (u=+1) 4.9633, token after next (u=-1) 6.0300
+00:47:18 train_pilot_lam0.01_seed100: step 2879/2879, validation loss next-token (u=+1) 4.9610, token after next (u=-1) 6.0291
+00:47:44 train_pilot_lam0.01_seed100: finished in 0.12 h; next-token loss with u=+1 5.0552, with u=-1 6.9756
+00:48:19 contr_pilot_lam0.01_seed100: contraction u=+1 -0.1003, u=-1 0.6248
+00:48:19 pilot lambda 0.01: measured contraction under u = -1 0.6248
+00:48:19 lambda chosen by the pilot rule: 0.01
+00:48:19 train_control_seed3201: starting, seed 3201, peak lr 0.0024, 2879 steps
+00:49:02 train_control_seed3201: step 400/2879, validation loss next-token (u=+1) 6.4871, token after next (u=-1) 7.0724
+00:49:14 train_control_seed3201: step 500/2879, validation loss next-token (u=+1) 6.2965, token after next (u=-1) 6.9474
+00:49:46 train_control_seed3201: step 800/2879, validation loss next-token (u=+1) 5.8938, token after next (u=-1) 6.6694
+00:50:29 train_control_seed3201: step 1200/2879, validation loss next-token (u=+1) 5.5841, token after next (u=-1) 6.4725
+00:51:11 train_control_seed3201: step 1600/2879, validation loss next-token (u=+1) 5.3341, token after next (u=-1) 6.2960
+00:51:54 train_control_seed3201: step 2000/2879, validation loss next-token (u=+1) 5.1687, token after next (u=-1) 6.1752
+00:52:36 train_control_seed3201: step 2400/2879, validation loss next-token (u=+1) 5.0529, token after next (u=-1) 6.0903
+00:53:18 train_control_seed3201: step 2800/2879, validation loss next-token (u=+1) 4.9837, token after next (u=-1) 6.0438
+00:53:29 train_control_seed3201: step 2879/2879, validation loss next-token (u=+1) 4.9806, token after next (u=-1) 6.0420
+00:53:55 train_control_seed3201: finished in 0.09 h; next-token loss with u=+1 5.0676, with u=-1 6.9427
+00:55:15 contr_control_seed3201: contraction u=+1 0.9875, u=-1 7.4412
+00:55:15 train_capped_seed3201: starting, seed 3201, peak lr 0.0024, 2879 steps
+00:56:16 train_capped_seed3201: step 400/2879, validation loss next-token (u=+1) 6.4816, token after next (u=-1) 7.0535
+00:56:33 train_capped_seed3201: step 500/2879, validation loss next-token (u=+1) 6.2880, token after next (u=-1) 6.9429
+00:57:19 train_capped_seed3201: step 800/2879, validation loss next-token (u=+1) 5.9084, token after next (u=-1) 6.6937
+00:58:20 train_capped_seed3201: step 1200/2879, validation loss next-token (u=+1) 5.6261, token after next (u=-1) 6.5050
+00:59:22 train_capped_seed3201: step 1600/2879, validation loss next-token (u=+1) 5.3558, token after next (u=-1) 6.3100
+01:00:23 train_capped_seed3201: step 2000/2879, validation loss next-token (u=+1) 5.2037, token after next (u=-1) 6.2012
+01:01:24 train_capped_seed3201: step 2400/2879, validation loss next-token (u=+1) 5.0813, token after next (u=-1) 6.1119
+01:02:25 train_capped_seed3201: step 2800/2879, validation loss next-token (u=+1) 5.0114, token after next (u=-1) 6.0641
+01:02:39 train_capped_seed3201: step 2879/2879, validation loss next-token (u=+1) 5.0096, token after next (u=-1) 6.0623
+01:03:05 train_capped_seed3201: finished in 0.12 h; next-token loss with u=+1 5.0952, with u=-1 6.9394
+01:04:16 contr_capped_seed3201: contraction u=+1 -0.4418, u=-1 0.3685
+01:04:16 train_sham_seed3201: starting, seed 3201, peak lr 0.0024, 2879 steps
+01:05:18 train_sham_seed3201: step 400/2879, validation loss next-token (u=+1) 6.4816, token after next (u=-1) 7.0535
+01:05:34 train_sham_seed3201: step 500/2879, validation loss next-token (u=+1) 6.2892, token after next (u=-1) 6.9402
+01:06:21 train_sham_seed3201: step 800/2879, validation loss next-token (u=+1) 5.8721, token after next (u=-1) 6.6616
+01:07:22 train_sham_seed3201: step 1200/2879, validation loss next-token (u=+1) 5.5700, token after next (u=-1) 6.4629
+01:08:23 train_sham_seed3201: step 1600/2879, validation loss next-token (u=+1) 5.3203, token after next (u=-1) 6.2813
+01:09:24 train_sham_seed3201: step 2000/2879, validation loss next-token (u=+1) 5.1616, token after next (u=-1) 6.1699
+01:10:24 train_sham_seed3201: step 2400/2879, validation loss next-token (u=+1) 5.0423, token after next (u=-1) 6.0847
+01:11:25 train_sham_seed3201: step 2800/2879, validation loss next-token (u=+1) 4.9747, token after next (u=-1) 6.0377
+01:11:39 train_sham_seed3201: step 2879/2879, validation loss next-token (u=+1) 4.9712, token after next (u=-1) 6.0349
+01:12:05 train_sham_seed3201: finished in 0.12 h; next-token loss with u=+1 5.0579, with u=-1 6.9342
+01:13:17 contr_sham_seed3201: contraction u=+1 1.5458, u=-1 8.0638
+01:13:17 train_control_seed3202: starting, seed 3202, peak lr 0.0024, 2879 steps
+01:14:00 train_control_seed3202: step 400/2879, validation loss next-token (u=+1) 6.4766, token after next (u=-1) 7.0688
+01:14:12 train_control_seed3202: step 500/2879, validation loss next-token (u=+1) 6.2739, token after next (u=-1) 6.9366
+01:14:45 train_control_seed3202: step 800/2879, validation loss next-token (u=+1) 5.8688, token after next (u=-1) 6.6606
+01:15:27 train_control_seed3202: step 1200/2879, validation loss next-token (u=+1) 5.5408, token after next (u=-1) 6.4564
+01:16:09 train_control_seed3202: step 1600/2879, validation loss next-token (u=+1) 5.3011, token after next (u=-1) 6.2849
+01:16:52 train_control_seed3202: step 2000/2879, validation loss next-token (u=+1) 5.1434, token after next (u=-1) 6.1625
+01:17:34 train_control_seed3202: step 2400/2879, validation loss next-token (u=+1) 5.0330, token after next (u=-1) 6.0834
+01:18:16 train_control_seed3202: step 2800/2879, validation loss next-token (u=+1) 4.9603, token after next (u=-1) 6.0334
+01:18:26 train_control_seed3202: step 2879/2879, validation loss next-token (u=+1) 4.9518, token after next (u=-1) 6.0280
+01:18:52 train_control_seed3202: finished in 0.09 h; next-token loss with u=+1 5.0443, with u=-1 6.9797
+01:19:58 contr_control_seed3202: contraction u=+1 1.6884, u=-1 8.5527
+01:19:58 train_capped_seed3202: starting, seed 3202, peak lr 0.0024, 2879 steps
+01:21:00 train_capped_seed3202: step 400/2879, validation loss next-token (u=+1) 6.4773, token after next (u=-1) 7.0644
+01:21:16 train_capped_seed3202: step 500/2879, validation loss next-token (u=+1) 6.3008, token after next (u=-1) 6.9339
+01:22:02 train_capped_seed3202: step 800/2879, validation loss next-token (u=+1) 5.8784, token after next (u=-1) 6.6670
+01:23:03 train_capped_seed3202: step 1200/2879, validation loss next-token (u=+1) 5.5474, token after next (u=-1) 6.4662
+01:24:04 train_capped_seed3202: step 1600/2879, validation loss next-token (u=+1) 5.3206, token after next (u=-1) 6.3024
+01:25:05 train_capped_seed3202: step 2000/2879, validation loss next-token (u=+1) 5.1583, token after next (u=-1) 6.1769
+01:26:05 train_capped_seed3202: step 2400/2879, validation loss next-token (u=+1) 5.0485, token after next (u=-1) 6.0994
+01:27:06 train_capped_seed3202: step 2800/2879, validation loss next-token (u=+1) 4.9789, token after next (u=-1) 6.0518
+01:27:20 train_capped_seed3202: step 2879/2879, validation loss next-token (u=+1) 4.9667, token after next (u=-1) 6.0432
+01:27:46 train_capped_seed3202: finished in 0.12 h; next-token loss with u=+1 5.0598, with u=-1 6.9743
+01:28:59 contr_capped_seed3202: contraction u=+1 -0.1583, u=-1 0.6546
+01:28:59 train_sham_seed3202: starting, seed 3202, peak lr 0.0024, 2879 steps
+01:30:00 train_sham_seed3202: step 400/2879, validation loss next-token (u=+1) 6.4773, token after next (u=-1) 7.0644
+01:30:16 train_sham_seed3202: step 500/2879, validation loss next-token (u=+1) 6.3008, token after next (u=-1) 6.9339
+01:31:03 train_sham_seed3202: step 800/2879, validation loss next-token (u=+1) 5.8696, token after next (u=-1) 6.6634
+01:32:03 train_sham_seed3202: step 1200/2879, validation loss next-token (u=+1) 5.5389, token after next (u=-1) 6.4568
+01:33:04 train_sham_seed3202: step 1600/2879, validation loss next-token (u=+1) 5.3088, token after next (u=-1) 6.2923
+01:34:05 train_sham_seed3202: step 2000/2879, validation loss next-token (u=+1) 5.1492, token after next (u=-1) 6.1671
+01:35:05 train_sham_seed3202: step 2400/2879, validation loss next-token (u=+1) 5.0401, token after next (u=-1) 6.0885
+01:36:06 train_sham_seed3202: step 2800/2879, validation loss next-token (u=+1) 4.9694, token after next (u=-1) 6.0395
+01:36:20 train_sham_seed3202: step 2879/2879, validation loss next-token (u=+1) 4.9573, token after next (u=-1) 6.0312
+01:36:46 train_sham_seed3202: finished in 0.12 h; next-token loss with u=+1 5.0507, with u=-1 6.9634
+01:37:58 contr_sham_seed3202: contraction u=+1 1.3584, u=-1 7.8103
+01:37:58 train_control_seed3203: starting, seed 3203, peak lr 0.0024, 2879 steps
+01:38:40 train_control_seed3203: step 400/2879, validation loss next-token (u=+1) 6.4668, token after next (u=-1) 7.0314
+01:38:53 train_control_seed3203: step 500/2879, validation loss next-token (u=+1) 6.3002, token after next (u=-1) 6.9321
+01:39:25 train_control_seed3203: step 800/2879, validation loss next-token (u=+1) 5.8655, token after next (u=-1) 6.6644
+01:40:07 train_control_seed3203: step 1200/2879, validation loss next-token (u=+1) 5.5419, token after next (u=-1) 6.4342
+01:40:49 train_control_seed3203: step 1600/2879, validation loss next-token (u=+1) 5.3163, token after next (u=-1) 6.2984
+01:41:31 train_control_seed3203: step 2000/2879, validation loss next-token (u=+1) 5.1391, token after next (u=-1) 6.1628
+01:42:14 train_control_seed3203: step 2400/2879, validation loss next-token (u=+1) 5.0293, token after next (u=-1) 6.0807
+01:42:56 train_control_seed3203: step 2800/2879, validation loss next-token (u=+1) 4.9590, token after next (u=-1) 6.0248
+01:43:06 train_control_seed3203: step 2879/2879, validation loss next-token (u=+1) 4.9568, token after next (u=-1) 6.0224
+01:43:32 train_control_seed3203: finished in 0.09 h; next-token loss with u=+1 5.0600, with u=-1 6.9493
+01:44:45 contr_control_seed3203: contraction u=+1 1.6634, u=-1 8.1482
+01:44:46 train_capped_seed3203: starting, seed 3203, peak lr 0.0024, 2879 steps
+01:45:46 train_capped_seed3203: step 400/2879, validation loss next-token (u=+1) 6.4669, token after next (u=-1) 7.0320
+01:46:03 train_capped_seed3203: step 500/2879, validation loss next-token (u=+1) 6.3118, token after next (u=-1) 6.9427
+01:46:49 train_capped_seed3203: step 800/2879, validation loss next-token (u=+1) 5.8745, token after next (u=-1) 6.6778
+01:47:50 train_capped_seed3203: step 1200/2879, validation loss next-token (u=+1) 5.5477, token after next (u=-1) 6.4420
+01:48:51 train_capped_seed3203: step 1600/2879, validation loss next-token (u=+1) 5.3532, token after next (u=-1) 6.3226
+01:49:52 train_capped_seed3203: step 2000/2879, validation loss next-token (u=+1) 5.1690, token after next (u=-1) 6.1767
+01:50:53 train_capped_seed3203: step 2400/2879, validation loss next-token (u=+1) 5.0577, token after next (u=-1) 6.0958
+01:51:54 train_capped_seed3203: step 2800/2879, validation loss next-token (u=+1) 4.9870, token after next (u=-1) 6.0436
+01:52:07 train_capped_seed3203: step 2879/2879, validation loss next-token (u=+1) 4.9843, token after next (u=-1) 6.0414
+01:52:33 train_capped_seed3203: finished in 0.12 h; next-token loss with u=+1 5.0850, with u=-1 6.9589
+01:53:45 contr_capped_seed3203: contraction u=+1 -0.0708, u=-1 0.4093
+01:53:45 train_sham_seed3203: starting, seed 3203, peak lr 0.0024, 2879 steps
+01:54:46 train_sham_seed3203: step 400/2879, validation loss next-token (u=+1) 6.4669, token after next (u=-1) 7.0320
+01:55:03 train_sham_seed3203: step 500/2879, validation loss next-token (u=+1) 6.3118, token after next (u=-1) 6.9427
+01:55:49 train_sham_seed3203: step 800/2879, validation loss next-token (u=+1) 5.8581, token after next (u=-1) 6.6610
+01:56:50 train_sham_seed3203: step 1200/2879, validation loss next-token (u=+1) 5.5325, token after next (u=-1) 6.4331
+01:57:50 train_sham_seed3203: step 1600/2879, validation loss next-token (u=+1) 5.3133, token after next (u=-1) 6.2943
+01:58:51 train_sham_seed3203: step 2000/2879, validation loss next-token (u=+1) 5.1378, token after next (u=-1) 6.1534
+01:59:52 train_sham_seed3203: step 2400/2879, validation loss next-token (u=+1) 5.0251, token after next (u=-1) 6.0730
+02:00:53 train_sham_seed3203: step 2800/2879, validation loss next-token (u=+1) 4.9532, token after next (u=-1) 6.0200
+02:01:07 train_sham_seed3203: step 2879/2879, validation loss next-token (u=+1) 4.9504, token after next (u=-1) 6.0171
+02:01:33 train_sham_seed3203: finished in 0.12 h; next-token loss with u=+1 5.0538, with u=-1 6.9450
+02:02:44 contr_sham_seed3203: contraction u=+1 1.7587, u=-1 8.1244
+02:02:45 train_control_seed3204: starting, seed 3204, peak lr 0.0024, 2879 steps
+02:03:27 train_control_seed3204: step 400/2879, validation loss next-token (u=+1) 6.4782, token after next (u=-1) 7.0555
+02:03:39 train_control_seed3204: step 500/2879, validation loss next-token (u=+1) 6.3179, token after next (u=-1) 6.9482
+02:04:11 train_control_seed3204: step 800/2879, validation loss next-token (u=+1) 5.8604, token after next (u=-1) 6.6554
+02:04:53 train_control_seed3204: step 1200/2879, validation loss next-token (u=+1) 5.5139, token after next (u=-1) 6.4316
+02:05:36 train_control_seed3204: step 1600/2879, validation loss next-token (u=+1) 5.3142, token after next (u=-1) 6.2831
+02:06:18 train_control_seed3204: step 2000/2879, validation loss next-token (u=+1) 5.1369, token after next (u=-1) 6.1567
+02:07:00 train_control_seed3204: step 2400/2879, validation loss next-token (u=+1) 5.0217, token after next (u=-1) 6.0761
+02:07:42 train_control_seed3204: step 2800/2879, validation loss next-token (u=+1) 4.9598, token after next (u=-1) 6.0281
+02:07:52 train_control_seed3204: step 2879/2879, validation loss next-token (u=+1) 4.9516, token after next (u=-1) 6.0224
+02:08:18 train_control_seed3204: finished in 0.09 h; next-token loss with u=+1 5.0507, with u=-1 6.9768
+02:09:27 contr_control_seed3204: contraction u=+1 1.2587, u=-1 7.7149
+02:09:27 train_capped_seed3204: starting, seed 3204, peak lr 0.0024, 2879 steps
+02:10:28 train_capped_seed3204: step 400/2879, validation loss next-token (u=+1) 6.4846, token after next (u=-1) 7.0596
+02:10:44 train_capped_seed3204: step 500/2879, validation loss next-token (u=+1) 6.3093, token after next (u=-1) 6.9477
+02:11:30 train_capped_seed3204: step 800/2879, validation loss next-token (u=+1) 5.8607, token after next (u=-1) 6.6558
+02:12:31 train_capped_seed3204: step 1200/2879, validation loss next-token (u=+1) 5.5182, token after next (u=-1) 6.4326
+02:13:32 train_capped_seed3204: step 1600/2879, validation loss next-token (u=+1) 5.3169, token after next (u=-1) 6.2881
+02:14:32 train_capped_seed3204: step 2000/2879, validation loss next-token (u=+1) 5.1334, token after next (u=-1) 6.1558
+02:15:33 train_capped_seed3204: step 2400/2879, validation loss next-token (u=+1) 5.0255, token after next (u=-1) 6.0758
+02:16:34 train_capped_seed3204: step 2800/2879, validation loss next-token (u=+1) 4.9614, token after next (u=-1) 6.0281
+02:16:48 train_capped_seed3204: step 2879/2879, validation loss next-token (u=+1) 4.9525, token after next (u=-1) 6.0215
+02:17:13 train_capped_seed3204: finished in 0.12 h; next-token loss with u=+1 5.0514, with u=-1 6.9732
+02:18:23 contr_capped_seed3204: contraction u=+1 0.0769, u=-1 0.4691
+02:18:23 train_sham_seed3204: starting, seed 3204, peak lr 0.0024, 2879 steps
+02:19:24 train_sham_seed3204: step 400/2879, validation loss next-token (u=+1) 6.4846, token after next (u=-1) 7.0596
+02:19:40 train_sham_seed3204: step 500/2879, validation loss next-token (u=+1) 6.3093, token after next (u=-1) 6.9477
+02:20:26 train_sham_seed3204: step 800/2879, validation loss next-token (u=+1) 5.8629, token after next (u=-1) 6.6549
+02:21:27 train_sham_seed3204: step 1200/2879, validation loss next-token (u=+1) 5.5202, token after next (u=-1) 6.4349
+02:22:27 train_sham_seed3204: step 1600/2879, validation loss next-token (u=+1) 5.3173, token after next (u=-1) 6.2878
+02:23:28 train_sham_seed3204: step 2000/2879, validation loss next-token (u=+1) 5.1359, token after next (u=-1) 6.1572
+02:24:29 train_sham_seed3204: step 2400/2879, validation loss next-token (u=+1) 5.0237, token after next (u=-1) 6.0767
+02:25:30 train_sham_seed3204: step 2800/2879, validation loss next-token (u=+1) 4.9585, token after next (u=-1) 6.0267
+02:25:43 train_sham_seed3204: step 2879/2879, validation loss next-token (u=+1) 4.9510, token after next (u=-1) 6.0194
+02:26:09 train_sham_seed3204: finished in 0.12 h; next-token loss with u=+1 5.0491, with u=-1 6.9710
+02:27:19 contr_sham_seed3204: contraction u=+1 1.5667, u=-1 7.9478
+02:27:20 train_control_seed3205: starting, seed 3205, peak lr 0.0024, 2879 steps
+02:28:02 train_control_seed3205: step 400/2879, validation loss next-token (u=+1) 6.4785, token after next (u=-1) 7.0632
+02:28:14 train_control_seed3205: step 500/2879, validation loss next-token (u=+1) 6.3137, token after next (u=-1) 6.9512
+02:28:46 train_control_seed3205: step 800/2879, validation loss next-token (u=+1) 5.8785, token after next (u=-1) 6.6684
+02:29:28 train_control_seed3205: step 1200/2879, validation loss next-token (u=+1) 5.5515, token after next (u=-1) 6.4471
+02:30:11 train_control_seed3205: step 1600/2879, validation loss next-token (u=+1) 5.3195, token after next (u=-1) 6.2794
+02:30:53 train_control_seed3205: step 2000/2879, validation loss next-token (u=+1) 5.1520, token after next (u=-1) 6.1713
+02:31:35 train_control_seed3205: step 2400/2879, validation loss next-token (u=+1) 5.0390, token after next (u=-1) 6.0865
+02:32:17 train_control_seed3205: step 2800/2879, validation loss next-token (u=+1) 4.9774, token after next (u=-1) 6.0424
+02:32:28 train_control_seed3205: step 2879/2879, validation loss next-token (u=+1) 4.9691, token after next (u=-1) 6.0375
+02:32:54 train_control_seed3205: finished in 0.09 h; next-token loss with u=+1 5.0577, with u=-1 6.9678
+02:34:06 contr_control_seed3205: contraction u=+1 1.6689, u=-1 8.7462
+02:34:06 train_capped_seed3205: starting, seed 3205, peak lr 0.0024, 2879 steps
+02:35:07 train_capped_seed3205: step 400/2879, validation loss next-token (u=+1) 6.4761, token after next (u=-1) 7.0622
+02:35:23 train_capped_seed3205: step 500/2879, validation loss next-token (u=+1) 6.3029, token after next (u=-1) 6.9407
+02:36:10 train_capped_seed3205: step 800/2879, validation loss next-token (u=+1) 5.8835, token after next (u=-1) 6.6714
+02:37:10 train_capped_seed3205: step 1200/2879, validation loss next-token (u=+1) 5.5515, token after next (u=-1) 6.4464
+02:38:11 train_capped_seed3205: step 1600/2879, validation loss next-token (u=+1) 5.3219, token after next (u=-1) 6.2822
+02:39:12 train_capped_seed3205: step 2000/2879, validation loss next-token (u=+1) 5.1523, token after next (u=-1) 6.1724
+02:40:12 train_capped_seed3205: step 2400/2879, validation loss next-token (u=+1) 5.0375, token after next (u=-1) 6.0837
+02:41:13 train_capped_seed3205: step 2800/2879, validation loss next-token (u=+1) 4.9804, token after next (u=-1) 6.0419
+02:41:27 train_capped_seed3205: step 2879/2879, validation loss next-token (u=+1) 4.9725, token after next (u=-1) 6.0401
+02:41:53 train_capped_seed3205: finished in 0.12 h; next-token loss with u=+1 5.0575, with u=-1 6.9868
+02:42:58 contr_capped_seed3205: contraction u=+1 -0.3854, u=-1 0.4878
+02:42:59 train_sham_seed3205: starting, seed 3205, peak lr 0.0024, 2879 steps
+02:43:59 train_sham_seed3205: step 400/2879, validation loss next-token (u=+1) 6.4821, token after next (u=-1) 7.0623
+02:44:16 train_sham_seed3205: step 500/2879, validation loss next-token (u=+1) 6.3044, token after next (u=-1) 6.9474
+02:45:02 train_sham_seed3205: step 800/2879, validation loss next-token (u=+1) 5.8889, token after next (u=-1) 6.6709
+02:46:03 train_sham_seed3205: step 1200/2879, validation loss next-token (u=+1) 5.5493, token after next (u=-1) 6.4432
+02:47:04 train_sham_seed3205: step 1600/2879, validation loss next-token (u=+1) 5.3229, token after next (u=-1) 6.2794
+02:48:04 train_sham_seed3205: step 2000/2879, validation loss next-token (u=+1) 5.1527, token after next (u=-1) 6.1694
+02:49:05 train_sham_seed3205: step 2400/2879, validation loss next-token (u=+1) 5.0374, token after next (u=-1) 6.0814
+02:50:06 train_sham_seed3205: step 2800/2879, validation loss next-token (u=+1) 4.9785, token after next (u=-1) 6.0379
+02:50:19 train_sham_seed3205: step 2879/2879, validation loss next-token (u=+1) 4.9696, token after next (u=-1) 6.0346
+02:50:45 train_sham_seed3205: finished in 0.12 h; next-token loss with u=+1 5.0545, with u=-1 6.9582
+02:51:54 contr_sham_seed3205: contraction u=+1 1.4753, u=-1 8.6770
+02:51:54 G1d complete: all runs and measurements finished
+02:51:54 copied 48 result files for upload
+02:51:54 waiting for background Drive saves to finish (up to 15 minutes)
+02:51:54 Drive saves finished

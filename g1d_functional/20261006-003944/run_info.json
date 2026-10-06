@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "g1d_functional",
+    "args": [],
+    "description": "Test G1d: does the model need the farther reading's strong contraction? A short pilot picks the penalty strength, then three arms (control, capped, sham) are trained on 5 new seeds and measured. Up to 4 pilot runs, 15 main runs and their measurements. About 3 to 3.5 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 210
+  },
+  "code_commit": "935f8a94f8817e3f3ba8d46b0b013feef9cceaec",
+  "run_id": "20261006-003944",
+  "gpu": "Tesla T4"
+}
