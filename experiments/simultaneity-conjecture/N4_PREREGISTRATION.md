@@ -1,6 +1,6 @@
 # Preregistration N4: are coexisting readings kept apart by direction, and does the model need that?
 
-Date: 2026-10-06    Status: **approved by the author, 2026-10-06; amendment A1 awaiting the author's approval.** No real N4 run has started.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06, with amendment A1 (approved).** Queued; see the deviation log.
 
 Type: confirmatory for the primary outcome (N4b) and for the secondary hypothesis N4a, each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -160,7 +160,7 @@ J is the combined validation loss, L_A + L_B, on the whole validation split, eac
 
 ## Deviation log
 
-### Amendment A1, before any real run, 2026-10-06: awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-06: approved by the author
 
 Results seen before this entry:
 - the calibration this preregistration promised, on five **untrained** full-size models of each arm (G1's seeds 3001–3005, not N4's), using the first 128 windows of the test-mode token file, which N4 does not use;
