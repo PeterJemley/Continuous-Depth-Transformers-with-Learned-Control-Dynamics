@@ -1,6 +1,6 @@
 # Preregistration N4: are coexisting readings kept apart by direction, and does the model need that?
 
-Date: 2026-10-06    Status: **approved by the author, 2026-10-06, with amendment A1 (approved).** Queued; see the deviation log.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06, with amendment A1 (approved).** Run; see the deviation log, `N4_RESULTS.md` and `N4_NOTE.md`.
 
 Type: confirmatory for the primary outcome (N4b) and for the secondary hypothesis N4a, each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -199,6 +199,17 @@ No real N4 run had started.
   - The job ran end to end on tiny models: checks, all eight runs, measurements and the result upload.
   - A run killed at step 34 and resumed gave final losses bit-identical to the uninterrupted run.
   - `n4_analyze.py` gave the expected verdicts on synthetic records for 13 cases: both supported; N4b refuted (two ways), not sensitive enough, some effect, inconclusive, and untestable at this width; N4a refuted, intermediate, and untestable by the must-fail control; untestable through the must-match and data-order checks; and not reached.
+
+### The run, 2026-10-06
+
+One Colab session (`colab-results` branch `n4_directions/20261006-200755`, code commit aebb830) ran all 20 models and their measurements, with no resumes and no Drive failures. Nothing was changed after approval. The results are in `N4_RESULTS.md` and `N4_NOTE.md`: N4b supported, N4a supported.
+
+### Exploratory check added after the run, 2026-10-06
+
+- **What was added.** N4a's overlap measured on the *untrained* models of N4's own seeds, on its windows 1,537–1,792 (`n4_init_baseline.py`, output in `results/n4_exploratory/untrained_overlap.json`).
+- **Why.** The trained dual-sep overlaps (0.455–0.488) were close to the calibration's untrained values (0.45–0.49), so it mattered whether training had moved them at all.
+- **Possible because:** the test-mode validation file used in calibration has the same checksum as the real validation split, so the same windows could be used.
+- **Status.** This is exploratory and enters no decision rule. Both verdicts stand as computed. The result is reported in `N4_NOTE.md`.
 
 ## References
 

@@ -88,6 +88,8 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 
 **N2 result, 2026-10-06: refuted.** When one state must serve two readings at once, the farther reading's directions contracted only 14 to 25% faster, against the factor of 2 predicted. N2b (necessity) is therefore untestable. Exploratory: the two readings occupy partly separate directions (overlap about 0.6, against 0.99 for two heads reading the same target). The voices may separate in direction rather than in timescale. See `N2_NOTE.md`.
 
+**N4 result, 2026-10-06: supported.** Forcing two coexisting readings through one shared set of 64 readout directions cost 0.088 nats more than the same restriction cost two heads reading the same target (95% interval [+0.078, +0.097]). The readings' directions stayed partly separate (overlap 0.46–0.49), while same-target heads converged (0.95–0.97). Coexisting voices need separate directions; they do not get separate timescales (N2). Exploratory: training did not push the readings apart, it failed to bring them together. See `N4_NOTE.md`.
+
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 
 | Outcome | What we would learn | Next |

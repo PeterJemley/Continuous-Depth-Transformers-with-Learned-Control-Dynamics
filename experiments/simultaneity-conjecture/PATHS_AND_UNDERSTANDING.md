@@ -234,6 +234,8 @@ So the model switches between readings *without* needing the large dynamical dif
 
 **N2 result, 2026-10-06: refuted.** Coexisting readings did not get distinct timescales (ratios 1.14 to 1.25). By the table above, this is the "N1 supported, N2 refuted" row: readings live in representation geometry, not depth dynamics, at this scale. Exploratory: the two readings' directions overlap only about 0.6. See `N2_NOTE.md`.
 
+**N4 result, 2026-10-06: supported.** The voices-as-directions test, which N2's exploratory finding suggested. Coexisting readings need separate directions: sharing 64 readout directions cost them 0.088 nats more than it cost a single reading. This is the first "needed" result for polyphony, and it is in representation geometry, not depth dynamics. Next candidates: a width sweep, more voices, less related readings, and moving the restriction into the ODE block. See `N4_NOTE.md`.
+
 ### Recommended order now
 
 1. **N1.** It is the cheapest and settles where the reading lives, which changes what every later test should look at.
