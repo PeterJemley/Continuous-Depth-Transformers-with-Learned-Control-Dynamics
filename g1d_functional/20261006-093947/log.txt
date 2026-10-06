@@ -1,0 +1,28 @@
+09:39:49 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | G1d folder: /content/drive/MyDrive/cdt-colab/g1d_functional | local: /content/cdt_local/g1d_functional
+09:40:46 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+09:40:46 penalty check: True estimate error 0.02%, gradient error 0.58%
+09:40:46 divergence check: True
+09:40:46 sham check: True {'sham_value': 0.0, 'sham_gradient_all_zero': True, 'same_initial_weights': True, 'same_first_batch': True}
+09:40:46 batch check, targets at i+1 and i+2: True
+09:40:46 same-model check: [True, True, True, True, True]
+09:40:46 measuring on validation windows 513-768 (256 windows)
+09:40:46 lambda chosen by the pilot rule: 0.01
+09:40:46 train_control_seed3201: already finished, skipping
+09:40:46 train_capped_seed3201: already finished, skipping
+09:40:46 train_sham_seed3201: already finished, skipping
+09:40:46 train_control_seed3202: already finished, skipping
+09:40:46 train_capped_seed3202: already finished, skipping
+09:40:46 train_sham_seed3202: already finished, skipping
+09:40:46 train_control_seed3203: already finished, skipping
+09:40:46 train_capped_seed3203: already finished, skipping
+09:40:46 train_sham_seed3203: already finished, skipping
+09:40:46 train_control_seed3204: already finished, skipping
+09:40:46 train_capped_seed3204: already finished, skipping
+09:40:46 train_sham_seed3204: already finished, skipping
+09:40:46 train_control_seed3205: already finished, skipping
+09:40:46 train_capped_seed3205: already finished, skipping
+09:40:46 train_sham_seed3205: already finished, skipping
+09:40:46 G1d complete: all runs and measurements finished
+09:40:46 copied 48 result files for upload
+09:40:46 waiting for background Drive saves to finish (up to 15 minutes)
+09:40:46 Drive saves finished
