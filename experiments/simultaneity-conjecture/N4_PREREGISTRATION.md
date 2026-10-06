@@ -1,6 +1,6 @@
 # Preregistration N4: are coexisting readings kept apart by direction, and does the model need that?
 
-Date: 2026-10-06    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06; amendment A1 awaiting the author's approval.** No real N4 run has started.
 
 Type: confirmatory for the primary outcome (N4b) and for the secondary hypothesis N4a, each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -160,7 +160,45 @@ J is the combined validation loss, L_A + L_B, on the whole validation split, eac
 
 ## Deviation log
 
-None yet.
+### Amendment A1, before any real run, 2026-10-06: awaiting the author's approval
+
+Results seen before this entry:
+- the calibration this preregistration promised, on five **untrained** full-size models of each arm (G1's seeds 3001–3005, not N4's), using the first 128 windows of the test-mode token file, which N4 does not use;
+- test-mode runs on tiny models (rank 8 of 32 dimensions, 60 steps);
+- synthetic records.
+
+No real N4 run had started.
+
+**What the calibration found.**
+- **The must-match control holds by construction.** For every seed, separate and tied gave bit-identical logits at initialisation, and all four arms shared every trunk weight.
+- **The untrained overlap is about 0.48, not N2's 0.07.**
+  - At initialisation, N4a's overlap was 0.45 to 0.49 in all four arms, identical between dual and same, and between separate and tied.
+  - The reason: P_B starts as a copy of P_A, so both heads' gradients at the ODE block's output pass through the same 64 directions. N2's full-width heads had no such shared bottleneck.
+  - N4a still works as written. An untrained model would pass the "≤ 0.8" condition, but it would fail the must-fail control (same-sep ≥ 0.95), so N4a would be scored untestable, not supported. Separation after training therefore counts only if two heads reading the same target have, from the same starting point, converged to at least 0.95.
+  - The subspaces are stable: odd and even estimation windows overlapped 0.92 to 0.96 at initialisation.
+- **Test mode cannot check whether the restriction binds.** On tiny models after 60 steps, the cost of tying ranged from −0.02 to +0.15 nats across seeds and pairs, with intervals of ±0.3 to ±1. That is noise from barely trained models, and says nothing about binding at full size. So the check this preregistration promised cannot be made before the run; S3, computed from the real runs, is the only test of binding.
+- **S3's "near zero" was not defined.** The preregistration says that if both pairs' costs of tying are near zero, the report will say N4b could not test the claim. It did not say what counts as near zero, or how that interacts with the refutation rule.
+
+**The amendment.**
+- **S3's rule.** The restriction is judged **not to bind** if the 95% intervals for J_tied − J_sep lie wholly within ±0.01 nats for *both* pairs (dual and same). 0.01 is a fifth of the margin, and about twice N2's seed-to-seed spread of losses.
+- **Its effect on N4b.** When the restriction does not bind, N4b's verdict is **"untestable at this width"**, in place of whatever the N4b table would give. In practice this can only replace "refuted" or "inconclusive", since a supported D needs the dual pair's cost above 0.05.
+- **Why.** If two different readings lose less than 0.01 nats by sharing 64 directions, either they share directions, or 64 dimensions have room for both kept apart. This design cannot tell those apart. A dual cost between 0.01 and 0.05, with D below the margin, still refutes the claim as written.
+- Every other rule, threshold and control is unchanged.
+
+### Implementation details fixed before any real run, 2026-10-06
+
+- **Code.**
+  - `n4_directions.py` trains the four arms, checks them, and measures N4a and S2.
+  - `n4_analyze.py` applies both rules, with amendment A1, and writes `N4_RESULTS.md`.
+  - The Colab job is `colab/jobs/n4_directions.py`.
+- **The readouts.** The trunk is built exactly as in N2, then its full-width head is removed. P_A, W_A and W_B are drawn from their own seeds (the model's seed + 77,773, + 55,547 and + 99,991), so all four arms start identically for a seed. In the tied arms P_B is the same module as P_A. In the separate arms it is a copy.
+- **The final LayerNorm** in "P_k · LayerNorm(z)" is the model's own final LayerNorm, ln_f. No second LayerNorm is added.
+- **Same data order.** The first training batch is fingerprinted in every run, to confirm that the four arms of a seed see the same batches. The analysis treats a mismatch as a failed precondition for N4b.
+- **N4a's stability** is reported: overlaps from the odd and even halves of the measurement windows. It is not a decision rule.
+- **Tests:**
+  - The job ran end to end on tiny models: checks, all eight runs, measurements and the result upload.
+  - A run killed at step 34 and resumed gave final losses bit-identical to the uninterrupted run.
+  - `n4_analyze.py` gave the expected verdicts on synthetic records for 13 cases: both supported; N4b refuted (two ways), not sensitive enough, some effect, inconclusive, and untestable at this width; N4a refuted, intermediate, and untestable by the must-fail control; untestable through the must-match and data-order checks; and not reached.
 
 ## References
 

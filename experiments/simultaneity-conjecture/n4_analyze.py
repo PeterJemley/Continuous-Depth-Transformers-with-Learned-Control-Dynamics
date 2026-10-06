@@ -85,8 +85,8 @@ def main():
         else:
             v4b = f'**Inconclusive.** {tail}'
         if no_bind:
-            v4b += (f' **But S3 shows the restriction did not bind** (both pairs\' costs of tying lie within ±{NO_BIND}), '
-                    'so N4b could not test the claim at this width.')
+            v4b = (f'**Untestable at this width: the restriction did not bind** (S3: both pairs\' costs of tying lie within '
+                   f'±{NO_BIND}; amendment A1). {tail}')
 
     # ---------------------------------------------------------------- N4a
     ov = {(a, s): sub[(a, s)]['overlap_AB'] for a in ARMS for s in SEEDS if sub[(a, s)]}
