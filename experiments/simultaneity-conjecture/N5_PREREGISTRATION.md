@@ -1,6 +1,6 @@
 # Preregistration N5: is N4's cost a competition for directions? A readout-width sweep
 
-Date: 2026-10-06    Status: **approved by the author, 2026-10-06.** No real N5 run has started.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06.** Queued; no real N5 run has started.
 
 Type: confirmatory for two hypotheses, N5a and N5b, each with its own decision rule and a Bonferroni-corrected interval. Everything else is secondary or exploratory and labelled so.
 
@@ -193,6 +193,7 @@ No real N5 run had started. No rule, threshold or control was changed, so no ame
 - **Test mode** scales the widths with the model: 32, 4 and 16 for its 32-dimensional state.
 - **An exploratory measure added before the run:** the conditioning of each trained readout P (smallest over largest singular value). At width 256, tied and separate are equivalent only while P stays invertible, so this reports whether training kept it so. It enters no decision rule.
 - **Tests:**
+  - The job ran end to end on tiny models: all checks, the untrained overlaps, 24 runs at the three test widths, the measurements and the result upload. A run interrupted at step 30 resumed from its checkpoint. `n5_analyze.py` read the job's real records without error.
   - `n5_analyze.py` gave the expected verdicts on synthetic records for 14 cases. These covered both supported; N5a refuted, partly, inconclusive, and supported with a small positive cost; N5b refuted (including the non-monotone case), not sensitive enough, some effect, and inconclusive; untestable through each precondition; and not reached.
 
 ## References
