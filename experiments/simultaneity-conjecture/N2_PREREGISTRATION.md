@@ -1,6 +1,6 @@
 # Preregistration N2: do dynamical regimes become necessary when two readings must coexist?
 
-Date: 2026-10-06    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final; amendment A1 (the per-dimension floor) approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for two hypotheses, N2a (existence) and N2b (necessity), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -170,7 +170,7 @@ Unlike G1c and N1, the subspace measure has not yet been run on untrained models
 
 ## Deviation log
 
-### Proposed amendment A1, before any real run, 2026-10-06: awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-06: approved by the author
 
 Results seen before this entry:
 - the calibration this preregistration promised, on five **untrained** full-size models (G1's seeds 3001–3005, not N2's), using the first 128 windows of the test-mode token file, which N2 does not use;
