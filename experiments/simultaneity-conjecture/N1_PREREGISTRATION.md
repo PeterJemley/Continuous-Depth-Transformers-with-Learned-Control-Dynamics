@@ -1,6 +1,6 @@
 # Preregistration N1: is the reading a direction, not a regime?
 
-Date: 2026-10-06    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
 
 Type: confirmatory for the primary outcome (N1b) and for the secondary hypothesis N1a, each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -148,7 +148,30 @@ For each seed and each task, the loss of the post arm minus the loss of the full
 
 ## Deviation log
 
-None yet.
+### Implementation details fixed before any real run, 2026-10-06
+
+Results seen before this entry: only test-mode runs of `n1_offset.py` on tiny models (width 32, 60 steps), unit tests of the arms and measures, and synthetic records for the analysis. No real N1 run had started.
+
+- **Code.**
+  - `n1_offset.py` trains the four arms (through G1's `train_g1`) and measures them.
+  - `n1_analyze.py` applies both decision rules and writes `N1_RESULTS.md`.
+  - The Colab job is `colab/jobs/n1_offset.py`.
+- **How the arms are built.** Each arm replaces the ODE block's forward method on the model instance. Every arm keeps the same modules, so `control_embed` exists in all four, unused in the none arm, and all start from identical weights for a seed.
+- **The must-match check** compares logits in evaluation mode, so dropout is off, on one training batch per seed. It also confirms that, with the control *not* zeroed, the post, pre and none arms each differ from the full arm, so the construction is not vacuous. In the test runs: identical with the control zeroed, different otherwise.
+- **N1a's measurement.**
+  - The block's output is taken in evaluation mode for u = +1 and u = −1. The offset fraction and top singular share are computed in float64 over all 32,768 token positions.
+  - The injected check scales the u = +1 output by 0.9 against 1.1.
+  - Δ's relative size is the mean ‖Δ‖ over the mean ‖output‖.
+- **S3 in the pre arm.** The field never sees u there, so each control value's trajectory starts from h0 + `control_embed(u)`, with the field run with no control. The full arm uses G1c's measurement unchanged.
+- **A risk noticed in testing, recorded and not acted on.**
+  - In tiny *untrained* test models, the injected multiplicative check read 0.04 to 0.10, against 0.02 in full-size untrained models. In tiny models trained for only 60 steps, it read 0.95 to 0.96.
+  - The reason: when the block's output carries a large component shared by all tokens, scaling the output also looks like adding a constant vector. Trained transformers often develop such a component.
+  - So N1a will very likely come out "untestable" through its own precondition in the real run. The rule is unchanged, because it does what it was written to do. N1b does not depend on this measure, and the offset fraction and top singular share are still reported, as description.
+- **Tests.**
+  - The job ran end to end on tiny models, and a second run skipped all finished work. Its preconditions failed there, as expected after 60 steps, because the tasks are not yet learned.
+  - `n1_analyze.py` gave the expected verdicts on synthetic records for 14 cases:
+    - N1b supported (including the post arm doing *better*, and an interval wholly below the margin), refuted through either task, some effect, inconclusive through noise, and untestable through each of its three preconditions;
+    - N1a supported, refuted, intermediate, and untestable through the injected check.
 
 ## References
 
