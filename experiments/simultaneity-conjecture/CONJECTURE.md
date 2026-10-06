@@ -84,6 +84,8 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 
 **G1d result, 2026-10-06: refuted.** Capping that contraction during training, which removed over 90% of it, cost the farther task no more than the next-token task: D = −0.002, 95% interval [−0.007, +0.002], against a 0.05 margin. The regime is real but, by this test, not needed: a by-product, or work other layers take over. See `G1D_NOTE.md`.
 
+**N1 result, 2026-10-06: an offset is enough.** A model whose control is only a learned vector added after the ODE block, with u never entering the dynamics, matched the full model on both tasks within 0.001 nats. Switching between readings needs nothing from the dynamics. Whether dynamics matter when readings must coexist is the open question (N2). See `N1_NOTE.md`.
+
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 
 | Outcome | What we would learn | Next |

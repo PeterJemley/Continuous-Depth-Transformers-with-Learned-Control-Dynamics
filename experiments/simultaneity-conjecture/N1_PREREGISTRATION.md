@@ -180,3 +180,7 @@ Park, K., Choe, Y. J., & Veitch, V. (2023). *The linear representation hypothesi
 Perez, E., Strub, F., de Vries, H., Dumoulin, V., & Courville, A. (2018). FiLM: Visual reasoning with a general conditioning layer. *Proceedings of the AAAI Conference on Artificial Intelligence, 32*(1). https://doi.org/10.1609/aaai.v32i1.11671
 
 Turner, A. M., Thiergart, L., Leech, G., Udell, D., Vazquez, J. J., Mini, U., & MacDiarmid, M. (2023). *Steering language models with activation engineering*. arXiv. https://doi.org/10.48550/arxiv.2308.10248
+
+### The run, 2026-10-06
+
+The job ran once, in one Colab session on a T4, from code commit ead1207, with no resumes and no Drive failures (`colab-results` branch `n1_offset/20261006-121140`). Nothing was changed after approval. As the test runs foresaw, N1a's injected check read above 0.1 (0.28 to 0.37), so N1a is untestable under its own rule. The results are in `N1_RESULTS.md` and `N1_NOTE.md`.

@@ -230,6 +230,8 @@ So the model switches between readings *without* needing the large dynamical dif
 
 **N4.** Self-set control (path E) and the probe (path B) are unaffected by G1d and stay on the list.
 
+**N1 result, 2026-10-06: supported.** An offset after the block matched the full model on both tasks within 0.001 nats. See `N1_NOTE.md`. N2 is next in the order below.
+
 ### Recommended order now
 
 1. **N1.** It is the cheapest and settles where the reading lives, which changes what every later test should look at.
