@@ -20,7 +20,7 @@ OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE / 'N2_RESULTS.md'
 
 SEEDS = [3401, 3402, 3403, 3404, 3405]
 NEEDED = 4
-R = 16
+R, R_ALT = 16, 32                  # subspace dimensions; read from the records if they say otherwise (test mode)
 # Amendment A1: subspace contraction is per dimension, so the near-zero floor is in per-dimension units.
 FLOOR, CLEAR = 0.002, 0.004
 LARGE, SMALL, LOW = 2.0, 1.25, 0.8
@@ -46,7 +46,8 @@ def score(ca, cb):
     return 'B contracts weakly, A does not', None, 'middle'
 
 
-def rates(sub, a=f'A{R}', b=f'B{R}'):
+def rates(sub, a=None, b=None):
+    a, b = a or f'A{R}', b or f'B{R}'
     c = sub['contraction']
     return float(np.mean(c[a])), float(np.mean(c[b]))
 
@@ -79,6 +80,12 @@ def f(x, d=4, sign=False):
 
 
 def main():
+    global R, R_ALT
+    for p in sorted(RES.glob('sub_*.json')):
+        ranks = json.loads(p.read_text()).get('ranks')
+        if ranks and len(ranks) == 2:
+            R, R_ALT = ranks
+            break
     summary = load('n2_summary') or {}
     checks = summary.get('checks', {})
     lam = summary.get('lambda')
@@ -205,15 +212,15 @@ def main():
         if len(d) >= 2:
             m, sd, lo, hi = interval(d)
             L.append(f'| {label} | {m:+.4f} | [{lo:+.4f}, {hi:+.4f}] |')
-    L += ['', '### S3, S4, S5: 32 dimensions, whole-state contraction, subspace drift', '',
-          '| Seed | Arm | R_sub at 32 dims | Whole-state contraction | Drift: overlap of A, mid vs end | Drift: overlap of B, mid vs end |',
+    L += ['', f'### S3, S4, S5: {R_ALT} dimensions, whole-state contraction, subspace drift', '',
+          f'| Seed | Arm | R_sub at {R_ALT} dims | Whole-state contraction | Drift: overlap of A, mid vs end | Drift: overlap of B, mid vs end |',
           '|---|---|---|---|---|---|']
     for a in ('dual', 'same'):
         for s in SEEDS:
             r = sub[(a, s)]
             if not r:
                 continue
-            _, r32, _ = score(*rates(r, 'A32', 'B32'))
+            _, r32, _ = score(*rates(r, f'A{R_ALT}', f'B{R_ALT}'))
             whole = float(np.mean(r['contraction']['whole']))
             dA = dB = None
             if a == 'dual' and mid[s]:

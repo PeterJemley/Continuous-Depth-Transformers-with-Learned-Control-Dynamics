@@ -204,6 +204,7 @@ No real N2 run had started.
 - **The sham arm** computes the same penalty at weight 0, so its gradient is exactly zero.
 - **Tests:**
   - The analytic checks passed: dense error 0.12%, diagonal exact, gradient 0.41%.
+  - The job ran end to end on tiny models, including the pilot, the mid checkpoint and both resumed arms. The batch fingerprint at step 1,440 matched across the dual, equalised and sham runs.
   - `n2_analyze.py` gave the expected verdicts on synthetic records for 13 cases. These covered both supported; N2a supported and N2b refuted; N2b with some effect, and inconclusive; N2a refuted, and intermediate; the case where reading A is near zero; and untestable through each precondition of both rules.
 
 ## References
