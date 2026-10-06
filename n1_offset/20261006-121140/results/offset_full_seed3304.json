@@ -1,0 +1,1 @@
+{"seed": 3304, "arm": "full", "state": "trained", "seconds": 0.9063103199005127, "offset_fraction": 0.18709955185882599, "top_singular_share": 0.313257292422037, "injected_multiplicative_fraction": 0.3680026048572158, "delta_norm_mean": 32.243961894126784, "output_norm_mean": 64.81712429394005, "relative_size": 0.4974605437276607, "tokens": 32768}

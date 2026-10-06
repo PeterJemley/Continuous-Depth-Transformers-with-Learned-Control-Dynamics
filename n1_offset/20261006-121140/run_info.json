@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n1_offset",
+    "args": [],
+    "description": "Test N1: is the reading a direction, not a regime? Four arms (control inside the field, offset after the block, offset before it, no control) on 5 new seeds, then measurements of the control's effect. 20 short runs. About 2 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 120
+  },
+  "code_commit": "ead120798e3349cb9f77f8dc703f744eeebb6fc3",
+  "run_id": "20261006-121140",
+  "gpu": "Tesla T4"
+}
