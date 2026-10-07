@@ -1,0 +1,153 @@
+{
+  "tag": "main_hybrid_seed1006",
+  "kind": "hybrid",
+  "seed": 1006,
+  "test_loss": 4.880450658543962,
+  "environment": {
+    "torch": "2.11.0+cu130",
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "amp_fp16": true,
+    "code_commit": "276b090ce15635bd66d47f51bf2e7de7bbde3e77",
+    "test_mode": false
+  },
+  "must_match_max_diff": 0.0,
+  "solver_test": {
+    "euler4": {
+      "loss": 4.880450658543962,
+      "seconds": 5.4528350830078125,
+      "rel_change_vs_euler4": 0.0
+    },
+    "euler8": {
+      "loss": 4.901689494943597,
+      "seconds": 6.553679704666138,
+      "rel_change_vs_euler4": 0.004351818691672136
+    },
+    "euler16": {
+      "loss": 4.9172898252463915,
+      "seconds": 8.729114055633545,
+      "rel_change_vs_euler4": 0.007548312498137188
+    },
+    "rk4_4": {
+      "loss": 4.910151324334643,
+      "seconds": 8.79940390586853,
+      "rel_change_vs_euler4": 0.0060856400092243424
+    },
+    "dopri5_1e-5": {
+      "loss": 4.932970752879823,
+      "seconds": 358.0446779727936,
+      "rel_change_vs_euler4": 0.010761320625978676
+    }
+  },
+  "solver_controls": {
+    "2": {
+      "euler4": {
+        "loss": 5.229990154504776,
+        "seconds": 1.25199556350708,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 5.206986635923386,
+        "seconds": 1.5138895511627197,
+        "rel_change_vs_euler4": 0.004398386593821144
+      },
+      "euler16": {
+        "loss": 5.312356144189835,
+        "seconds": 2.0087149143218994,
+        "rel_change_vs_euler4": 0.015748784845056322
+      },
+      "rk4_4": {
+        "loss": 5.372010439634323,
+        "seconds": 2.0254852771759033,
+        "rel_change_vs_euler4": 0.02715498135445246
+      },
+      "dopri5_1e-5": {
+        "loss": 5.524579703807831,
+        "seconds": 101.71883940696716,
+        "rel_change_vs_euler4": 0.05632697970746931
+      }
+    },
+    "4": {
+      "euler4": {
+        "loss": 6.600813299417496,
+        "seconds": 1.2523465156555176,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 6.232115536928177,
+        "seconds": 1.5055577754974365,
+        "rel_change_vs_euler4": 0.055856414318195526
+      },
+      "euler16": {
+        "loss": 6.9732606410980225,
+        "seconds": 2.012075662612915,
+        "rel_change_vs_euler4": 0.05642446237850633
+      },
+      "rk4_4": {
+        "loss": 7.415514141321182,
+        "seconds": 2.020042896270752,
+        "rel_change_vs_euler4": 0.1234243122700625
+      },
+      "dopri5_1e-5": {
+        "loss": 7.93412509560585,
+        "seconds": 107.55559039115906,
+        "rel_change_vs_euler4": 0.20199204790506886
+      }
+    },
+    "8": {
+      "euler4": {
+        "loss": 7.76360484957695,
+        "seconds": 1.254427194595337,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 7.329681754112244,
+        "seconds": 1.504323959350586,
+        "rel_change_vs_euler4": 0.05589196048384038
+      },
+      "euler16": {
+        "loss": 8.462343037128448,
+        "seconds": 2.0042364597320557,
+        "rel_change_vs_euler4": 0.09000177122481622
+      },
+      "rk4_4": {
+        "loss": 9.17808485031128,
+        "seconds": 2.0103042125701904,
+        "rel_change_vs_euler4": 0.1821937138919952
+      },
+      "dopri5_1e-5": {
+        "loss": 9.891116797924042,
+        "seconds": 113.34107160568237,
+        "rel_change_vs_euler4": 0.2740366092258061
+      }
+    },
+    "16": {
+      "euler4": {
+        "loss": 8.294793963432312,
+        "seconds": 1.2566218376159668,
+        "rel_change_vs_euler4": 0.0
+      },
+      "euler8": {
+        "loss": 8.033402234315872,
+        "seconds": 1.5023448467254639,
+        "rel_change_vs_euler4": 0.031512745255492546
+      },
+      "euler16": {
+        "loss": 9.421500861644745,
+        "seconds": 1.995680332183838,
+        "rel_change_vs_euler4": 0.13583301805681158
+      },
+      "rk4_4": {
+        "loss": 10.390953958034515,
+        "seconds": 2.0083627700805664,
+        "rel_change_vs_euler4": 0.25270790375784463
+      },
+      "dopri5_1e-5": {
+        "loss": 9.733254373073578,
+        "seconds": 118.42850065231323,
+        "rel_change_vs_euler4": 0.1734172561708867
+      }
+    }
+  },
+  "alpha": 1.0438896417617798
+}

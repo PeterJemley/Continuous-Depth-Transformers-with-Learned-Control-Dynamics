@@ -1,0 +1,128 @@
+{
+  "checks": {
+    "divergence": {
+      "diagonal": {
+        "estimate": -7.113806627690792,
+        "truth": -7.11380672454834,
+        "worst_relative_error": 1.3615431443445538e-08
+      },
+      "dense": {
+        "estimate": 14.499258339957692,
+        "truth": 14.471999168395996,
+        "relative_error": 0.001883580232731364,
+        "frobenius2_estimate": 31.24329040139871,
+        "frobenius2_truth": 31.23615837097168
+      },
+      "pass": true
+    },
+    "curvature": {
+      "line": {
+        "worst_error": 0.0,
+        "kind": "absolute"
+      },
+      "circle": {
+        "worst_error": 8.15491858363604e-06,
+        "kind": "relative"
+      },
+      "circle_fast": {
+        "worst_error": 1.993388515897792e-05,
+        "kind": "relative"
+      },
+      "helix": {
+        "worst_error": 7.221966889529273e-06,
+        "kind": "relative"
+      },
+      "parabola": {
+        "worst_error": 4.749744902856495e-08,
+        "kind": "relative"
+      },
+      "pass": true
+    },
+    "batch": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "next_example": {
+        "input_end": "s policy on nudity or sexual content \" . The website quickly",
+        "target_end": " policy on nudity or sexual content \" . The website quickly restored"
+      },
+      "skip_example": {
+        "input_end": " he edited it . \" She concluded \" Save your cash for",
+        "target_end": " it . \" She concluded \" Save your cash for the band"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3101,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3102,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3103,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3104,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3105,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "windows": [
+    257,
+    512
+  ]
+}

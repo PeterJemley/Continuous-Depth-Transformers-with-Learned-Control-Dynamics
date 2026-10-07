@@ -4,6 +4,7 @@ Reads the GitHub token from the GH_TOKEN environment variable and never prints i
 Does not touch Google Drive, so a Drive problem cannot block the upload.
 """
 import argparse
+import json
 import os
 import shutil
 import subprocess
@@ -56,7 +57,15 @@ def main():
             run(f'git pull -q --rebase origin {args.branch}', cwd=R, check=False)
             time.sleep(2 ** (attempt + 1))
     run('git remote remove origin', cwd=R)
-    print(f'Done. Results uploaded to the {args.branch} branch as {args.job}/{args.run_id}. Tell Claude it finished.')
+    where = f'the {args.branch} branch as {args.job}/{args.run_id}'
+    log = os.path.join(args.out, 'log.txt')
+    status_file = os.path.join(args.out, 'exit_status.json')
+    status = json.load(open(status_file)).get('status') if os.path.exists(status_file) else None
+    traceback_in_log = os.path.exists(log) and 'Traceback (most recent call last)' in open(log, errors='replace').read()
+    if status in ('stopped', 'error') or traceback_in_log:
+        print(f'The job STOPPED WITH AN ERROR. Its log was uploaded to {where}. Report that it stopped with an error.')
+        return 1
+    print(f'Done. Results uploaded to {where}. Report that it finished.')
     return 0
 
 

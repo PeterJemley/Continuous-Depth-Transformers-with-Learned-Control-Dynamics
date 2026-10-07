@@ -1,0 +1,121 @@
+{
+  "checks": {
+    "projected": {
+      "dense_truth": 3.860883951187134,
+      "dense_estimate": 3.8655073046684265,
+      "dense_relative_error": 0.0011974857415414284,
+      "diagonal_worst_relative_error": 0.0,
+      "gradient_relative_error": 0.0041228169575333595,
+      "pass": true
+    },
+    "penalty": {
+      "estimate": -15.997953414916992,
+      "truth": -15.99509334564209,
+      "relative_error": 0.00017880916435424103,
+      "gradient_relative_error": 0.005813444033265114,
+      "pass": true
+    },
+    "batch": {
+      "targets_are_i+1_and_i+2": true
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1
+      ],
+      "next_example": {
+        "input_end": " Angelou explained it by stating , \" I can 't",
+        "target_end": "ou explained it by stating , \" I can 't remember"
+      },
+      "skip_example": {
+        "input_end": "\n\n Historically , the Michigan State Cross Country men 's team",
+        "target_end": " , the Michigan State Cross Country men 's team has been"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3401,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3402,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3403,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3404,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3405,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "windows": {
+    "estimate": [
+      1025,
+      1280
+    ],
+    "measure": [
+      1281,
+      1536
+    ]
+  },
+  "pilot": {
+    "0.01": {
+      "cA": 0.11615383177068414,
+      "cB": 0.13166346975109194
+    }
+  },
+  "lambda": 0.01
+}

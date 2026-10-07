@@ -1,0 +1,109 @@
+{
+  "checks": {
+    "analytic": {
+      "line": {
+        "worst_error": 0.0,
+        "kind": "absolute"
+      },
+      "circle": {
+        "worst_error": 8.15491858363604e-06,
+        "kind": "relative"
+      },
+      "circle_fast": {
+        "worst_error": 1.993388515897792e-05,
+        "kind": "relative"
+      },
+      "helix": {
+        "worst_error": 7.221966889529273e-06,
+        "kind": "relative"
+      },
+      "parabola": {
+        "worst_error": 4.749744902856495e-08,
+        "kind": "relative"
+      },
+      "pass": true
+    },
+    "batch": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " 21 began captive flight @-@ testing on 22 December 1964",
+        "target_end": " began captive flight @-@ testing on 22 December 1964 ."
+      },
+      "skip_example": {
+        "input_end": " the Wason experiments had not actually demonstrated a bias towards confirmation",
+        "target_end": "ason experiments had not actually demonstrated a bias towards confirmation . Instead"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3001,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3002,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3003,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3004,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3005,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  }
+}

@@ -8,19 +8,33 @@ This repository contains the implementation and experiments for:
 
 📄 **[Read the full paper](PAPER.md)** | 📓 **[Falsification Test](continuous_depth_transformer_falsification_test.ipynb)** | ⚡ **[Efficiency Benchmark](continuous_depth_transformer_efficiency_benchmark.ipynb)**
 
-> **Status, October 2026: the results below are being re-examined.** An audit of this repository found problems with several headline results:
-> - the steering target labelled " good" is GPT-2 token 220, which is a space;
-> - the solver test presented as new was published earlier by Ott et al. (2020);
-> - the reported α of 0.065 appears in no saved output;
-> - the solver, probe, and latency results come from a different model, trained for 50 steps on random tokens or not trained at all.
+> **Status, October 2026: the paper's headline results did not hold up.** The paper, the three notebooks and the "Key Results" below are kept unchanged as the record of what was claimed in January 2026. They are not current findings.
 >
-> Two preregistered studies are under way: a replication of the paper's experiments on WikiText-2, in [`experiments/wikitext2-replication/`](experiments/wikitext2-replication/), and the same model properly trained on WikiText-103, in [`experiments/wikitext103-training/`](experiments/wikitext103-training/). Until they finish, treat the results below as unverified. Known limitations of the original experiments are listed in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
+> **What the audit found.**
+> - The steering target labelled " good" is GPT-2 token 220, which is a space.
+> - The solver test presented as new was published earlier by Ott et al. (2020).
+> - The reported α of 0.065 appears in no saved output.
+> - The solver, probe and latency results come from a different model, trained for 50 steps on random tokens or not trained at all.
+>
+> **What the preregistered studies found.**
+> - **WikiText-2 replication, 8 seeds** ([results](experiments/wikitext2-replication/RESULTS.md)):
+>   - loss comparable to the baseline (+0.03 nats);
+>   - α settled near 0.17, not 0.065;
+>   - steering held in only 5 of 8 seeds;
+>   - the solver-effort "regimes" appeared in 2 of 8;
+>   - the model was 7–11% slower, not at parity.
+> - **WikiText-103, properly trained, 6 seeds** ([results](experiments/wikitext103-training/RESULTS.md)): Model A was worse than the baseline by 1.10 nats (95% interval [0.97, 1.23]), and it did not behave as a continuous ODE under more accurate solvers.
+> - **Why** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)): training with adjoint gradients caused about 95% of that gap. Trained with exact gradients, the model was 0.04 nats behind the baseline at 10% of the budget.
+>
+> **Where the work went next.** The project's own aim is a model that holds several readings of a text at once, like voices in music. That is tested in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/). Start with the plain-language summary, [`PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). Known limitations of the original experiments are in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
 
 ## Abstract
 
 We present a hybrid transformer architecture that replaces discrete middle layers with a continuous-depth Neural Ordinary Differential Equation (ODE) block, enabling inference-time control over generation attributes via a learned steering signal. The control signal `u` steers the model's output through a continuous manifold of semantic states, achieving 98%/88% accuracy for positive/negative sentiment control with **latency parity** compared to standard transformers.
 
 ## Key Results
+
+*As claimed in January 2026. Most did not hold up when tested; see the status note above.*
 
 | Experiment | Result |
 |------------|--------|

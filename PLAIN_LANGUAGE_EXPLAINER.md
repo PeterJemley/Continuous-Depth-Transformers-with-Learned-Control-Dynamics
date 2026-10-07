@@ -1,5 +1,13 @@
 # Plain Language Explainer: Validated Results
 
+> **Obsolete, October 2026.** This explainer was written in January 2026 and presents the paper's results as validated. They did not hold up when tested:
+> - α settled near 0.17 in a replication, not 0.065;
+> - the 98%/88% steering result targeted a token that is actually a space;
+> - the model was 7–11% slower than the baseline, not at parity;
+> - properly trained, it was 1.10 nats worse than the baseline.
+>
+> It is kept as a record of what was claimed. For a current plain-language account, read [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). The README's status note summarises what was found.
+
 A section-by-section guide to the technical project, written for readers without a machine learning background.
 
 ---

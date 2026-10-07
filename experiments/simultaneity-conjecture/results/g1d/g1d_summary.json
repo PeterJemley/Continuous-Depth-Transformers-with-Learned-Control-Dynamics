@@ -1,0 +1,123 @@
+{
+  "checks": {
+    "penalty": {
+      "estimate": -15.997953414916992,
+      "truth": -15.99509334564209,
+      "relative_error": 0.00017880916435424103,
+      "gradient_relative_error": 0.005813444033265114,
+      "pass": true
+    },
+    "divergence": {
+      "diagonal": {
+        "estimate": -7.113806627690792,
+        "truth": -7.11380672454834,
+        "worst_relative_error": 1.3615431443445538e-08
+      },
+      "dense": {
+        "estimate": 14.499258339957692,
+        "truth": 14.471999168395996,
+        "relative_error": 0.001883580232731364,
+        "frobenius2_estimate": 31.24329040139871,
+        "frobenius2_truth": 31.23615837097168
+      },
+      "pass": true
+    },
+    "sham": {
+      "sham_value": 0.0,
+      "sham_gradient_all_zero": true,
+      "same_initial_weights": true,
+      "same_first_batch": true,
+      "pass": true
+    },
+    "batch": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1
+      ],
+      "next_example": {
+        "input_end": "ward . At 1000 UTC , small craft were advised to remain",
+        "target_end": " . At 1000 UTC , small craft were advised to remain in"
+      },
+      "skip_example": {
+        "input_end": " her parents departed . They corresponded regularly , and she and",
+        "target_end": " departed . They corresponded regularly , and she and her parents"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3201,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3202,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3203,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0000000000000002,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3204,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3205,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "windows": [
+    513,
+    768
+  ],
+  "pilot": {
+    "0.01": 0.6248404344930514
+  },
+  "lambda": 0.01
+}

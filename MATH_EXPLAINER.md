@@ -1,5 +1,7 @@
 # Mathematics of Continuous-Depth Transformers: A Plain Language Guide
 
+> **Partly obsolete, October 2026.** The explanations of the architecture's mathematics remain correct. The experimental claims did not hold up when tested: α converging to 0.065 (sections 5 and 10, and the summary), the steering asymmetry (section 7), the solver-effort "regimes" (section 8 and the summary) and the "Validated Experimental Results" section. Those passages are marked where they occur. See the README's status note and [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md).
+
 This document explains the mathematical ideas behind the ODE flow experiment notebook. It's written for readers who want to understand *why* the code works, not just *what* it computes.
 
 Mathematical expressions are shown in both LaTeX (for rendered viewing) and plain text (for raw markdown viewing).
@@ -358,6 +360,8 @@ By setting α = 0.1 (`alpha = 0.1`), we reduce the Jacobian's eigenvalues by a f
 
 Crucially, α is a learnable **scalar** parameter, not a fixed constant. During training, if the model benefits from stronger dynamics, it can increase α. But it starts safe—in a regime where Euler is accurate and gradients are well-behaved.
 
+> *Not borne out (October 2026): see the note at the top of this document.*
+
 **Experimental Result:** The scalar α converged from 0.1 to **0.065**—a 35% reduction. The model preferred a conservative, damped update regime rather than learning to "speed up" the dynamics. This confirms the stability mechanism works as intended.
 
 ---
@@ -455,7 +459,7 @@ Control signals interact with the model's intrinsic biases:
 
 - **Adversarial Dynamics (u < 0):** When steering against the natural bias, the control must *fight* the existing basin of attraction. The vector field must exhibit greater curvature to divert trajectories. Harder trajectory, high curvature.
 
-This explains the observed steering asymmetry (98% positive vs 88% negative accuracy) and the NFE asymmetry (14 vs 20 solver steps).
+*(Not borne out, October 2026: see the note at the top.)* This explains the observed steering asymmetry (98% positive vs 88% negative accuracy) and the NFE asymmetry (14 vs 20 solver steps).
 
 ### Why ODE Control Differs from Activation Steering
 
@@ -466,6 +470,9 @@ This potentially allows smoother, more predictable control—small changes in u 
 ---
 
 ## 8. Solver Probing: Using NFE as a Geometry Probe
+
+> *Not borne out (October 2026): see the note at the top of this document.*
+
 
 ### The Mathematical Insight
 
@@ -671,6 +678,9 @@ This validates the core architectural assumption: ODE blocks are a drop-in repla
 ---
 
 ## Validated Experimental Results
+
+> *Not borne out (October 2026): see the note at the top of this document.*
+
 
 The architecture has been validated through four experiments (see README.md for full details):
 

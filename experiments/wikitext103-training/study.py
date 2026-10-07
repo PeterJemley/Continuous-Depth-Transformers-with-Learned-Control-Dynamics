@@ -59,6 +59,9 @@ SOLVERS = {'euler4': dict(method='euler', n_steps=4), 'euler8': dict(method='eul
            'euler16': dict(method='euler', n_steps=16), 'rk4_4': dict(method='rk4', n_steps=4),
            'dopri5_1e-5': dict(method='dopri5', rtol=1e-5, atol=1e-5)}
 SCALES = [2, 4, 8, 16]
+# A dopri5 solve that needs more steps than this stops with an error, which stage 3 records
+# for that solver and moves on. Set before any test loss was computed; see PREREGISTRATION.md.
+DOPRI5_MAX_STEPS = 1000
 if TEST:
     CFG.update(d_model=32, n_heads=2)
     WARMUP, VAL_EVERY, CKPT_SECONDS = 5, 20, 5
@@ -299,7 +302,8 @@ def forward(model, x, solver=None, scale=None):
         if kw['method'] in ('euler', 'rk4'):
             out = odeint(func, h, torch.linspace(0, 1, kw['n_steps'] + 1, device=x.device), method=kw['method'])
         else:
-            out = odeint(func, h, torch.tensor([0.0, 1.0], device=x.device), method='dopri5', rtol=kw['rtol'], atol=kw['atol'])
+            out = odeint(func, h, torch.tensor([0.0, 1.0], device=x.device), method='dopri5', rtol=kw['rtol'], atol=kw['atol'],
+                         options={'max_num_steps': DOPRI5_MAX_STEPS})
     finally:
         func.output_scale.data.copy_(saved)
     h = out[-1]
@@ -332,8 +336,9 @@ def lr_at(step, total, peak):
 
 # ------------------------------------------------------------------ training
 
-def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
-    """One training run, resumable. Returns its result record."""
+def train_run(store, meta, tag, kind, seed, peak_lr, total_steps, init_seed=None):
+    """One training run, resumable. Returns its result record. The seed fixes the data order and,
+    unless init_seed is given, the initial weights too."""
     res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
         log(f'{tag}: already finished, skipping')
@@ -343,13 +348,16 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     ck_path = store.L(ck_rel)
     train = load_tokens(store, meta, 'train')
     vx, vy = windows(load_tokens(store, meta, 'validation'), limit=64 if TEST else None)
-    model = new_model(kind, seed)
+    model = new_model(kind, seed if init_seed is None else init_seed)
+    has_ode = hasattr(model, 'ode_block')
     opt = torch.optim.AdamW(model.parameters(), lr=peak_lr)
     scaler = torch.amp.GradScaler('cuda', enabled=AMP)
     gen = torch.Generator().manual_seed(seed)
     state = {'step': 0, 'train_loss': [], 'val': [], 'alpha': [], 'skipped_steps': 0, 'seconds': 0.0, 'resumes': 0}
     if ck_path.exists():
-        ck = torch.load(ck_path, map_location=DEV, weights_only=False)
+        # Load to the CPU: the generator and RNG states must stay CPU byte tensors. The model and
+        # optimiser move their own tensors to the model's device when loading.
+        ck = torch.load(ck_path, map_location='cpu', weights_only=False)
         model.load_state_dict(ck['model']); opt.load_state_dict(ck['opt']); scaler.load_state_dict(ck['scaler'])
         gen.set_state(ck['gen']); state = ck['state']; state['resumes'] += 1
         torch.set_rng_state(ck['torch_rng'])
@@ -397,7 +405,7 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
         state['step'] = step + 1
         if step % 50 == 0:
             state['train_loss'].append([step, loss.item()])
-            if kind == 'hybrid':
+            if has_ode:
                 state['alpha'].append([step, model.ode_block.func.output_scale.item()])
         if state['step'] in (500,) or state['step'] % VAL_EVERY == 0 or state['step'] == total_steps:
             vl = eval_loss(model, vx, vy)
@@ -413,11 +421,12 @@ def train_run(store, meta, tag, kind, seed, peak_lr, total_steps):
     vals = state['val']
     last10 = [v for s, v in vals if s >= 0.9 * total_steps]
     before = [v for s, v in vals if s < 0.9 * total_steps]
-    result = {'tag': tag, 'kind': kind, 'seed': seed, 'peak_lr': peak_lr, 'total_steps': total_steps,
+    result = {'tag': tag, 'kind': kind, 'seed': seed, 'init_seed': seed if init_seed is None else init_seed,
+              'peak_lr': peak_lr, 'total_steps': total_steps,
               'final_val_loss': vals[-1][1], 'val_curve': vals, 'val_at_500': next((v for s, v in vals if s == 500), None),
               'improvement_last_10pct': (before[-1] - last10[-1]) if before and last10 else None,
               'train_loss_every_50': state['train_loss'], 'alpha_every_50': state['alpha'],
-              'alpha_final': model.ode_block.func.output_scale.item() if kind == 'hybrid' else None,
+              'alpha_final': model.ode_block.func.output_scale.item() if has_ode else None,
               'skipped_steps_fp16': state['skipped_steps'], 'train_seconds': state['seconds'], 'resumes': state['resumes'],
               'n_params': sum(p.numel() for p in model.parameters()),
               'config': {**CFG, 'seq': SEQ, 'batch': BATCH, 'warmup': WARMUP, 'min_lr_ratio': MIN_LR_RATIO},
@@ -455,7 +464,7 @@ def amp_gradient_check(store, meta):
     store.push(rel)
     log('fp16 gradient check:', res)
     if not res['passed']:
-        raise SystemExit('fp16 gradients disagree with fp32. Stopping before training; tell Claude.')
+        raise SystemExit('fp16 gradients disagree with fp32. Stopping before training.')
     return res
 
 
@@ -521,10 +530,14 @@ def stage3(store, meta):
                 def table(xs, ys, scale=None):
                     t = {}
                     for name in SOLVERS:
+                        t0 = time.time()
                         try:
                             t[name] = {'loss': eval_loss(m, xs, ys, solver=name, scale=scale)}
                         except Exception as e:
                             t[name] = {'loss': None, 'error': f'{type(e).__name__}: {e}'[:300]}
+                        t[name]['seconds'] = time.time() - t0
+                        log(f"{tag}: solver {name}, alpha x {scale or 1}: "
+                            + ('done' if t[name]['loss'] is not None else 'error, recorded') + f" ({t[name]['seconds']:.0f} s)")
                     base = t['euler4']['loss']
                     for v in t.values():
                         v['rel_change_vs_euler4'] = None if (v['loss'] is None or base is None) else abs(v['loss'] - base) / base
