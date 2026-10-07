@@ -1,0 +1,302 @@
+{
+  "checks": {
+    "must_match": [
+      {
+        "width": 256,
+        "seed": 3501,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 256,
+        "seed": 3502,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 256,
+        "seed": 3503,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 256,
+        "seed": 3504,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 256,
+        "seed": 3505,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 32,
+        "seed": 3501,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 32,
+        "seed": 3502,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 32,
+        "seed": 3503,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 32,
+        "seed": 3504,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 32,
+        "seed": 3505,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 128,
+        "seed": 3501,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 128,
+        "seed": 3502,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 128,
+        "seed": 3503,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 128,
+        "seed": 3504,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      },
+      {
+        "width": 128,
+        "seed": 3505,
+        "sep_equals_tied_logits": true,
+        "same_trunk_all_arms": true,
+        "pass": true
+      }
+    ],
+    "full_rank": [
+      {
+        "seed": 3501,
+        "width": 256,
+        "smallest_over_largest_singular_value": 0.0011860938675781075,
+        "pass": true
+      },
+      {
+        "seed": 3502,
+        "width": 256,
+        "smallest_over_largest_singular_value": 0.0008064534027306623,
+        "pass": true
+      },
+      {
+        "seed": 3503,
+        "width": 256,
+        "smallest_over_largest_singular_value": 0.0023679246816016783,
+        "pass": true
+      },
+      {
+        "seed": 3504,
+        "width": 256,
+        "smallest_over_largest_singular_value": 0.00020186798013643203,
+        "pass": true
+      },
+      {
+        "seed": 3505,
+        "width": 256,
+        "smallest_over_largest_singular_value": 0.0024642252931823595,
+        "pass": true
+      }
+    ],
+    "batch": {
+      "targets_are_i+1_and_i+2": true
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " By the 1880s , oriental @-@ style hash",
+        "target_end": " the 1880s , oriental @-@ style hashish"
+      },
+      "skip_example": {
+        "input_end": " \n\n The impact of the case was immediate and overwhelming .",
+        "target_end": " The impact of the case was immediate and overwhelming . Ibb"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3501,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3502,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3503,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3504,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3505,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "widths": [
+    256,
+    32,
+    128
+  ],
+  "subspace_rank": 16,
+  "windows": {
+    "overlap": [
+      1537,
+      1792
+    ]
+  },
+  "untrained_overlap": {
+    "w256_seed3501": {
+      "dual-sep": 0.18555756457063205,
+      "same-sep": 0.185677914610326
+    },
+    "w256_seed3502": {
+      "dual-sep": 0.18024834220931907,
+      "same-sep": 0.18003202867249263
+    },
+    "w256_seed3503": {
+      "dual-sep": 0.19894987619343962,
+      "same-sep": 0.20014974307420594
+    },
+    "w256_seed3504": {
+      "dual-sep": 0.18472827706907263,
+      "same-sep": 0.18533545459689227
+    },
+    "w256_seed3505": {
+      "dual-sep": 0.2004567442723883,
+      "same-sep": 0.19871675534325706
+    },
+    "w32_seed3501": {
+      "dual-sep": 0.7041922597740838,
+      "same-sep": 0.7042584990723989
+    },
+    "w32_seed3502": {
+      "dual-sep": 0.7185266471841685,
+      "same-sep": 0.7188907415510024
+    },
+    "w32_seed3503": {
+      "dual-sep": 0.7402693548516592,
+      "same-sep": 0.7398105565956534
+    },
+    "w32_seed3504": {
+      "dual-sep": 0.6712013986381504,
+      "same-sep": 0.6725850159616382
+    },
+    "w32_seed3505": {
+      "dual-sep": 0.6775999702954845,
+      "same-sep": 0.6778577668586965
+    },
+    "w128_seed3501": {
+      "dual-sep": 0.30482815403480024,
+      "same-sep": 0.3041650991766651
+    },
+    "w128_seed3502": {
+      "dual-sep": 0.281223039899113,
+      "same-sep": 0.2822631395528993
+    },
+    "w128_seed3503": {
+      "dual-sep": 0.3096775708450027,
+      "same-sep": 0.3108754228961705
+    },
+    "w128_seed3504": {
+      "dual-sep": 0.2976261494454031,
+      "same-sep": 0.3001908359289699
+    },
+    "w128_seed3505": {
+      "dual-sep": 0.27833611500785893,
+      "same-sep": 0.2774013134277907
+    }
+  }
+}

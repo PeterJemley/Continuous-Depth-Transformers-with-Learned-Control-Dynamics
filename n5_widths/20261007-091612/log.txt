@@ -1,0 +1,73 @@
+09:16:14 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N5 folder: /content/drive/MyDrive/cdt-colab/n5_widths | local: /content/cdt_local/n5_widths
+09:16:34 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+09:16:34 must-match check (separate = tied at step 0), every width and seed: True
+09:16:34 full-rank check at width 256 : [0.0012, 0.0008, 0.0024, 0.0002, 0.0025]
+09:16:34 batch check, targets at i+1 and i+2: True
+09:16:34 same-model check: [True, True, True, True, True]
+09:16:34 w256_dual-sep_seed3501: already finished, skipping
+09:16:34 w256_dual-tied_seed3501: already finished, skipping
+09:16:34 w256_same-sep_seed3501: already finished, skipping
+09:16:34 w256_same-tied_seed3501: already finished, skipping
+09:16:34 w256_dual-sep_seed3502: already finished, skipping
+09:16:34 w256_dual-tied_seed3502: already finished, skipping
+09:16:34 w256_same-sep_seed3502: already finished, skipping
+09:16:34 w256_same-tied_seed3502: already finished, skipping
+09:16:34 w256_dual-sep_seed3503: already finished, skipping
+09:16:34 w256_dual-tied_seed3503: already finished, skipping
+09:16:34 w256_same-sep_seed3503: already finished, skipping
+09:16:34 w256_same-tied_seed3503: already finished, skipping
+09:16:34 w256_dual-sep_seed3504: already finished, skipping
+09:16:34 w256_dual-tied_seed3504: already finished, skipping
+09:16:34 w256_same-sep_seed3504: already finished, skipping
+09:16:34 w256_same-tied_seed3504: already finished, skipping
+09:16:34 w256_dual-sep_seed3505: already finished, skipping
+09:16:34 w256_dual-tied_seed3505: already finished, skipping
+09:16:34 w256_same-sep_seed3505: already finished, skipping
+09:16:34 w256_same-tied_seed3505: already finished, skipping
+09:16:34 width 256 complete
+09:16:34 w32_dual-sep_seed3501: already finished, skipping
+09:16:34 w32_dual-tied_seed3501: already finished, skipping
+09:16:34 w32_same-sep_seed3501: already finished, skipping
+09:16:34 w32_same-tied_seed3501: already finished, skipping
+09:16:34 w32_dual-sep_seed3502: already finished, skipping
+09:16:34 w32_dual-tied_seed3502: already finished, skipping
+09:16:34 w32_same-sep_seed3502: already finished, skipping
+09:16:34 w32_same-tied_seed3502: already finished, skipping
+09:16:34 w32_dual-sep_seed3503: already finished, skipping
+09:16:34 w32_dual-tied_seed3503: already finished, skipping
+09:16:34 w32_same-sep_seed3503: already finished, skipping
+09:16:34 w32_same-tied_seed3503: already finished, skipping
+09:16:34 w32_dual-sep_seed3504: already finished, skipping
+09:16:34 w32_dual-tied_seed3504: already finished, skipping
+09:16:34 w32_same-sep_seed3504: already finished, skipping
+09:16:34 w32_same-tied_seed3504: already finished, skipping
+09:16:34 w32_dual-sep_seed3505: already finished, skipping
+09:16:34 w32_dual-tied_seed3505: already finished, skipping
+09:16:34 w32_same-sep_seed3505: already finished, skipping
+09:16:34 w32_same-tied_seed3505: already finished, skipping
+09:16:34 width 32 complete
+09:16:34 w128_dual-sep_seed3501: already finished, skipping
+09:16:34 w128_dual-tied_seed3501: already finished, skipping
+09:16:34 w128_same-sep_seed3501: already finished, skipping
+09:16:34 w128_same-tied_seed3501: already finished, skipping
+09:16:34 w128_dual-sep_seed3502: already finished, skipping
+09:16:34 w128_dual-tied_seed3502: already finished, skipping
+09:16:34 w128_same-sep_seed3502: already finished, skipping
+09:16:34 w128_same-tied_seed3502: already finished, skipping
+09:16:34 w128_dual-sep_seed3503: already finished, skipping
+09:16:34 w128_dual-tied_seed3503: already finished, skipping
+09:16:34 w128_same-sep_seed3503: already finished, skipping
+09:16:34 w128_same-tied_seed3503: already finished, skipping
+09:16:34 w128_dual-sep_seed3504: already finished, skipping
+09:16:34 w128_dual-tied_seed3504: already finished, skipping
+09:16:34 w128_same-sep_seed3504: already finished, skipping
+09:16:34 w128_same-tied_seed3504: already finished, skipping
+09:16:34 w128_dual-sep_seed3505: already finished, skipping
+09:16:34 w128_dual-tied_seed3505: already finished, skipping
+09:16:34 w128_same-sep_seed3505: already finished, skipping
+09:16:34 w128_same-tied_seed3505: already finished, skipping
+09:16:34 width 128 complete
+09:16:34 N5 complete: all runs and measurements finished
+09:16:34 copied 121 result files for upload
+09:16:34 waiting for background Drive saves to finish (up to 15 minutes)
+09:16:34 Drive saves finished

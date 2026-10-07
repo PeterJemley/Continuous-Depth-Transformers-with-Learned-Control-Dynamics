@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n5_widths",
+    "args": [],
+    "description": "Test N5: is N4's cost a competition for directions? N4's four arms at readout widths 256, 32 and 128 (in that order) on N4's 5 seeds, 60 runs. About 7 hours on a T4, likely more than one session. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 420
+  },
+  "code_commit": "0e60457bba0de7af97df073d69c88bb7297f07f3",
+  "run_id": "20261007-091612",
+  "gpu": "Tesla T4"
+}
