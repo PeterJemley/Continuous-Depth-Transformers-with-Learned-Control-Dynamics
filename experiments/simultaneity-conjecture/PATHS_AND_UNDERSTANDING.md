@@ -236,6 +236,8 @@ So the model switches between readings *without* needing the large dynamical dif
 
 **N4 result, 2026-10-06: supported.** The voices-as-directions test, which N2's exploratory finding suggested. Coexisting readings need separate directions: sharing 64 readout directions cost them 0.088 nats more than it cost a single reading. This is the first "needed" result for polyphony, and it is in representation geometry, not depth dynamics. Next candidates: a width sweep, more voices, less related readings, and moving the restriction into the ODE block. See `N4_NOTE.md`.
 
+**N5 result, 2026-10-07: inconclusive.** The readout-width sweep could not settle whether N4's cost is a competition for directions. At full width the cost was positive in all five seeds (mean +0.030, about a third of N4's) but its interval crossed both zero and the margin. Narrow widths made training itself erratic. Exploratory, and striking: two different readings settled at about half-overlap (0.42–0.53) at every width, whether they started above or below it, while same-target heads converged. See `N5_NOTE.md`.
+
 ### Recommended order now
 
 1. **N1.** It is the cheapest and settles where the reading lives, which changes what every later test should look at.

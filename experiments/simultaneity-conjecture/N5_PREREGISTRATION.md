@@ -1,6 +1,6 @@
 # Preregistration N5: is N4's cost a competition for directions? A readout-width sweep
 
-Date: 2026-10-06    Status: **approved by the author, 2026-10-06.** Queued; no real N5 run has started.
+Date: 2026-10-06    Status: **approved by the author, 2026-10-06.** Run; see the deviation log, `N5_RESULTS.md` and `N5_NOTE.md`.
 
 Type: confirmatory for two hypotheses, N5a and N5b, each with its own decision rule and a Bonferroni-corrected interval. Everything else is secondary or exploratory and labelled so.
 
@@ -195,6 +195,10 @@ No real N5 run had started. No rule, threshold or control was changed, so no ame
 - **Tests:**
   - The job ran end to end on tiny models: all checks, the untrained overlaps, 24 runs at the three test widths, the measurements and the result upload. A run interrupted at step 30 resumed from its checkpoint. `n5_analyze.py` read the job's real records without error.
   - `n5_analyze.py` gave the expected verdicts on synthetic records for 14 cases. These covered both supported; N5a refuted, partly, inconclusive, and supported with a small positive cost; N5b refuted (including the non-monotone case), not sensitive enough, some effect, and inconclusive; untestable through each precondition; and not reached.
+
+### The run, 2026-10-06 to 2026-10-07
+
+One Colab session (`colab-results` branch `n5_widths/20261006-233331`, code commit 0e60457, whose experiment code is identical to the queued commit 92382e6) ran all 60 models and their measurements, with no resumes and no Drive failures. A second session (`n5_widths/20261007-091612`) found every run finished and skipped them all; its result files are byte-for-byte identical. Nothing was changed after approval. Both verdicts are inconclusive: the seed-to-seed spread at the new widths was far larger than this preregistration assumed from N4. See `N5_NOTE.md`.
 
 ## References
 

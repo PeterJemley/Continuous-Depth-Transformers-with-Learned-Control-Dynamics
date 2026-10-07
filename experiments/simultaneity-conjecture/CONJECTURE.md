@@ -90,6 +90,8 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 
 **N4 result, 2026-10-06: supported.** Forcing two coexisting readings through one shared set of 64 readout directions cost 0.088 nats more than the same restriction cost two heads reading the same target (95% interval [+0.078, +0.097]). The readings' directions stayed partly separate (overlap 0.46–0.49), while same-target heads converged (0.95–0.97). Coexisting voices need separate directions; they do not get separate timescales (N2). Exploratory: training did not push the readings apart, it failed to bring them together. See `N4_NOTE.md`.
 
+**N5 result, 2026-10-07: inconclusive.** The readout-width sweep could not settle whether N4's cost is a competition for directions. At full width the cost was positive in all five seeds (mean +0.030, about a third of N4's) but its interval crossed both zero and the margin. Narrow widths made training itself erratic. Exploratory, and striking: two different readings settled at about half-overlap (0.42–0.53) at every width, whether they started above or below it, while same-target heads converged. See `N5_NOTE.md`.
+
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 
 | Outcome | What we would learn | Next |

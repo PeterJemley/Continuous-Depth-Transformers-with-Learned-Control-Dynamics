@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06. Covers the work through N4; N5 is running. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-06, updated 2026-10-07 with N5. Covers the work through N5. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -31,11 +31,17 @@ Each test was a question the world could answer "no", with the plan, the thresho
 5. **N2. When both readings must be held at once, does the flow give each its own pace, the way voices differ in tempo?** No. The farther reading's directions settle only 14 to 25% faster than the nearer one's, against a predicted factor of 2.[^8] *Refuted.*
 
    But N2 noticed something it had not predicted. The two readings lean on partly *different directions* in the model's internal space, overlapping only about 0.6, while two copies of the same reading overlap about 0.99.[^9]
-6. **N4. Are the readings kept apart by direction, and does the model need that?** Yes. Forcing both readings to be read through the same 64 directions cost them 0.088 nats more than the same restriction cost a single reading, consistently across five runs.[^10] *Supported.* This is the first test in which a way of holding two readings at once turned out to be needed. A check made afterwards adds a refinement: training did not push the two readings apart; it simply never brought them together, as it does with two copies of one reading.
+6. **N4. Are the readings kept apart by direction, and does the model need that?** Yes. Forcing both readings to be read through the same 64 directions cost them 0.088 nats more than the same restriction cost a single reading, consistently across five runs.[^10] *Supported.* This is the first test in which a way of holding two readings at once turned out to be needed.
+
+7. **N5. Is N4's cost a competition for directions?** We could not tell. If it were, giving the readout all 256 directions should have removed the cost. It shrank to about a third (+0.030 nats) and was positive in every run, but the runs varied too much for a verdict either way. At narrow widths, training itself became erratic: some runs simply learned worse, which swamped the comparison.[^11] *Inconclusive.* The plan had assumed the runs would vary as little as they did in N4, and they did not.
+
+   N5 did find something it had not predicted, and it held in all 20 models that read two different targets. The two readings always ended up sharing about half of their most important directions (overlap 0.42 to 0.53), whether they started with more in common (0.7) or less (0.2). Training pushed them apart in the first case and together in the second. Two copies of one reading converged instead.[^12]
 
 ## What we now understand
 
 - **The voices are separated by direction, not by tempo.** When one internal state must serve two readings, the readings occupy partly different directions within it, and squeezing them into the same directions costs accuracy. They do not get different timescales in the continuous block.
+- **Two related voices share about half their space, and training finds that balance.** The next word and the word after settle at roughly half-overlap from either side (N5). Why the balance sits there, and whether it shifts for readings that differ more, is the most promising open question.
+- **Why sharing costs is not yet settled.** N5 could not tell competition for directions from a clash of learning signals; some cost may remain even when nothing is restricted.
 - **The continuous dynamics are not where the readings live,** at this scale. Switching readings needs only a shift (N1). Holding them at once relies on geometry, the arrangement of directions, rather than on the flow's dynamics (N2, N4).
 - **This matches the music analogy better than the original picture did.** Listeners follow several voices more easily when the voices differ in timbre, the quality that tells instruments apart (the evidence is in `CONJECTURE.md`). Here, a direction plays the part of timbre.
 - **Refutations taught as much as successes.** Each "no" ruled out a mechanism and pointed to the next question. None was rescued after the fact. Calibration on untrained models caught problems in three tests (G1, N2, N4) before any real run. In G1, the original measure would have called an untrained model a success.
@@ -46,11 +52,13 @@ Each test was a question the world could answer "no", with the plan, the thresho
 - Only two readings, and closely related ones: the next word and the word after.
 - N4 restricted the model's final readout, not the continuous block, and with only 64 of 256 directions. That is a tight squeeze.
 
-## What is running, and what comes next
+## What comes next
 
-**N5, running now, tests N4's explanation.** If the readings really compete for directions, the cost should grow when directions are scarcer (32) and vanish when the readout has all 256. If instead the cost comes from the two readings' learning signals clashing in a shared component, it should persist even at full width.[^11]
-
-After that, the candidates are: more voices at once (three or four readings), readings that differ more (the next word against a topic label), and moving the restriction into the continuous block itself, which would tie the result back to the original conjecture.
+The candidates, in the order N5 suggests:
+- **Test the half-overlap pattern** as a prediction that can fail: readings that differ more (the next word against a topic label) should settle at less overlap, and readings that differ less at more.
+- **Settle N5's main question with enough runs:** about ten runs at full width would tell a cost of 0.03 from none.
+- **More voices at once,** three or four readings, at the width where training is consistent.
+- **Move the restriction into the continuous block,** which would tie the results back to the original conjecture.
 
 ---
 
@@ -76,4 +84,6 @@ After that, the candidates are: more voices at once (three or four readings), re
 
 [^10]: **The shared-directions test.** Each reading's prediction is made through a projection: logits_k = W_k P_k z, where z is the final state after normalisation (256 numbers), P_k a 64 × 256 matrix and W_k maps to the vocabulary. "Separate" lets P_A and P_B differ; "tied" forces P_A = P_B. P_B started as a copy of P_A, so the two versions were identical until training. The measure is a difference of differences, which removes the general cost of a narrow readout: D = (J_dual-tied − J_dual-sep) − (J_same-tied − J_same-sep), with J the sum of the two readings' losses. D = +0.088, 95% interval [+0.078, +0.097]. Overlap at the block's output: 0.46–0.49 for two readings, against 0.95–0.97 for two copies of one; untrained, 0.455–0.501. Sources: `N4_NOTE.md`, `results/n4_exploratory/untrained_overlap.json`.
 
-[^11]: **Why the full width decides.** At width 256, P is a square matrix, invertible from the start. Then W_k P can be any matrix W_k could be on its own, so tied and separate readouts can compute exactly the same things. Any remaining cost of tying must come from training, not from a lack of directions. N5's primary test: D at width 256, supported if its 97.5% interval lies below 0.02, refuted if it lies above 0.05. Source: `N5_PREREGISTRATION.md`.
+[^11]: **Why the full width decides.** At width 256, P is a square matrix, invertible from the start. Then W_k P can be any matrix W_k could be on its own, so tied and separate readouts can compute exactly the same things. Any remaining cost of tying must come from training, not from a lack of directions. N5's primary test: D at width 256, supported if its 97.5% interval lies below 0.02, refuted if it lies above 0.05. Result: D(256) = +0.030, 97.5% interval [−0.004, +0.065], positive in all 5 seeds; inconclusive. N5b, D(32) − D(128) = −0.063, interval [−0.32, +0.20]; inconclusive. The standard deviation of D across seeds was 0.022 at width 256, 0.060 at 128 and 0.194 at 32, against about 0.008 at 64 in N4. Sources: `N5_PREREGISTRATION.md`, `N5_NOTE.md`.
+
+[^12]: **Half-overlap.** The overlap of note 9, for two different readings, by readout width (5 seeds each): untrained 0.67–0.74, trained 0.42–0.48 at width 32; untrained 0.45–0.50, trained 0.46–0.49 at 64; untrained 0.28–0.31, trained 0.44–0.53 at 128; untrained 0.18–0.20, trained 0.47–0.53 at 256. Two heads reading the same target: 0.87–0.99 after training. Exploratory; no decision rule. Source: `N5_NOTE.md`.
