@@ -1,6 +1,10 @@
 # Conjecture note: is the hybrid model "too linear"?
 
-Date: 2026-10-04    Status: conjecture, untested
+Date: 2026-10-04    Status: conjecture, partly tested (updated 2026-10-07). T0 and T1 have run; T2–T4 have not.
+
+**T0 result, 2026-10-04: untestable.** A must-match control fell short in five of six models, and the dropout noise reference was too low, so the gradient comparison could give no verdict under its own rules. See `T0_NOTE.md`.
+
+**T1 result, 2026-10-04: rival G confirmed from the training side; P and C2 refuted at this scale.** Training Model A with adjoint gradients cost +0.79 nats (95% interval [+0.66, +0.92]), about 95% of the gap to the baseline at 10% of the budget. Losing one block's separate weights cost only +0.02 (rival P refuted). A weight-tied repeated block matched the two separate blocks it replaced, +0.007 (C2's forbidden case, so C2 is refuted at this scale). Trained with exact gradients, Model A was 0.04 nats behind the baseline. See `T1_NOTE.md`. C1 and C3 remain untested; the work moved on to the simultaneity conjecture (`../simultaneity-conjecture/`).
 
 Written with the scientific-experimentation skill (conjecture-note template). Nothing here is a finding. The refutations recorded in `experiments/wikitext2-replication/RESULTS.md` and `experiments/wikitext103-training/RESULTS.md` stand whatever the tests below show. These conjectures are new explanations to be criticised, not ways to restore the paper's claims.
 
@@ -116,7 +120,7 @@ Primary outcome: held-out steering accuracy on a preregistered prompt set large 
 
 - That additive conditioning is less expressive. Through the nonlinear layers it is not; C1 and C3 are claims about what training can find, so their tests measure learned behaviour, not capacity.
 
-- That the model is too linear. These are conjectures, untested.
+- That the model is too linear. These are conjectures. C2 has since been refuted at this scale by T1; C1 and C3 remain untested.
 - That any outcome would rescue the paper's claims. They were tested as stated and refuted, and those records stand. A better model found by these tests would be a new model with new evidence.
 - Novelty. The prior art above covers each component. Only the combination appears untested in what was searched.
 

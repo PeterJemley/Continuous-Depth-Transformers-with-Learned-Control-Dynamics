@@ -1,5 +1,7 @@
 # Development Notes: A Falsificationist Approach to Continuous-Depth Transformers
 
+> **Historical, October 2026.** These notes record the reasoning behind the January 2026 paper. The test outcomes they describe were later overturned by preregistered replications. The approach they argue for, stating in advance what would refute a claim, is the one the later work follows. See the README's status note and [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md).
+
 This document outlines the **problem situations**, **tentative theories**, and **critical tests** that shaped the final paper. It moves away from inductive assertion ("this works because we say so") toward a deductive approach: proposing a model and attempting to break it.
 
 ---

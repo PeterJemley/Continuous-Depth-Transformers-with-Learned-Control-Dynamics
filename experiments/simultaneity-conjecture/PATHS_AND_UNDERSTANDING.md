@@ -1,6 +1,6 @@
 # Conjecture note: where this programme can go, and whether understanding works like perception
 
-Date: 2026-10-06    Status: conjecture, untested. Written while G1d runs; no G1d result had been seen.
+Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-07: N1, N2, N4 and N5, proposed here, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
 
 ## The questions
 

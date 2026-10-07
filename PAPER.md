@@ -1,5 +1,7 @@
 # Continuous-Depth Transformers with Learned Control Dynamics
 
+> **Note added October 2026.** This is the paper as written in January 2026, kept unchanged as the record of what was claimed. Its headline results did not hold up in preregistered replications: see the README's status note, and [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md) for a plain-language account of the work since.
+
 **Peter Jemley**  
 jemley.p@northeastern.edu
 
