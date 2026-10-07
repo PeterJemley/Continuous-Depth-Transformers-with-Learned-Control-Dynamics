@@ -1,0 +1,735 @@
+23:33:32 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N5 folder: /content/drive/MyDrive/cdt-colab/n5_widths | local: /content/cdt_local/n5_widths
+23:33:33 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+23:33:58 next-task example: input ends ' By the 1880s , oriental @-@ style hash'; targets end ' the 1880s , oriental @-@ style hashish'
+23:33:58 skip-task example: input ends ' \n\n The impact of the case was immediate and overwhelming .'; targets end ' The impact of the case was immediate and overwhelming . Ibb'
+23:34:02 must-match check (separate = tied at step 0), every width and seed: True
+23:34:02 full-rank check at width 256 : [0.0012, 0.0008, 0.0024, 0.0002, 0.0025]
+23:34:02 batch check, targets at i+1 and i+2: True
+23:34:02 same-model check: [True, True, True, True, True]
+23:34:52 w256_dual-sep_seed3501: starting, dual-sep, seed 3501, readout rank 256, peak lr 0.0024
+23:35:54 w256_dual-sep_seed3501: step 400/2879, validation loss head A 6.2568, head B 6.9430
+23:36:11 w256_dual-sep_seed3501: step 500/2879, validation loss head A 6.1349, head B 6.8693
+23:37:00 w256_dual-sep_seed3501: step 800/2879, validation loss head A 5.7381, head B 6.6175
+23:38:04 w256_dual-sep_seed3501: step 1200/2879, validation loss head A 5.4158, head B 6.3838
+23:39:09 w256_dual-sep_seed3501: step 1600/2879, validation loss head A 5.1952, head B 6.2417
+23:40:13 w256_dual-sep_seed3501: step 2000/2879, validation loss head A 5.0252, head B 6.1121
+23:41:18 w256_dual-sep_seed3501: step 2400/2879, validation loss head A 4.9148, head B 6.0280
+23:42:22 w256_dual-sep_seed3501: step 2800/2879, validation loss head A 4.8404, head B 5.9715
+23:42:36 w256_dual-sep_seed3501: step 2879/2879, validation loss head A 4.8335, head B 5.9666
+23:42:44 w256_dual-sep_seed3501: finished in 0.13 h; head A 4.9379, head B 6.0728
+23:42:49 sub_w256_dual-sep_seed3501: overlap of A and B 0.520, readout overlap 1.000
+23:42:49 w256_dual-tied_seed3501: starting, dual-tied, seed 3501, readout rank 256, peak lr 0.0024
+23:43:54 w256_dual-tied_seed3501: step 400/2879, validation loss head A 6.2870, head B 6.9539
+23:44:11 w256_dual-tied_seed3501: step 500/2879, validation loss head A 6.1551, head B 6.8891
+23:45:00 w256_dual-tied_seed3501: step 800/2879, validation loss head A 5.7621, head B 6.6246
+23:46:05 w256_dual-tied_seed3501: step 1200/2879, validation loss head A 5.4366, head B 6.3994
+23:47:09 w256_dual-tied_seed3501: step 1600/2879, validation loss head A 5.2173, head B 6.2565
+23:48:13 w256_dual-tied_seed3501: step 2000/2879, validation loss head A 5.0484, head B 6.1226
+23:49:17 w256_dual-tied_seed3501: step 2400/2879, validation loss head A 4.9378, head B 6.0398
+23:50:22 w256_dual-tied_seed3501: step 2800/2879, validation loss head A 4.8662, head B 5.9834
+23:50:36 w256_dual-tied_seed3501: step 2879/2879, validation loss head A 4.8587, head B 5.9783
+23:50:44 w256_dual-tied_seed3501: finished in 0.13 h; head A 4.9620, head B 6.0856
+23:50:48 sub_w256_dual-tied_seed3501: overlap of A and B 0.618, readout overlap 1.000
+23:50:49 w256_same-sep_seed3501: starting, same-sep, seed 3501, readout rank 256, peak lr 0.0024
+23:51:53 w256_same-sep_seed3501: step 400/2879, validation loss head A 6.2342, head B 6.2347
+23:52:11 w256_same-sep_seed3501: step 500/2879, validation loss head A 6.1024, head B 6.1032
+23:53:00 w256_same-sep_seed3501: step 800/2879, validation loss head A 5.7070, head B 5.7092
+23:54:04 w256_same-sep_seed3501: step 1200/2879, validation loss head A 5.3786, head B 5.3814
+23:55:08 w256_same-sep_seed3501: step 1600/2879, validation loss head A 5.1567, head B 5.1596
+23:56:12 w256_same-sep_seed3501: step 2000/2879, validation loss head A 4.9734, head B 4.9757
+23:57:17 w256_same-sep_seed3501: step 2400/2879, validation loss head A 4.8628, head B 4.8663
+23:58:21 w256_same-sep_seed3501: step 2800/2879, validation loss head A 4.7893, head B 4.7927
+23:58:35 w256_same-sep_seed3501: step 2879/2879, validation loss head A 4.7829, head B 4.7858
+23:58:43 w256_same-sep_seed3501: finished in 0.13 h; head A 4.8896, head B 4.8895
+23:58:48 sub_w256_same-sep_seed3501: overlap of A and B 0.991, readout overlap 1.000
+23:58:48 w256_same-tied_seed3501: starting, same-tied, seed 3501, readout rank 256, peak lr 0.0024
+23:59:53 w256_same-tied_seed3501: step 400/2879, validation loss head A 6.2297, head B 6.2306
+00:00:10 w256_same-tied_seed3501: step 500/2879, validation loss head A 6.1111, head B 6.1114
+00:00:59 w256_same-tied_seed3501: step 800/2879, validation loss head A 5.7123, head B 5.7135
+00:02:03 w256_same-tied_seed3501: step 1200/2879, validation loss head A 5.3820, head B 5.3826
+00:03:08 w256_same-tied_seed3501: step 1600/2879, validation loss head A 5.1609, head B 5.1622
+00:04:12 w256_same-tied_seed3501: step 2000/2879, validation loss head A 4.9890, head B 4.9901
+00:05:16 w256_same-tied_seed3501: step 2400/2879, validation loss head A 4.8775, head B 4.8776
+00:06:21 w256_same-tied_seed3501: step 2800/2879, validation loss head A 4.8032, head B 4.8034
+00:06:35 w256_same-tied_seed3501: step 2879/2879, validation loss head A 4.7967, head B 4.7967
+00:06:43 w256_same-tied_seed3501: finished in 0.13 h; head A 4.8997, head B 4.8991
+00:06:47 sub_w256_same-tied_seed3501: overlap of A and B 0.995, readout overlap 1.000
+00:06:48 w256_dual-sep_seed3502: starting, dual-sep, seed 3502, readout rank 256, peak lr 0.0024
+00:07:52 w256_dual-sep_seed3502: step 400/2879, validation loss head A 6.2905, head B 6.9604
+00:08:10 w256_dual-sep_seed3502: step 500/2879, validation loss head A 6.1230, head B 6.8679
+00:08:59 w256_dual-sep_seed3502: step 800/2879, validation loss head A 5.7244, head B 6.6054
+00:10:03 w256_dual-sep_seed3502: step 1200/2879, validation loss head A 5.4095, head B 6.3869
+00:11:07 w256_dual-sep_seed3502: step 1600/2879, validation loss head A 5.1783, head B 6.2252
+00:12:11 w256_dual-sep_seed3502: step 2000/2879, validation loss head A 5.0180, head B 6.1113
+00:13:16 w256_dual-sep_seed3502: step 2400/2879, validation loss head A 4.9033, head B 6.0223
+00:14:20 w256_dual-sep_seed3502: step 2800/2879, validation loss head A 4.8373, head B 5.9682
+00:14:34 w256_dual-sep_seed3502: step 2879/2879, validation loss head A 4.8284, head B 5.9619
+00:14:42 w256_dual-sep_seed3502: finished in 0.13 h; head A 4.9209, head B 6.0640
+00:14:47 sub_w256_dual-sep_seed3502: overlap of A and B 0.470, readout overlap 1.000
+00:14:47 w256_dual-tied_seed3502: starting, dual-tied, seed 3502, readout rank 256, peak lr 0.0024
+00:15:52 w256_dual-tied_seed3502: step 400/2879, validation loss head A 6.3241, head B 6.9739
+00:16:09 w256_dual-tied_seed3502: step 500/2879, validation loss head A 6.1572, head B 6.8897
+00:16:58 w256_dual-tied_seed3502: step 800/2879, validation loss head A 5.7360, head B 6.6317
+00:18:02 w256_dual-tied_seed3502: step 1200/2879, validation loss head A 5.4204, head B 6.4022
+00:19:06 w256_dual-tied_seed3502: step 1600/2879, validation loss head A 5.1904, head B 6.2292
+00:20:11 w256_dual-tied_seed3502: step 2000/2879, validation loss head A 5.0342, head B 6.1172
+00:21:15 w256_dual-tied_seed3502: step 2400/2879, validation loss head A 4.9194, head B 6.0277
+00:22:20 w256_dual-tied_seed3502: step 2800/2879, validation loss head A 4.8545, head B 5.9749
+00:22:34 w256_dual-tied_seed3502: step 2879/2879, validation loss head A 4.8457, head B 5.9681
+00:22:42 w256_dual-tied_seed3502: finished in 0.13 h; head A 4.9385, head B 6.0681
+00:22:46 sub_w256_dual-tied_seed3502: overlap of A and B 0.609, readout overlap 1.000
+00:22:47 w256_same-sep_seed3502: starting, same-sep, seed 3502, readout rank 256, peak lr 0.0024
+00:23:51 w256_same-sep_seed3502: step 400/2879, validation loss head A 6.2589, head B 6.2592
+00:24:09 w256_same-sep_seed3502: step 500/2879, validation loss head A 6.0882, head B 6.0916
+00:24:58 w256_same-sep_seed3502: step 800/2879, validation loss head A 5.7045, head B 5.7089
+00:26:02 w256_same-sep_seed3502: step 1200/2879, validation loss head A 5.3678, head B 5.3698
+00:27:07 w256_same-sep_seed3502: step 1600/2879, validation loss head A 5.1534, head B 5.1539
+00:28:11 w256_same-sep_seed3502: step 2000/2879, validation loss head A 4.9874, head B 4.9876
+00:29:16 w256_same-sep_seed3502: step 2400/2879, validation loss head A 4.8680, head B 4.8683
+00:30:20 w256_same-sep_seed3502: step 2800/2879, validation loss head A 4.8014, head B 4.8024
+00:30:34 w256_same-sep_seed3502: step 2879/2879, validation loss head A 4.7917, head B 4.7930
+00:30:42 w256_same-sep_seed3502: finished in 0.13 h; head A 4.8836, head B 4.8835
+00:30:47 sub_w256_same-sep_seed3502: overlap of A and B 0.961, readout overlap 1.000
+00:30:47 w256_same-tied_seed3502: starting, same-tied, seed 3502, readout rank 256, peak lr 0.0024
+00:31:52 w256_same-tied_seed3502: step 400/2879, validation loss head A 6.2751, head B 6.2764
+00:32:10 w256_same-tied_seed3502: step 500/2879, validation loss head A 6.1007, head B 6.1006
+00:32:58 w256_same-tied_seed3502: step 800/2879, validation loss head A 5.7131, head B 5.7148
+00:34:03 w256_same-tied_seed3502: step 1200/2879, validation loss head A 5.3847, head B 5.3850
+00:35:07 w256_same-tied_seed3502: step 1600/2879, validation loss head A 5.1547, head B 5.1552
+00:36:11 w256_same-tied_seed3502: step 2000/2879, validation loss head A 4.9964, head B 4.9966
+00:37:16 w256_same-tied_seed3502: step 2400/2879, validation loss head A 4.8767, head B 4.8766
+00:38:20 w256_same-tied_seed3502: step 2800/2879, validation loss head A 4.8082, head B 4.8084
+00:38:34 w256_same-tied_seed3502: step 2879/2879, validation loss head A 4.7972, head B 4.7975
+00:38:42 w256_same-tied_seed3502: finished in 0.13 h; head A 4.8879, head B 4.8876
+00:38:46 sub_w256_same-tied_seed3502: overlap of A and B 0.982, readout overlap 1.000
+00:38:47 w256_dual-sep_seed3503: starting, dual-sep, seed 3503, readout rank 256, peak lr 0.0024
+00:39:52 w256_dual-sep_seed3503: step 400/2879, validation loss head A 6.2775, head B 6.9540
+00:40:09 w256_dual-sep_seed3503: step 500/2879, validation loss head A 6.1169, head B 6.8554
+00:40:58 w256_dual-sep_seed3503: step 800/2879, validation loss head A 5.7594, head B 6.6163
+00:42:03 w256_dual-sep_seed3503: step 1200/2879, validation loss head A 5.4220, head B 6.3847
+00:43:07 w256_dual-sep_seed3503: step 1600/2879, validation loss head A 5.2046, head B 6.2345
+00:44:12 w256_dual-sep_seed3503: step 2000/2879, validation loss head A 5.0229, head B 6.1036
+00:45:16 w256_dual-sep_seed3503: step 2400/2879, validation loss head A 4.9138, head B 6.0243
+00:46:21 w256_dual-sep_seed3503: step 2800/2879, validation loss head A 4.8443, head B 5.9694
+00:46:35 w256_dual-sep_seed3503: step 2879/2879, validation loss head A 4.8400, head B 5.9678
+00:46:43 w256_dual-sep_seed3503: finished in 0.13 h; head A 4.9315, head B 6.0684
+00:46:48 sub_w256_dual-sep_seed3503: overlap of A and B 0.517, readout overlap 1.000
+00:46:48 w256_dual-tied_seed3503: starting, dual-tied, seed 3503, readout rank 256, peak lr 0.0024
+00:47:53 w256_dual-tied_seed3503: step 400/2879, validation loss head A 6.3093, head B 6.9648
+00:48:10 w256_dual-tied_seed3503: step 500/2879, validation loss head A 6.1375, head B 6.8695
+00:48:59 w256_dual-tied_seed3503: step 800/2879, validation loss head A 5.7879, head B 6.6397
+00:50:03 w256_dual-tied_seed3503: step 1200/2879, validation loss head A 5.4602, head B 6.4084
+00:51:08 w256_dual-tied_seed3503: step 1600/2879, validation loss head A 5.2426, head B 6.2587
+00:52:12 w256_dual-tied_seed3503: step 2000/2879, validation loss head A 5.0662, head B 6.1297
+00:53:16 w256_dual-tied_seed3503: step 2400/2879, validation loss head A 4.9611, head B 6.0489
+00:54:21 w256_dual-tied_seed3503: step 2800/2879, validation loss head A 4.8868, head B 5.9950
+00:54:35 w256_dual-tied_seed3503: step 2879/2879, validation loss head A 4.8834, head B 5.9920
+00:54:43 w256_dual-tied_seed3503: finished in 0.13 h; head A 4.9768, head B 6.0918
+00:54:47 sub_w256_dual-tied_seed3503: overlap of A and B 0.643, readout overlap 1.000
+00:54:48 w256_same-sep_seed3503: starting, same-sep, seed 3503, readout rank 256, peak lr 0.0024
+00:55:52 w256_same-sep_seed3503: step 400/2879, validation loss head A 6.2436, head B 6.2474
+00:56:10 w256_same-sep_seed3503: step 500/2879, validation loss head A 6.0774, head B 6.0803
+00:56:58 w256_same-sep_seed3503: step 800/2879, validation loss head A 5.7069, head B 5.7063
+00:58:03 w256_same-sep_seed3503: step 1200/2879, validation loss head A 5.3534, head B 5.3546
+00:59:07 w256_same-sep_seed3503: step 1600/2879, validation loss head A 5.1352, head B 5.1350
+01:00:12 w256_same-sep_seed3503: step 2000/2879, validation loss head A 4.9644, head B 4.9639
+01:01:16 w256_same-sep_seed3503: step 2400/2879, validation loss head A 4.8612, head B 4.8614
+01:02:20 w256_same-sep_seed3503: step 2800/2879, validation loss head A 4.7883, head B 4.7883
+01:02:34 w256_same-sep_seed3503: step 2879/2879, validation loss head A 4.7824, head B 4.7827
+01:02:42 w256_same-sep_seed3503: finished in 0.13 h; head A 4.8757, head B 4.8757
+01:02:47 sub_w256_same-sep_seed3503: overlap of A and B 0.989, readout overlap 1.000
+01:02:47 w256_same-tied_seed3503: starting, same-tied, seed 3503, readout rank 256, peak lr 0.0024
+01:03:52 w256_same-tied_seed3503: step 400/2879, validation loss head A 6.2601, head B 6.2639
+01:04:09 w256_same-tied_seed3503: step 500/2879, validation loss head A 6.1121, head B 6.1145
+01:04:58 w256_same-tied_seed3503: step 800/2879, validation loss head A 5.7170, head B 5.7158
+01:06:02 w256_same-tied_seed3503: step 1200/2879, validation loss head A 5.3825, head B 5.3807
+01:07:07 w256_same-tied_seed3503: step 1600/2879, validation loss head A 5.1508, head B 5.1497
+01:08:11 w256_same-tied_seed3503: step 2000/2879, validation loss head A 4.9780, head B 4.9776
+01:09:15 w256_same-tied_seed3503: step 2400/2879, validation loss head A 4.8728, head B 4.8721
+01:10:20 w256_same-tied_seed3503: step 2800/2879, validation loss head A 4.8027, head B 4.8023
+01:10:34 w256_same-tied_seed3503: step 2879/2879, validation loss head A 4.7965, head B 4.7963
+01:10:41 w256_same-tied_seed3503: finished in 0.13 h; head A 4.8881, head B 4.8877
+01:10:46 sub_w256_same-tied_seed3503: overlap of A and B 0.994, readout overlap 1.000
+01:10:47 w256_dual-sep_seed3504: starting, dual-sep, seed 3504, readout rank 256, peak lr 0.0024
+01:11:51 w256_dual-sep_seed3504: step 400/2879, validation loss head A 6.2735, head B 6.9568
+01:12:09 w256_dual-sep_seed3504: step 500/2879, validation loss head A 6.1401, head B 6.8512
+01:12:57 w256_dual-sep_seed3504: step 800/2879, validation loss head A 5.7290, head B 6.6056
+01:14:02 w256_dual-sep_seed3504: step 1200/2879, validation loss head A 5.4084, head B 6.3715
+01:15:06 w256_dual-sep_seed3504: step 1600/2879, validation loss head A 5.1620, head B 6.2080
+01:16:11 w256_dual-sep_seed3504: step 2000/2879, validation loss head A 4.9996, head B 6.0896
+01:17:15 w256_dual-sep_seed3504: step 2400/2879, validation loss head A 4.8931, head B 6.0070
+01:18:19 w256_dual-sep_seed3504: step 2800/2879, validation loss head A 4.8249, head B 5.9566
+01:18:33 w256_dual-sep_seed3504: step 2879/2879, validation loss head A 4.8145, head B 5.9467
+01:18:41 w256_dual-sep_seed3504: finished in 0.13 h; head A 4.9185, head B 6.0583
+01:18:46 sub_w256_dual-sep_seed3504: overlap of A and B 0.532, readout overlap 1.000
+01:18:46 w256_dual-tied_seed3504: starting, dual-tied, seed 3504, readout rank 256, peak lr 0.0024
+01:19:51 w256_dual-tied_seed3504: step 400/2879, validation loss head A 6.3150, head B 6.9787
+01:20:08 w256_dual-tied_seed3504: step 500/2879, validation loss head A 6.1700, head B 6.8848
+01:20:57 w256_dual-tied_seed3504: step 800/2879, validation loss head A 5.7723, head B 6.6412
+01:22:01 w256_dual-tied_seed3504: step 1200/2879, validation loss head A 5.4517, head B 6.4077
+01:23:06 w256_dual-tied_seed3504: step 1600/2879, validation loss head A 5.2096, head B 6.2422
+01:24:10 w256_dual-tied_seed3504: step 2000/2879, validation loss head A 5.0461, head B 6.1166
+01:25:14 w256_dual-tied_seed3504: step 2400/2879, validation loss head A 4.9414, head B 6.0325
+01:26:19 w256_dual-tied_seed3504: step 2800/2879, validation loss head A 4.8757, head B 5.9821
+01:26:33 w256_dual-tied_seed3504: step 2879/2879, validation loss head A 4.8649, head B 5.9727
+01:26:41 w256_dual-tied_seed3504: finished in 0.13 h; head A 4.9631, head B 6.0799
+01:26:46 sub_w256_dual-tied_seed3504: overlap of A and B 0.621, readout overlap 1.000
+01:26:46 w256_same-sep_seed3504: starting, same-sep, seed 3504, readout rank 256, peak lr 0.0024
+01:27:51 w256_same-sep_seed3504: step 400/2879, validation loss head A 6.2522, head B 6.2509
+01:28:08 w256_same-sep_seed3504: step 500/2879, validation loss head A 6.1164, head B 6.1133
+01:28:57 w256_same-sep_seed3504: step 800/2879, validation loss head A 5.7084, head B 5.7060
+01:30:01 w256_same-sep_seed3504: step 1200/2879, validation loss head A 5.3810, head B 5.3782
+01:31:06 w256_same-sep_seed3504: step 1600/2879, validation loss head A 5.1444, head B 5.1435
+01:32:10 w256_same-sep_seed3504: step 2000/2879, validation loss head A 4.9724, head B 4.9719
+01:33:14 w256_same-sep_seed3504: step 2400/2879, validation loss head A 4.8624, head B 4.8611
+01:34:19 w256_same-sep_seed3504: step 2800/2879, validation loss head A 4.7965, head B 4.7947
+01:34:33 w256_same-sep_seed3504: step 2879/2879, validation loss head A 4.7842, head B 4.7826
+01:34:41 w256_same-sep_seed3504: finished in 0.13 h; head A 4.8858, head B 4.8851
+01:34:46 sub_w256_same-sep_seed3504: overlap of A and B 0.992, readout overlap 1.000
+01:34:46 w256_same-tied_seed3504: starting, same-tied, seed 3504, readout rank 256, peak lr 0.0024
+01:35:51 w256_same-tied_seed3504: step 400/2879, validation loss head A 6.2674, head B 6.2684
+01:36:08 w256_same-tied_seed3504: step 500/2879, validation loss head A 6.1069, head B 6.1073
+01:36:57 w256_same-tied_seed3504: step 800/2879, validation loss head A 5.7046, head B 5.7029
+01:38:02 w256_same-tied_seed3504: step 1200/2879, validation loss head A 5.3728, head B 5.3704
+01:39:06 w256_same-tied_seed3504: step 1600/2879, validation loss head A 5.1466, head B 5.1440
+01:40:10 w256_same-tied_seed3504: step 2000/2879, validation loss head A 4.9737, head B 4.9718
+01:41:15 w256_same-tied_seed3504: step 2400/2879, validation loss head A 4.8681, head B 4.8666
+01:42:19 w256_same-tied_seed3504: step 2800/2879, validation loss head A 4.8029, head B 4.8010
+01:42:33 w256_same-tied_seed3504: step 2879/2879, validation loss head A 4.7895, head B 4.7873
+01:42:41 w256_same-tied_seed3504: finished in 0.13 h; head A 4.8878, head B 4.8866
+01:42:46 sub_w256_same-tied_seed3504: overlap of A and B 0.994, readout overlap 1.000
+01:42:46 w256_dual-sep_seed3505: starting, dual-sep, seed 3505, readout rank 256, peak lr 0.0024
+01:43:51 w256_dual-sep_seed3505: step 400/2879, validation loss head A 6.2583, head B 6.9397
+01:44:08 w256_dual-sep_seed3505: step 500/2879, validation loss head A 6.1170, head B 6.8612
+01:44:57 w256_dual-sep_seed3505: step 800/2879, validation loss head A 5.7174, head B 6.5948
+01:46:01 w256_dual-sep_seed3505: step 1200/2879, validation loss head A 5.3877, head B 6.3688
+01:47:06 w256_dual-sep_seed3505: step 1600/2879, validation loss head A 5.1733, head B 6.2190
+01:48:10 w256_dual-sep_seed3505: step 2000/2879, validation loss head A 5.0031, head B 6.1032
+01:49:15 w256_dual-sep_seed3505: step 2400/2879, validation loss head A 4.8922, head B 6.0181
+01:50:19 w256_dual-sep_seed3505: step 2800/2879, validation loss head A 4.8326, head B 5.9734
+01:50:33 w256_dual-sep_seed3505: step 2879/2879, validation loss head A 4.8217, head B 5.9650
+01:50:41 w256_dual-sep_seed3505: finished in 0.13 h; head A 4.9257, head B 6.0654
+01:50:46 sub_w256_dual-sep_seed3505: overlap of A and B 0.471, readout overlap 1.000
+01:50:46 w256_dual-tied_seed3505: starting, dual-tied, seed 3505, readout rank 256, peak lr 0.0024
+01:51:51 w256_dual-tied_seed3505: step 400/2879, validation loss head A 6.2876, head B 6.9719
+01:52:08 w256_dual-tied_seed3505: step 500/2879, validation loss head A 6.1345, head B 6.8702
+01:52:57 w256_dual-tied_seed3505: step 800/2879, validation loss head A 5.7348, head B 6.6218
+01:54:01 w256_dual-tied_seed3505: step 1200/2879, validation loss head A 5.4117, head B 6.3869
+01:55:06 w256_dual-tied_seed3505: step 1600/2879, validation loss head A 5.1968, head B 6.2336
+01:56:10 w256_dual-tied_seed3505: step 2000/2879, validation loss head A 5.0302, head B 6.1181
+01:57:15 w256_dual-tied_seed3505: step 2400/2879, validation loss head A 4.9152, head B 6.0331
+01:58:19 w256_dual-tied_seed3505: step 2800/2879, validation loss head A 4.8581, head B 5.9850
+01:58:33 w256_dual-tied_seed3505: step 2879/2879, validation loss head A 4.8453, head B 5.9772
+01:58:41 w256_dual-tied_seed3505: finished in 0.13 h; head A 4.9497, head B 6.0765
+01:58:46 sub_w256_dual-tied_seed3505: overlap of A and B 0.578, readout overlap 1.000
+01:58:46 w256_same-sep_seed3505: starting, same-sep, seed 3505, readout rank 256, peak lr 0.0024
+01:59:51 w256_same-sep_seed3505: step 400/2879, validation loss head A 6.2347, head B 6.2302
+02:00:08 w256_same-sep_seed3505: step 500/2879, validation loss head A 6.0840, head B 6.0875
+02:00:57 w256_same-sep_seed3505: step 800/2879, validation loss head A 5.6798, head B 5.6799
+02:02:02 w256_same-sep_seed3505: step 1200/2879, validation loss head A 5.3470, head B 5.3452
+02:03:06 w256_same-sep_seed3505: step 1600/2879, validation loss head A 5.1264, head B 5.1276
+02:04:10 w256_same-sep_seed3505: step 2000/2879, validation loss head A 4.9625, head B 4.9623
+02:05:15 w256_same-sep_seed3505: step 2400/2879, validation loss head A 4.8442, head B 4.8435
+02:06:19 w256_same-sep_seed3505: step 2800/2879, validation loss head A 4.7827, head B 4.7827
+02:06:33 w256_same-sep_seed3505: step 2879/2879, validation loss head A 4.7709, head B 4.7708
+02:06:41 w256_same-sep_seed3505: finished in 0.13 h; head A 4.8771, head B 4.8769
+02:06:46 sub_w256_same-sep_seed3505: overlap of A and B 0.991, readout overlap 1.000
+02:06:46 w256_same-tied_seed3505: starting, same-tied, seed 3505, readout rank 256, peak lr 0.0024
+02:07:51 w256_same-tied_seed3505: step 400/2879, validation loss head A 6.2451, head B 6.2400
+02:08:08 w256_same-tied_seed3505: step 500/2879, validation loss head A 6.0898, head B 6.0926
+02:08:57 w256_same-tied_seed3505: step 800/2879, validation loss head A 5.6907, head B 5.6922
+02:10:02 w256_same-tied_seed3505: step 1200/2879, validation loss head A 5.3605, head B 5.3615
+02:11:06 w256_same-tied_seed3505: step 1600/2879, validation loss head A 5.1344, head B 5.1337
+02:12:10 w256_same-tied_seed3505: step 2000/2879, validation loss head A 4.9680, head B 4.9680
+02:13:15 w256_same-tied_seed3505: step 2400/2879, validation loss head A 4.8516, head B 4.8507
+02:14:19 w256_same-tied_seed3505: step 2800/2879, validation loss head A 4.7909, head B 4.7901
+02:14:33 w256_same-tied_seed3505: step 2879/2879, validation loss head A 4.7799, head B 4.7789
+02:14:41 w256_same-tied_seed3505: finished in 0.13 h; head A 4.8877, head B 4.8871
+02:14:46 sub_w256_same-tied_seed3505: overlap of A and B 0.994, readout overlap 1.000
+02:14:46 width 256 complete
+02:14:46 w32_dual-sep_seed3501: starting, dual-sep, seed 3501, readout rank 32, peak lr 0.0024
+02:15:34 w32_dual-sep_seed3501: step 400/2879, validation loss head A 6.6558, head B 7.1654
+02:15:47 w32_dual-sep_seed3501: step 500/2879, validation loss head A 6.4702, head B 7.0957
+02:16:23 w32_dual-sep_seed3501: step 800/2879, validation loss head A 6.1615, head B 6.9240
+02:17:11 w32_dual-sep_seed3501: step 1200/2879, validation loss head A 5.8824, head B 6.7355
+02:17:59 w32_dual-sep_seed3501: step 1600/2879, validation loss head A 5.6790, head B 6.5928
+02:18:47 w32_dual-sep_seed3501: step 2000/2879, validation loss head A 5.5255, head B 6.4829
+02:19:35 w32_dual-sep_seed3501: step 2400/2879, validation loss head A 5.4437, head B 6.4198
+02:20:23 w32_dual-sep_seed3501: step 2800/2879, validation loss head A 5.3869, head B 6.3796
+02:20:33 w32_dual-sep_seed3501: step 2879/2879, validation loss head A 5.3797, head B 6.3764
+02:20:38 w32_dual-sep_seed3501: finished in 0.10 h; head A 5.4605, head B 6.4599
+02:20:40 sub_w32_dual-sep_seed3501: overlap of A and B 0.476, readout overlap 0.338
+02:20:41 w32_dual-tied_seed3501: starting, dual-tied, seed 3501, readout rank 32, peak lr 0.0024
+02:21:29 w32_dual-tied_seed3501: step 400/2879, validation loss head A 6.7624, head B 7.2219
+02:21:42 w32_dual-tied_seed3501: step 500/2879, validation loss head A 6.5978, head B 7.1476
+02:22:18 w32_dual-tied_seed3501: step 800/2879, validation loss head A 6.2242, head B 6.9446
+02:23:06 w32_dual-tied_seed3501: step 1200/2879, validation loss head A 5.9134, head B 6.7457
+02:23:54 w32_dual-tied_seed3501: step 1600/2879, validation loss head A 5.6807, head B 6.5816
+02:24:42 w32_dual-tied_seed3501: step 2000/2879, validation loss head A 5.5229, head B 6.4639
+02:25:30 w32_dual-tied_seed3501: step 2400/2879, validation loss head A 5.4343, head B 6.4014
+02:26:18 w32_dual-tied_seed3501: step 2800/2879, validation loss head A 5.3799, head B 6.3613
+02:26:28 w32_dual-tied_seed3501: step 2879/2879, validation loss head A 5.3725, head B 6.3574
+02:26:33 w32_dual-tied_seed3501: finished in 0.10 h; head A 5.4515, head B 6.4444
+02:26:35 sub_w32_dual-tied_seed3501: overlap of A and B 0.722, readout overlap 1.000
+02:26:35 w32_same-sep_seed3501: starting, same-sep, seed 3501, readout rank 32, peak lr 0.0024
+02:27:23 w32_same-sep_seed3501: step 400/2879, validation loss head A 6.6098, head B 6.5938
+02:27:36 w32_same-sep_seed3501: step 500/2879, validation loss head A 6.4175, head B 6.4038
+02:28:13 w32_same-sep_seed3501: step 800/2879, validation loss head A 6.0550, head B 6.0532
+02:29:00 w32_same-sep_seed3501: step 1200/2879, validation loss head A 5.7738, head B 5.7772
+02:29:48 w32_same-sep_seed3501: step 1600/2879, validation loss head A 5.5563, head B 5.5604
+02:30:36 w32_same-sep_seed3501: step 2000/2879, validation loss head A 5.3974, head B 5.4023
+02:31:24 w32_same-sep_seed3501: step 2400/2879, validation loss head A 5.3055, head B 5.3098
+02:32:12 w32_same-sep_seed3501: step 2800/2879, validation loss head A 5.2452, head B 5.2503
+02:32:23 w32_same-sep_seed3501: step 2879/2879, validation loss head A 5.2375, head B 5.2432
+02:32:27 w32_same-sep_seed3501: finished in 0.10 h; head A 5.3286, head B 5.3334
+02:32:30 sub_w32_same-sep_seed3501: overlap of A and B 0.873, readout overlap 0.695
+02:32:30 w32_same-tied_seed3501: starting, same-tied, seed 3501, readout rank 32, peak lr 0.0024
+02:33:18 w32_same-tied_seed3501: step 400/2879, validation loss head A 6.6540, head B 6.6519
+02:33:31 w32_same-tied_seed3501: step 500/2879, validation loss head A 6.4606, head B 6.4587
+02:34:07 w32_same-tied_seed3501: step 800/2879, validation loss head A 6.0884, head B 6.0922
+02:34:55 w32_same-tied_seed3501: step 1200/2879, validation loss head A 5.7970, head B 5.8012
+02:35:43 w32_same-tied_seed3501: step 1600/2879, validation loss head A 5.5851, head B 5.5882
+02:36:31 w32_same-tied_seed3501: step 2000/2879, validation loss head A 5.4277, head B 5.4296
+02:37:19 w32_same-tied_seed3501: step 2400/2879, validation loss head A 5.3361, head B 5.3371
+02:38:07 w32_same-tied_seed3501: step 2800/2879, validation loss head A 5.2747, head B 5.2744
+02:38:17 w32_same-tied_seed3501: step 2879/2879, validation loss head A 5.2693, head B 5.2695
+02:38:22 w32_same-tied_seed3501: finished in 0.10 h; head A 5.3543, head B 5.3565
+02:38:24 sub_w32_same-tied_seed3501: overlap of A and B 0.945, readout overlap 1.000
+02:38:25 w32_dual-sep_seed3502: starting, dual-sep, seed 3502, readout rank 32, peak lr 0.0024
+02:39:13 w32_dual-sep_seed3502: step 400/2879, validation loss head A 6.6578, head B 7.1747
+02:39:25 w32_dual-sep_seed3502: step 500/2879, validation loss head A 6.5044, head B 7.1249
+02:40:02 w32_dual-sep_seed3502: step 800/2879, validation loss head A 6.1229, head B 6.9010
+02:40:50 w32_dual-sep_seed3502: step 1200/2879, validation loss head A 5.8279, head B 6.7040
+02:41:38 w32_dual-sep_seed3502: step 1600/2879, validation loss head A 5.6100, head B 6.5472
+02:42:26 w32_dual-sep_seed3502: step 2000/2879, validation loss head A 5.4683, head B 6.4412
+02:43:14 w32_dual-sep_seed3502: step 2400/2879, validation loss head A 5.3695, head B 6.3724
+02:44:02 w32_dual-sep_seed3502: step 2800/2879, validation loss head A 5.3178, head B 6.3346
+02:44:12 w32_dual-sep_seed3502: step 2879/2879, validation loss head A 5.3095, head B 6.3291
+02:44:17 w32_dual-sep_seed3502: finished in 0.10 h; head A 5.3830, head B 6.4102
+02:44:19 sub_w32_dual-sep_seed3502: overlap of A and B 0.481, readout overlap 0.319
+02:44:20 w32_dual-tied_seed3502: starting, dual-tied, seed 3502, readout rank 32, peak lr 0.0024
+02:45:08 w32_dual-tied_seed3502: step 400/2879, validation loss head A 6.7471, head B 7.2214
+02:45:20 w32_dual-tied_seed3502: step 500/2879, validation loss head A 6.5822, head B 7.1432
+02:45:57 w32_dual-tied_seed3502: step 800/2879, validation loss head A 6.2271, head B 6.9452
+02:46:45 w32_dual-tied_seed3502: step 1200/2879, validation loss head A 5.9472, head B 6.7665
+02:47:33 w32_dual-tied_seed3502: step 1600/2879, validation loss head A 5.7257, head B 6.6179
+02:48:21 w32_dual-tied_seed3502: step 2000/2879, validation loss head A 5.5797, head B 6.5072
+02:49:09 w32_dual-tied_seed3502: step 2400/2879, validation loss head A 5.4883, head B 6.4424
+02:49:57 w32_dual-tied_seed3502: step 2800/2879, validation loss head A 5.4351, head B 6.4030
+02:50:07 w32_dual-tied_seed3502: step 2879/2879, validation loss head A 5.4261, head B 6.3965
+02:50:12 w32_dual-tied_seed3502: finished in 0.10 h; head A 5.4984, head B 6.4760
+02:50:14 sub_w32_dual-tied_seed3502: overlap of A and B 0.743, readout overlap 1.000
+02:50:14 w32_same-sep_seed3502: starting, same-sep, seed 3502, readout rank 32, peak lr 0.0024
+02:51:02 w32_same-sep_seed3502: step 400/2879, validation loss head A 6.6506, head B 6.6418
+02:51:15 w32_same-sep_seed3502: step 500/2879, validation loss head A 6.4485, head B 6.4398
+02:51:52 w32_same-sep_seed3502: step 800/2879, validation loss head A 6.0752, head B 6.0761
+02:52:39 w32_same-sep_seed3502: step 1200/2879, validation loss head A 5.7913, head B 5.7941
+02:53:27 w32_same-sep_seed3502: step 1600/2879, validation loss head A 5.5846, head B 5.5885
+02:54:15 w32_same-sep_seed3502: step 2000/2879, validation loss head A 5.4278, head B 5.4268
+02:55:03 w32_same-sep_seed3502: step 2400/2879, validation loss head A 5.3259, head B 5.3264
+02:55:51 w32_same-sep_seed3502: step 2800/2879, validation loss head A 5.2736, head B 5.2723
+02:56:02 w32_same-sep_seed3502: step 2879/2879, validation loss head A 5.2663, head B 5.2654
+02:56:06 w32_same-sep_seed3502: finished in 0.10 h; head A 5.3454, head B 5.3449
+02:56:09 sub_w32_same-sep_seed3502: overlap of A and B 0.910, readout overlap 0.691
+02:56:09 w32_same-tied_seed3502: starting, same-tied, seed 3502, readout rank 32, peak lr 0.0024
+02:56:57 w32_same-tied_seed3502: step 400/2879, validation loss head A 6.6823, head B 6.6801
+02:57:10 w32_same-tied_seed3502: step 500/2879, validation loss head A 6.4831, head B 6.4824
+02:57:46 w32_same-tied_seed3502: step 800/2879, validation loss head A 6.1101, head B 6.1129
+02:58:34 w32_same-tied_seed3502: step 1200/2879, validation loss head A 5.8369, head B 5.8388
+02:59:22 w32_same-tied_seed3502: step 1600/2879, validation loss head A 5.6259, head B 5.6284
+03:00:10 w32_same-tied_seed3502: step 2000/2879, validation loss head A 5.4677, head B 5.4673
+03:00:58 w32_same-tied_seed3502: step 2400/2879, validation loss head A 5.3684, head B 5.3686
+03:01:46 w32_same-tied_seed3502: step 2800/2879, validation loss head A 5.3126, head B 5.3121
+03:01:56 w32_same-tied_seed3502: step 2879/2879, validation loss head A 5.3040, head B 5.3036
+03:02:01 w32_same-tied_seed3502: finished in 0.10 h; head A 5.3851, head B 5.3842
+03:02:03 sub_w32_same-tied_seed3502: overlap of A and B 0.979, readout overlap 1.000
+03:02:03 w32_dual-sep_seed3503: starting, dual-sep, seed 3503, readout rank 32, peak lr 0.0024
+03:02:51 w32_dual-sep_seed3503: step 400/2879, validation loss head A 6.6581, head B 7.1893
+03:03:04 w32_dual-sep_seed3503: step 500/2879, validation loss head A 6.4586, head B 7.1131
+03:03:40 w32_dual-sep_seed3503: step 800/2879, validation loss head A 6.0795, head B 6.8804
+03:04:28 w32_dual-sep_seed3503: step 1200/2879, validation loss head A 5.7817, head B 6.6631
+03:05:16 w32_dual-sep_seed3503: step 1600/2879, validation loss head A 5.5602, head B 6.5055
+03:06:04 w32_dual-sep_seed3503: step 2000/2879, validation loss head A 5.4147, head B 6.3940
+03:06:52 w32_dual-sep_seed3503: step 2400/2879, validation loss head A 5.3214, head B 6.3286
+03:07:40 w32_dual-sep_seed3503: step 2800/2879, validation loss head A 5.2690, head B 6.2893
+03:07:51 w32_dual-sep_seed3503: step 2879/2879, validation loss head A 5.2628, head B 6.2884
+03:07:55 w32_dual-sep_seed3503: finished in 0.10 h; head A 5.3434, head B 6.3760
+03:07:58 sub_w32_dual-sep_seed3503: overlap of A and B 0.418, readout overlap 0.315
+03:07:58 w32_dual-tied_seed3503: starting, dual-tied, seed 3503, readout rank 32, peak lr 0.0024
+03:08:46 w32_dual-tied_seed3503: step 400/2879, validation loss head A 6.7554, head B 7.2218
+03:08:59 w32_dual-tied_seed3503: step 500/2879, validation loss head A 6.5959, head B 7.1395
+03:09:35 w32_dual-tied_seed3503: step 800/2879, validation loss head A 6.2231, head B 6.9331
+03:10:23 w32_dual-tied_seed3503: step 1200/2879, validation loss head A 5.9235, head B 6.7433
+03:11:11 w32_dual-tied_seed3503: step 1600/2879, validation loss head A 5.7222, head B 6.6061
+03:11:59 w32_dual-tied_seed3503: step 2000/2879, validation loss head A 5.5683, head B 6.4933
+03:12:47 w32_dual-tied_seed3503: step 2400/2879, validation loss head A 5.4791, head B 6.4322
+03:13:35 w32_dual-tied_seed3503: step 2800/2879, validation loss head A 5.4280, head B 6.3950
+03:13:45 w32_dual-tied_seed3503: step 2879/2879, validation loss head A 5.4236, head B 6.3922
+03:13:49 w32_dual-tied_seed3503: finished in 0.10 h; head A 5.4987, head B 6.4752
+03:13:52 sub_w32_dual-tied_seed3503: overlap of A and B 0.751, readout overlap 1.000
+03:13:52 w32_same-sep_seed3503: starting, same-sep, seed 3503, readout rank 32, peak lr 0.0024
+03:14:40 w32_same-sep_seed3503: step 400/2879, validation loss head A 6.6414, head B 6.6434
+03:14:53 w32_same-sep_seed3503: step 500/2879, validation loss head A 6.4408, head B 6.4445
+03:15:30 w32_same-sep_seed3503: step 800/2879, validation loss head A 6.0625, head B 6.0612
+03:16:17 w32_same-sep_seed3503: step 1200/2879, validation loss head A 5.7860, head B 5.7814
+03:17:05 w32_same-sep_seed3503: step 1600/2879, validation loss head A 5.5674, head B 5.5590
+03:17:53 w32_same-sep_seed3503: step 2000/2879, validation loss head A 5.4201, head B 5.4144
+03:18:41 w32_same-sep_seed3503: step 2400/2879, validation loss head A 5.3294, head B 5.3219
+03:19:29 w32_same-sep_seed3503: step 2800/2879, validation loss head A 5.2742, head B 5.2663
+03:19:39 w32_same-sep_seed3503: step 2879/2879, validation loss head A 5.2685, head B 5.2605
+03:19:44 w32_same-sep_seed3503: finished in 0.10 h; head A 5.3451, head B 5.3424
+03:19:47 sub_w32_same-sep_seed3503: overlap of A and B 0.868, readout overlap 0.681
+03:19:47 w32_same-tied_seed3503: starting, same-tied, seed 3503, readout rank 32, peak lr 0.0024
+03:20:35 w32_same-tied_seed3503: step 400/2879, validation loss head A 6.6800, head B 6.6770
+03:20:48 w32_same-tied_seed3503: step 500/2879, validation loss head A 6.4677, head B 6.4652
+03:21:24 w32_same-tied_seed3503: step 800/2879, validation loss head A 6.0914, head B 6.0886
+03:22:12 w32_same-tied_seed3503: step 1200/2879, validation loss head A 5.8182, head B 5.8189
+03:23:00 w32_same-tied_seed3503: step 1600/2879, validation loss head A 5.6070, head B 5.6062
+03:23:48 w32_same-tied_seed3503: step 2000/2879, validation loss head A 5.4617, head B 5.4622
+03:24:36 w32_same-tied_seed3503: step 2400/2879, validation loss head A 5.3656, head B 5.3649
+03:25:24 w32_same-tied_seed3503: step 2800/2879, validation loss head A 5.3122, head B 5.3119
+03:25:35 w32_same-tied_seed3503: step 2879/2879, validation loss head A 5.3053, head B 5.3045
+03:25:39 w32_same-tied_seed3503: finished in 0.10 h; head A 5.3825, head B 5.3825
+03:25:42 sub_w32_same-tied_seed3503: overlap of A and B 0.954, readout overlap 1.000
+03:25:42 w32_dual-sep_seed3504: starting, dual-sep, seed 3504, readout rank 32, peak lr 0.0024
+03:26:30 w32_dual-sep_seed3504: step 400/2879, validation loss head A 6.6214, head B 7.1778
+03:26:43 w32_dual-sep_seed3504: step 500/2879, validation loss head A 6.4257, head B 7.0892
+03:27:19 w32_dual-sep_seed3504: step 800/2879, validation loss head A 6.0739, head B 6.8792
+03:28:07 w32_dual-sep_seed3504: step 1200/2879, validation loss head A 5.7822, head B 6.6656
+03:28:55 w32_dual-sep_seed3504: step 1600/2879, validation loss head A 5.5651, head B 6.4989
+03:29:43 w32_dual-sep_seed3504: step 2000/2879, validation loss head A 5.4274, head B 6.3986
+03:30:31 w32_dual-sep_seed3504: step 2400/2879, validation loss head A 5.3378, head B 6.3356
+03:31:19 w32_dual-sep_seed3504: step 2800/2879, validation loss head A 5.2893, head B 6.2985
+03:31:29 w32_dual-sep_seed3504: step 2879/2879, validation loss head A 5.2785, head B 6.2905
+03:31:34 w32_dual-sep_seed3504: finished in 0.10 h; head A 5.3591, head B 6.3787
+03:31:37 sub_w32_dual-sep_seed3504: overlap of A and B 0.440, readout overlap 0.310
+03:31:37 w32_dual-tied_seed3504: starting, dual-tied, seed 3504, readout rank 32, peak lr 0.0024
+03:32:25 w32_dual-tied_seed3504: step 400/2879, validation loss head A 6.7445, head B 7.2107
+03:32:38 w32_dual-tied_seed3504: step 500/2879, validation loss head A 6.5640, head B 7.1219
+03:33:14 w32_dual-tied_seed3504: step 800/2879, validation loss head A 6.1915, head B 6.9196
+03:34:02 w32_dual-tied_seed3504: step 1200/2879, validation loss head A 5.8806, head B 6.7138
+03:34:50 w32_dual-tied_seed3504: step 1600/2879, validation loss head A 5.6599, head B 6.5607
+03:35:38 w32_dual-tied_seed3504: step 2000/2879, validation loss head A 5.5234, head B 6.4591
+03:36:26 w32_dual-tied_seed3504: step 2400/2879, validation loss head A 5.4293, head B 6.3907
+03:37:14 w32_dual-tied_seed3504: step 2800/2879, validation loss head A 5.3828, head B 6.3570
+03:37:25 w32_dual-tied_seed3504: step 2879/2879, validation loss head A 5.3742, head B 6.3473
+03:37:29 w32_dual-tied_seed3504: finished in 0.10 h; head A 5.4550, head B 6.4364
+03:37:32 sub_w32_dual-tied_seed3504: overlap of A and B 0.718, readout overlap 1.000
+03:37:32 w32_same-sep_seed3504: starting, same-sep, seed 3504, readout rank 32, peak lr 0.0024
+03:38:20 w32_same-sep_seed3504: step 400/2879, validation loss head A 6.5893, head B 6.6087
+03:38:33 w32_same-sep_seed3504: step 500/2879, validation loss head A 6.3906, head B 6.4090
+03:39:10 w32_same-sep_seed3504: step 800/2879, validation loss head A 6.0389, head B 6.0437
+03:39:58 w32_same-sep_seed3504: step 1200/2879, validation loss head A 5.7650, head B 5.7673
+03:40:45 w32_same-sep_seed3504: step 1600/2879, validation loss head A 5.5493, head B 5.5503
+03:41:33 w32_same-sep_seed3504: step 2000/2879, validation loss head A 5.4110, head B 5.4119
+03:42:21 w32_same-sep_seed3504: step 2400/2879, validation loss head A 5.3167, head B 5.3180
+03:43:09 w32_same-sep_seed3504: step 2800/2879, validation loss head A 5.2646, head B 5.2661
+03:43:20 w32_same-sep_seed3504: step 2879/2879, validation loss head A 5.2539, head B 5.2539
+03:43:24 w32_same-sep_seed3504: finished in 0.10 h; head A 5.3409, head B 5.3397
+03:43:27 sub_w32_same-sep_seed3504: overlap of A and B 0.878, readout overlap 0.684
+03:43:27 w32_same-tied_seed3504: starting, same-tied, seed 3504, readout rank 32, peak lr 0.0024
+03:44:15 w32_same-tied_seed3504: step 400/2879, validation loss head A 6.6542, head B 6.6636
+03:44:28 w32_same-tied_seed3504: step 500/2879, validation loss head A 6.4559, head B 6.4632
+03:45:04 w32_same-tied_seed3504: step 800/2879, validation loss head A 6.0870, head B 6.0887
+03:45:52 w32_same-tied_seed3504: step 1200/2879, validation loss head A 5.8381, head B 5.8388
+03:46:40 w32_same-tied_seed3504: step 1600/2879, validation loss head A 5.6243, head B 5.6250
+03:47:28 w32_same-tied_seed3504: step 2000/2879, validation loss head A 5.4788, head B 5.4812
+03:48:16 w32_same-tied_seed3504: step 2400/2879, validation loss head A 5.3865, head B 5.3894
+03:49:04 w32_same-tied_seed3504: step 2800/2879, validation loss head A 5.3365, head B 5.3398
+03:49:14 w32_same-tied_seed3504: step 2879/2879, validation loss head A 5.3271, head B 5.3292
+03:49:18 w32_same-tied_seed3504: finished in 0.10 h; head A 5.4169, head B 5.4168
+03:49:21 sub_w32_same-tied_seed3504: overlap of A and B 0.979, readout overlap 1.000
+03:49:21 w32_dual-sep_seed3505: starting, dual-sep, seed 3505, readout rank 32, peak lr 0.0024
+03:50:09 w32_dual-sep_seed3505: step 400/2879, validation loss head A 6.5881, head B 7.1835
+03:50:22 w32_dual-sep_seed3505: step 500/2879, validation loss head A 6.4596, head B 7.1251
+03:50:58 w32_dual-sep_seed3505: step 800/2879, validation loss head A 6.2231, head B 6.9627
+03:51:46 w32_dual-sep_seed3505: step 1200/2879, validation loss head A 5.9972, head B 6.8126
+03:52:35 w32_dual-sep_seed3505: step 1600/2879, validation loss head A 5.8048, head B 6.6862
+03:53:22 w32_dual-sep_seed3505: step 2000/2879, validation loss head A 5.6796, head B 6.5974
+03:54:10 w32_dual-sep_seed3505: step 2400/2879, validation loss head A 5.5775, head B 6.5262
+03:54:58 w32_dual-sep_seed3505: step 2800/2879, validation loss head A 5.5264, head B 6.4870
+03:55:09 w32_dual-sep_seed3505: step 2879/2879, validation loss head A 5.5176, head B 6.4802
+03:55:13 w32_dual-sep_seed3505: finished in 0.10 h; head A 5.5913, head B 6.5548
+03:55:16 sub_w32_dual-sep_seed3505: overlap of A and B 0.446, readout overlap 0.383
+03:55:16 w32_dual-tied_seed3505: starting, dual-tied, seed 3505, readout rank 32, peak lr 0.0024
+03:56:04 w32_dual-tied_seed3505: step 400/2879, validation loss head A 6.7374, head B 7.2213
+03:56:17 w32_dual-tied_seed3505: step 500/2879, validation loss head A 6.5650, head B 7.1375
+03:56:53 w32_dual-tied_seed3505: step 800/2879, validation loss head A 6.1538, head B 6.9005
+03:57:41 w32_dual-tied_seed3505: step 1200/2879, validation loss head A 5.8641, head B 6.7087
+03:58:29 w32_dual-tied_seed3505: step 1600/2879, validation loss head A 5.6391, head B 6.5470
+03:59:17 w32_dual-tied_seed3505: step 2000/2879, validation loss head A 5.5024, head B 6.4504
+04:00:05 w32_dual-tied_seed3505: step 2400/2879, validation loss head A 5.4045, head B 6.3834
+04:00:53 w32_dual-tied_seed3505: step 2800/2879, validation loss head A 5.3562, head B 6.3445
+04:01:03 w32_dual-tied_seed3505: step 2879/2879, validation loss head A 5.3435, head B 6.3346
+04:01:08 w32_dual-tied_seed3505: finished in 0.10 h; head A 5.4314, head B 6.4257
+04:01:10 sub_w32_dual-tied_seed3505: overlap of A and B 0.711, readout overlap 1.000
+04:01:11 w32_same-sep_seed3505: starting, same-sep, seed 3505, readout rank 32, peak lr 0.0024
+04:01:59 w32_same-sep_seed3505: step 400/2879, validation loss head A 6.5669, head B 6.6221
+04:02:12 w32_same-sep_seed3505: step 500/2879, validation loss head A 6.3826, head B 6.4172
+04:02:48 w32_same-sep_seed3505: step 800/2879, validation loss head A 6.0336, head B 6.0388
+04:03:36 w32_same-sep_seed3505: step 1200/2879, validation loss head A 5.7547, head B 5.7582
+04:04:24 w32_same-sep_seed3505: step 1600/2879, validation loss head A 5.5397, head B 5.5460
+04:05:12 w32_same-sep_seed3505: step 2000/2879, validation loss head A 5.4024, head B 5.4073
+04:06:00 w32_same-sep_seed3505: step 2400/2879, validation loss head A 5.3005, head B 5.3065
+04:06:48 w32_same-sep_seed3505: step 2800/2879, validation loss head A 5.2483, head B 5.2540
+04:06:58 w32_same-sep_seed3505: step 2879/2879, validation loss head A 5.2396, head B 5.2458
+04:07:03 w32_same-sep_seed3505: finished in 0.10 h; head A 5.3320, head B 5.3333
+04:07:05 sub_w32_same-sep_seed3505: overlap of A and B 0.905, readout overlap 0.693
+04:07:05 w32_same-tied_seed3505: starting, same-tied, seed 3505, readout rank 32, peak lr 0.0024
+04:07:54 w32_same-tied_seed3505: step 400/2879, validation loss head A 6.6717, head B 6.6634
+04:08:06 w32_same-tied_seed3505: step 500/2879, validation loss head A 6.4531, head B 6.4513
+04:08:43 w32_same-tied_seed3505: step 800/2879, validation loss head A 6.0581, head B 6.0571
+04:09:31 w32_same-tied_seed3505: step 1200/2879, validation loss head A 5.7780, head B 5.7746
+04:10:19 w32_same-tied_seed3505: step 1600/2879, validation loss head A 5.5721, head B 5.5692
+04:11:06 w32_same-tied_seed3505: step 2000/2879, validation loss head A 5.4342, head B 5.4325
+04:11:54 w32_same-tied_seed3505: step 2400/2879, validation loss head A 5.3295, head B 5.3294
+04:12:42 w32_same-tied_seed3505: step 2800/2879, validation loss head A 5.2762, head B 5.2748
+04:12:53 w32_same-tied_seed3505: step 2879/2879, validation loss head A 5.2667, head B 5.2665
+04:12:57 w32_same-tied_seed3505: finished in 0.10 h; head A 5.3523, head B 5.3506
+04:13:00 sub_w32_same-tied_seed3505: overlap of A and B 0.974, readout overlap 1.000
+04:13:00 width 32 complete
+04:13:00 w128_dual-sep_seed3501: starting, dual-sep, seed 3501, readout rank 128, peak lr 0.0024
+04:13:54 w128_dual-sep_seed3501: step 400/2879, validation loss head A 6.3440, head B 7.0097
+04:14:08 w128_dual-sep_seed3501: step 500/2879, validation loss head A 6.1998, head B 6.9151
+04:14:48 w128_dual-sep_seed3501: step 800/2879, validation loss head A 5.8108, head B 6.6589
+04:15:42 w128_dual-sep_seed3501: step 1200/2879, validation loss head A 5.5112, head B 6.4468
+04:16:35 w128_dual-sep_seed3501: step 1600/2879, validation loss head A 5.2898, head B 6.2967
+04:17:28 w128_dual-sep_seed3501: step 2000/2879, validation loss head A 5.1214, head B 6.1715
+04:18:22 w128_dual-sep_seed3501: step 2400/2879, validation loss head A 5.0187, head B 6.0950
+04:19:15 w128_dual-sep_seed3501: step 2800/2879, validation loss head A 4.9491, head B 6.0429
+04:19:27 w128_dual-sep_seed3501: step 2879/2879, validation loss head A 4.9435, head B 6.0386
+04:19:32 w128_dual-sep_seed3501: finished in 0.11 h; head A 5.0370, head B 6.1387
+04:19:36 sub_w128_dual-sep_seed3501: overlap of A and B 0.496, readout overlap 0.701
+04:19:36 w128_dual-tied_seed3501: starting, dual-tied, seed 3501, readout rank 128, peak lr 0.0024
+04:20:30 w128_dual-tied_seed3501: step 400/2879, validation loss head A 6.3889, head B 7.0226
+04:20:44 w128_dual-tied_seed3501: step 500/2879, validation loss head A 6.2558, head B 6.9551
+04:21:24 w128_dual-tied_seed3501: step 800/2879, validation loss head A 5.9038, head B 6.7200
+04:22:18 w128_dual-tied_seed3501: step 1200/2879, validation loss head A 5.6037, head B 6.5050
+04:23:11 w128_dual-tied_seed3501: step 1600/2879, validation loss head A 5.3836, head B 6.3574
+04:24:04 w128_dual-tied_seed3501: step 2000/2879, validation loss head A 5.2177, head B 6.2325
+04:24:57 w128_dual-tied_seed3501: step 2400/2879, validation loss head A 5.1145, head B 6.1548
+04:25:51 w128_dual-tied_seed3501: step 2800/2879, validation loss head A 5.0485, head B 6.1056
+04:26:02 w128_dual-tied_seed3501: step 2879/2879, validation loss head A 5.0412, head B 6.1013
+04:26:08 w128_dual-tied_seed3501: finished in 0.11 h; head A 5.1354, head B 6.2010
+04:26:11 sub_w128_dual-tied_seed3501: overlap of A and B 0.674, readout overlap 1.000
+04:26:12 w128_same-sep_seed3501: starting, same-sep, seed 3501, readout rank 128, peak lr 0.0024
+04:27:05 w128_same-sep_seed3501: step 400/2879, validation loss head A 6.3032, head B 6.3055
+04:27:20 w128_same-sep_seed3501: step 500/2879, validation loss head A 6.1718, head B 6.1724
+04:28:00 w128_same-sep_seed3501: step 800/2879, validation loss head A 5.8124, head B 5.8130
+04:28:53 w128_same-sep_seed3501: step 1200/2879, validation loss head A 5.4830, head B 5.4837
+04:29:47 w128_same-sep_seed3501: step 1600/2879, validation loss head A 5.2654, head B 5.2658
+04:30:40 w128_same-sep_seed3501: step 2000/2879, validation loss head A 5.0942, head B 5.0948
+04:31:33 w128_same-sep_seed3501: step 2400/2879, validation loss head A 4.9877, head B 4.9872
+04:32:27 w128_same-sep_seed3501: step 2800/2879, validation loss head A 4.9177, head B 4.9168
+04:32:38 w128_same-sep_seed3501: step 2879/2879, validation loss head A 4.9100, head B 4.9098
+04:32:44 w128_same-sep_seed3501: finished in 0.11 h; head A 5.0056, head B 5.0060
+04:32:48 sub_w128_same-sep_seed3501: overlap of A and B 0.988, readout overlap 0.759
+04:32:48 w128_same-tied_seed3501: starting, same-tied, seed 3501, readout rank 128, peak lr 0.0024
+04:33:42 w128_same-tied_seed3501: step 400/2879, validation loss head A 6.3271, head B 6.3262
+04:33:56 w128_same-tied_seed3501: step 500/2879, validation loss head A 6.1838, head B 6.1859
+04:34:36 w128_same-tied_seed3501: step 800/2879, validation loss head A 5.8375, head B 5.8356
+04:35:30 w128_same-tied_seed3501: step 1200/2879, validation loss head A 5.5041, head B 5.5031
+04:36:23 w128_same-tied_seed3501: step 1600/2879, validation loss head A 5.2824, head B 5.2814
+04:37:16 w128_same-tied_seed3501: step 2000/2879, validation loss head A 5.1179, head B 5.1181
+04:38:10 w128_same-tied_seed3501: step 2400/2879, validation loss head A 5.0093, head B 5.0081
+04:39:03 w128_same-tied_seed3501: step 2800/2879, validation loss head A 4.9382, head B 4.9373
+04:39:15 w128_same-tied_seed3501: step 2879/2879, validation loss head A 4.9320, head B 4.9315
+04:39:20 w128_same-tied_seed3501: finished in 0.11 h; head A 5.0280, head B 5.0278
+04:39:24 sub_w128_same-tied_seed3501: overlap of A and B 0.933, readout overlap 1.000
+04:39:24 w128_dual-sep_seed3502: starting, dual-sep, seed 3502, readout rank 128, peak lr 0.0024
+04:40:18 w128_dual-sep_seed3502: step 400/2879, validation loss head A 6.3618, head B 6.9997
+04:40:32 w128_dual-sep_seed3502: step 500/2879, validation loss head A 6.2096, head B 6.9216
+04:41:12 w128_dual-sep_seed3502: step 800/2879, validation loss head A 5.8197, head B 6.6666
+04:42:06 w128_dual-sep_seed3502: step 1200/2879, validation loss head A 5.5213, head B 6.4600
+04:42:59 w128_dual-sep_seed3502: step 1600/2879, validation loss head A 5.2931, head B 6.2922
+04:43:53 w128_dual-sep_seed3502: step 2000/2879, validation loss head A 5.1387, head B 6.1779
+04:44:46 w128_dual-sep_seed3502: step 2400/2879, validation loss head A 5.0268, head B 6.0972
+04:45:39 w128_dual-sep_seed3502: step 2800/2879, validation loss head A 4.9659, head B 6.0511
+04:45:51 w128_dual-sep_seed3502: step 2879/2879, validation loss head A 4.9550, head B 6.0443
+04:45:57 w128_dual-sep_seed3502: finished in 0.11 h; head A 5.0410, head B 6.1409
+04:46:00 sub_w128_dual-sep_seed3502: overlap of A and B 0.502, readout overlap 0.697
+04:46:00 w128_dual-tied_seed3502: starting, dual-tied, seed 3502, readout rank 128, peak lr 0.0024
+04:46:54 w128_dual-tied_seed3502: step 400/2879, validation loss head A 6.4074, head B 7.0261
+04:47:08 w128_dual-tied_seed3502: step 500/2879, validation loss head A 6.2504, head B 6.9461
+04:47:49 w128_dual-tied_seed3502: step 800/2879, validation loss head A 5.8637, head B 6.6938
+04:48:42 w128_dual-tied_seed3502: step 1200/2879, validation loss head A 5.5733, head B 6.4915
+04:49:35 w128_dual-tied_seed3502: step 1600/2879, validation loss head A 5.3335, head B 6.3203
+04:50:29 w128_dual-tied_seed3502: step 2000/2879, validation loss head A 5.1718, head B 6.2035
+04:51:22 w128_dual-tied_seed3502: step 2400/2879, validation loss head A 5.0660, head B 6.1215
+04:52:16 w128_dual-tied_seed3502: step 2800/2879, validation loss head A 5.0046, head B 6.0738
+04:52:28 w128_dual-tied_seed3502: step 2879/2879, validation loss head A 4.9952, head B 6.0656
+04:52:33 w128_dual-tied_seed3502: finished in 0.11 h; head A 5.0796, head B 6.1586
+04:52:37 sub_w128_dual-tied_seed3502: overlap of A and B 0.639, readout overlap 1.000
+04:52:37 w128_same-sep_seed3502: starting, same-sep, seed 3502, readout rank 128, peak lr 0.0024
+04:53:31 w128_same-sep_seed3502: step 400/2879, validation loss head A 6.3374, head B 6.3389
+04:53:45 w128_same-sep_seed3502: step 500/2879, validation loss head A 6.1669, head B 6.1649
+04:54:26 w128_same-sep_seed3502: step 800/2879, validation loss head A 5.7856, head B 5.7804
+04:55:19 w128_same-sep_seed3502: step 1200/2879, validation loss head A 5.4625, head B 5.4616
+04:56:12 w128_same-sep_seed3502: step 1600/2879, validation loss head A 5.2494, head B 5.2483
+04:57:06 w128_same-sep_seed3502: step 2000/2879, validation loss head A 5.0840, head B 5.0836
+04:57:59 w128_same-sep_seed3502: step 2400/2879, validation loss head A 4.9645, head B 4.9636
+04:58:53 w128_same-sep_seed3502: step 2800/2879, validation loss head A 4.9029, head B 4.9022
+04:59:04 w128_same-sep_seed3502: step 2879/2879, validation loss head A 4.8927, head B 4.8914
+04:59:10 w128_same-sep_seed3502: finished in 0.11 h; head A 4.9878, head B 4.9872
+04:59:13 sub_w128_same-sep_seed3502: overlap of A and B 0.982, readout overlap 0.762
+04:59:14 w128_same-tied_seed3502: starting, same-tied, seed 3502, readout rank 128, peak lr 0.0024
+05:00:07 w128_same-tied_seed3502: step 400/2879, validation loss head A 6.3509, head B 6.3521
+05:00:22 w128_same-tied_seed3502: step 500/2879, validation loss head A 6.1843, head B 6.1830
+05:01:02 w128_same-tied_seed3502: step 800/2879, validation loss head A 5.8026, head B 5.7996
+05:01:56 w128_same-tied_seed3502: step 1200/2879, validation loss head A 5.4765, head B 5.4757
+05:02:49 w128_same-tied_seed3502: step 1600/2879, validation loss head A 5.2567, head B 5.2556
+05:03:42 w128_same-tied_seed3502: step 2000/2879, validation loss head A 5.0905, head B 5.0895
+05:04:36 w128_same-tied_seed3502: step 2400/2879, validation loss head A 4.9759, head B 4.9753
+05:05:29 w128_same-tied_seed3502: step 2800/2879, validation loss head A 4.9108, head B 4.9104
+05:05:41 w128_same-tied_seed3502: step 2879/2879, validation loss head A 4.9022, head B 4.9012
+05:05:47 w128_same-tied_seed3502: finished in 0.11 h; head A 4.9922, head B 4.9924
+05:05:50 sub_w128_same-tied_seed3502: overlap of A and B 0.989, readout overlap 1.000
+05:05:50 w128_dual-sep_seed3503: starting, dual-sep, seed 3503, readout rank 128, peak lr 0.0024
+05:06:44 w128_dual-sep_seed3503: step 400/2879, validation loss head A 6.3454, head B 6.9950
+05:06:58 w128_dual-sep_seed3503: step 500/2879, validation loss head A 6.1910, head B 6.9140
+05:07:38 w128_dual-sep_seed3503: step 800/2879, validation loss head A 5.8101, head B 6.6486
+05:08:32 w128_dual-sep_seed3503: step 1200/2879, validation loss head A 5.4809, head B 6.4234
+05:09:25 w128_dual-sep_seed3503: step 1600/2879, validation loss head A 5.2710, head B 6.2767
+05:10:18 w128_dual-sep_seed3503: step 2000/2879, validation loss head A 5.1075, head B 6.1531
+05:11:12 w128_dual-sep_seed3503: step 2400/2879, validation loss head A 5.0095, head B 6.0837
+05:12:06 w128_dual-sep_seed3503: step 2800/2879, validation loss head A 4.9436, head B 6.0337
+05:12:17 w128_dual-sep_seed3503: step 2879/2879, validation loss head A 4.9364, head B 6.0314
+05:12:23 w128_dual-sep_seed3503: finished in 0.11 h; head A 5.0284, head B 6.1302
+05:12:26 sub_w128_dual-sep_seed3503: overlap of A and B 0.444, readout overlap 0.703
+05:12:27 w128_dual-tied_seed3503: starting, dual-tied, seed 3503, readout rank 128, peak lr 0.0024
+05:13:20 w128_dual-tied_seed3503: step 400/2879, validation loss head A 6.3918, head B 7.0180
+05:13:35 w128_dual-tied_seed3503: step 500/2879, validation loss head A 6.2308, head B 6.9332
+05:14:15 w128_dual-tied_seed3503: step 800/2879, validation loss head A 5.8556, head B 6.6804
+05:15:09 w128_dual-tied_seed3503: step 1200/2879, validation loss head A 5.5255, head B 6.4476
+05:16:02 w128_dual-tied_seed3503: step 1600/2879, validation loss head A 5.3143, head B 6.3003
+05:16:56 w128_dual-tied_seed3503: step 2000/2879, validation loss head A 5.1536, head B 6.1812
+05:17:49 w128_dual-tied_seed3503: step 2400/2879, validation loss head A 5.0507, head B 6.1071
+05:18:43 w128_dual-tied_seed3503: step 2800/2879, validation loss head A 4.9860, head B 6.0565
+05:18:55 w128_dual-tied_seed3503: step 2879/2879, validation loss head A 4.9809, head B 6.0534
+05:19:00 w128_dual-tied_seed3503: finished in 0.11 h; head A 5.0693, head B 6.1527
+05:19:04 sub_w128_dual-tied_seed3503: overlap of A and B 0.637, readout overlap 1.000
+05:19:04 w128_same-sep_seed3503: starting, same-sep, seed 3503, readout rank 128, peak lr 0.0024
+05:19:58 w128_same-sep_seed3503: step 400/2879, validation loss head A 6.3134, head B 6.3146
+05:20:12 w128_same-sep_seed3503: step 500/2879, validation loss head A 6.1678, head B 6.1650
+05:20:52 w128_same-sep_seed3503: step 800/2879, validation loss head A 5.8055, head B 5.8053
+05:21:46 w128_same-sep_seed3503: step 1200/2879, validation loss head A 5.4779, head B 5.4784
+05:22:39 w128_same-sep_seed3503: step 1600/2879, validation loss head A 5.2639, head B 5.2654
+05:23:33 w128_same-sep_seed3503: step 2000/2879, validation loss head A 5.0971, head B 5.0974
+05:24:26 w128_same-sep_seed3503: step 2400/2879, validation loss head A 4.9916, head B 4.9915
+05:25:20 w128_same-sep_seed3503: step 2800/2879, validation loss head A 4.9291, head B 4.9289
+05:25:31 w128_same-sep_seed3503: step 2879/2879, validation loss head A 4.9223, head B 4.9221
+05:25:37 w128_same-sep_seed3503: finished in 0.11 h; head A 5.0121, head B 5.0121
+05:25:40 sub_w128_same-sep_seed3503: overlap of A and B 0.984, readout overlap 0.763
+05:25:41 w128_same-tied_seed3503: starting, same-tied, seed 3503, readout rank 128, peak lr 0.0024
+05:26:34 w128_same-tied_seed3503: step 400/2879, validation loss head A 6.3249, head B 6.3274
+05:26:49 w128_same-tied_seed3503: step 500/2879, validation loss head A 6.1727, head B 6.1728
+05:27:29 w128_same-tied_seed3503: step 800/2879, validation loss head A 5.8132, head B 5.8153
+05:28:23 w128_same-tied_seed3503: step 1200/2879, validation loss head A 5.4837, head B 5.4852
+05:29:16 w128_same-tied_seed3503: step 1600/2879, validation loss head A 5.2676, head B 5.2670
+05:30:10 w128_same-tied_seed3503: step 2000/2879, validation loss head A 5.0995, head B 5.0979
+05:31:03 w128_same-tied_seed3503: step 2400/2879, validation loss head A 4.9975, head B 4.9966
+05:31:57 w128_same-tied_seed3503: step 2800/2879, validation loss head A 4.9303, head B 4.9291
+05:32:09 w128_same-tied_seed3503: step 2879/2879, validation loss head A 4.9259, head B 4.9248
+05:32:15 w128_same-tied_seed3503: finished in 0.11 h; head A 5.0142, head B 5.0138
+05:32:18 sub_w128_same-tied_seed3503: overlap of A and B 0.992, readout overlap 1.000
+05:32:18 w128_dual-sep_seed3504: starting, dual-sep, seed 3504, readout rank 128, peak lr 0.0024
+05:33:12 w128_dual-sep_seed3504: step 400/2879, validation loss head A 6.3536, head B 7.0061
+05:33:26 w128_dual-sep_seed3504: step 500/2879, validation loss head A 6.1921, head B 6.9106
+05:34:07 w128_dual-sep_seed3504: step 800/2879, validation loss head A 5.8196, head B 6.6560
+05:35:01 w128_dual-sep_seed3504: step 1200/2879, validation loss head A 5.5060, head B 6.4364
+05:35:54 w128_dual-sep_seed3504: step 1600/2879, validation loss head A 5.2844, head B 6.2814
+05:36:47 w128_dual-sep_seed3504: step 2000/2879, validation loss head A 5.1294, head B 6.1672
+05:37:41 w128_dual-sep_seed3504: step 2400/2879, validation loss head A 5.0245, head B 6.0885
+05:38:34 w128_dual-sep_seed3504: step 2800/2879, validation loss head A 4.9677, head B 6.0473
+05:38:46 w128_dual-sep_seed3504: step 2879/2879, validation loss head A 4.9544, head B 6.0373
+05:38:52 w128_dual-sep_seed3504: finished in 0.11 h; head A 5.0493, head B 6.1424
+05:38:55 sub_w128_dual-sep_seed3504: overlap of A and B 0.529, readout overlap 0.701
+05:38:55 w128_dual-tied_seed3504: starting, dual-tied, seed 3504, readout rank 128, peak lr 0.0024
+05:39:49 w128_dual-tied_seed3504: step 400/2879, validation loss head A 6.3879, head B 7.0186
+05:40:03 w128_dual-tied_seed3504: step 500/2879, validation loss head A 6.2249, head B 6.9349
+05:40:43 w128_dual-tied_seed3504: step 800/2879, validation loss head A 5.8544, head B 6.6835
+05:41:37 w128_dual-tied_seed3504: step 1200/2879, validation loss head A 5.5374, head B 6.4585
+05:42:30 w128_dual-tied_seed3504: step 1600/2879, validation loss head A 5.3089, head B 6.2966
+05:43:23 w128_dual-tied_seed3504: step 2000/2879, validation loss head A 5.1626, head B 6.1852
+05:44:17 w128_dual-tied_seed3504: step 2400/2879, validation loss head A 5.0573, head B 6.1055
+05:45:10 w128_dual-tied_seed3504: step 2800/2879, validation loss head A 5.0002, head B 6.0630
+05:45:22 w128_dual-tied_seed3504: step 2879/2879, validation loss head A 4.9863, head B 6.0509
+05:45:28 w128_dual-tied_seed3504: finished in 0.11 h; head A 5.0801, head B 6.1564
+05:45:31 sub_w128_dual-tied_seed3504: overlap of A and B 0.649, readout overlap 1.000
+05:45:31 w128_same-sep_seed3504: starting, same-sep, seed 3504, readout rank 128, peak lr 0.0024
+05:46:25 w128_same-sep_seed3504: step 400/2879, validation loss head A 6.3231, head B 6.3243
+05:46:39 w128_same-sep_seed3504: step 500/2879, validation loss head A 6.1442, head B 6.1458
+05:47:20 w128_same-sep_seed3504: step 800/2879, validation loss head A 5.7753, head B 5.7748
+05:48:14 w128_same-sep_seed3504: step 1200/2879, validation loss head A 5.4655, head B 5.4659
+05:49:07 w128_same-sep_seed3504: step 1600/2879, validation loss head A 5.2439, head B 5.2431
+05:50:00 w128_same-sep_seed3504: step 2000/2879, validation loss head A 5.0742, head B 5.0741
+05:50:54 w128_same-sep_seed3504: step 2400/2879, validation loss head A 4.9761, head B 4.9763
+05:51:47 w128_same-sep_seed3504: step 2800/2879, validation loss head A 4.9133, head B 4.9128
+05:51:59 w128_same-sep_seed3504: step 2879/2879, validation loss head A 4.8999, head B 4.8998
+05:52:05 w128_same-sep_seed3504: finished in 0.11 h; head A 4.9925, head B 4.9929
+05:52:08 sub_w128_same-sep_seed3504: overlap of A and B 0.983, readout overlap 0.762
+05:52:08 w128_same-tied_seed3504: starting, same-tied, seed 3504, readout rank 128, peak lr 0.0024
+05:53:02 w128_same-tied_seed3504: step 400/2879, validation loss head A 6.3346, head B 6.3371
+05:53:17 w128_same-tied_seed3504: step 500/2879, validation loss head A 6.1605, head B 6.1619
+05:53:57 w128_same-tied_seed3504: step 800/2879, validation loss head A 5.7898, head B 5.7867
+05:54:51 w128_same-tied_seed3504: step 1200/2879, validation loss head A 5.4737, head B 5.4743
+05:55:44 w128_same-tied_seed3504: step 1600/2879, validation loss head A 5.2518, head B 5.2525
+05:56:37 w128_same-tied_seed3504: step 2000/2879, validation loss head A 5.0887, head B 5.0895
+05:57:31 w128_same-tied_seed3504: step 2400/2879, validation loss head A 4.9835, head B 4.9844
+05:58:24 w128_same-tied_seed3504: step 2800/2879, validation loss head A 4.9234, head B 4.9246
+05:58:36 w128_same-tied_seed3504: step 2879/2879, validation loss head A 4.9093, head B 4.9103
+05:58:42 w128_same-tied_seed3504: finished in 0.11 h; head A 5.0033, head B 5.0042
+05:58:45 sub_w128_same-tied_seed3504: overlap of A and B 0.990, readout overlap 1.000
+05:58:45 w128_dual-sep_seed3505: starting, dual-sep, seed 3505, readout rank 128, peak lr 0.0024
+05:59:39 w128_dual-sep_seed3505: step 400/2879, validation loss head A 6.3565, head B 6.9963
+05:59:54 w128_dual-sep_seed3505: step 500/2879, validation loss head A 6.2270, head B 6.9217
+06:00:34 w128_dual-sep_seed3505: step 800/2879, validation loss head A 5.8353, head B 6.6694
+06:01:27 w128_dual-sep_seed3505: step 1200/2879, validation loss head A 5.5265, head B 6.4573
+06:02:21 w128_dual-sep_seed3505: step 1600/2879, validation loss head A 5.3106, head B 6.3007
+06:03:14 w128_dual-sep_seed3505: step 2000/2879, validation loss head A 5.1500, head B 6.1899
+06:04:08 w128_dual-sep_seed3505: step 2400/2879, validation loss head A 5.0440, head B 6.1110
+06:05:01 w128_dual-sep_seed3505: step 2800/2879, validation loss head A 4.9880, head B 6.0701
+06:05:13 w128_dual-sep_seed3505: step 2879/2879, validation loss head A 4.9777, head B 6.0624
+06:05:18 w128_dual-sep_seed3505: finished in 0.11 h; head A 5.0729, head B 6.1617
+06:05:22 sub_w128_dual-sep_seed3505: overlap of A and B 0.531, readout overlap 0.699
+06:05:22 w128_dual-tied_seed3505: starting, dual-tied, seed 3505, readout rank 128, peak lr 0.0024
+06:06:16 w128_dual-tied_seed3505: step 400/2879, validation loss head A 6.3867, head B 7.0136
+06:06:30 w128_dual-tied_seed3505: step 500/2879, validation loss head A 6.2168, head B 6.9236
+06:07:10 w128_dual-tied_seed3505: step 800/2879, validation loss head A 5.8370, head B 6.6785
+06:08:04 w128_dual-tied_seed3505: step 1200/2879, validation loss head A 5.5126, head B 6.4450
+06:08:57 w128_dual-tied_seed3505: step 1600/2879, validation loss head A 5.3033, head B 6.2897
+06:09:51 w128_dual-tied_seed3505: step 2000/2879, validation loss head A 5.1412, head B 6.1765
+06:10:44 w128_dual-tied_seed3505: step 2400/2879, validation loss head A 5.0316, head B 6.0986
+06:11:37 w128_dual-tied_seed3505: step 2800/2879, validation loss head A 4.9773, head B 6.0556
+06:11:49 w128_dual-tied_seed3505: step 2879/2879, validation loss head A 4.9679, head B 6.0488
+06:11:55 w128_dual-tied_seed3505: finished in 0.11 h; head A 5.0637, head B 6.1471
+06:11:58 sub_w128_dual-tied_seed3505: overlap of A and B 0.620, readout overlap 1.000
+06:11:59 w128_same-sep_seed3505: starting, same-sep, seed 3505, readout rank 128, peak lr 0.0024
+06:12:52 w128_same-sep_seed3505: step 400/2879, validation loss head A 6.3277, head B 6.3260
+06:13:06 w128_same-sep_seed3505: step 500/2879, validation loss head A 6.1723, head B 6.1670
+06:13:47 w128_same-sep_seed3505: step 800/2879, validation loss head A 5.7846, head B 5.7776
+06:14:40 w128_same-sep_seed3505: step 1200/2879, validation loss head A 5.4696, head B 5.4683
+06:15:34 w128_same-sep_seed3505: step 1600/2879, validation loss head A 5.2411, head B 5.2400
+06:16:27 w128_same-sep_seed3505: step 2000/2879, validation loss head A 5.0748, head B 5.0744
+06:17:21 w128_same-sep_seed3505: step 2400/2879, validation loss head A 4.9653, head B 4.9643
+06:18:14 w128_same-sep_seed3505: step 2800/2879, validation loss head A 4.9061, head B 4.9047
+06:18:26 w128_same-sep_seed3505: step 2879/2879, validation loss head A 4.8964, head B 4.8950
+06:18:31 w128_same-sep_seed3505: finished in 0.11 h; head A 4.9967, head B 4.9963
+06:18:35 sub_w128_same-sep_seed3505: overlap of A and B 0.977, readout overlap 0.761
+06:18:35 w128_same-tied_seed3505: starting, same-tied, seed 3505, readout rank 128, peak lr 0.0024
+06:19:29 w128_same-tied_seed3505: step 400/2879, validation loss head A 6.3194, head B 6.3179
+06:19:43 w128_same-tied_seed3505: step 500/2879, validation loss head A 6.1783, head B 6.1785
+06:20:24 w128_same-tied_seed3505: step 800/2879, validation loss head A 5.8038, head B 5.8009
+06:21:17 w128_same-tied_seed3505: step 1200/2879, validation loss head A 5.4786, head B 5.4770
+06:22:10 w128_same-tied_seed3505: step 1600/2879, validation loss head A 5.2487, head B 5.2470
+06:23:03 w128_same-tied_seed3505: step 2000/2879, validation loss head A 5.0877, head B 5.0868
+06:23:57 w128_same-tied_seed3505: step 2400/2879, validation loss head A 4.9743, head B 4.9734
+06:24:50 w128_same-tied_seed3505: step 2800/2879, validation loss head A 4.9142, head B 4.9132
+06:25:02 w128_same-tied_seed3505: step 2879/2879, validation loss head A 4.9064, head B 4.9055
+06:25:08 w128_same-tied_seed3505: finished in 0.11 h; head A 5.0090, head B 5.0092
+06:25:11 sub_w128_same-tied_seed3505: overlap of A and B 0.990, readout overlap 1.000
+06:25:11 width 128 complete
+06:25:11 N5 complete: all runs and measurements finished
+06:25:11 copied 121 result files for upload
+06:25:11 waiting for background Drive saves to finish (up to 15 minutes)
+06:25:11 Drive saves finished
