@@ -1,6 +1,6 @@
 # Preregistration N6r: the half-overlap test, with its control set for its measurement
 
-Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** No real N6r run has started.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Queued; no real N6r run has started.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), the same claims and thresholds as N6. Everything else is secondary or exploratory and labelled so.
 
@@ -146,7 +146,31 @@ If any check shows a threshold or control not working as written, an amendment c
 
 ## Deviation log
 
-None yet.
+### Calibration and implementation details, before any real run, 2026-10-08
+
+Results seen before this entry:
+- the promised calibration on **untrained** full-size models (G1's seeds 3001 and 3002, not N6r's), on N6r's 256 test-split windows;
+- test-mode runs on tiny models;
+- synthetic records.
+
+No real N6r run had started. No rule, threshold or control was changed, so no amendment was needed.
+
+**What the calibration found.**
+- **The control's upper end works.** A model whose two heads have identical weights gave an agreement ratio of exactly 1.0.
+- **The control's lower end works.** Untrained, independently seeded same-target heads gave agreement ratios of 0.49 and 0.53, far below 0.95. The control fails where it must.
+- **Stability is high with 256 windows:** 0.978–0.986 for every head at initialisation, against 0.92–0.97 for N6's 139 windows.
+- **All arms start alike:** overlaps of 0.475–0.516, identical across arms within each seed.
+- **The test-split windows decode correctly,** with every target shifted by exactly k.
+
+**Implementation details.**
+- **Code.**
+  - `n6r_halfoverlap.py` reuses N6's code (`n6_halfoverlap.py`) for the model, arms and training. It adds the test-split windows, the identical-heads check and the agreement ratio.
+  - `n6r_analyze.py` applies the rules and writes `N6R_RESULTS.md`.
+  - The Colab job is `colab/jobs/n6r_halfoverlap.py`.
+- **The identical-heads check** runs inside the job, on N6r's own first seed, as a precondition alongside the data checks.
+- **Tests:**
+  - The job ran end to end on tiny models: all checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 14 resumed from its checkpoint.
+  - `n6r_analyze.py` gave the expected verdicts on synthetic records for 15 cases: N6's 13, plus a same-target control with a raw overlap of only 0.93 that correctly passes on an agreement ratio of 1.0, and an identical-heads check that correctly makes the run untestable when it fails.
 
 ## References
 
