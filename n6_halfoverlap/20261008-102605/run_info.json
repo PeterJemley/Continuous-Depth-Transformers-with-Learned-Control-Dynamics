@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n6_halfoverlap",
+    "args": [],
+    "description": "Test N6: does the half-overlap balance depend on how different the two readings are? Head A predicts the next token; head B predicts the token 1, 2, 4 or 8 places ahead. 5 new seeds, 20 runs. About 2.2 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 135
+  },
+  "code_commit": "70b476b4f5aac7001d63b4f7f801236517257d67",
+  "run_id": "20261008-102605",
+  "gpu": "Tesla T4"
+}
