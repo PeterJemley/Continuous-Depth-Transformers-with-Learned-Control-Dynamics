@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5. Covers the work through N5. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-06, updated 2026-10-07 with N5, and 2026-10-08 with one added limit. Covers the work through N5. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -51,6 +51,7 @@ Each test was a question the world could answer "no", with the plan, the thresho
 - Small models (about 30 million parameters, or 23 to 43 million with the two-reading heads), one dataset, 10% of the full training budget, and one learning rate.
 - Only two readings, and closely related ones: the next word and the word after.
 - N4 restricted the model's final readout, not the continuous block, and with only 64 of 256 directions. That is a tight squeeze.
+- How much the results vary from run to run depends on the readout width. The measured cost varied about 3 to 24 times more between runs at N5's widths than at N4's width of 64 (standard deviations 0.022 to 0.194, against 0.008).[^11] So a plan's estimate of how sensitive a test will be cannot be carried from one width to another, and this is why N5 was inconclusive.
 
 ## What comes next
 
