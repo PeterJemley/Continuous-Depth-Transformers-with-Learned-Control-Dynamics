@@ -1,6 +1,6 @@
 # Preregistration N6: does the half-overlap balance depend on how different the readings are?
 
-Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** No real N6 run has started.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Queued; no real N6 run has started.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -151,7 +151,30 @@ N6b also requires preconditions 1 to 3.
 
 ## Deviation log
 
-None yet.
+### Calibration and implementation details, before any real run, 2026-10-08
+
+Results seen before this entry:
+- the promised calibration on **untrained** full-size models (G1's seeds 3001–3003, not N6's) on N6's measurement windows 1,793–1,931;
+- test-mode runs on tiny models;
+- synthetic records.
+
+No real N6 run had started. No rule, threshold or control was changed, so no amendment was needed.
+
+**What the calibration found.**
+- **All arms start alike, as predicted.** At initialisation the overlap was 0.46–0.49, the same in every arm to within 0.01 for each seed. The next token and the token k places ahead have the same overall word frequencies, so an untrained model's gradients cannot tell them apart. Any difference after training therefore comes from training.
+- **The stability threshold is attainable.** With 139 windows, each head's split-half stability was 0.92–0.97 at initialisation, well above the 0.80 threshold. Trained subspaces may differ, which is why the precondition is checked on the trained models.
+- **The batch decodes correctly.** For an input ending "by his father G. P. Sippy .", the target at i+8 ends "The film follows two criminals , Veer". Every target is the input shifted by exactly k.
+
+**Implementation details.**
+- **Code.**
+  - `n6_halfoverlap.py` runs the checks, the untrained measurements, the 20 runs and their measurements. It uses N4's code (`n4_directions.py`) for the model, the forward pass and the overlap measure, and adds windows that carry 8 extra tokens and head B's target at i + k.
+  - `n6_analyze.py` applies both rules and writes `N6_RESULTS.md`.
+  - The Colab job is `colab/jobs/n6_halfoverlap.py`.
+- **The validation curves** during training use the first 512 windows, as in every earlier test. They enter no rule.
+- **Tests:**
+  - The job ran end to end on tiny models: the checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 21 resumed from its checkpoint.
+  - A direct check confirmed that head B's target is the input shifted by k in every arm. It matches head A's target only where words repeat (about 1% of positions for k = 2, 4 and 8, and 100% for the same arm).
+  - `n6_analyze.py` gave the expected verdicts on synthetic records for 13 cases. These covered both supported; N6a refuted (flat, and with the overlap rising), not sensitive enough, some effect, and inconclusive; N6b refuted and intermediate; untestable through each precondition (must-fail, stability, data order, batch check); and not reached.
 
 ## References
 
