@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5, and 2026-10-08 with one added limit and N6. Covers the work through N6. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-06, updated 2026-10-07 with N5, and 2026-10-08 with one added limit, N6 and N6r. Covers the work through N6r. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -41,11 +41,14 @@ Each test was a question the world could answer "no", with the plan, the thresho
 
    What the runs showed, though, is what the conjecture predicted. Head B read the word 2, 4 or 8 places ahead. The further ahead, the less the two readings shared: about half at 2 places, under a third at 4, a quarter at 8. That held in the same order in every run. Training started all the pairs at the same point and moved each to its own balance. A new test with its control set correctly would turn this into a verdict.
 
+9. **N6r. The same test, with its control fixed.** On new runs, measured on fresh passages from the test split, and with the control judged against the measurement's own noise: *supported*, both claims. The further apart the two readings, the less they shared, in the same order in every run: about half for the next word and the word after (0.49), a third for words four apart (0.31), under a quarter for words eight apart (0.23). Two heads reading the same word converged (0.96). The numbers matched N6's to within 0.02.[^14]
+
 ## What we now understand
 
 - **The voices are separated by direction, not by tempo.** When one internal state must serve two readings, the readings occupy partly different directions within it, and squeezing them into the same directions costs accuracy. They do not get different timescales in the continuous block.
 - **Two related voices share about half their space, and training finds that balance.** The next word and the word after settle at roughly half-overlap from either side (N5), and did so again on new runs (N6).
-- **The balance probably depends on how different the readings are.** In N6, readings further apart shared less: a half, then a third, then a quarter. That is exploratory until a test with a working control confirms it.
+- **The balance depends on how different the readings are (N6r).** Readings further apart share less of the state: a half, then a third, then a quarter. Half-overlap is what two adjacent words need, not a fixed property of the model. This is the first confirmed, measured rule about how one state holds several readings: the more different the voices, the more separate their directions.
+- **One caveat is open.** Words further ahead are also harder to predict, so "more different" and "harder" have so far moved together.
 - **Why sharing costs is not yet settled.** N5 could not tell competition for directions from a clash of learning signals; some cost may remain even when nothing is restricted.
 - **The continuous dynamics are not where the readings live,** at this scale. Switching readings needs only a shift (N1). Holding them at once relies on geometry, the arrangement of directions, rather than on the flow's dynamics (N2, N4).
 - **This matches the music analogy better than the original picture did.** Listeners follow several voices more easily when the voices differ in timbre, the quality that tells instruments apart (the evidence is in `CONJECTURE.md`). Here, a direction plays the part of timbre.
@@ -61,8 +64,9 @@ Each test was a question the world could answer "no", with the plan, the thresho
 ## What comes next
 
 The candidates, in the order N5 suggests:
-- **Repeat N6 with its control set correctly (N6r):** new runs, measured on twice as many passages from the test split, with the control judged against the measurement's own noise.
-- **Readings that differ in kind, not only in distance,** such as a topic label, once N6r settles the distance ladder.
+- **Separate "different" from "harder":** add a reading that is harder but no more different, such as the next word with half its answers scrambled. If sharing tracks relatedness, it should still share almost everything with the clean next-word reading.
+- **Does the cost of sharing grow as the overlap falls?** Repeat N4's forced-sharing test at each rung of N6r's ladder; the cost should grow with distance.
+- **Readings that differ in kind, not only in distance,** such as a topic label.
 - **Settle N5's main question with enough runs:** about ten runs at full width would tell a cost of 0.03 from none.
 - **More voices at once,** three or four readings, at the width where training is consistent.
 - **Move the restriction into the continuous block,** which would tie the results back to the original conjecture.
@@ -96,3 +100,5 @@ The candidates, in the order N5 suggests:
 [^12]: **Half-overlap.** The overlap of note 9, for two different readings, by readout width (5 seeds each): untrained 0.67–0.74, trained 0.42–0.48 at width 32; untrained 0.45–0.50, trained 0.46–0.49 at 64; untrained 0.28–0.31, trained 0.44–0.53 at 128; untrained 0.18–0.20, trained 0.47–0.53 at 256. Two heads reading the same target: 0.87–0.99 after training. Exploratory; no decision rule. Source: `N5_NOTE.md`.
 
 [^13]: **N6.** Head A predicts token i+1; head B predicts token i+k, k = 1, 2, 4 or 8, at readout width 64, 5 seeds each. Overlap as in note 9, on validation windows 1,793–1,931 (the last 139). Same-target (k = 1) overlaps: 0.9498, 0.9571, 0.9624, 0.9396, 0.9633; the precondition needed at least 0.95 in 4 of 5. Exploratory: mean overlap 0.481 at k = 2, 0.305 at k = 4, 0.254 at k = 8; o(2) − o(8) = +0.227, 95% interval [+0.184, +0.269]; ordered in 5 of 5 seeds; all arms 0.48 untrained. Split-half stability of every head at least 0.89. Head B's loss rose with k (6.23, 6.92, 7.11 nats), so distance confounds "different" with "harder". Source: `N6_NOTE.md`.
+
+[^14]: **N6r.** As note 13, but on new seeds (3701–3705), on 256 windows of the WikiText-103 test split, with the control judged by the agreement ratio: head A's subspace from one half of the windows against head B's from the other, divided by the geometric mean of each head's own split-half stability, so that two heads reading the same directions score about 1 whatever the number of windows. Same-target ratios 0.952–0.970 (at least 0.95 needed in 4 of 5); identical heads scored exactly 1, and untrained heads 0.48–0.50. Mean overlap 0.956 (k = 1), 0.485 (k = 2), 0.308 (k = 4), 0.233 (k = 8); o(2) − o(8) = +0.252, 95% interval [+0.219, +0.286], ordered in 5 of 5 seeds. Head B's loss rose with k (6.24, 6.92, 7.11 nats). Source: `N6R_NOTE.md`.

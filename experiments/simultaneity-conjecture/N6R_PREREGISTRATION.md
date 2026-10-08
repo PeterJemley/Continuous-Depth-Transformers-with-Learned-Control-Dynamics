@@ -1,6 +1,6 @@
 # Preregistration N6r: the half-overlap test, with its control set for its measurement
 
-Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Queued; no real N6r run has started.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Run; see the deviation log, `N6R_RESULTS.md` and `N6R_NOTE.md`.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), the same claims and thresholds as N6. Everything else is secondary or exploratory and labelled so.
 
@@ -171,6 +171,10 @@ No real N6r run had started. No rule, threshold or control was changed, so no am
 - **Tests:**
   - The job ran end to end on tiny models: all checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 14 resumed from its checkpoint.
   - `n6r_analyze.py` gave the expected verdicts on synthetic records for 15 cases: N6's 13, plus a same-target control with a raw overlap of only 0.93 that correctly passes on an agreement ratio of 1.0, and an identical-heads check that correctly makes the run untestable when it fails.
+
+### The run, 2026-10-08
+
+A first Colab session did not upload. A second session (`colab-results` branch `n6r_halfoverlap/20261008-182116`, code commit 3ebe497) ran all 20 models and their measurements from the start, with no resumes and no Drive failures. Nothing was changed after approval. All three preconditions held. N6a is **supported**: o(2) − o(8) = +0.252, 95% interval [+0.219, +0.286]. N6b is **supported**: o(2) between 0.445 and 0.506 in all 5 models. See `N6R_NOTE.md`.
 
 ## References
 

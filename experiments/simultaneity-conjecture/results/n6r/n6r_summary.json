@@ -1,0 +1,275 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " had just been granted city status and was the new",
+      "target_i+1_end": " just been granted city status and was the new administrative",
+      "target_i+2_end": " been granted city status and was the new administrative capital",
+      "target_i+4_end": " city status and was the new administrative capital of the",
+      "target_i+8_end": " the new administrative capital of the province of Canterbury ."
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " the Gothic style , it was completed on 19 December 1858",
+        "target_end": " Gothic style , it was completed on 19 December 1858 on"
+      },
+      "skip_example": {
+        "input_end": " the mountain Szczyt Polski ( Polish Peak )",
+        "target_end": " Szczyt Polski ( Polish Peak ) , but"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3701,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3702,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999997,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3703,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3704,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3705,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "test_windows": {
+      "input_end": " Strong and Derek Jacobi . He was cast in",
+      "target_i+1_end": " and Derek Jacobi . He was cast in the",
+      "target_i+2_end": " Derek Jacobi . He was cast in the 2005",
+      "target_i+4_end": "i . He was cast in the 2005 theatre productions",
+      "target_i+8_end": " cast in the 2005 theatre productions of the Philip Ridley",
+      "shifted": true
+    },
+    "identical_heads": {
+      "seed": 3701,
+      "agreement_ratio": 0.9999999999999999,
+      "overlap_AB": 1.0000000020259985,
+      "pass": true
+    }
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      1,
+      256
+    ]
+  },
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "arms": {
+    "same": 1,
+    "k2": 2,
+    "k4": 4,
+    "k8": 8
+  },
+  "untrained": {
+    "seed3701": {
+      "same": {
+        "overlap_AB": 0.46583841689784045,
+        "stability_A_odd_even": 0.9768254745535473,
+        "stability_B_odd_even": 0.9499499632653614,
+        "cross_half_overlap_AB": 0.46265790040412463,
+        "agreement_ratio": 0.4802873287813958
+      },
+      "k2": {
+        "overlap_AB": 0.46391003058742464,
+        "stability_A_odd_even": 0.9768254745535473,
+        "stability_B_odd_even": 0.9786978108882063,
+        "cross_half_overlap_AB": 0.46280856198816744,
+        "agreement_ratio": 0.4733349662151011
+      },
+      "k4": {
+        "overlap_AB": 0.4646052574114227,
+        "stability_A_odd_even": 0.9768254745535473,
+        "stability_B_odd_even": 0.9701425604350581,
+        "cross_half_overlap_AB": 0.4626932651433088,
+        "agreement_ratio": 0.47529901112666945
+      },
+      "k8": {
+        "overlap_AB": 0.4640269030250366,
+        "stability_A_odd_even": 0.9768254745535473,
+        "stability_B_odd_even": 0.9877564971848798,
+        "cross_half_overlap_AB": 0.4625374285675064,
+        "agreement_ratio": 0.47088347052222984
+      }
+    },
+    "seed3702": {
+      "same": {
+        "overlap_AB": 0.4615748488891435,
+        "stability_A_odd_even": 0.9710460482826768,
+        "stability_B_odd_even": 0.9409951456977216,
+        "cross_half_overlap_AB": 0.4603597414777572,
+        "agreement_ratio": 0.4815969561538439
+      },
+      "k2": {
+        "overlap_AB": 0.4586112942421644,
+        "stability_A_odd_even": 0.9710460482826768,
+        "stability_B_odd_even": 0.9378424962263234,
+        "cross_half_overlap_AB": 0.45922980487893916,
+        "agreement_ratio": 0.48122169697493966
+      },
+      "k4": {
+        "overlap_AB": 0.4583708183245925,
+        "stability_A_odd_even": 0.9710460482826768,
+        "stability_B_odd_even": 0.9435002856202037,
+        "cross_half_overlap_AB": 0.4599969398293019,
+        "agreement_ratio": 0.4805781396674821
+      },
+      "k8": {
+        "overlap_AB": 0.45606606445483544,
+        "stability_A_odd_even": 0.9710460482826768,
+        "stability_B_odd_even": 0.977826943317532,
+        "cross_half_overlap_AB": 0.4562734481531511,
+        "agreement_ratio": 0.4682462243646032
+      }
+    },
+    "seed3703": {
+      "same": {
+        "overlap_AB": 0.4694243067435851,
+        "stability_A_odd_even": 0.971001400096313,
+        "stability_B_odd_even": 0.9864469282238195,
+        "cross_half_overlap_AB": 0.46909441540085445,
+        "agreement_ratio": 0.47930666954125356
+      },
+      "k2": {
+        "overlap_AB": 0.47187574035445623,
+        "stability_A_odd_even": 0.971001400096313,
+        "stability_B_odd_even": 0.9867447814376464,
+        "cross_half_overlap_AB": 0.47158830673738494,
+        "agreement_ratio": 0.48178212277457916
+      },
+      "k4": {
+        "overlap_AB": 0.47070545305996314,
+        "stability_A_odd_even": 0.971001400096313,
+        "stability_B_odd_even": 0.9880986888502407,
+        "cross_half_overlap_AB": 0.4705978775504037,
+        "agreement_ratio": 0.4804407923689351
+      },
+      "k8": {
+        "overlap_AB": 0.47082179131137525,
+        "stability_A_odd_even": 0.971001400096313,
+        "stability_B_odd_even": 0.9892798927405524,
+        "cross_half_overlap_AB": 0.47070247326068637,
+        "agreement_ratio": 0.48026060229012624
+      }
+    },
+    "seed3704": {
+      "same": {
+        "overlap_AB": 0.49259145797183057,
+        "stability_A_odd_even": 0.9866235989586785,
+        "stability_B_odd_even": 0.9751426490311275,
+        "cross_half_overlap_AB": 0.489750564595129,
+        "agreement_ratio": 0.499304086102541
+      },
+      "k2": {
+        "overlap_AB": 0.49171450915853554,
+        "stability_A_odd_even": 0.9866235989586785,
+        "stability_B_odd_even": 0.9802041791006859,
+        "cross_half_overlap_AB": 0.4893219948718359,
+        "agreement_ratio": 0.4975774764284348
+      },
+      "k4": {
+        "overlap_AB": 0.49155754266632473,
+        "stability_A_odd_even": 0.9866235989586785,
+        "stability_B_odd_even": 0.9815160865691261,
+        "cross_half_overlap_AB": 0.4890278622135632,
+        "agreement_ratio": 0.4969459358024284
+      },
+      "k8": {
+        "overlap_AB": 0.4915455715967265,
+        "stability_A_odd_even": 0.9866235989586785,
+        "stability_B_odd_even": 0.9809097165431491,
+        "cross_half_overlap_AB": 0.4892925452579924,
+        "agreement_ratio": 0.49736856264693036
+      }
+    },
+    "seed3705": {
+      "same": {
+        "overlap_AB": 0.46795480676675466,
+        "stability_A_odd_even": 0.9879276374560828,
+        "stability_B_odd_even": 0.9850151821557228,
+        "cross_half_overlap_AB": 0.4682964761733104,
+        "agreement_ratio": 0.4747192688668552
+      },
+      "k2": {
+        "overlap_AB": 0.46849923104785346,
+        "stability_A_odd_even": 0.9879276374560828,
+        "stability_B_odd_even": 0.9834568188653996,
+        "cross_half_overlap_AB": 0.46869231357298213,
+        "agreement_ratio": 0.47549681885579315
+      },
+      "k4": {
+        "overlap_AB": 0.4685449950806615,
+        "stability_A_odd_even": 0.9879276374560828,
+        "stability_B_odd_even": 0.9865640858726239,
+        "cross_half_overlap_AB": 0.468901195901001,
+        "agreement_ratio": 0.47495900050810724
+      },
+      "k8": {
+        "overlap_AB": 0.4683925430377974,
+        "stability_A_odd_even": 0.9879276374560828,
+        "stability_B_odd_even": 0.9882597547921774,
+        "cross_half_overlap_AB": 0.4683805753195774,
+        "agreement_ratio": 0.47402446121386554
+      }
+    }
+  }
+}
