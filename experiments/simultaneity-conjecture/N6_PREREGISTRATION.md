@@ -1,6 +1,6 @@
 # Preregistration N6: does the half-overlap balance depend on how different the readings are?
 
-Date: 2026-10-08    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** No real N6 run has started.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
