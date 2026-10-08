@@ -1,0 +1,252 @@
+18:21:18 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N6r folder: /content/drive/MyDrive/cdt-colab/n6r_halfoverlap | local: /content/cdt_local/n6r_halfoverlap
+18:21:29 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+18:21:29 overlap measured on test-split windows 1-256
+18:21:29 next-task example: input ends ' the Gothic style , it was completed on 19 December 1858'; targets end ' Gothic style , it was completed on 19 December 1858 on'
+18:21:29 skip-task example: input ends ' the mountain Szczyt Polski ( Polish Peak )'; targets end ' Szczyt Polski ( Polish Peak ) , but'
+18:21:40 batch check, targets at i+1 to i+8: True | test windows shifted correctly: True
+18:21:40 same-model check: [True, True, True, True, True]
+18:21:40 identical-heads check, agreement ratio: 0.9999999999999999
+18:22:34 same_seed3701: starting, head B at i+1, seed 3701, readout rank 64, peak lr 0.0024
+18:23:23 same_seed3701: step 400/2879, validation loss head A 6.4122, head B 6.4143
+18:23:37 same_seed3701: step 500/2879, validation loss head A 6.2452, head B 6.2417
+18:24:14 same_seed3701: step 800/2879, validation loss head A 5.8894, head B 5.8841
+18:25:03 same_seed3701: step 1200/2879, validation loss head A 5.5867, head B 5.5871
+18:25:53 same_seed3701: step 1600/2879, validation loss head A 5.3676, head B 5.3720
+18:26:42 same_seed3701: step 2000/2879, validation loss head A 5.2110, head B 5.2160
+18:27:31 same_seed3701: step 2400/2879, validation loss head A 5.1103, head B 5.1144
+18:28:21 same_seed3701: step 2800/2879, validation loss head A 5.0504, head B 5.0543
+18:28:31 same_seed3701: step 2879/2879, validation loss head A 5.0418, head B 5.0458
+18:28:36 same_seed3701: finished in 0.10 h; head A 5.1340, head B 5.1350
+18:28:39 sub_same_seed3701: overlap 0.942, agreement ratio 0.952, stability A 0.976, B 0.966
+18:28:39 k2_seed3701: starting, head B at i+2, seed 3701, readout rank 64, peak lr 0.0024
+18:29:29 k2_seed3701: step 400/2879, validation loss head A 6.4585, head B 7.0808
+18:29:42 k2_seed3701: step 500/2879, validation loss head A 6.3023, head B 6.9882
+18:30:20 k2_seed3701: step 800/2879, validation loss head A 5.9397, head B 6.7522
+18:31:09 k2_seed3701: step 1200/2879, validation loss head A 5.6236, head B 6.5326
+18:31:59 k2_seed3701: step 1600/2879, validation loss head A 5.4167, head B 6.3926
+18:32:48 k2_seed3701: step 2000/2879, validation loss head A 5.2611, head B 6.2714
+18:33:38 k2_seed3701: step 2400/2879, validation loss head A 5.1616, head B 6.2053
+18:34:28 k2_seed3701: step 2800/2879, validation loss head A 5.1032, head B 6.1593
+18:34:38 k2_seed3701: step 2879/2879, validation loss head A 5.0939, head B 6.1541
+18:34:43 k2_seed3701: finished in 0.10 h; head A 5.1791, head B 6.2455
+18:34:46 sub_k2_seed3701: overlap 0.500, agreement ratio 0.522, stability A 0.916, B 0.974
+18:34:46 k4_seed3701: starting, head B at i+4, seed 3701, readout rank 64, peak lr 0.0024
+18:35:36 k4_seed3701: step 400/2879, validation loss head A 6.4808, head B 7.3952
+18:35:49 k4_seed3701: step 500/2879, validation loss head A 6.3145, head B 7.3610
+18:36:27 k4_seed3701: step 800/2879, validation loss head A 5.9741, head B 7.2159
+18:37:16 k4_seed3701: step 1200/2879, validation loss head A 5.6547, head B 7.0832
+18:38:06 k4_seed3701: step 1600/2879, validation loss head A 5.4455, head B 6.9967
+18:38:55 k4_seed3701: step 2000/2879, validation loss head A 5.2868, head B 6.9207
+18:39:45 k4_seed3701: step 2400/2879, validation loss head A 5.1858, head B 6.8733
+18:40:34 k4_seed3701: step 2800/2879, validation loss head A 5.1273, head B 6.8445
+18:40:45 k4_seed3701: step 2879/2879, validation loss head A 5.1165, head B 6.8404
+18:40:50 k4_seed3701: finished in 0.10 h; head A 5.2065, head B 6.9206
+18:40:53 sub_k4_seed3701: overlap 0.302, agreement ratio 0.308, stability A 0.969, B 0.969
+18:40:53 k8_seed3701: starting, head B at i+8, seed 3701, readout rank 64, peak lr 0.0024
+18:41:43 k8_seed3701: step 400/2879, validation loss head A 6.4815, head B 7.4581
+18:41:56 k8_seed3701: step 500/2879, validation loss head A 6.3071, head B 7.4364
+18:42:34 k8_seed3701: step 800/2879, validation loss head A 5.9208, head B 7.3217
+18:43:23 k8_seed3701: step 1200/2879, validation loss head A 5.6270, head B 7.2278
+18:44:13 k8_seed3701: step 1600/2879, validation loss head A 5.4111, head B 7.1569
+18:45:02 k8_seed3701: step 2000/2879, validation loss head A 5.2553, head B 7.1025
+18:45:52 k8_seed3701: step 2400/2879, validation loss head A 5.1605, head B 7.0688
+18:46:41 k8_seed3701: step 2800/2879, validation loss head A 5.0997, head B 7.0478
+18:46:52 k8_seed3701: step 2879/2879, validation loss head A 5.0899, head B 7.0445
+18:46:57 k8_seed3701: finished in 0.10 h; head A 5.1741, head B 7.1096
+18:47:00 sub_k8_seed3701: overlap 0.236, agreement ratio 0.243, stability A 0.984, B 0.962
+18:47:00 same_seed3702: starting, head B at i+1, seed 3702, readout rank 64, peak lr 0.0024
+18:47:50 same_seed3702: step 400/2879, validation loss head A 6.4137, head B 6.4192
+18:48:03 same_seed3702: step 500/2879, validation loss head A 6.2707, head B 6.2761
+18:48:40 same_seed3702: step 800/2879, validation loss head A 5.9121, head B 5.9175
+18:49:29 same_seed3702: step 1200/2879, validation loss head A 5.5897, head B 5.5919
+18:50:19 same_seed3702: step 1600/2879, validation loss head A 5.3863, head B 5.3866
+18:51:08 same_seed3702: step 2000/2879, validation loss head A 5.2338, head B 5.2336
+18:51:57 same_seed3702: step 2400/2879, validation loss head A 5.1217, head B 5.1212
+18:52:46 same_seed3702: step 2800/2879, validation loss head A 5.0647, head B 5.0651
+18:52:57 same_seed3702: step 2879/2879, validation loss head A 5.0558, head B 5.0554
+18:53:02 same_seed3702: finished in 0.10 h; head A 5.1480, head B 5.1462
+18:53:05 sub_same_seed3702: overlap 0.967, agreement ratio 0.970, stability A 0.979, B 0.977
+18:53:05 k2_seed3702: starting, head B at i+2, seed 3702, readout rank 64, peak lr 0.0024
+18:53:54 k2_seed3702: step 400/2879, validation loss head A 6.4490, head B 7.0719
+18:54:08 k2_seed3702: step 500/2879, validation loss head A 6.2841, head B 6.9801
+18:54:45 k2_seed3702: step 800/2879, validation loss head A 5.9195, head B 6.7496
+18:55:34 k2_seed3702: step 1200/2879, validation loss head A 5.6166, head B 6.5265
+18:56:23 k2_seed3702: step 1600/2879, validation loss head A 5.4162, head B 6.3878
+18:57:12 k2_seed3702: step 2000/2879, validation loss head A 5.2706, head B 6.2752
+18:58:02 k2_seed3702: step 2400/2879, validation loss head A 5.1617, head B 6.1963
+18:58:51 k2_seed3702: step 2800/2879, validation loss head A 5.1061, head B 6.1562
+18:59:02 k2_seed3702: step 2879/2879, validation loss head A 5.0981, head B 6.1509
+18:59:07 k2_seed3702: finished in 0.10 h; head A 5.1820, head B 6.2413
+18:59:09 sub_k2_seed3702: overlap 0.494, agreement ratio 0.509, stability A 0.943, B 0.978
+18:59:10 k4_seed3702: starting, head B at i+4, seed 3702, readout rank 64, peak lr 0.0024
+18:59:59 k4_seed3702: step 400/2879, validation loss head A 6.4871, head B 7.3941
+19:00:12 k4_seed3702: step 500/2879, validation loss head A 6.3130, head B 7.3562
+19:00:49 k4_seed3702: step 800/2879, validation loss head A 5.9520, head B 7.2318
+19:01:39 k4_seed3702: step 1200/2879, validation loss head A 5.6480, head B 7.0765
+19:02:28 k4_seed3702: step 1600/2879, validation loss head A 5.4556, head B 6.9907
+19:03:17 k4_seed3702: step 2000/2879, validation loss head A 5.3111, head B 6.9141
+19:04:06 k4_seed3702: step 2400/2879, validation loss head A 5.1976, head B 6.8639
+19:04:56 k4_seed3702: step 2800/2879, validation loss head A 5.1450, head B 6.8371
+19:05:06 k4_seed3702: step 2879/2879, validation loss head A 5.1337, head B 6.8307
+19:05:11 k4_seed3702: finished in 0.10 h; head A 5.2242, head B 6.9182
+19:05:14 sub_k4_seed3702: overlap 0.281, agreement ratio 0.291, stability A 0.960, B 0.984
+19:05:14 k8_seed3702: starting, head B at i+8, seed 3702, readout rank 64, peak lr 0.0024
+19:06:04 k8_seed3702: step 400/2879, validation loss head A 6.4822, head B 7.4477
+19:06:17 k8_seed3702: step 500/2879, validation loss head A 6.3037, head B 7.4278
+19:06:54 k8_seed3702: step 800/2879, validation loss head A 5.9357, head B 7.3332
+19:07:43 k8_seed3702: step 1200/2879, validation loss head A 5.6214, head B 7.2192
+19:08:33 k8_seed3702: step 1600/2879, validation loss head A 5.4178, head B 7.1581
+19:09:22 k8_seed3702: step 2000/2879, validation loss head A 5.2673, head B 7.1033
+19:10:11 k8_seed3702: step 2400/2879, validation loss head A 5.1567, head B 7.0597
+19:11:00 k8_seed3702: step 2800/2879, validation loss head A 5.1015, head B 7.0414
+19:11:11 k8_seed3702: step 2879/2879, validation loss head A 5.0926, head B 7.0367
+19:11:16 k8_seed3702: finished in 0.10 h; head A 5.1825, head B 7.1035
+19:11:19 sub_k8_seed3702: overlap 0.238, agreement ratio 0.245, stability A 0.967, B 0.966
+19:11:19 same_seed3703: starting, head B at i+1, seed 3703, readout rank 64, peak lr 0.0024
+19:12:09 same_seed3703: step 400/2879, validation loss head A 6.4205, head B 6.4177
+19:12:22 same_seed3703: step 500/2879, validation loss head A 6.2407, head B 6.2373
+19:12:59 same_seed3703: step 800/2879, validation loss head A 5.8632, head B 5.8660
+19:13:48 same_seed3703: step 1200/2879, validation loss head A 5.5491, head B 5.5484
+19:14:38 same_seed3703: step 1600/2879, validation loss head A 5.3600, head B 5.3619
+19:15:27 same_seed3703: step 2000/2879, validation loss head A 5.1915, head B 5.1922
+19:16:16 same_seed3703: step 2400/2879, validation loss head A 5.0938, head B 5.0941
+19:17:06 same_seed3703: step 2800/2879, validation loss head A 5.0370, head B 5.0370
+19:17:16 same_seed3703: step 2879/2879, validation loss head A 5.0289, head B 5.0292
+19:17:21 same_seed3703: finished in 0.10 h; head A 5.1256, head B 5.1239
+19:17:24 sub_same_seed3703: overlap 0.961, agreement ratio 0.970, stability A 0.941, B 0.956
+19:17:24 k2_seed3703: starting, head B at i+2, seed 3703, readout rank 64, peak lr 0.0024
+19:18:14 k2_seed3703: step 400/2879, validation loss head A 6.4425, head B 7.0765
+19:18:27 k2_seed3703: step 500/2879, validation loss head A 6.2553, head B 6.9627
+19:19:04 k2_seed3703: step 800/2879, validation loss head A 5.8840, head B 6.7097
+19:19:54 k2_seed3703: step 1200/2879, validation loss head A 5.5813, head B 6.4998
+19:20:43 k2_seed3703: step 1600/2879, validation loss head A 5.3926, head B 6.3626
+19:21:32 k2_seed3703: step 2000/2879, validation loss head A 5.2303, head B 6.2471
+19:22:22 k2_seed3703: step 2400/2879, validation loss head A 5.1284, head B 6.1695
+19:23:11 k2_seed3703: step 2800/2879, validation loss head A 5.0783, head B 6.1352
+19:23:22 k2_seed3703: step 2879/2879, validation loss head A 5.0674, head B 6.1272
+19:23:27 k2_seed3703: finished in 0.10 h; head A 5.1627, head B 6.2236
+19:23:29 sub_k2_seed3703: overlap 0.482, agreement ratio 0.503, stability A 0.963, B 0.920
+19:23:30 k4_seed3703: starting, head B at i+4, seed 3703, readout rank 64, peak lr 0.0024
+19:24:19 k4_seed3703: step 400/2879, validation loss head A 6.4803, head B 7.4035
+19:24:32 k4_seed3703: step 500/2879, validation loss head A 6.2913, head B 7.3519
+19:25:10 k4_seed3703: step 800/2879, validation loss head A 5.9024, head B 7.2017
+19:25:59 k4_seed3703: step 1200/2879, validation loss head A 5.6002, head B 7.0625
+19:26:49 k4_seed3703: step 1600/2879, validation loss head A 5.4135, head B 6.9804
+19:27:38 k4_seed3703: step 2000/2879, validation loss head A 5.2440, head B 6.8961
+19:28:28 k4_seed3703: step 2400/2879, validation loss head A 5.1431, head B 6.8501
+19:29:17 k4_seed3703: step 2800/2879, validation loss head A 5.0909, head B 6.8237
+19:29:28 k4_seed3703: step 2879/2879, validation loss head A 5.0797, head B 6.8189
+19:29:33 k4_seed3703: finished in 0.10 h; head A 5.1745, head B 6.9056
+19:29:36 sub_k4_seed3703: overlap 0.274, agreement ratio 0.283, stability A 0.979, B 0.954
+19:29:36 k8_seed3703: starting, head B at i+8, seed 3703, readout rank 64, peak lr 0.0024
+19:30:26 k8_seed3703: step 400/2879, validation loss head A 6.4903, head B 7.4629
+19:30:39 k8_seed3703: step 500/2879, validation loss head A 6.2843, head B 7.4269
+19:31:17 k8_seed3703: step 800/2879, validation loss head A 5.8873, head B 7.3113
+19:32:06 k8_seed3703: step 1200/2879, validation loss head A 5.5882, head B 7.2154
+19:32:55 k8_seed3703: step 1600/2879, validation loss head A 5.4049, head B 7.1540
+19:33:45 k8_seed3703: step 2000/2879, validation loss head A 5.2331, head B 7.0864
+19:34:34 k8_seed3703: step 2400/2879, validation loss head A 5.1327, head B 7.0541
+19:35:23 k8_seed3703: step 2800/2879, validation loss head A 5.0802, head B 7.0341
+19:35:34 k8_seed3703: step 2879/2879, validation loss head A 5.0716, head B 7.0309
+19:35:39 k8_seed3703: finished in 0.10 h; head A 5.1661, head B 7.0997
+19:35:42 sub_k8_seed3703: overlap 0.228, agreement ratio 0.235, stability A 0.951, B 0.979
+19:35:42 same_seed3704: starting, head B at i+1, seed 3704, readout rank 64, peak lr 0.0024
+19:36:32 same_seed3704: step 400/2879, validation loss head A 6.4371, head B 6.4298
+19:36:45 same_seed3704: step 500/2879, validation loss head A 6.2893, head B 6.2880
+19:37:22 same_seed3704: step 800/2879, validation loss head A 5.9042, head B 5.9022
+19:38:12 same_seed3704: step 1200/2879, validation loss head A 5.5907, head B 5.5936
+19:39:01 same_seed3704: step 1600/2879, validation loss head A 5.3874, head B 5.3892
+19:39:50 same_seed3704: step 2000/2879, validation loss head A 5.2355, head B 5.2366
+19:40:40 same_seed3704: step 2400/2879, validation loss head A 5.1375, head B 5.1388
+19:41:29 same_seed3704: step 2800/2879, validation loss head A 5.0726, head B 5.0744
+19:41:40 same_seed3704: step 2879/2879, validation loss head A 5.0655, head B 5.0673
+19:41:45 same_seed3704: finished in 0.10 h; head A 5.1457, head B 5.1474
+19:41:48 sub_same_seed3704: overlap 0.957, agreement ratio 0.965, stability A 0.974, B 0.951
+19:41:48 k2_seed3704: starting, head B at i+2, seed 3704, readout rank 64, peak lr 0.0024
+19:42:37 k2_seed3704: step 400/2879, validation loss head A 6.4667, head B 7.0788
+19:42:51 k2_seed3704: step 500/2879, validation loss head A 6.3275, head B 7.0016
+19:43:28 k2_seed3704: step 800/2879, validation loss head A 5.9608, head B 6.7638
+19:44:17 k2_seed3704: step 1200/2879, validation loss head A 5.6414, head B 6.5425
+19:45:07 k2_seed3704: step 1600/2879, validation loss head A 5.4564, head B 6.4046
+19:45:56 k2_seed3704: step 2000/2879, validation loss head A 5.3011, head B 6.2969
+19:46:45 k2_seed3704: step 2400/2879, validation loss head A 5.2046, head B 6.2260
+19:47:35 k2_seed3704: step 2800/2879, validation loss head A 5.1437, head B 6.1800
+19:47:45 k2_seed3704: step 2879/2879, validation loss head A 5.1363, head B 6.1746
+19:47:50 k2_seed3704: finished in 0.10 h; head A 5.2217, head B 6.2677
+19:47:53 sub_k2_seed3704: overlap 0.506, agreement ratio 0.519, stability A 0.975, B 0.955
+19:47:53 k4_seed3704: starting, head B at i+4, seed 3704, readout rank 64, peak lr 0.0024
+19:48:43 k4_seed3704: step 400/2879, validation loss head A 6.4987, head B 7.3991
+19:48:56 k4_seed3704: step 500/2879, validation loss head A 6.3576, head B 7.3747
+19:49:33 k4_seed3704: step 800/2879, validation loss head A 5.9937, head B 7.2396
+19:50:23 k4_seed3704: step 1200/2879, validation loss head A 5.6786, head B 7.0860
+19:51:12 k4_seed3704: step 1600/2879, validation loss head A 5.4835, head B 7.0021
+19:52:01 k4_seed3704: step 2000/2879, validation loss head A 5.3340, head B 6.9387
+19:52:51 k4_seed3704: step 2400/2879, validation loss head A 5.2405, head B 6.8943
+19:53:40 k4_seed3704: step 2800/2879, validation loss head A 5.1785, head B 6.8614
+19:53:51 k4_seed3704: step 2879/2879, validation loss head A 5.1725, head B 6.8570
+19:53:56 k4_seed3704: finished in 0.10 h; head A 5.2605, head B 6.9407
+19:53:58 sub_k4_seed3704: overlap 0.343, agreement ratio 0.347, stability A 0.984, B 0.989
+19:53:59 k8_seed3704: starting, head B at i+8, seed 3704, readout rank 64, peak lr 0.0024
+19:54:48 k8_seed3704: step 400/2879, validation loss head A 6.5028, head B 7.4640
+19:55:01 k8_seed3704: step 500/2879, validation loss head A 6.3270, head B 7.4416
+19:55:39 k8_seed3704: step 800/2879, validation loss head A 5.9421, head B 7.3280
+19:56:28 k8_seed3704: step 1200/2879, validation loss head A 5.6203, head B 7.2094
+19:57:17 k8_seed3704: step 1600/2879, validation loss head A 5.4196, head B 7.1531
+19:58:06 k8_seed3704: step 2000/2879, validation loss head A 5.2700, head B 7.1058
+19:58:56 k8_seed3704: step 2400/2879, validation loss head A 5.1743, head B 7.0692
+19:59:45 k8_seed3704: step 2800/2879, validation loss head A 5.1098, head B 7.0438
+19:59:56 k8_seed3704: step 2879/2879, validation loss head A 5.1043, head B 7.0391
+20:00:01 k8_seed3704: finished in 0.10 h; head A 5.1905, head B 7.1085
+20:00:04 sub_k8_seed3704: overlap 0.225, agreement ratio 0.233, stability A 0.960, B 0.980
+20:00:04 same_seed3705: starting, head B at i+1, seed 3705, readout rank 64, peak lr 0.0024
+20:00:53 same_seed3705: step 400/2879, validation loss head A 6.4184, head B 6.4224
+20:01:07 same_seed3705: step 500/2879, validation loss head A 6.2590, head B 6.2650
+20:01:44 same_seed3705: step 800/2879, validation loss head A 5.9042, head B 5.9134
+20:02:33 same_seed3705: step 1200/2879, validation loss head A 5.5923, head B 5.5979
+20:03:23 same_seed3705: step 1600/2879, validation loss head A 5.3902, head B 5.3907
+20:04:12 same_seed3705: step 2000/2879, validation loss head A 5.2235, head B 5.2260
+20:05:01 same_seed3705: step 2400/2879, validation loss head A 5.1161, head B 5.1178
+20:05:51 same_seed3705: step 2800/2879, validation loss head A 5.0653, head B 5.0666
+20:06:01 same_seed3705: step 2879/2879, validation loss head A 5.0587, head B 5.0595
+20:06:06 same_seed3705: finished in 0.10 h; head A 5.1424, head B 5.1439
+20:06:09 sub_same_seed3705: overlap 0.954, agreement ratio 0.965, stability A 0.921, B 0.961
+20:06:09 k2_seed3705: starting, head B at i+2, seed 3705, readout rank 64, peak lr 0.0024
+20:06:59 k2_seed3705: step 400/2879, validation loss head A 6.4541, head B 7.0704
+20:07:12 k2_seed3705: step 500/2879, validation loss head A 6.2783, head B 6.9807
+20:07:50 k2_seed3705: step 800/2879, validation loss head A 5.9095, head B 6.7414
+20:08:39 k2_seed3705: step 1200/2879, validation loss head A 5.5992, head B 6.5198
+20:09:28 k2_seed3705: step 1600/2879, validation loss head A 5.4002, head B 6.3715
+20:10:18 k2_seed3705: step 2000/2879, validation loss head A 5.2394, head B 6.2562
+20:11:07 k2_seed3705: step 2400/2879, validation loss head A 5.1383, head B 6.1772
+20:11:57 k2_seed3705: step 2800/2879, validation loss head A 5.0866, head B 6.1392
+20:12:07 k2_seed3705: step 2879/2879, validation loss head A 5.0802, head B 6.1341
+20:12:12 k2_seed3705: finished in 0.10 h; head A 5.1654, head B 6.2299
+20:12:15 sub_k2_seed3705: overlap 0.445, agreement ratio 0.467, stability A 0.975, B 0.919
+20:12:15 k4_seed3705: starting, head B at i+4, seed 3705, readout rank 64, peak lr 0.0024
+20:13:05 k4_seed3705: step 400/2879, validation loss head A 6.4732, head B 7.3974
+20:13:18 k4_seed3705: step 500/2879, validation loss head A 6.3217, head B 7.3721
+20:13:55 k4_seed3705: step 800/2879, validation loss head A 5.9824, head B 7.2406
+20:14:45 k4_seed3705: step 1200/2879, validation loss head A 5.6601, head B 7.0806
+20:15:34 k4_seed3705: step 1600/2879, validation loss head A 5.4657, head B 6.9940
+20:16:23 k4_seed3705: step 2000/2879, validation loss head A 5.3166, head B 6.9209
+20:17:13 k4_seed3705: step 2400/2879, validation loss head A 5.2124, head B 6.8725
+20:18:02 k4_seed3705: step 2800/2879, validation loss head A 5.1600, head B 6.8466
+20:18:13 k4_seed3705: step 2879/2879, validation loss head A 5.1524, head B 6.8436
+20:18:18 k4_seed3705: finished in 0.10 h; head A 5.2386, head B 6.9293
+20:18:21 sub_k4_seed3705: overlap 0.342, agreement ratio 0.357, stability A 0.934, B 0.971
+20:18:21 k8_seed3705: starting, head B at i+8, seed 3705, readout rank 64, peak lr 0.0024
+20:19:11 k8_seed3705: step 400/2879, validation loss head A 6.4785, head B 7.4524
+20:19:24 k8_seed3705: step 500/2879, validation loss head A 6.3044, head B 7.4365
+20:20:01 k8_seed3705: step 800/2879, validation loss head A 5.9275, head B 7.3290
+20:20:50 k8_seed3705: step 1200/2879, validation loss head A 5.6268, head B 7.2137
+20:21:40 k8_seed3705: step 1600/2879, validation loss head A 5.4182, head B 7.1486
+20:22:29 k8_seed3705: step 2000/2879, validation loss head A 5.2667, head B 7.0928
+20:23:18 k8_seed3705: step 2400/2879, validation loss head A 5.1614, head B 7.0561
+20:24:08 k8_seed3705: step 2800/2879, validation loss head A 5.1072, head B 7.0380
+20:24:18 k8_seed3705: step 2879/2879, validation loss head A 5.1000, head B 7.0363
+20:24:23 k8_seed3705: finished in 0.10 h; head A 5.1864, head B 7.1059
+20:24:26 sub_k8_seed3705: overlap 0.238, agreement ratio 0.243, stability A 0.980, B 0.973
+20:24:26 N6r complete: all runs and measurements finished
+20:24:26 copied 41 result files for upload
+20:24:26 waiting for background Drive saves to finish (up to 15 minutes)
+20:24:26 Drive saves finished
