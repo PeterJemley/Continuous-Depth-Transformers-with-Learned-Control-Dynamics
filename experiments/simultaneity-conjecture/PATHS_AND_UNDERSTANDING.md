@@ -1,6 +1,6 @@
 # Conjecture note: where this programme can go, and whether understanding works like perception
 
-Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-07: N1, N2, N4 and N5, proposed here, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
+Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-07: N1, N2, N4, N5 and N6, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
 
 ## The questions
 
@@ -237,6 +237,8 @@ So the model switches between readings *without* needing the large dynamical dif
 **N4 result, 2026-10-06: supported.** The voices-as-directions test, which N2's exploratory finding suggested. Coexisting readings need separate directions: sharing 64 readout directions cost them 0.088 nats more than it cost a single reading. This is the first "needed" result for polyphony, and it is in representation geometry, not depth dynamics. Next candidates: a width sweep, more voices, less related readings, and moving the restriction into the ODE block. See `N4_NOTE.md`.
 
 **N5 result, 2026-10-07: inconclusive.** The readout-width sweep could not settle whether N4's cost is a competition for directions. At full width the cost was positive in all five seeds (mean +0.030, about a third of N4's) but its interval crossed both zero and the margin. Narrow widths made training itself erratic. Exploratory, and striking: two different readings settled at about half-overlap (0.42–0.53) at every width, whether they started above or below it, while same-target heads converged. See `N5_NOTE.md`.
+
+**N6 result, 2026-10-08: untestable.** The must-fail control (same-target heads at an overlap of at least 0.95) held in 3 of 5 models, not 4; seed 3601 missed by 0.0002. The threshold had not been re-checked for N6's smaller number of windows. Exploratory, and consistent with the conjecture: the two readings' overlap fell from 0.48 at k = 2 to 0.31 at k = 4 and 0.25 at k = 8, in that order in all 5 seeds; o(2) − o(8) = +0.227, 95% interval [+0.184, +0.269]. A new test with the control set for its measurement (N6r) would settle it. See `N6_NOTE.md`.
 
 ### Recommended order now
 

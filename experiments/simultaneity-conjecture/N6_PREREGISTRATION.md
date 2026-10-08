@@ -1,6 +1,6 @@
 # Preregistration N6: does the half-overlap balance depend on how different the readings are?
 
-Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Queued; no real N6 run has started.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** Run; see the deviation log, `N6_RESULTS.md` and `N6_NOTE.md`.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -175,6 +175,10 @@ No real N6 run had started. No rule, threshold or control was changed, so no ame
   - The job ran end to end on tiny models: the checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 21 resumed from its checkpoint.
   - A direct check confirmed that head B's target is the input shifted by k in every arm. It matches head A's target only where words repeat (about 1% of positions for k = 2, 4 and 8, and 100% for the same arm).
   - `n6_analyze.py` gave the expected verdicts on synthetic records for 13 cases. These covered both supported; N6a refuted (flat, and with the overlap rising), not sensitive enough, some effect, and inconclusive; N6b refuted and intermediate; untestable through each precondition (must-fail, stability, data order, batch check); and not reached.
+
+### The run, 2026-10-08
+
+One Colab session (`colab-results` branch `n6_halfoverlap/20261008-102605`, code commit 70b476b) ran all 20 models and their measurements, with no resumes and no Drive failures. Nothing was changed after approval. Both verdicts are **untestable**: the must-fail precondition held in 3 of 5 models, not 4 (same-arm overlaps 0.9498, 0.9571, 0.9624, 0.9396, 0.9633). The threshold of 0.95 was carried from N4's 256-window measurement without checking what N6's 139 windows would do to it, a calibration miss recorded in `N6_NOTE.md`. The verdicts are not revisited.
 
 ## References
 

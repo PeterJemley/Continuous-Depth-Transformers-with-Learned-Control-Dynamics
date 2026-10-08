@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5, and 2026-10-08 with one added limit. Covers the work through N5. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-06, updated 2026-10-07 with N5, and 2026-10-08 with one added limit and N6. Covers the work through N6. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -37,14 +37,19 @@ Each test was a question the world could answer "no", with the plan, the thresho
 
    N5 did find something it had not predicted, and it held in all 20 models that read two different targets. The two readings always ended up sharing about half of their most important directions (overlap 0.42 to 0.53), whether they started with more in common (0.7) or less (0.2). Training pushed them apart in the first case and together in the second. Two copies of one reading converged instead.[^12]
 
+8. **N6. Does that balance depend on how different the two readings are?** The test could not give a verdict. Its control, two heads reading the same target, had to agree almost perfectly (an overlap of at least 0.95) in 4 of 5 runs, and did so in 3. One run missed by 0.0002. The threshold had been carried over from N4, which measured on almost twice as many passages. With fewer passages, measurement noise keeps even identical readings from scoring as high, and that was not checked in advance.[^13] *Untestable.*
+
+   What the runs showed, though, is what the conjecture predicted. Head B read the word 2, 4 or 8 places ahead. The further ahead, the less the two readings shared: about half at 2 places, under a third at 4, a quarter at 8. That held in the same order in every run. Training started all the pairs at the same point and moved each to its own balance. A new test with its control set correctly would turn this into a verdict.
+
 ## What we now understand
 
 - **The voices are separated by direction, not by tempo.** When one internal state must serve two readings, the readings occupy partly different directions within it, and squeezing them into the same directions costs accuracy. They do not get different timescales in the continuous block.
-- **Two related voices share about half their space, and training finds that balance.** The next word and the word after settle at roughly half-overlap from either side (N5). Why the balance sits there, and whether it shifts for readings that differ more, is the most promising open question.
+- **Two related voices share about half their space, and training finds that balance.** The next word and the word after settle at roughly half-overlap from either side (N5), and did so again on new runs (N6).
+- **The balance probably depends on how different the readings are.** In N6, readings further apart shared less: a half, then a third, then a quarter. That is exploratory until a test with a working control confirms it.
 - **Why sharing costs is not yet settled.** N5 could not tell competition for directions from a clash of learning signals; some cost may remain even when nothing is restricted.
 - **The continuous dynamics are not where the readings live,** at this scale. Switching readings needs only a shift (N1). Holding them at once relies on geometry, the arrangement of directions, rather than on the flow's dynamics (N2, N4).
 - **This matches the music analogy better than the original picture did.** Listeners follow several voices more easily when the voices differ in timbre, the quality that tells instruments apart (the evidence is in `CONJECTURE.md`). Here, a direction plays the part of timbre.
-- **Refutations taught as much as successes.** Each "no" ruled out a mechanism and pointed to the next question. None was rescued after the fact. Calibration on untrained models caught problems in three tests (G1, N2, N4) before any real run. In G1, the original measure would have called an untrained model a success.
+- **Refutations taught as much as successes.** Each "no" ruled out a mechanism and pointed to the next question. None was rescued after the fact. Calibration on untrained models caught problems in three tests (G1, N2, N4) before any real run. In G1, the original measure would have called an untrained model a success. It missed one in N6, where a control's threshold was not re-checked for a smaller measurement.
 
 ## Limits
 
@@ -56,7 +61,8 @@ Each test was a question the world could answer "no", with the plan, the thresho
 ## What comes next
 
 The candidates, in the order N5 suggests:
-- **Test the half-overlap pattern** as a prediction that can fail: readings that differ more (the next word against a topic label) should settle at less overlap, and readings that differ less at more.
+- **Repeat N6 with its control set correctly (N6r):** new runs, measured on twice as many passages from the test split, with the control judged against the measurement's own noise.
+- **Readings that differ in kind, not only in distance,** such as a topic label, once N6r settles the distance ladder.
 - **Settle N5's main question with enough runs:** about ten runs at full width would tell a cost of 0.03 from none.
 - **More voices at once,** three or four readings, at the width where training is consistent.
 - **Move the restriction into the continuous block,** which would tie the results back to the original conjecture.
@@ -88,3 +94,5 @@ The candidates, in the order N5 suggests:
 [^11]: **Why the full width decides.** At width 256, P is a square matrix, invertible from the start. Then W_k P can be any matrix W_k could be on its own, so tied and separate readouts can compute exactly the same things. Any remaining cost of tying must come from training, not from a lack of directions. N5's primary test: D at width 256, supported if its 97.5% interval lies below 0.02, refuted if it lies above 0.05. Result: D(256) = +0.030, 97.5% interval [−0.004, +0.065], positive in all 5 seeds; inconclusive. N5b, D(32) − D(128) = −0.063, interval [−0.32, +0.20]; inconclusive. The standard deviation of D across seeds was 0.022 at width 256, 0.060 at 128 and 0.194 at 32, against about 0.008 at 64 in N4. Sources: `N5_PREREGISTRATION.md`, `N5_NOTE.md`.
 
 [^12]: **Half-overlap.** The overlap of note 9, for two different readings, by readout width (5 seeds each): untrained 0.67–0.74, trained 0.42–0.48 at width 32; untrained 0.45–0.50, trained 0.46–0.49 at 64; untrained 0.28–0.31, trained 0.44–0.53 at 128; untrained 0.18–0.20, trained 0.47–0.53 at 256. Two heads reading the same target: 0.87–0.99 after training. Exploratory; no decision rule. Source: `N5_NOTE.md`.
+
+[^13]: **N6.** Head A predicts token i+1; head B predicts token i+k, k = 1, 2, 4 or 8, at readout width 64, 5 seeds each. Overlap as in note 9, on validation windows 1,793–1,931 (the last 139). Same-target (k = 1) overlaps: 0.9498, 0.9571, 0.9624, 0.9396, 0.9633; the precondition needed at least 0.95 in 4 of 5. Exploratory: mean overlap 0.481 at k = 2, 0.305 at k = 4, 0.254 at k = 8; o(2) − o(8) = +0.227, 95% interval [+0.184, +0.269]; ordered in 5 of 5 seeds; all arms 0.48 untrained. Split-half stability of every head at least 0.89. Head B's loss rose with k (6.23, 6.92, 7.11 nats), so distance confounds "different" with "harder". Source: `N6_NOTE.md`.
