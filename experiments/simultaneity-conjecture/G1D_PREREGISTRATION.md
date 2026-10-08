@@ -1,6 +1,6 @@
 # Preregistration G1d: does the model need the farther reading's strong contraction?
 
-Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log. **Added 2026-10-08: run; result: refuted.** See the deviation log's run entry, `G1D_RESULTS.md` and `G1D_NOTE.md`.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 

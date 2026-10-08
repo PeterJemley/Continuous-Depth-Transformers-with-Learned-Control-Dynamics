@@ -1,6 +1,6 @@
 # Preregistration N6r: the half-overlap test, with its control set for its measurement
 
-Date: 2026-10-08    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-08    Status: **approved by the author, 2026-10-08.** No real N6r run has started.
 
 Type: confirmatory for N6a (primary) and N6b (secondary hypothesis), the same claims and thresholds as N6. Everything else is secondary or exploratory and labelled so.
 

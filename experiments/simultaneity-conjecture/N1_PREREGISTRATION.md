@@ -1,6 +1,6 @@
 # Preregistration N1: is the reading a direction, not a regime?
 
-Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log. **Added 2026-10-08: run; result: N1b supported, N1a untestable.** See the deviation log's run entry, `N1_RESULTS.md` and `N1_NOTE.md`.
 
 Type: confirmatory for the primary outcome (N1b) and for the secondary hypothesis N1a, each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 

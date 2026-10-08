@@ -82,6 +82,8 @@ These had no decision rule once the precondition failed. They are recorded becau
 - **The must-fail control on the measurement's own scale.** Two same-target heads count as converged if their overlap, divided by the geometric mean of their split-half stabilities, is at least 0.95. That is the condition that matters: they agree as far as the measurement can show. The raw threshold would be calibrated beforehand, on N4's and N6's existing same-target models, at the new window count.
 - **Everything else unchanged:** the arms, the 0.10 threshold for N6a, the 0.40–0.60 band for N6b, and the stability precondition.
 
+**Note added 2026-10-08.** The control proposed above is biased upward, because it divides an overlap estimated on all the windows by stabilities estimated on half of them. N6's same-target heads came out at 1.02 under it. `N6R_PREREGISTRATION.md` replaces it with a like-with-like agreement ratio, built entirely from estimates on independent halves of the windows, and with calibration of both its ends (identical heads must score exactly 1; untrained heads must fail).
+
 ## References
 
 Lin, H. W., & Tegmark, M. (2017). Critical behavior in physics and probabilistic formal languages. *Entropy, 19*(7), 299. https://doi.org/10.3390/e19070299

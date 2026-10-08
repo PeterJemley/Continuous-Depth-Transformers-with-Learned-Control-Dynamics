@@ -1,6 +1,6 @@
 # Preregistration G1: does a trained control signal partition the vector field into distinct dynamical regimes?
 
-Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final; amendment A1 to the decision rule approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
+Date: 2026-10-05    Status: **approved by the author on 2026-10-05, final; amendment A1 to the decision rule approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log. **Added 2026-10-08: run; result: refuted.** See the deviation log's run entry, `G1_RESULTS.md` and `G1_NOTE.md`.
 
 Type: confirmatory for the primary outcome and its decision rule. Everything else is secondary or exploratory and labelled so.
 
