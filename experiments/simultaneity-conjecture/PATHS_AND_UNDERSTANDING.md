@@ -1,6 +1,6 @@
 # Conjecture note: where this programme can go, and whether understanding works like perception
 
-Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-08: N1, N2, N4, N5, N6 and N6r, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
+Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-09: N1, N2, N4, N5, N6, N6r and N7, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
 
 ## The questions
 
@@ -241,6 +241,8 @@ So the model switches between readings *without* needing the large dynamical dif
 **N6 result, 2026-10-08: untestable.** The must-fail control (same-target heads at an overlap of at least 0.95) held in 3 of 5 models, not 4; seed 3601 missed by 0.0002. The threshold had not been re-checked for N6's smaller number of windows. Exploratory, and consistent with the conjecture: the two readings' overlap fell from 0.48 at k = 2 to 0.31 at k = 4 and 0.25 at k = 8, in that order in all 5 seeds; o(2) − o(8) = +0.227, 95% interval [+0.184, +0.269]. A new test with the control set for its measurement (N6r) would settle it. See `N6_NOTE.md`.
 
 **N6r result, 2026-10-08: supported, both claims.** With the must-fail control judged like with like and 256 fresh test-split windows, the two readings' overlap fell from 0.49 (next token and the token after) to 0.31 (four apart) and 0.23 (eight apart), in that order in all 5 models: o(2) − o(8) = +0.252, 95% interval [+0.219, +0.286]. Same-target heads converged (0.96). How much of the state two readings share depends on how different they are; half-overlap is what adjacent tokens need, not a fixed property of the model. The confound with difficulty remains. See `N6R_NOTE.md`.
+
+**N7 result, 2026-10-09: refuted, both claims.** A head reading exactly the next token, made harder by randomising 80% of its targets, shared no more with the clean next-token head (0.31) than a head reading four words ahead (0.30), and did not converge with it (agreement ratio 0.30–0.33, against 0.85 required). So N6r's ladder, which stands and replicated, does not measure how different readings are, not on its own. The overlap measure likely reflects where each reading's errors fall as well as which features it uses. N4's cost of sharing, measured in loss, is unaffected. See `N7_NOTE.md`.
 
 ### Recommended order now
 

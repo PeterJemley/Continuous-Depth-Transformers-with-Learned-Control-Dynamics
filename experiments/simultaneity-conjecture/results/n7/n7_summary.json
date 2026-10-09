@@ -1,0 +1,295 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " song of the night . Brown usually performed it wearing",
+      "target_i+1_end": " of the night . Brown usually performed it wearing a",
+      "target_i+2_end": " the night . Brown usually performed it wearing a black",
+      "target_i+4_end": " . Brown usually performed it wearing a black outfit ,",
+      "target_i+8_end": " it wearing a black outfit , flanked with two male"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        1
+      ],
+      "next_example": {
+        "input_end": " rights with men . Another important accomplishment of ADR was the",
+        "target_end": " with men . Another important accomplishment of ADR was the establishment"
+      },
+      "skip_example": {
+        "input_end": " D. Considine of Rolling Stone wrote in the review of",
+        "target_end": " Considine of Rolling Stone wrote in the review of Bobby ("
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3801,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3802,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3803,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3804,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3805,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "test_windows_shifted": true,
+    "noise": {
+      "fraction_replaced": 0.801513671875,
+      "fraction_unchanged": 0.205078125,
+      "clean_end": " of the night . Brown usually performed it wearing a",
+      "noisy_end": " mental = night , \u2013 usually ( Central the a",
+      "most_frequent_tokens": [
+        " the",
+        " ,",
+        " .",
+        " of",
+        " and"
+      ],
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3801,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 0.9999999973999736,
+      "pass": true
+    }
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      257,
+      512
+    ]
+  },
+  "noise_rate": 0.8,
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "arms": {
+    "same": {
+      "k": 1,
+      "noisy": false
+    },
+    "k4": {
+      "k": 4,
+      "noisy": false
+    },
+    "k8": {
+      "k": 8,
+      "noisy": false
+    },
+    "noisy": {
+      "k": 1,
+      "noisy": true
+    }
+  },
+  "untrained": {
+    "seed3801": {
+      "same": {
+        "overlap_AB": 0.4701471782278348,
+        "stability_A_odd_even": 0.9793687781352545,
+        "stability_B_odd_even": 0.9737726001894769,
+        "cross_half_overlap_AB": 0.46791533035838434,
+        "agreement_ratio": 0.4791432471134477
+      },
+      "k4": {
+        "overlap_AB": 0.4708702282901579,
+        "stability_A_odd_even": 0.9793687781352545,
+        "stability_B_odd_even": 0.9715142487724138,
+        "cross_half_overlap_AB": 0.46909426548274435,
+        "agreement_ratio": 0.480908451222268
+      },
+      "k8": {
+        "overlap_AB": 0.4704731231475747,
+        "stability_A_odd_even": 0.9793687781352545,
+        "stability_B_odd_even": 0.9633381823038856,
+        "cross_half_overlap_AB": 0.46984195832295533,
+        "agreement_ratio": 0.4837146976143021
+      },
+      "noisy": {
+        "overlap_AB": 0.47805359947442017,
+        "stability_A_odd_even": 0.9793687781352545,
+        "stability_B_odd_even": 0.9750340122990835,
+        "cross_half_overlap_AB": 0.4766549422602573,
+        "agreement_ratio": 0.4877767438742912
+      }
+    },
+    "seed3802": {
+      "same": {
+        "overlap_AB": 0.45809751249430974,
+        "stability_A_odd_even": 0.9884622577736473,
+        "stability_B_odd_even": 0.9873989684177404,
+        "cross_half_overlap_AB": 0.4573379964632016,
+        "agreement_ratio": 0.46292528708204156
+      },
+      "k4": {
+        "overlap_AB": 0.4582371792802997,
+        "stability_A_odd_even": 0.9884622577736473,
+        "stability_B_odd_even": 0.986097988900679,
+        "cross_half_overlap_AB": 0.4576671175783589,
+        "agreement_ratio": 0.4635639215609512
+      },
+      "k8": {
+        "overlap_AB": 0.458211734019206,
+        "stability_A_odd_even": 0.9884622577736473,
+        "stability_B_odd_even": 0.9849731703964288,
+        "cross_half_overlap_AB": 0.4574282227579576,
+        "agreement_ratio": 0.4635864251467276
+      },
+      "noisy": {
+        "overlap_AB": 0.4625924904279647,
+        "stability_A_odd_even": 0.9884622577736473,
+        "stability_B_odd_even": 0.9743195899317403,
+        "cross_half_overlap_AB": 0.46192944493771065,
+        "agreement_ratio": 0.4707007426112741
+      }
+    },
+    "seed3803": {
+      "same": {
+        "overlap_AB": 0.4728141485380607,
+        "stability_A_odd_even": 0.9816791856993348,
+        "stability_B_odd_even": 0.9811414325657254,
+        "cross_half_overlap_AB": 0.4725596262764288,
+        "agreement_ratio": 0.48151078057161445
+      },
+      "k4": {
+        "overlap_AB": 0.4733773520724155,
+        "stability_A_odd_even": 0.9816791856993348,
+        "stability_B_odd_even": 0.9786185351166106,
+        "cross_half_overlap_AB": 0.47282830889024013,
+        "agreement_ratio": 0.48240517772523256
+      },
+      "k8": {
+        "overlap_AB": 0.4735556251287304,
+        "stability_A_odd_even": 0.9816791856993348,
+        "stability_B_odd_even": 0.9763842163099488,
+        "cross_half_overlap_AB": 0.47269403263130777,
+        "agreement_ratio": 0.4828196681202882
+      },
+      "noisy": {
+        "overlap_AB": 0.4751137532133898,
+        "stability_A_odd_even": 0.9816791856993348,
+        "stability_B_odd_even": 0.9686156317154828,
+        "cross_half_overlap_AB": 0.47391852594451184,
+        "agreement_ratio": 0.4860077087856471
+      }
+    },
+    "seed3804": {
+      "same": {
+        "overlap_AB": 0.45536413678223203,
+        "stability_A_odd_even": 0.9872172855427171,
+        "stability_B_odd_even": 0.9871911278630376,
+        "cross_half_overlap_AB": 0.4544290759195681,
+        "agreement_ratio": 0.4603192256211889
+      },
+      "k4": {
+        "overlap_AB": 0.455523409248611,
+        "stability_A_odd_even": 0.9872172855427171,
+        "stability_B_odd_even": 0.9859720897329814,
+        "cross_half_overlap_AB": 0.4546469110057003,
+        "agreement_ratio": 0.46082449787163776
+      },
+      "k8": {
+        "overlap_AB": 0.4557868786554283,
+        "stability_A_odd_even": 0.9872172855427171,
+        "stability_B_odd_even": 0.9867152872449335,
+        "cross_half_overlap_AB": 0.45548457574784634,
+        "agreement_ratio": 0.4614996446752442
+      },
+      "noisy": {
+        "overlap_AB": 0.46550345242772473,
+        "stability_A_odd_even": 0.9872172855427171,
+        "stability_B_odd_even": 0.96729074479957,
+        "cross_half_overlap_AB": 0.4636541063434606,
+        "agreement_ratio": 0.47447050354494014
+      }
+    },
+    "seed3805": {
+      "same": {
+        "overlap_AB": 0.4853992695919934,
+        "stability_A_odd_even": 0.9801019452238323,
+        "stability_B_odd_even": 0.9902413370606978,
+        "cross_half_overlap_AB": 0.48546246476772587,
+        "agreement_ratio": 0.4927759513882343
+      },
+      "k4": {
+        "overlap_AB": 0.4858092230707398,
+        "stability_A_odd_even": 0.9801019452238323,
+        "stability_B_odd_even": 0.9895495263986183,
+        "cross_half_overlap_AB": 0.48594964780041544,
+        "agreement_ratio": 0.4934428705303509
+      },
+      "k8": {
+        "overlap_AB": 0.4852079157527449,
+        "stability_A_odd_even": 0.9801019452238323,
+        "stability_B_odd_even": 0.9886836361562075,
+        "cross_half_overlap_AB": 0.48501982679356753,
+        "agreement_ratio": 0.4927143301788202
+      },
+      "noisy": {
+        "overlap_AB": 0.4841988529533993,
+        "stability_A_odd_even": 0.9801019452238323,
+        "stability_B_odd_even": 0.9852312638606585,
+        "cross_half_overlap_AB": 0.484922016654754,
+        "agreement_ratio": 0.49347730548780977
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Preregistration N7: does sharing track how different the readings are, or how hard?
 
-Date: 2026-10-09    Status: **approved by the author, 2026-10-09, with amendment A1 (noise rate 0.8, approved).** Queued; no real N7 run has started.
+Date: 2026-10-09    Status: **approved by the author, 2026-10-09, with amendment A1 (noise rate 0.8, approved).** Run; see the deviation log, `N7_RESULTS.md` and `N7_NOTE.md`.
 
 Type: confirmatory for N7a (primary) and N7b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -191,6 +191,10 @@ No real N7 run had started.
   - The job ran end to end on tiny models at 60% noise: all checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 23 resumed from its checkpoint.
   - After amendment A1, the noise check was rerun at 80%: 80.2% of one batch's targets were replaced.
   - `n7_analyze.py` gave the expected verdicts on synthetic records for 14 cases. These covered both supported; N7a supported with N7b intermediate or refuted; N7a refuted, some effect, not sensitive enough, and inconclusive; untestable through each precondition (must-fail, stability, hardness, the identical-heads check, the noise check, data order); and not reached.
+
+### The run, 2026-10-09
+
+One Colab session (`colab-results` branch `n7_harder/20261009-162206`, code commit 554679f) ran all 20 models and their measurements, with no resumes and no Drive failures. Nothing was changed after approval. All four preconditions held. N7a is **refuted**: o(noisy) − o(8) = +0.066, 95% interval [+0.045, +0.087]. N7b is **refuted**: the noisy head's agreement ratio was 0.30–0.33 in all 5 models. See `N7_NOTE.md`.
 
 ## References
 
