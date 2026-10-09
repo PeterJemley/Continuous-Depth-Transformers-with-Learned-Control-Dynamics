@@ -1,6 +1,6 @@
 # Preregistration N7: does sharing track how different the readings are, or how hard?
 
-Date: 2026-10-09    Status: **approved by the author, 2026-10-09.** No real N7 run has started.
+Date: 2026-10-09    Status: **approved by the author, 2026-10-09; amendment A1 awaiting the author's approval.** No real N7 run has started.
 
 Type: confirmatory for N7a (primary) and N7b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -150,7 +150,33 @@ For each seed, o(noisy) − o(8). The interval is a t-interval at 95% with 4 deg
 
 ## Deviation log
 
-None yet.
+### Amendment A1, before any real run, 2026-10-09: awaiting the author's approval
+
+Results seen before this entry:
+- the promised calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N7's test-split windows 257–512;
+- test-mode runs on tiny models;
+- synthetic records;
+- a rough estimate of the noisy head's loss from a bigram model built on the test-mode token files.
+
+No real N7 run had started.
+
+**What the calibration found.**
+- **The controls and measures work.**
+  - Untrained same-target heads gave agreement ratios of 0.47–0.50, so the control fails where it must.
+  - Each head's stability was 0.97–0.99 at initialisation, including the noisy head's.
+  - All four arms started at the same overlap (0.46–0.50).
+  - The noise replaced 60.2% of one training batch's targets and 59.7% of the measurement targets, with the replacements following the word frequencies.
+- **But precondition 4 would very likely fail at 60% noise.**
+  - The estimate of about 7.0 nats in the preregistration was an upper limit, not a central estimate. A trained model can partly anticipate the random replacements, because they are common words it already gives weight to. That lowers the noisy head's loss below the limit.
+  - Bounding each part of the loss separately gives a likely range of about 6.6–6.9 nats at 60% noise. The two parts are the 40% of targets that are the true next token, and the 60% that are drawn from word frequencies.
+  - The k4 head's loss in N6r was 6.92. So the noisy head would probably not be as hard as k4, precondition 4 would fail, and N7 would be untestable.
+  - Test mode could not show this: tiny models after 60 steps barely predict anything.
+
+**The amendment.**
+- **The noise rate becomes 0.8 instead of 0.6.** The same bounds put the noisy head's loss at about 7.0–7.3 nats at 80%, around the k8 head's 7.11. That is clearly above k4's.
+- **Why the reading is still the same reading.** At 80% noise, the best prediction for the noisy target is 20% of the next-token prediction plus 80% of the word frequencies. That is still a fixed transformation of the next-token reading (Patrini et al., 2017), and contains nothing else.
+- **What it costs.** The noisy head sees the true next token in only 20% of its targets, so it may learn the reading less precisely. That would lower its overlap with the clean head, which works *against* the claim, not for it.
+- **Everything else is unchanged:** precondition 4 (still against k4), every threshold, the arms, seeds and windows.
 
 ## References
 
