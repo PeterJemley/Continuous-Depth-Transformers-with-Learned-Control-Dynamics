@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n7_harder",
+    "args": [],
+    "description": "Test N7: does sharing track how different the readings are, or how hard? Head A predicts the next token; head B predicts the next token (control), 4 or 8 ahead, or the next token with 80% of its targets replaced at random. 5 new seeds, 20 runs, measured on test-split windows 257-512. About 2.3 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 140
+  },
+  "code_commit": "554679f5ad0113e74dd1c7a2353af4092c924d91",
+  "run_id": "20261009-162206",
+  "gpu": "Tesla T4"
+}
