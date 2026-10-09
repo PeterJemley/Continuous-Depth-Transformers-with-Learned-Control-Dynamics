@@ -1,6 +1,6 @@
 # Preregistration N7: does sharing track how different the readings are, or how hard?
 
-Date: 2026-10-09    Status: **approved by the author, 2026-10-09; amendment A1 awaiting the author's approval.** No real N7 run has started.
+Date: 2026-10-09    Status: **approved by the author, 2026-10-09, with amendment A1 (noise rate 0.8, approved).** Queued; no real N7 run has started.
 
 Type: confirmatory for N7a (primary) and N7b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
@@ -150,7 +150,7 @@ For each seed, o(noisy) − o(8). The interval is a t-interval at 95% with 4 deg
 
 ## Deviation log
 
-### Amendment A1, before any real run, 2026-10-09: awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-09: approved by the author
 
 Results seen before this entry:
 - the promised calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N7's test-split windows 257–512;
@@ -177,6 +177,20 @@ No real N7 run had started.
 - **Why the reading is still the same reading.** At 80% noise, the best prediction for the noisy target is 20% of the next-token prediction plus 80% of the word frequencies. That is still a fixed transformation of the next-token reading (Patrini et al., 2017), and contains nothing else.
 - **What it costs.** The noisy head sees the true next token in only 20% of its targets, so it may learn the reading less precisely. That would lower its overlap with the clean head, which works *against* the claim, not for it.
 - **Everything else is unchanged:** precondition 4 (still against k4), every threshold, the arms, seeds and windows.
+
+### Implementation details fixed before any real run, 2026-10-09
+
+- **Code.**
+  - `n7_harder.py` reuses N6r's code for the model, windows, identical-heads check and agreement ratio. It adds the noisy arm and records each head's loss against both its own and the clean targets.
+  - `n7_analyze.py` applies the rules and writes `N7_RESULTS.md`.
+  - The Colab job is `colab/jobs/n7_harder.py`.
+- **The training noise** is drawn per step from a generator seeded by the run's seed and the step number, so a resumed run draws exactly the same noise without storing any state. The validation and measurement targets are corrupted once, with fixed seeds.
+- **The unigram distribution** is counted from the full training token file, in chunks of 10 million tokens to keep memory small.
+- **A bug caught in testing:** the first version referred to N6's module before importing it. The calibration run failed on import and the bug was fixed. No result was affected.
+- **Tests:**
+  - The job ran end to end on tiny models at 60% noise: all checks, the untrained measurements, all 8 runs, the measurements and the result upload. A run interrupted at step 23 resumed from its checkpoint.
+  - After amendment A1, the noise check was rerun at 80%: 80.2% of one batch's targets were replaced.
+  - `n7_analyze.py` gave the expected verdicts on synthetic records for 14 cases. These covered both supported; N7a supported with N7b intermediate or refuted; N7a refuted, some effect, not sensitive enough, and inconclusive; untestable through each precondition (must-fail, stability, hardness, the identical-heads check, the noise check, data order); and not reached.
 
 ## References
 

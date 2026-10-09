@@ -5,7 +5,7 @@ n6r_halfoverlap.py), with four arms. Head A always predicts token i+1; head B pr
   same   token i+1 (must-fail control);
   k4     token i+4;
   k8     token i+8;
-  noisy  token i+1, with each target replaced, with probability 0.6, by a token drawn from the training
+  noisy  token i+1, with each target replaced, with probability 0.8 (amendment A1), by a token drawn from the training
          data's unigram distribution.
 The training noise is drawn per step from a generator seeded by the run's seed and the step, so a resumed
 run draws the same noise. Validation and measurement targets are corrupted once, with fixed seeds.
@@ -35,7 +35,7 @@ SEQ, BATCH, VOCAB = g.SEQ, g.BATCH, g.VOCAB
 SEEDS = [3801, 3802] if TEST else [3801, 3802, 3803, 3804, 3805]
 n6.SEEDS = g.SEEDS = SEEDS
 ARMS = {'same': (1, False), 'k4': (4, False), 'k8': (8, False), 'noisy': (1, True)}
-NOISE = 0.6
+NOISE = 0.8                                          # amendment A1 (was 0.6)
 TOTAL, PEAK_LR, BASE = n6.TOTAL, n6.PEAK_LR, n6.BASE
 MEAS = (16, 32) if TEST else (256, 512)             # test-split windows 257-512
 VAL_NOISE_SEED, MEAS_NOISE_SEED = 271828, 314159
