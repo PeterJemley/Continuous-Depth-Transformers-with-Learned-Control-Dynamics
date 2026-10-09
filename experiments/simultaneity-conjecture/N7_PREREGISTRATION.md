@@ -1,6 +1,6 @@
 # Preregistration N7: does sharing track how different the readings are, or how hard?
 
-Date: 2026-10-09    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-09    Status: **approved by the author, 2026-10-09.** No real N7 run has started.
 
 Type: confirmatory for N7a (primary) and N7b (secondary hypothesis), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 
