@@ -1,0 +1,49 @@
+15:46:18 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N8 folder: /content/drive/MyDrive/cdt-colab/n8_fisher | local: /content/cdt_local/n8_fisher
+15:46:18 weights from: /content/drive/MyDrive/cdt-colab/n7_harder/final, /content/drive/MyDrive/cdt-colab/n6r_halfoverlap/final
+15:46:19 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+15:46:20 measured on test-split windows 513-768
+15:46:20 analytic check, top-subspace overlap: 1.0 | identical heads, agreement ratio: 1.0 | windows shifted: True
+15:47:47 f_n7_same_seed3801: target-free overlap 0.935, ratio 0.948, stability A 0.975, B 0.964 | old overlap 0.962 (recorded 0.956) | rotated control ratio 0.139 | 4 s
+15:47:56 f_n7_k4_seed3801: target-free overlap 0.234, ratio 0.238, stability A 0.982, B 0.974 | old overlap 0.274 (recorded 0.275) | 4 s
+15:48:07 f_n7_k8_seed3801: target-free overlap 0.178, ratio 0.181, stability A 0.985, B 0.985 | old overlap 0.214 (recorded 0.233) | 4 s
+15:48:19 f_n7_noisy_seed3801: target-free overlap 0.295, ratio 0.319, stability A 0.940, B 0.927 | old overlap 0.302 (recorded 0.293) | 4 s
+15:48:35 f_n7_same_seed3802: target-free overlap 0.949, ratio 0.972, stability A 0.966, B 0.977 | old overlap 0.967 (recorded 0.959) | rotated control ratio 0.138 | 4 s
+15:48:44 f_n7_k4_seed3802: target-free overlap 0.244, ratio 0.251, stability A 0.969, B 0.983 | old overlap 0.294 (recorded 0.319) | 4 s
+15:48:53 f_n7_k8_seed3802: target-free overlap 0.192, ratio 0.199, stability A 0.962, B 0.980 | old overlap 0.235 (recorded 0.261) | 4 s
+15:49:03 f_n7_noisy_seed3802: target-free overlap 0.300, ratio 0.315, stability A 0.946, B 0.969 | old overlap 0.303 (recorded 0.306) | 4 s
+15:49:16 f_n7_same_seed3803: target-free overlap 0.925, ratio 0.963, stability A 0.946, B 0.947 | old overlap 0.973 (recorded 0.938) | rotated control ratio 0.193 | 4 s
+15:49:25 f_n7_k4_seed3803: target-free overlap 0.254, ratio 0.262, stability A 0.979, B 0.962 | old overlap 0.295 (recorded 0.289) | 4 s
+15:49:35 f_n7_k8_seed3803: target-free overlap 0.191, ratio 0.201, stability A 0.931, B 0.989 | old overlap 0.232 (recorded 0.233) | 4 s
+15:49:44 f_n7_noisy_seed3803: target-free overlap 0.331, ratio 0.339, stability A 0.967, B 0.968 | old overlap 0.322 (recorded 0.319) | 4 s
+15:49:59 f_n7_same_seed3804: target-free overlap 0.959, ratio 0.989, stability A 0.925, B 0.970 | old overlap 0.970 (recorded 0.971) | rotated control ratio 0.144 | 4 s
+15:50:08 f_n7_k4_seed3804: target-free overlap 0.247, ratio 0.253, stability A 0.984, B 0.965 | old overlap 0.302 (recorded 0.316) | 4 s
+15:50:19 f_n7_k8_seed3804: target-free overlap 0.182, ratio 0.186, stability A 0.978, B 0.983 | old overlap 0.228 (recorded 0.243) | 4 s
+15:50:29 f_n7_noisy_seed3804: target-free overlap 0.325, ratio 0.336, stability A 0.973, B 0.949 | old overlap 0.320 (recorded 0.323) | 4 s
+15:50:44 f_n7_same_seed3805: target-free overlap 0.953, ratio 0.973, stability A 0.960, B 0.942 | old overlap 0.940 (recorded 0.932) | rotated control ratio 0.147 | 4 s
+15:50:53 f_n7_k4_seed3805: target-free overlap 0.245, ratio 0.252, stability A 0.978, B 0.954 | old overlap 0.282 (recorded 0.285) | 4 s
+15:51:03 f_n7_k8_seed3805: target-free overlap 0.172, ratio 0.178, stability A 0.953, B 0.989 | old overlap 0.218 (recorded 0.238) | 4 s
+15:51:14 f_n7_noisy_seed3805: target-free overlap 0.302, ratio 0.320, stability A 0.967, B 0.926 | old overlap 0.297 (recorded 0.296) | 4 s
+15:51:30 f_n6r_same_seed3701: target-free overlap 0.960, ratio 0.976, stability A 0.970, B 0.964 | old overlap 0.962 (recorded 0.942) | rotated control ratio 0.148 | 4 s
+15:51:43 f_n6r_k2_seed3701: target-free overlap 0.454, ratio 0.475, stability A 0.952, B 0.958 | old overlap 0.486 (recorded 0.5) | 4 s
+15:51:52 f_n6r_k4_seed3701: target-free overlap 0.238, ratio 0.243, stability A 0.977, B 0.987 | old overlap 0.279 (recorded 0.302) | 4 s
+15:52:04 f_n6r_k8_seed3701: target-free overlap 0.197, ratio 0.204, stability A 0.986, B 0.938 | old overlap 0.233 (recorded 0.236) | 4 s
+15:52:19 f_n6r_same_seed3702: target-free overlap 0.951, ratio 0.965, stability A 0.961, B 0.956 | old overlap 0.945 (recorded 0.967) | rotated control ratio 0.178 | 4 s
+15:52:30 f_n6r_k2_seed3702: target-free overlap 0.453, ratio 0.473, stability A 0.967, B 0.940 | old overlap 0.473 (recorded 0.494) | 4 s
+15:52:44 f_n6r_k4_seed3702: target-free overlap 0.234, ratio 0.240, stability A 0.972, B 0.971 | old overlap 0.258 (recorded 0.281) | 4 s
+15:52:55 f_n6r_k8_seed3702: target-free overlap 0.187, ratio 0.190, stability A 0.981, B 0.985 | old overlap 0.220 (recorded 0.238) | 4 s
+15:53:13 f_n6r_same_seed3703: target-free overlap 0.949, ratio 0.965, stability A 0.968, B 0.961 | old overlap 0.929 (recorded 0.961) | rotated control ratio 0.153 | 4 s
+15:53:24 f_n6r_k2_seed3703: target-free overlap 0.438, ratio 0.452, stability A 0.969, B 0.963 | old overlap 0.478 (recorded 0.482) | 4 s
+15:53:36 f_n6r_k4_seed3703: target-free overlap 0.234, ratio 0.240, stability A 0.957, B 0.986 | old overlap 0.266 (recorded 0.274) | 4 s
+15:53:48 f_n6r_k8_seed3703: target-free overlap 0.187, ratio 0.191, stability A 0.976, B 0.984 | old overlap 0.242 (recorded 0.228) | 4 s
+15:54:04 f_n6r_same_seed3704: target-free overlap 0.958, ratio 0.965, stability A 0.977, B 0.979 | old overlap 0.965 (recorded 0.957) | rotated control ratio 0.154 | 4 s
+15:54:14 f_n6r_k2_seed3704: target-free overlap 0.437, ratio 0.445, stability A 0.976, B 0.984 | old overlap 0.489 (recorded 0.506) | 4 s
+15:54:26 f_n6r_k4_seed3704: target-free overlap 0.273, ratio 0.278, stability A 0.976, B 0.984 | old overlap 0.328 (recorded 0.343) | 4 s
+15:54:38 f_n6r_k8_seed3704: target-free overlap 0.184, ratio 0.187, stability A 0.980, B 0.989 | old overlap 0.217 (recorded 0.225) | 4 s
+15:54:53 f_n6r_same_seed3705: target-free overlap 0.909, ratio 0.951, stability A 0.971, B 0.932 | old overlap 0.955 (recorded 0.954) | rotated control ratio 0.134 | 4 s
+15:55:05 f_n6r_k2_seed3705: target-free overlap 0.397, ratio 0.411, stability A 0.975, B 0.963 | old overlap 0.427 (recorded 0.445) | 4 s
+15:55:19 f_n6r_k4_seed3705: target-free overlap 0.265, ratio 0.272, stability A 0.981, B 0.970 | old overlap 0.338 (recorded 0.342) | 4 s
+15:55:30 f_n6r_k8_seed3705: target-free overlap 0.186, ratio 0.191, stability A 0.952, B 0.994 | old overlap 0.234 (recorded 0.238) | 4 s
+15:55:30 N8 complete: all measurements finished
+15:55:30 copied 41 result files for upload
+15:55:30 waiting for background Drive saves to finish (up to 15 minutes)
+15:55:30 Drive saves finished

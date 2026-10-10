@@ -1,6 +1,6 @@
 # Preregistration N8: a measure of what a reading uses, free of its mistakes
 
-Date: 2026-10-10    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (a must-differ control, approved).** Run; see the deviation log, `N8_RESULTS.md` and `N8_NOTE.md`.
 
 Type: confirmatory for N8a (primary), N8b and N8c, each with its own decision rule, on models already trained in N6r and N7, with a measure not yet computed on them. Everything else is secondary or exploratory and labelled so.
 
@@ -152,7 +152,60 @@ If a threshold or control does not work as written, an amendment comes back for 
 
 ## Deviation log
 
-None yet.
+### The run, 2026-10-10
+
+- **Session:** the third, `colab-results` branch `n8_fisher/20261010-154616`, code commit b30f6ec. It measured all 40 models with no Drive failures.
+- **What changed after amendment A1 was approved:** only the one-line device fix below.
+- **Results:** N8a refuted, N8b refuted, N8c supported, with every precondition met. See `N8_RESULTS.md` and `N8_NOTE.md`.
+
+### Run 1 crashed before measuring any model, 2026-10-10 (not an amendment)
+
+- **What happened.** The first Colab session (`colab-results` branch, `n8_fisher/20261010-143934`) passed precondition 1: analytic check 1.0, identical heads 1.0, windows shifted. It then stopped with an error while building the rotated-readout control for the first untrained model. The rotation matrix had been left on the CPU while the model was on the GPU.
+- **What it saw.** No model, trained or untrained, had been measured.
+- **What changed.** One line: the matrix is moved to the model's device. It is drawn exactly as before, so it is the same rotation that was calibrated. Nothing else in the design or code changed.
+- **The rerun.** It resumes from the saved checks.
+- **A second session (`n8_fisher/20261010-144219`) crashed the same way.** It started at 14:42:19, 25 seconds before the fix was pushed (14:42:44), so it ran the old code (commit ac5f8ba). It too measured no model.
+
+### Amendment A1, before any real run, 2026-10-10: approved by the author
+
+Results seen before this entry:
+- the promised calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N8's test-split windows 513–768;
+- the analytic check;
+- synthetic records;
+- test-mode runs on tiny models.
+
+No trained full-size model has been measured with the new measure.
+
+**What the calibration found.**
+- **The estimator works.** The analytic check passed: the sampled estimate's top subspace overlapped the exact Fisher's at 0.99998. Two identical heads gave an agreement ratio of 1 to within rounding.
+- **Sharing the random draws doesn't inflate the overlap.** Drawing the two heads' tokens independently changed the untrained overlaps by at most 0.011 (0.973 against 0.977, and 0.956 against 0.967).
+- **The new measure is stable enough.** Untrained split-half stabilities were 0.92 to 0.97, above the threshold of 0.80.
+- **The must-fail control's calibration fails as written.** The calibration section required the untrained same-target arm's target-free agreement ratio to "fall well below 0.95, as before". It was 1.02 and 0.98. The old measure gave 0.50 on the same models.
+
+**Why.** An untrained head predicts almost uniformly. Its Fisher at the state is then close to Jᵀ Pᵀ (WᵀW / V) P J, where J is the Jacobian from the ODE block's output to the final state, P is the readout projection and W is the output matrix. A random W gives WᵀW close to a multiple of the identity, so W drops out. Head B's projection starts as a copy of head A's, so every pair of heads starts with the same target-free subspace. The old measure differed at the start only because its gradients point toward the actual target's row of W, which differs between the heads.
+
+**What this means for the design.**
+- Under this measure every arm starts at about 1, so the must-fail control passing on trained models would no longer show that training made the heads converge.
+- More seriously, the measure has to be able to call two readings separate. Otherwise a supported N8a or N8b, or a refuted N8c, could come from the measure rather than the models.
+
+**The amendment.**
+1. **Replace the low-end calibration with a must-differ control, applied to the trained models as precondition 3b.**
+   - *The control:* for each same-target model, a copy whose head B is head A reading a randomly rotated final state: logits_B = W_A P_A Q ln_f(z), with Q a fixed random orthogonal matrix. It has head A's own weights but reads different directions of the state by construction.
+   - *Precondition 3b:* in each set of models, the control's target-free agreement ratio is at most 0.60 in at least 4 of 5. That is the level N8b calls separate, so the measure must be able to reach the verdict N8b would call refuted.
+   - *Calibration:* on the untrained models the control gave 0.078 and 0.078. A head with an independently drawn random projection gave 0.074 and 0.073. Random 16-dimensional subspaces give 0.06.
+   - Precondition 3 (same-target ratio of at least 0.95) is unchanged.
+2. **Add an exploratory measure, S4: how far each readout moved from where it started.**
+   - It records the row-space overlap of each trained projection, P_A and P_B, with the initial projection both heads started from, and of P_A with P_B.
+   - The reason: every pair of heads starts at about 1 under this measure. A noisy head that learned little could score high only by staying where it began, if head A also moved little. If head A moved far and the noisy head followed it, that is convergence. S4 lets the reader tell these apart. It enters no decision rule.
+
+**Clarifications of the written design, not changes:**
+- Preconditions 2 to 4 are applied to each set of models separately: N7's models for N8a and N8b, N6r's for N8c. Precondition 1 applies to all three claims.
+- *The analytic check's toy model:* logits = hWᵀ + b, with b putting most of the probability on 17 tokens.
+  - A first version planted the top subspace in W instead. It passed, but a sampler that drew tokens uniformly passed it too (0.996).
+  - In the version used, the uniform sampler scores 0.72, so the check can fail.
+  - Its threshold of 0.98 is unchanged.
+
+**A risk that can't be calibrated without trained models.** The trained same-target heads might fall below 0.95 under the new measure, which would make N8 untestable. In N7's trained same-target models, the two readout projections overlapped at only 0.71.
 
 ## References
 

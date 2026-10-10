@@ -26,7 +26,7 @@ This repository contains the implementation and experiments for:
 > - **WikiText-103, properly trained, 6 seeds** ([results](experiments/wikitext103-training/RESULTS.md)): Model A was worse than the baseline by 1.10 nats (95% interval [0.97, 1.23]), and it did not behave as a continuous ODE under more accurate solvers.
 > - **Why** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)): training with adjoint gradients caused about 95% of that gap. Trained with exact gradients, the model was 0.04 nats behind the baseline at 10% of the budget.
 >
-> **Where the work went next.** The project's own aim is a model that holds several readings of a text at once, like voices in music. That is tested in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/). Start with the plain-language summary, [`PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). Known limitations of the original experiments are in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
+> **Where the work went next.** The project's own aim is a model that holds several readings of a text at once, like voices in music. That is tested in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/). Start with the plain-language summary, [`PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). A critical review of all the work, in the manner of Popper and Deutsch, including where the method fell short, is in [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md). Known limitations of the original experiments are in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
 
 ## Abstract
 
