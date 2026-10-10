@@ -1,6 +1,6 @@
 # Conjecture note: reading language polyphonically
 
-Date: 2026-10-05    Status: conjecture, partly tested (updated 2026-10-07). G1 and the tests that followed from it (G1c, G1d, N1, N2, N4, N5) have run. Their results are in the dated result lines at the end of "Dynamical regimes as voices" below, and in each test's note. V1–V3, G2 and G3 remain untested.
+Date: 2026-10-05    Status: conjecture, partly tested (updated 2026-10-09). G1 and the tests that followed from it (G1c, G1d, N1, N2, N4, N5, N6, N6r, N7) have run. Their results are in the dated result lines at the end of "Dynamical regimes as voices" below, and in each test's note. V1–V3, G2 and G3 remain untested.
 
 Written with the scientific-experimentation skill (conjecture-note template). Nothing here is a finding. Revised the same day after the author corrected the first version, which had misread the aim as setting word order aside.
 
@@ -91,6 +91,12 @@ Prior work shows trajectory geometry can also be shaped deliberately by regulari
 **N4 result, 2026-10-06: supported.** Forcing two coexisting readings through one shared set of 64 readout directions cost 0.088 nats more than the same restriction cost two heads reading the same target (95% interval [+0.078, +0.097]). The readings' directions stayed partly separate (overlap 0.46–0.49), while same-target heads converged (0.95–0.97). Coexisting voices need separate directions; they do not get separate timescales (N2). Exploratory: training did not push the readings apart, it failed to bring them together. See `N4_NOTE.md`.
 
 **N5 result, 2026-10-07: inconclusive.** The readout-width sweep could not settle whether N4's cost is a competition for directions. At full width the cost was positive in all five seeds (mean +0.030, about a third of N4's) but its interval crossed both zero and the margin. Narrow widths made training itself erratic. Exploratory, and striking: two different readings settled at about half-overlap (0.42–0.53) at every width, whether they started above or below it, while same-target heads converged. See `N5_NOTE.md`.
+
+**N6 result, 2026-10-08: untestable.** The must-fail control (same-target heads at an overlap of at least 0.95) held in 3 of 5 models, not 4; seed 3601 missed by 0.0002. The threshold had not been re-checked for N6's smaller number of windows. Exploratory, and consistent with the conjecture: the two readings' overlap fell from 0.48 at k = 2 to 0.31 at k = 4 and 0.25 at k = 8, in that order in all 5 seeds; o(2) − o(8) = +0.227, 95% interval [+0.184, +0.269]. A new test with the control set for its measurement (N6r) would settle it. See `N6_NOTE.md`.
+
+**N6r result, 2026-10-08: supported, both claims.** With the must-fail control judged like with like and 256 fresh test-split windows, the two readings' overlap fell from 0.49 (next token and the token after) to 0.31 (four apart) and 0.23 (eight apart), in that order in all 5 models: o(2) − o(8) = +0.252, 95% interval [+0.219, +0.286]. Same-target heads converged (0.96). How much of the state two readings share depends on how different they are; half-overlap is what adjacent tokens need, not a fixed property of the model. The confound with difficulty remains. See `N6R_NOTE.md`.
+
+**N7 result, 2026-10-09: refuted, both claims.** A head reading exactly the next token, made harder by randomising 80% of its targets, shared no more with the clean next-token head (0.31) than a head reading four words ahead (0.30), and did not converge with it (agreement ratio 0.30–0.33, against 0.85 required). So N6r's ladder, which stands and replicated, does not measure how different readings are, not on its own. The overlap measure likely reflects where each reading's errors fall as well as which features it uses. N4's cost of sharing, measured in loss, is unaffected. See `N7_NOTE.md`.
 
 G1 comes first, because it establishes that regimes can be produced and measured at all. G2 and G3 need TV1's tracking measure too.
 

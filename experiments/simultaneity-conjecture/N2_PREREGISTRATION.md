@@ -1,6 +1,6 @@
 # Preregistration N2: do dynamical regimes become necessary when two readings must coexist?
 
-Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final; amendment A1 (the per-dimension floor) approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log.
+Date: 2026-10-06    Status: **approved by the author on 2026-10-06, final; amendment A1 (the per-dimension floor) approved the same day, before any real run.** Nothing below had been run when this version was committed. From here on, the only changes are dated entries in the deviation log. **Added 2026-10-08: run; result: N2a refuted, N2b untestable.** See the deviation log's run entry, `N2_RESULTS.md` and `N2_NOTE.md`.
 
 Type: confirmatory for two hypotheses, N2a (existence) and N2b (necessity), each with its own decision rule. Everything else is secondary or exploratory and labelled so.
 

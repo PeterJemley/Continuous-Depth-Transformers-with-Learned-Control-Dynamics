@@ -1,0 +1,220 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " Dangerously in Love features a rap in Mandarin Chinese",
+      "target_i+1_end": "ously in Love features a rap in Mandarin Chinese performed",
+      "target_i+2_end": " in Love features a rap in Mandarin Chinese performed by",
+      "target_i+4_end": " features a rap in Mandarin Chinese performed by American @",
+      "target_i+8_end": " Mandarin Chinese performed by American @-@ Taiwanese singer"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " chopped up horn samples and sparkling synth textures . Maurice 's",
+        "target_end": " up horn samples and sparkling synth textures . Maurice 's \""
+      },
+      "skip_example": {
+        "input_end": " range available in Japan . \n\n A PlayStation Portable version of",
+        "target_end": " in Japan . \n\n A PlayStation Portable version of Final Fantasy"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3601,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3602,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3603,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3604,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3605,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ]
+  },
+  "windows": {
+    "measure": [
+      1793,
+      1931
+    ]
+  },
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "arms": {
+    "same": 1,
+    "k2": 2,
+    "k4": 4,
+    "k8": 8
+  },
+  "untrained": {
+    "seed3601": {
+      "same": {
+        "overlap_AB": 0.4894735600280156,
+        "stability_A_odd_even": 0.9143767688424989,
+        "stability_B_odd_even": 0.9750955274970039
+      },
+      "k2": {
+        "overlap_AB": 0.49032850027633,
+        "stability_A_odd_even": 0.9143767688424989,
+        "stability_B_odd_even": 0.9707702809608921
+      },
+      "k4": {
+        "overlap_AB": 0.4897981412105167,
+        "stability_A_odd_even": 0.9143767688424989,
+        "stability_B_odd_even": 0.9728222429973076
+      },
+      "k8": {
+        "overlap_AB": 0.48885294326782486,
+        "stability_A_odd_even": 0.9143767688424989,
+        "stability_B_odd_even": 0.9701688565168719
+      }
+    },
+    "seed3602": {
+      "same": {
+        "overlap_AB": 0.48269903544512444,
+        "stability_A_odd_even": 0.96019697316804,
+        "stability_B_odd_even": 0.9672032923446954
+      },
+      "k2": {
+        "overlap_AB": 0.48087819009388477,
+        "stability_A_odd_even": 0.96019697316804,
+        "stability_B_odd_even": 0.966082129250718
+      },
+      "k4": {
+        "overlap_AB": 0.4818000200393721,
+        "stability_A_odd_even": 0.96019697316804,
+        "stability_B_odd_even": 0.9610746688637376
+      },
+      "k8": {
+        "overlap_AB": 0.48042550425170416,
+        "stability_A_odd_even": 0.96019697316804,
+        "stability_B_odd_even": 0.949851961886607
+      }
+    },
+    "seed3603": {
+      "same": {
+        "overlap_AB": 0.4774458143158328,
+        "stability_A_odd_even": 0.9480143589665382,
+        "stability_B_odd_even": 0.9289382454476234
+      },
+      "k2": {
+        "overlap_AB": 0.4789142414687355,
+        "stability_A_odd_even": 0.9480143589665382,
+        "stability_B_odd_even": 0.9275860364400983
+      },
+      "k4": {
+        "overlap_AB": 0.4789044003442102,
+        "stability_A_odd_even": 0.9480143589665382,
+        "stability_B_odd_even": 0.9276801916267781
+      },
+      "k8": {
+        "overlap_AB": 0.4793934731332954,
+        "stability_A_odd_even": 0.9480143589665382,
+        "stability_B_odd_even": 0.9267519435105374
+      }
+    },
+    "seed3604": {
+      "same": {
+        "overlap_AB": 0.4577422415314438,
+        "stability_A_odd_even": 0.9640761215691562,
+        "stability_B_odd_even": 0.9345385431809813
+      },
+      "k2": {
+        "overlap_AB": 0.4571733079374566,
+        "stability_A_odd_even": 0.9640761215691562,
+        "stability_B_odd_even": 0.9239845607891243
+      },
+      "k4": {
+        "overlap_AB": 0.45508075514437907,
+        "stability_A_odd_even": 0.9640761215691562,
+        "stability_B_odd_even": 0.9202398111196088
+      },
+      "k8": {
+        "overlap_AB": 0.45590886183181367,
+        "stability_A_odd_even": 0.9640761215691562,
+        "stability_B_odd_even": 0.917006229105872
+      }
+    },
+    "seed3605": {
+      "same": {
+        "overlap_AB": 0.4827839426702774,
+        "stability_A_odd_even": 0.9696252089253685,
+        "stability_B_odd_even": 0.9671096999561015
+      },
+      "k2": {
+        "overlap_AB": 0.48179132975861627,
+        "stability_A_odd_even": 0.9696252089253685,
+        "stability_B_odd_even": 0.9695313633442663
+      },
+      "k4": {
+        "overlap_AB": 0.4819954272814789,
+        "stability_A_odd_even": 0.9696252089253685,
+        "stability_B_odd_even": 0.9700539748919748
+      },
+      "k8": {
+        "overlap_AB": 0.4818190237599109,
+        "stability_A_odd_even": 0.9696252089253685,
+        "stability_B_odd_even": 0.9638647488596437
+      }
+    }
+  }
+}
