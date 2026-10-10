@@ -1,6 +1,6 @@
 # Preregistration N9: can the target-free measure recognise an ideal noisy copy of a reading?
 
-Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (512 windows instead of 256, approved).** Queued; no real N9 run has started.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (512 windows instead of 256, approved).** Run; see the deviation log, `N9_RESULTS.md` and `N9_NOTE.md`.
 
 Type: confirmatory for N9a (primary) and N9b, each with its own decision rule, on models already trained in N7, with heads constructed from them and not yet measured. Everything else is secondary or exploratory and labelled so.
 
@@ -174,6 +174,12 @@ If a threshold or control does not work as written, an amendment comes back for 
 - **Same limits as before:** 10% of the budget, one learning rate, one size, one dataset, one readout width.
 
 ## Deviation log
+
+### The run, 2026-10-10
+
+- **Session:** `colab-results` branch `n9_noisycopy/20261010-185851`, code commit 5c83254. It measured all 20 models in one session, with no resumes and no Drive failures.
+- **What changed after amendment A1 was approved:** nothing.
+- **Results:** N9a supported, N9b refuted, with every precondition met. See `N9_RESULTS.md` and `N9_NOTE.md`.
 
 ### Amendment A1, before any real run, 2026-10-10: approved by the author
 

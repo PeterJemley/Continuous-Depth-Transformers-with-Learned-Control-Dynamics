@@ -58,6 +58,7 @@ All preconditions held, in both sets of models:
   - So it is not known whether this measure could ever have scored a perfect noisy copy near 0.85. Until that is checked, the result does not separate two explanations:
     - the noisy head learned a different, weaker reading (its loss against the clean targets was 6.60, against 5.13);
     - the measure cannot recognise a noisy copy as the same reading.
+  - **Update, 2026-10-10, from N9.** N9 separated the two. The measure recognises an ideal noisy copy of the clean head as the same reading (0.955–0.995). The trained noisy head is not close to that copy (0.305–0.349). So the noisy head learned a different, weaker reading, and the conclusion above holds as written. See `N9_NOTE.md`.
 
 ## What this does not change
 

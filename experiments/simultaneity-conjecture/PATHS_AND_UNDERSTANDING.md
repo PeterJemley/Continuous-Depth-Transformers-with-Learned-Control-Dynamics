@@ -1,6 +1,6 @@
 # Conjecture note: where this programme can go, and whether understanding works like perception
 
-Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-10: N1, N2, N4, N5, N6, N6r, N7 and N8, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
+Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-10: N1, N2, N4, N5, N6, N6r, N7, N8 and N9, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
 
 ## The questions
 
@@ -245,6 +245,8 @@ So the model switches between readings *without* needing the large dynamical dif
 **N7 result, 2026-10-09: refuted, both claims.** A head reading exactly the next token, made harder by randomising 80% of its targets, shared no more with the clean next-token head (0.31) than a head reading four words ahead (0.30), and did not converge with it (agreement ratio 0.30–0.33, against 0.85 required). So N6r's ladder, which stands and replicated, does not measure how different readings are, not on its own. The overlap measure likely reflects where each reading's errors fall as well as which features it uses. N4's cost of sharing, measured in loss, is unaffected. See `N7_NOTE.md`.
 
 **N8 result, 2026-10-10: N8a and N8b refuted, N8c supported.** Measured again with a target-free version of the overlap, on the same models, N7's noisy head still shared about a third with the clean head (0.31; agreement ratio 0.32–0.34, against 0.85 required), while the ladder persisted (0.95, 0.44, 0.25, 0.19). The two measures agree to within 0.045 in every arm, so N7's explanation, that the old measure mixed in where errors fall, is refuted. The ladder reflects which directions each reading's predictions depend on. Why a noisy copy of the next-token reading reads different directions is open. The design did not check whether the measure could recognise an ideal noisy copy, and that is the next test. See `N8_NOTE.md`.
+
+**N9 result, 2026-10-10: N9a supported, N9b refuted.** The target-free measure recognises an ideal noisy copy of the clean next-token head as the same reading (agreement 0.955–0.995 at 80% noise). The trained noisy head is not close to that copy (0.305–0.349). So N7's anomaly is in the model, not the measure. Training a head on noisy targets made it read different directions of the state, and read them less well. In what it predicts, the noisy head is close to the copy (0.07 nats of KL divergence per position), because both are dominated by the same fixed word frequencies. The ladder's measure is now validated on a case with a known answer. See `N9_NOTE.md`.
 
 ### Recommended order now
 
