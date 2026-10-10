@@ -179,7 +179,7 @@ def rotated_control(model, seed=FISHER_SEED):
     directions of the state, with head A's own weights, so the measure must be able to call it separate."""
     m = copy.deepcopy(model)
     D = study.CFG['d_model']
-    Q = torch.linalg.qr(torch.randn(D, D, generator=torch.Generator().manual_seed(seed + 2), dtype=torch.float64))[0]
+    Q = torch.linalg.qr(torch.randn(D, D, generator=torch.Generator().manual_seed(seed + 2), dtype=torch.float64))[0].to(DEV)
     with torch.no_grad():
         m.proj_b = copy.deepcopy(m.proj_a)
         m.proj_b.weight.copy_((m.proj_a.weight.double() @ Q).float())

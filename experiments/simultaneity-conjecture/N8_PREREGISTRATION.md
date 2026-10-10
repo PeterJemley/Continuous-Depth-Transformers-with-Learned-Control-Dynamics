@@ -152,6 +152,13 @@ If a threshold or control does not work as written, an amendment comes back for 
 
 ## Deviation log
 
+### Run 1 crashed before measuring any model, 2026-10-10 (not an amendment)
+
+- **What happened.** The first Colab session (`colab-results` branch, `n8_fisher/20261010-143934`) passed precondition 1: analytic check 1.0, identical heads 1.0, windows shifted. It then stopped with an error while building the rotated-readout control for the first untrained model. The rotation matrix had been left on the CPU while the model was on the GPU.
+- **What it saw.** No model, trained or untrained, had been measured.
+- **What changed.** One line: the matrix is moved to the model's device. It is drawn exactly as before, so it is the same rotation that was calibrated. Nothing else in the design or code changed.
+- **The rerun.** It resumes from the saved checks.
+
 ### Amendment A1, before any real run, 2026-10-10: approved by the author
 
 Results seen before this entry:
