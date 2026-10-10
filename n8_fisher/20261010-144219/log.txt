@@ -1,0 +1,28 @@
+14:42:22 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N8 folder: /content/drive/MyDrive/cdt-colab/n8_fisher | local: /content/cdt_local/n8_fisher
+14:42:22 weights from: /content/drive/MyDrive/cdt-colab/n7_harder/final, /content/drive/MyDrive/cdt-colab/n6r_halfoverlap/final
+14:42:32 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+14:42:32 measured on test-split windows 513-768
+14:42:32 analytic check, top-subspace overlap: 1.0 | identical heads, agreement ratio: 1.0 | windows shifted: True
+14:42:38 copied 1 result files for upload
+14:42:38 waiting for background Drive saves to finish (up to 15 minutes)
+14:42:38 Drive saves finished
+Traceback (most recent call last):
+  File "/content/repo/colab/jobs/n8_fisher.py", line 8, in <module>
+    run(Path(__file__).resolve().parents[2] / 'experiments' / 'simultaneity-conjecture' / 'n8_fisher.py')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/colab/jobs/_run.py", line 23, in run
+    runpy.run_path(sys.argv[0], run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/content/repo/experiments/simultaneity-conjecture/n8_fisher.py", line 323, in <module>
+    main()
+    ~~~~^^
+  File "/content/repo/experiments/simultaneity-conjecture/n8_fisher.py", line 277, in main
+    'rotated_control': scalars(measure_f(rotated_control(n4.new_n4(s, BASE)), mx, u))}
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/content/repo/experiments/simultaneity-conjecture/n8_fisher.py", line 185, in rotated_control
+    m.proj_b.weight.copy_((m.proj_a.weight.double() @ Q).float())
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+RuntimeError: Expected all tensors to be on the same device, but got mat2 is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA_mm)

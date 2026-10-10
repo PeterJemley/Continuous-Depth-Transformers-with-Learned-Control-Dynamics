@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n8_fisher",
+    "args": [],
+    "description": "Test N8: a target-free measure of what each reading uses. No training: loads N7's and N6r's 40 saved models from Drive (cdt-colab/n7_harder/final and cdt-colab/n6r_halfoverlap/final) and measures each on test-split windows 513-768, with the new measure and the old one. About 30 minutes on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 30
+  },
+  "code_commit": "ac5f8ba0427acfaa77548cd7f9a2f7a63de2fc42",
+  "run_id": "20261010-144219",
+  "gpu": "Tesla T4"
+}
