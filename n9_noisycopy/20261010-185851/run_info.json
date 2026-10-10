@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n9_noisycopy",
+    "args": [],
+    "description": "Test N9: can the target-free measure recognise an ideal noisy copy of a reading? No training: loads N7's 20 saved models from Drive (cdt-colab/n7_harder/final), builds from each clean head its ideal noisy copy, and measures them on test-split windows 769-1280. Reads N8's records from cdt-colab/n8_fisher/results for the loading check. About 40 minutes on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 40
+  },
+  "code_commit": "5c832547f2e7a72472d708d9f9e3bf5e37ab9c8f",
+  "run_id": "20261010-185851",
+  "gpu": "Tesla T4"
+}

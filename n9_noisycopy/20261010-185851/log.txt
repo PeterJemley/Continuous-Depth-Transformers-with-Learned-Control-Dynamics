@@ -1,0 +1,29 @@
+18:58:53 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N9 folder: /content/drive/MyDrive/cdt-colab/n9_noisycopy | local: /content/cdt_local/n9_noisycopy
+18:58:53 weights from: /content/drive/MyDrive/cdt-colab/n7_harder/final | N8 records from: /content/drive/MyDrive/cdt-colab/n8_fisher/results
+18:59:04 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+18:59:05 measured on test-split windows 769-1280
+18:59:16 analytic check on mixtures, top-subspace overlap: 0.994 | identical heads: 1.0 | windows shifted: True | unigram sum 1.0 top tokens [' the', ' ,', ' .', ' of', ' and']
+19:00:01 c_noisy_seed3801: A vs copy 0.977 | noisy head vs copy 0.305 | A vs noisy head 0.320 (overlap 0.308, N8 0.29480593236457764) | copy at 0 1.000000 | rotated 0.121 | 42 s
+19:00:18 c_same_seed3801: A vs copy 0.983 | copy at 0 0.999993 | 13 s
+19:00:35 c_k4_seed3801: A vs copy 0.975 | copy at 0 1.000000 | 13 s
+19:00:52 c_k8_seed3801: A vs copy 0.974 | copy at 0 1.000000 | 13 s
+19:01:38 c_noisy_seed3802: A vs copy 0.975 | noisy head vs copy 0.319 | A vs noisy head 0.326 (overlap 0.314, N8 0.29984381183559755) | copy at 0 1.000003 | rotated 0.131 | 43 s
+19:01:54 c_same_seed3802: A vs copy 0.968 | copy at 0 0.999999 | 13 s
+19:02:10 c_k4_seed3802: A vs copy 0.978 | copy at 0 1.000001 | 13 s
+19:02:26 c_k8_seed3802: A vs copy 0.989 | copy at 0 1.000000 | 13 s
+19:03:13 c_noisy_seed3803: A vs copy 0.955 | noisy head vs copy 0.330 | A vs noisy head 0.341 (overlap 0.336, N8 0.33074250427264557) | copy at 0 1.000002 | rotated 0.119 | 43 s
+19:03:29 c_same_seed3803: A vs copy 0.991 | copy at 0 1.000000 | 13 s
+19:03:46 c_k4_seed3803: A vs copy 0.973 | copy at 0 0.999999 | 13 s
+19:04:02 c_k8_seed3803: A vs copy 0.967 | copy at 0 1.000001 | 13 s
+19:04:48 c_noisy_seed3804: A vs copy 0.989 | noisy head vs copy 0.349 | A vs noisy head 0.352 (overlap 0.348, N8 0.3246035006734116) | copy at 0 0.999989 | rotated 0.131 | 43 s
+19:05:05 c_same_seed3804: A vs copy 0.969 | copy at 0 1.000001 | 13 s
+19:05:22 c_k4_seed3804: A vs copy 0.989 | copy at 0 1.000000 | 13 s
+19:05:39 c_k8_seed3804: A vs copy 0.987 | copy at 0 1.000001 | 13 s
+19:06:25 c_noisy_seed3805: A vs copy 0.995 | noisy head vs copy 0.320 | A vs noisy head 0.327 (overlap 0.318, N8 0.3022511852414985) | copy at 0 1.000000 | rotated 0.133 | 43 s
+19:06:41 c_same_seed3805: A vs copy 0.954 | copy at 0 1.000000 | 13 s
+19:06:57 c_k4_seed3805: A vs copy 0.964 | copy at 0 1.000000 | 13 s
+19:07:14 c_k8_seed3805: A vs copy 0.961 | copy at 0 0.999999 | 13 s
+19:07:14 N9 complete: all measurements finished
+19:07:14 copied 21 result files for upload
+19:07:14 waiting for background Drive saves to finish (up to 15 minutes)
+19:07:14 Drive saves finished

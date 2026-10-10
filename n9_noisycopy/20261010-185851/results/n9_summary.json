@@ -1,0 +1,72 @@
+{
+  "checks": {
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657752534241,
+      "sampled": {
+        "top_subspace_overlap": 0.9939607685001477,
+        "relative_error": 0.25526842956616447
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972837514206,
+        "relative_error": 0.16654861346694091
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084782268052,
+        "relative_error": 0.45547995648179396
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3801,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 0.9999999977734473,
+      "pass": true
+    },
+    "test_windows_shifted": true,
+    "unigram": {
+      "sum": 1.0000000000000002,
+      "zeros": 3369,
+      "most_frequent_tokens": [
+        " the",
+        " ,",
+        " .",
+        " of",
+        " and"
+      ]
+    }
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      769,
+      1280
+    ]
+  },
+  "rho": 0.8,
+  "rhos": [
+    0.0,
+    0.2,
+    0.5,
+    0.8,
+    0.95
+  ],
+  "fisher_seed": 161803,
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "seeds": [
+    3801,
+    3802,
+    3803,
+    3804,
+    3805
+  ],
+  "arms": [
+    "same",
+    "k4",
+    "k8",
+    "noisy"
+  ]
+}
