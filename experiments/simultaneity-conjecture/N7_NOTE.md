@@ -42,6 +42,7 @@ The k = 4 and k = 8 overlaps replicated N6r's on new seeds and windows: 0.297 ag
   - A dated correction has been added to `N6R_NOTE.md`, and the plain summary has been corrected.
 - **Difficulty alone does not fit either.** The noisy head was the hardest (7.35 nats) but shared *more* than the k = 8 head (0.31 against 0.24). So neither "more different" nor "harder" orders the results on its own.
 - **A likely reason: the measure sees where a reading's errors fall, not only what it uses.** The sensitivity subspace comes from the gradient of each head's loss against its actual targets. When targets are unpredictable, whether because they are far ahead or because they are randomised, much of that gradient comes from the errors. The errors point toward whichever words the targets turned out to be, frequent words above all. Two heads then "share" directions in proportion to how alike their errors are, not only how alike their features are. This is a conjecture, prompted by the result, and it needs its own test.
+- **Correction, 2026-10-10, from N8.** This conjecture is refuted. On the same models and on fresh windows, a target-free version of the measure gave the same overlaps to within 0.045 on average, and 0.001 for the noisy head (0.310 against 0.309). Errors were not what made the noisy head look separate. In hindsight this was predictable: a trained head is roughly calibrated to its own targets, and then the two measures have the same expectation. N7's verdicts are unchanged. See `N8_NOTE.md`.
 
 ## Which kind of result this is
 

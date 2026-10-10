@@ -1,6 +1,6 @@
 # Preregistration N8: a measure of what a reading uses, free of its mistakes
 
-Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (a must-differ control, approved).** Queued; no real N8 run has started.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (a must-differ control, approved).** Run; see the deviation log, `N8_RESULTS.md` and `N8_NOTE.md`.
 
 Type: confirmatory for N8a (primary), N8b and N8c, each with its own decision rule, on models already trained in N6r and N7, with a measure not yet computed on them. Everything else is secondary or exploratory and labelled so.
 
@@ -151,6 +151,12 @@ If a threshold or control does not work as written, an amendment comes back for 
 - **Same limits as before:** 10% of the budget, one learning rate, one size, one dataset, one readout width.
 
 ## Deviation log
+
+### The run, 2026-10-10
+
+- **Session:** the third, `colab-results` branch `n8_fisher/20261010-154616`, code commit b30f6ec. It measured all 40 models with no Drive failures.
+- **What changed after amendment A1 was approved:** only the one-line device fix below.
+- **Results:** N8a refuted, N8b refuted, N8c supported, with every precondition met. See `N8_RESULTS.md` and `N8_NOTE.md`.
 
 ### Run 1 crashed before measuring any model, 2026-10-10 (not an amendment)
 
