@@ -1,6 +1,6 @@
 # Preregistration N9: can the target-free measure recognise an ideal noisy copy of a reading?
 
-Date: 2026-10-10    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10.** Being built and calibrated; no real N9 run has started.
 
 Type: confirmatory for N9a (primary) and N9b, each with its own decision rule, on models already trained in N7, with heads constructed from them and not yet measured. Everything else is secondary or exploratory and labelled so.
 
