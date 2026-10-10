@@ -1,6 +1,6 @@
 # Preregistration N8: a measure of what a reading uses, free of its mistakes
 
-Date: 2026-10-10    Status: **approved by the author, 2026-10-10. Amendment A1 (a must-differ control) proposed, awaiting approval.** No real N8 run has started.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (a must-differ control, approved).** Queued; no real N8 run has started.
 
 Type: confirmatory for N8a (primary), N8b and N8c, each with its own decision rule, on models already trained in N6r and N7, with a measure not yet computed on them. Everything else is secondary or exploratory and labelled so.
 
@@ -152,7 +152,7 @@ If a threshold or control does not work as written, an amendment comes back for 
 
 ## Deviation log
 
-### Amendment A1, before any real run, 2026-10-10: proposed, awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-10: approved by the author
 
 Results seen before this entry:
 - the promised calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N8's test-split windows 513–768;
