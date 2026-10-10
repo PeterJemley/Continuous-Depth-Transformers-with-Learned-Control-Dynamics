@@ -1,6 +1,6 @@
 # Preregistration N9: can the target-free measure recognise an ideal noisy copy of a reading?
 
-Date: 2026-10-10    Status: **approved by the author, 2026-10-10. Amendment A1 (512 windows instead of 256) proposed, awaiting approval.** No real N9 run has started.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10, with amendment A1 (512 windows instead of 256, approved).** Queued; no real N9 run has started.
 
 Type: confirmatory for N9a (primary) and N9b, each with its own decision rule, on models already trained in N7, with heads constructed from them and not yet measured. Everything else is secondary or exploratory and labelled so.
 
@@ -175,7 +175,7 @@ If a threshold or control does not work as written, an amendment comes back for 
 
 ## Deviation log
 
-### Amendment A1, before any real run, 2026-10-10: proposed, awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-10: approved by the author
 
 Results seen before this entry:
 - the analytic check;
