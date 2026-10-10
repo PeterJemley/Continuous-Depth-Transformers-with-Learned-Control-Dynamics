@@ -187,6 +187,20 @@ def rotated_control(model, seed=FISHER_SEED):
     return m
 
 
+def rowspace_overlap(Wa, Wb):
+    """Overlap of the row spaces of two readout projections (as n4.readout_overlap)."""
+    qa = torch.linalg.qr(Wa.detach().double().T)[0]
+    qb = torch.linalg.qr(Wb.detach().double().T)[0]
+    return ((qa.T @ qb).pow(2).sum() / qa.shape[1]).item()
+
+
+def readout_drift(model, seed):
+    """Exploratory: how far each trained readout projection has moved from the one both started as."""
+    p0 = n4.new_n4(seed, BASE).proj_a.weight
+    return {'A_vs_initial': rowspace_overlap(model.proj_a.weight, p0), 'B_vs_initial': rowspace_overlap(model.proj_b.weight, p0),
+            'A_vs_B': rowspace_overlap(model.proj_a.weight, model.proj_b.weight)}
+
+
 def old_targets(set_name, arm, mys, probs):
     if set_name == 'n7':
         return n7.fixed_targets(arm, mys, probs, n7.MEAS_NOISE_SEED)
@@ -259,7 +273,8 @@ def main():
             raise SystemExit('A check of the estimator or the windows failed before any model was measured. Stopping.')
 
         if 'untrained' not in summary:
-            summary['untrained'] = {f'seed{s}': scalars(measure_f(n4.new_n4(s, BASE), mx, u))
+            summary['untrained'] = {f'seed{s}': {**scalars(measure_f(n4.new_n4(s, BASE), mx, u)),
+                                                 'rotated_control': scalars(measure_f(rotated_control(n4.new_n4(s, BASE)), mx, u))}
                                     for st in SETS for s in SETS[st]['seeds']}
             save_json('results/n8_summary.json', summary)
 
@@ -278,15 +293,19 @@ def main():
                     fr = measure_f(m, mx, u)
                     old = n6r.measure(m, mx, *old_targets(set_name, arm, mys, probs))
                     rec, rec_from = recorded_old(src, set_name, tag)
-                    res = {'tag': tag, 'set': set_name, 'seed': seed, 'arm': arm, 'fisher': fr,
+                    rot = scalars(measure_f(rotated_control(m), mx, u)) if arm == 'same' else None
+                    res = {'tag': tag, 'set': set_name, 'seed': seed, 'arm': arm, 'fisher': fr, 'rotated_control': rot,
+                           'readout_drift': readout_drift(m, seed),
                            'old': {**scalars(old), 'subspaces': old['subspaces']},
                            'loading': {'recorded_overlap_AB': rec, 'recorded_from': rec_from,
                                        'difference': None if rec is None else old['overlap_AB'] - rec,
                                        'pass': rec is not None and abs(old['overlap_AB'] - rec) <= LOAD_TOL}}
                     save_json(rel, res)
+                    rot_note = '' if rot is None else f" | rotated control ratio {rot['agreement_ratio']:.3f}"
                     log(f"f_{set_name}_{tag}: target-free overlap {fr['overlap_AB']:.3f}, ratio {fr['agreement_ratio']:.3f}, "
                         f"stability A {fr['stability_A_odd_even']:.3f}, B {fr['stability_B_odd_even']:.3f} | "
-                        f"old overlap {old['overlap_AB']:.3f} (recorded {rec if rec is None else round(rec, 3)}) | {fr['seconds']:.0f} s")
+                        f"old overlap {old['overlap_AB']:.3f} (recorded {rec if rec is None else round(rec, 3)})"
+                        f"{rot_note} | {fr['seconds']:.0f} s")
         log('N8 complete: all measurements finished')
     finally:
         dest = out / 'results'

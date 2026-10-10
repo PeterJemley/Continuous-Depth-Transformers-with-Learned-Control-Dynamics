@@ -3,6 +3,7 @@
 Written and committed before any real N8 run. Every number in the report comes from the
 JSON records in the results folder.
 
+Amendment A1 adds precondition 3b (a must-differ control) and S4 (readout drift).
 Preconditions 2-4 are applied to each set of models separately: N7's models for N8a and N8b, N6r's
 models for N8c. Precondition 1 (the estimator) applies to all three.
 
@@ -76,6 +77,8 @@ def main():
                 bool(ss) and all(rec[(sn, a, s)]['loading']['pass'] for a in arms for s in ss),
             f'3. Must fail: the same arm\'s target-free agreement ratio ≥ {SAME_MIN} in at least 4 of 5':
                 sum(f(sn, 'same', s, 'agreement_ratio') >= SAME_MIN for s in ss) >= NEEDED,
+            f'3b. Must differ (amendment A1): the rotated-readout control\'s target-free agreement ratio ≤ {SEPARATE} in at least 4 of 5':
+                sum((rec[(sn, 'same', s)].get('rotated_control') or {}).get('agreement_ratio', 1.0) <= SEPARATE for s in ss) >= NEEDED,
             f'4. Stable subspaces: every head in arms {", ".join(DECIDING[sn])} has target-free stability ≥ {STABLE_MIN}':
                 bool(ss) and all(min(f(sn, a, s, 'stability_A_odd_even'), f(sn, a, s, 'stability_B_odd_even')) >= STABLE_MIN
                                  for a in DECIDING[sn] for s in ss),
@@ -178,11 +181,30 @@ def main():
                 big = max(abs(d) for d in ds) if all(d is not None for d in ds) else None
                 L.append(f"| {sn} | {a} | {'missing' if big is None else f'{big:.3f}'} | "
                          f"{', '.join(sorted({rec[(sn, a, s)]['loading']['recorded_from'] for s in ss}))} |")
+    L += ['', '### Rotated-readout control (precondition 3b), by seed', '', '| Models | Seed | Overlap | Agreement ratio |', '|---|---|---|---|']
+    for sn in SETS:
+        for s in done[sn]:
+            rc = rec[(sn, 'same', s)].get('rotated_control')
+            if rc:
+                L.append(f"| {sn} | {s} | {rc['overlap_AB']:.3f} | {rc['agreement_ratio']:.3f} |")
+    L += ['', '### S4 (amendment A1): how far each readout moved from the projection both heads started as (means over seeds)', '',
+          'Row-space overlap of the trained projection with the initial one (1 = not moved; 0.25 = random at rank 64 of 256).', '',
+          '| Models | Arm | P_A vs initial | P_B vs initial | P_A vs P_B |', '|---|---|---|---|---|']
+    for sn, (seeds, arms) in SETS.items():
+        ss = [s for s in done[sn] if all(rec[(sn, a, s)].get('readout_drift') for a in arms)]
+        for a in arms:
+            if ss:
+                dr = [rec[(sn, a, s)]['readout_drift'] for s in ss]
+                L.append(f"| {sn} | {a} | {st.mean(d['A_vs_initial'] for d in dr):.3f} | {st.mean(d['B_vs_initial'] for d in dr):.3f} | "
+                         f"{st.mean(d['A_vs_B'] for d in dr):.3f} |")
     unt = summary.get('untrained', {})
     if unt:
-        L += ['', '### Untrained models under the target-free measure', '', '| Seed | Overlap | Agreement ratio | Stability A / B |', '|---|---|---|---|']
+        L += ['', '### Untrained models under the target-free measure', '',
+              '| Seed | Overlap | Agreement ratio | Stability A / B | Rotated control ratio |', '|---|---|---|---|---|']
         for k, v in unt.items():
-            L.append(f"| {k[4:]} | {v['overlap_AB']:.3f} | {v['agreement_ratio']:.3f} | {v['stability_A_odd_even']:.3f} / {v['stability_B_odd_even']:.3f} |")
+            rc = v.get('rotated_control', {}).get('agreement_ratio')
+            L.append(f"| {k[4:]} | {v['overlap_AB']:.3f} | {v['agreement_ratio']:.3f} | {v['stability_A_odd_even']:.3f} / "
+                     f"{v['stability_B_odd_even']:.3f} | {'' if rc is None else f'{rc:.3f}'} |")
     L.append('')
     OUT.write_text('\n'.join(L))
     print('\n'.join(L[:14]))
