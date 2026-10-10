@@ -158,6 +158,7 @@ If a threshold or control does not work as written, an amendment comes back for 
 - **What it saw.** No model, trained or untrained, had been measured.
 - **What changed.** One line: the matrix is moved to the model's device. It is drawn exactly as before, so it is the same rotation that was calibrated. Nothing else in the design or code changed.
 - **The rerun.** It resumes from the saved checks.
+- **A second session (`n8_fisher/20261010-144219`) crashed the same way.** It started at 14:42:19, 25 seconds before the fix was pushed (14:42:44), so it ran the old code (commit ac5f8ba). It too measured no model.
 
 ### Amendment A1, before any real run, 2026-10-10: approved by the author
 
