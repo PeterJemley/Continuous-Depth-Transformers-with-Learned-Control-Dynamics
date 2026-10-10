@@ -4,7 +4,7 @@ Implements N9_PREREGISTRATION.md in this folder. No training. The job loads N7's
 (n7_harder) from Drive and, for each model, builds from head A its ideal noisy copy: the head whose
 prediction is exactly q = (1 - rho) p_A + rho u, with u the training data's unigram distribution, computed in
 log space as logaddexp(log(1 - rho) + log p_A, log rho + log u). Every head is then measured with N8's
-target-free measure (n8_fisher), on WikiText-103 test-split windows 769-1024:
+target-free measure (n8_fisher), on WikiText-103 test-split windows 769-1280 (amendment A1):
   N9a  head A against its copy at rho = 0.8;
   N9b  the trained noisy head B against that copy;
   S1   head A against its copies at rho = 0, 0.2, 0.5, 0.95 (rho = 0 is the must-match control);
@@ -37,7 +37,7 @@ SEEDS = [3801, 3802] if TEST else [3801, 3802, 3803, 3804, 3805]
 ARMS = list(n7.ARMS)                                 # same, k4, k8, noisy
 RHO = n7.NOISE                                       # 0.8, the rate of N7's noise
 RHOS = [0.0, 0.2, 0.5, RHO, 0.95]
-MEAS = (48, 64) if TEST else (768, 1024)            # test-split windows 769-1024
+MEAS = (48, 64) if TEST else (768, 1280)            # test-split windows 769-1280 (amendment A1; was 769-1024)
 BATCH = 4 if TEST else 16                            # windows per forward pass; seven heads share each pass
 MATCH_MIN = 0.999                                    # precondition 2
 LOAD_TOL = n8.LOAD_TOL                               # precondition 4

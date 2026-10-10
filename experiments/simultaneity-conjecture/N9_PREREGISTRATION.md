@@ -1,6 +1,6 @@
 # Preregistration N9: can the target-free measure recognise an ideal noisy copy of a reading?
 
-Date: 2026-10-10    Status: **approved by the author, 2026-10-10.** Being built and calibrated; no real N9 run has started.
+Date: 2026-10-10    Status: **approved by the author, 2026-10-10. Amendment A1 (512 windows instead of 256) proposed, awaiting approval.** No real N9 run has started.
 
 Type: confirmatory for N9a (primary) and N9b, each with its own decision rule, on models already trained in N7, with heads constructed from them and not yet measured. Everything else is secondary or exploratory and labelled so.
 
@@ -175,7 +175,36 @@ If a threshold or control does not work as written, an amendment comes back for 
 
 ## Deviation log
 
-None yet.
+### Amendment A1, before any real run, 2026-10-10: proposed, awaiting the author's approval
+
+Results seen before this entry:
+- the analytic check;
+- calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N9's windows;
+- synthetic records;
+- a test-mode run on tiny models.
+
+No trained full-size model has been measured.
+
+**What the calibration found.**
+- **The estimator works on mixtures.** The analytic check passed at 0.994.
+- **The controls work.** Identical heads gave a ratio of 1 to within rounding. The must-match copy (ρ = 0) gave exactly 1.000000. The must-differ control gave 0.077 and 0.079.
+- **The ideal copy's subspace is noisy at 256 windows.** At ρ = 0.8, with the full training-set unigram, its split-half stability was 0.849 and 0.818, within 0.05 of the 0.80 threshold of precondition 5. At ρ = 0.95 it was 0.65–0.66.
+  - The reason: 80% of the copy's sampled targets come from the unigram part of its prediction. For those tokens the copy's gradient is small, because head A thinks most of them unlikely. So fewer positions carry information than for head A, whose stabilities were 0.91–0.94.
+  - With 512 windows (769–1280), the copy's stability rose to 0.884 and 0.874, and head A's to 0.94–0.99.
+- **The tiny test-mode run** failed precondition 5, mostly through the copy. That is not decisive, since its models are tiny and its windows few, but it points the same way.
+- How stable the copy will be in *trained* models cannot be calibrated in advance. N8's trained noisy head, a learned mixture of the same kind, had stabilities of 0.93–0.97.
+
+**The amendment.** Measure on WikiText-103 test-split windows 769–1280, 512 windows instead of 256.
+- No earlier test has used windows 1025–1280.
+- Nothing else changes: the measure, the heads, every threshold and every rule are as written.
+- The cost roughly doubles, to about 40 minutes.
+
+**Clarifications of the written design, not changes:**
+- **S2's "KL divergence to u alone" is infinite.** u is zero for 3,369 tokens that never occur in the training data, and the noisy head's softmax gives every token some probability. S2 instead reports two things:
+  - the KL divergence from the noisy head to the copy at each ρ of S1 (0 to 0.95), which shows which noise rate the noisy head's predictions are closest to;
+  - the noisy head's total probability on the tokens where u is zero.
+- **The analytic check's toy.** A first version, N8's toy with a random unigram, passed, but a wrong estimator also passed it: measuring the copy as if it were head A scored 0.999. In the version used, head A gives some probability to tokens the unigram favours much more. The wrong estimator then scores 0.66–0.80, and the real one 0.994–0.995. The threshold of 0.98 is unchanged.
+- **Precondition 2 (must match) is applied to every measured model,** the S4 models included.
 
 ## References
 
