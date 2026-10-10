@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "analytic": {
+      "positions": 8192,
+      "vocab": 2000,
+      "eigengap_R_over_R+1": 17.523347250818944,
+      "sampled": {
+        "top_subspace_overlap": 0.9999847061748296,
+        "relative_error": 0.04449588411943424
+      },
+      "uniform_tokens": {
+        "top_subspace_overlap": 0.7183748168861833,
+        "relative_error": 0.9047659610035174
+      },
+      "argmax_tokens": {
+        "top_subspace_overlap": 0.9999903690984823,
+        "relative_error": 0.22212464439947624
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3801,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 1.0000000010349541,
+      "pass": true
+    },
+    "test_windows_shifted": true
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      513,
+      768
+    ]
+  },
+  "fisher_seed": 161803,
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "sets": {
+    "n7": {
+      "job": "n7_harder",
+      "seeds": [
+        3801,
+        3802,
+        3803,
+        3804,
+        3805
+      ],
+      "arms": [
+        "same",
+        "k4",
+        "k8",
+        "noisy"
+      ],
+      "recorded": "n7"
+    },
+    "n6r": {
+      "job": "n6r_halfoverlap",
+      "seeds": [
+        3701,
+        3702,
+        3703,
+        3704,
+        3705
+      ],
+      "arms": [
+        "same",
+        "k2",
+        "k4",
+        "k8"
+      ],
+      "recorded": "n6r"
+    }
+  }
+}
