@@ -1,6 +1,6 @@
 # Preregistration N11: a payload strong enough to test, and a yardstick it cannot move
 
-Date: 2026-10-18    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-18    Status: **approved by the author, 2026-10-18.** Being built and calibrated; no real N11 run has started.
 
 Type: confirmatory for N11a (primary), N11b and N11c, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 

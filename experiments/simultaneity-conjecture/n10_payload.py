@@ -91,9 +91,11 @@ def payload_term(model, kind, px, py, log_u, rho):
 
 # ------------------------------------------------------------------ training
 
-def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
-    """One run, resumable. As n7.train_n7, with head B's noise rate and payload set by the arm."""
-    rho, kind = ARMS[arm]
+def train_n10(store, meta, arm, seed, tag, probs, log_u, payload, lam=None):
+    """One run, resumable. As n7.train_n7, with head B's noise rate and payload set by the arm. lam overrides
+    the payload strength (N11); by default it is LAMBDA[kind], as in N10."""
+    rho, kind = ARMS[arm][:2]
+    lam = LAMBDA.get(kind) if lam is None else lam
     res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
         log(f'{tag}: already finished, skipping')
@@ -153,7 +155,7 @@ def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
             if kind is not None:
                 j = (PAYLOAD_PER_STEP * step) % N_PAYLOAD
                 pterm = payload_term(model, kind, px[j:j + PAYLOAD_PER_STEP], py[j:j + PAYLOAD_PER_STEP], log_u, rho)
-                loss = loss + 0.5 * LAMBDA[kind] * pterm
+                loss = loss + 0.5 * lam * pterm
         scaler.scale(loss).backward()
         scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -182,7 +184,7 @@ def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
     fx, fys = n6.windows(study.load_tokens(store, meta, 'validation'), limit=g.FINAL_LIMIT)
     l_a, l_b = n6.losses(model, fx, fys[0], fixed_noisy(fys[0], probs, rho, VAL_NOISE_SEED))
     l_b_clean = n6.losses(model, fx, fys[0], fys[0])[1]
-    result = {'tag': tag, 'arm': arm, 'rho': rho, 'payload': kind, 'lambda': LAMBDA.get(kind), 'seed': seed, 'readout_rank': n4.RANK,
+    result = {'tag': tag, 'arm': arm, 'rho': rho, 'payload': kind, 'lambda': lam, 'seed': seed, 'readout_rank': n4.RANK,
               'final_loss_A': l_a, 'final_loss_B': l_b, 'final_loss_B_clean_targets': l_b_clean,
               'final_val_windows': len(fx), 'val_curve': state['val'], 'train_loss_every_50': state['train_loss'],
               'payload_term_every_50': state['payload_term'], 'alpha_every_50': state['alpha'],
