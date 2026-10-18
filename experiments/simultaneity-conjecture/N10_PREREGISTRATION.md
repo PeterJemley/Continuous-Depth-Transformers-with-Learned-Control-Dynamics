@@ -1,6 +1,6 @@
 # Preregistration N10: how much noise changes what a head learns, and which payload preserves it
 
-Date: 2026-10-15    Status: **approved by the author, 2026-10-18.** Being built and calibrated; no real N10 run has started.
+Date: 2026-10-15    Status: **approved by the author, 2026-10-18.** Calibrated without amendment, and queued; no real N10 run has started.
 
 Type: confirmatory for N10a (primary), N10b, N10c and N10d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -223,7 +223,30 @@ If a threshold, λ or control does not work as written, an amendment comes back 
 
 ## Deviation log
 
-None yet.
+### Calibration and implementation details, before any real run, 2026-10-18 (no amendment)
+
+Results seen before this entry:
+- calibration on **untrained** full-size models (G1's seeds 3001 and 3002) on N10's windows;
+- a short full-size stress check of the payloads;
+- test-mode runs on tiny models;
+- synthetic records.
+
+No real N10 run has started.
+
+- **Untrained models.**
+  - *The estimator:* the analytic check scored 0.994, identical heads 1.0, and the rotated control 0.074 and 0.076.
+  - *Recognising copies:* head A against its own ideal copy scored 0.98 to 1.01 at every ρ.
+  - *Stability:* at least 0.89 for every head and copy, 0.89 to 0.90 for the copy at ρ = 0.8.
+  - *Head B against the copies:* untrained heads score near 1 (0.96 to 1.00), as N8 found, because head B's readout starts as a copy of head A's. The must-match control therefore means something only in trained models.
+- **The payloads at full size.** Each arm was trained for 150 steps at the peak learning rate, which is harder on the geometric pin than the real warm-up schedule, on the full training text, seed 3001.
+  - *Geometric:* with λ = 10, P_A and P_B overlapped at 0.999, against 0.805 in the unanchored arm. Precondition 5a should be met.
+  - *Functional:* with λ = 1, the payload-window KL divergence was 0.054, against 0.084 unanchored, a ratio of 0.64. Precondition 5b asks for at most 0.5 by the end of training, which is 19 times longer. The payload windows will then each have been seen about 180 times, so this looks likely to be met, but it is not certain. If it is not met, N10a and N10b are untestable, as the rules say.
+  - *An early-training observation, no more:* G on held-out windows was 0.223 unanchored, 0.171 functional and 0.146 geometric. This is far from the end of training and decides nothing.
+- **Tiny test-mode run.** All 14 models trained and were measured, and a rerun skipped all finished work. The geometric payload pinned P_B exactly (1.000) and raised head B's ratio with the copy to 0.99–1.00 while G stayed at 2.0–2.1 nats, a small-scale instance of what S2 asks about. The tiny models are too small to pass the must-match control.
+- **Synthetic records.** 21 cases covering every branch of the four rules and every precondition gave the intended verdicts.
+- **Clarifications of the written design, not changes:**
+  - Precondition 5b's "KL divergence from head B to the copy" is computed as KL(head B ‖ copy). The training penalty is KL(copy ‖ head B), as written. Both are recorded.
+  - The 64 payload windows are drawn from the training split, so they cannot be measurement windows, which come from the test split.
 
 ## References
 
