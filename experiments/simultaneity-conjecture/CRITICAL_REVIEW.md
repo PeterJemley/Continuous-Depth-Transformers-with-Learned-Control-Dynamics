@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10. A review of all the work in this repository, from the replication of the paper through N9, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10. A review of all the work in this repository, from the replication of the paper through N10, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -45,12 +45,16 @@ Every claim that was put to a test, in order. "Forbade" is what the claim said c
 | N8c | Readings further ahead use different directions, mistakes left out | The ladder flattening | **Supported**[^10] |
 | N9a | The measure can recognise an ideal noisy copy of a reading | Low agreement between a reading and its ideal noisy copy | **Supported**[^11] |
 | N9b | The trained noisy head is close to that ideal copy | Low agreement between them | **Refuted**[^11] |
+| N10a | A small functional payload preserves the reading under heavy noise | The gap staying above 0.20 nats | **Untestable**: the payload did not take hold[^14] |
+| N10b | Anchoring function beats pinning geometry | Their gaps differing by less than 0.20 | **Untestable**, as N10a[^14] |
+| N10c | Light noise does not change what a head reads | Low agreement at 20% noise | **Intermediate**: 0.79–0.84, against 0.85[^14] |
+| N10d | The change grows with the noise | Agreement not falling with noise | **Supported**[^14] |
 
-**Out of 19 verdicts:**
+**Out of 23 verdicts:**
 - 9 refuted, or mostly refuted;
-- 7 supported;
-- 1 inconclusive;
-- 2 untestable.
+- 8 supported;
+- 2 inconclusive or intermediate;
+- 4 untestable.
 
 None of the refuted claims was later restored.
 
@@ -153,7 +157,18 @@ That was the right order. A measure has to be trusted before it can carry the ma
 - **Small models and short training.** All the models have about 30 million parameters, on one dataset, at 10% of the full training budget, with one learning rate. Any of the findings could change at scale.
 - **One readout width carries most of the claims.** It is 64 of 256. N5 showed that how much the runs vary depends strongly on width.[^7]
 
-### 7. Smaller things
+### 7. A payload too weak to test anything, and a yardstick that moved (N10)
+
+- **The functional payload did not take hold.**
+  - I set its strength at λ = 1, on 4 windows per step against 32 in the training batch. That gave it about an eighth of the weight of the objective it was meant to counter.
+  - A short calibration run showed it moving in the right direction. I judged it "likely" to meet its check by the end of training, extrapolating from 150 of 2,879 steps. It did not.
+  - The preregistered manipulation check caught this and made the claim untestable rather than refuted. That is the rule working, but a dose check before queuing would have avoided spending the run.
+- **The functional measure's yardstick moved.**
+  - G compared head B with the ideal copy of the same model's head A, and the payloads changed head A.
+  - So G flattered the geometric payload, whose pin made head A worse. The fix, a fixed yardstick, was added after the results as exploratory analysis.
+  - *The lesson:* a measure meant to compare arms must not be defined relative to something the arms change.
+
+### 8. Smaller things
 
 - **Engineering slips.** One bug, a matrix left on the wrong device, crashed two N8 sessions before any model was measured. It was logged.[^10] Earlier Colab sessions stopped for Drive and resume problems, all logged.
 - **The limits of five runs.** The exact sign test can never reach p = 0.05 with five runs. The rules therefore used intervals and counts, and intervals with only four degrees of freedom are wide. This was known in advance and stated, but it limits how small an effect any test here could see.
@@ -171,7 +186,7 @@ These are the current best explanations. They are conjectures that have survived
 ## Problems now open
 
 On Deutsch's view, problems are what knowledge grows from. These are the ones this work has made sharp:
-1. How much noise does it take to change what a head learns to read? N9 showed that 80% does. Training at 20% and 50% noise, on new seeds, would show whether any weakening of the learning signal does.
+1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 could not say, because its functional payload was too weak. A payload weighted properly, at several strengths and against a fixed yardstick, would.
 2. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
 3. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
 4. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?
@@ -185,6 +200,8 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 4. **Before calling an after-the-fact explanation "likely", check it against known results,** and name the test that could refute it.
 5. **State a rule in a summary only after it has survived a test against its strongest rival.**
 6. **Prefer new seeds to reused models** whenever a test can afford them.
+7. **Check that a manipulation is strong enough before queuing a run that depends on it,** with a dose across strengths, not an extrapolation from a short run.
+8. **Define every comparison measure against a fixed yardstick** that the arms being compared cannot change.
 
 ---
 
@@ -266,3 +283,10 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *N9:* the copy's stability margin. In trained models the copy turned out more stable (at least 0.91), so this caution was not needed.
 
     It missed N6's threshold, which was not re-checked for the smaller number of windows. The analytic checks that could not fail at first were N8's, where a uniform sampler scored 0.996, and N9's, where measuring head A instead of its copy scored 0.999. Both were redesigned before any run, so that the wrong version fails (0.72, and 0.66 to 0.80). Sources: `N8_PREREGISTRATION.md`, `N9_PREREGISTRATION.md`.
+
+[^14]: **N10.** New seeds 3901–3905, 35 runs.
+    - *Dose arms:* head B's agreement with its ideal copy was 0.812, 0.636 and 0.305 at 20, 50 and 80% noise, ordered in 5 of 5 seeds. At 20% it was 0.79–0.84, so N10c was intermediate. G there was 0.04 nats.
+    - *Functional payload:* it reduced its own windows' divergence only to 0.73–0.77 of the unanchored value, against at most 0.5 required, so N10a and N10b were untestable.
+    - *Exploratory, after the results:* against a fixed yardstick, the functional payload closed 20% of the gap, the geometric 16%, and the data payload made it 45% worse. The geometric payload cost head A 0.13 nats, the data payload 0.36.
+
+    Sources: `N10_NOTE.md`, `N10_EXPLORATORY.md`, `N10_PREREGISTRATION.md`.

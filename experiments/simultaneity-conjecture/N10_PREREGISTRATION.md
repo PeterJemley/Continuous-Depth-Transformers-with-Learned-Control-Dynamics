@@ -1,6 +1,6 @@
 # Preregistration N10: how much noise changes what a head learns, and which payload preserves it
 
-Date: 2026-10-15    Status: **approved by the author, 2026-10-18.** Calibrated without amendment, and queued; no real N10 run has started.
+Date: 2026-10-15    Status: **approved by the author, 2026-10-18.** Run; see the deviation log, `N10_RESULTS.md`, `N10_EXPLORATORY.md` and `N10_NOTE.md`.
 
 Type: confirmatory for N10a (primary), N10b, N10c and N10d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -222,6 +222,23 @@ If a threshold, λ or control does not work as written, an amendment comes back 
 - **Same limits as before:** 10% of the budget, one learning rate, one size, one dataset, one readout width.
 
 ## Deviation log
+
+### The run, 2026-10-18
+
+- **Session:** `colab-results` branch `n10_payload/20261018-191435`, code commit e2f9f13. It trained and measured all 35 models in one session, with no resumes and no Drive failures.
+- **What changed after approval:** nothing.
+- **Results, under the rules:**
+  - N10a and N10b are untestable: precondition 5b failed. The functional payload's window KL divergence was 0.73–0.77 of the unanchored arm's, against at most 0.5 required.
+  - N10c is intermediate.
+  - N10d is supported.
+
+  See `N10_RESULTS.md` and `N10_NOTE.md`.
+
+### Exploratory analysis added after the results, 2026-10-18
+
+- **What was added:** `n10_exploratory.py` (report `N10_EXPLORATORY.md`). It compares head B against a fixed yardstick, the ideal copy from the same seed's `n80` model, and reports what each payload cost head A.
+- **Why:** the results showed that the payloads changed head A, and with it the copy G is measured against.
+- **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
 ### Calibration and implementation details, before any real run, 2026-10-18 (no amendment)
 
