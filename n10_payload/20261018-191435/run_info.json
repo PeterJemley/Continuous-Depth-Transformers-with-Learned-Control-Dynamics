@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n10_payload",
+    "args": [],
+    "description": "Test N10: how much noise changes what a head learns, and which payload preserves it. Seven arms (clean; 20, 50, 80% noise; 80% with a functional, geometric or data payload), 5 new seeds, 35 training runs, measured on test-split windows 1281-1792. About 4.5 hours on a T4. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 270
+  },
+  "code_commit": "e2f9f1306b1364aac39c3f0344bc21aee9cbca73",
+  "run_id": "20261018-191435",
+  "gpu": "Tesla T4"
+}
