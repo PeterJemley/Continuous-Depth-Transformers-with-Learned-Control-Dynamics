@@ -1,6 +1,6 @@
 # Preregistration N10: how much noise changes what a head learns, and which payload preserves it
 
-Date: 2026-10-15    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-15    Status: **approved by the author, 2026-10-18.** Being built and calibrated; no real N10 run has started.
 
 Type: confirmatory for N10a (primary), N10b, N10c and N10d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
