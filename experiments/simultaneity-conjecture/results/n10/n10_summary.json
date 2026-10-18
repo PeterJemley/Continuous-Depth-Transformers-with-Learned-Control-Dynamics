@@ -1,0 +1,204 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " is not currently classed as endangered because at least",
+      "target_i+1_end": " not currently classed as endangered because at least some",
+      "target_i+2_end": " currently classed as endangered because at least some populations",
+      "target_i+4_end": "ed as endangered because at least some populations are thought",
+      "target_i+8_end": " at least some populations are thought not to be under"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "next_example": {
+        "input_end": " in the so @-@ called Cologne War or Senes",
+        "target_end": " the so @-@ called Cologne War or Seneschal"
+      },
+      "skip_example": {
+        "input_end": " rare plant , with most populations consisting of fewer than 100 plants",
+        "target_end": " , with most populations consisting of fewer than 100 plants . With"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3901,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3902,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999998,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3903,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3904,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 3905,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "test_windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657752534241,
+      "sampled": {
+        "top_subspace_overlap": 0.9939607685001477,
+        "relative_error": 0.25526842956616447
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972837514206,
+        "relative_error": 0.16654861346694091
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084782268052,
+        "relative_error": 0.45547995648179396
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3901,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 0.9999999990793971,
+      "pass": true
+    },
+    "payload_windows": {
+      "count": 64,
+      "split": "train",
+      "seed": 4242,
+      "starts_first_5": [
+        98527285,
+        53097391,
+        29769495,
+        91904569,
+        34273867
+      ],
+      "targets_shifted": true,
+      "first_text": " championship point . Roddick stated : \" That 's the best shot I 've ever hit",
+      "disjoint_from_measurement": true
+    },
+    "unigram": {
+      "sum": 1.0000000000000002,
+      "zeros": 3369,
+      "most_frequent_tokens": [
+        " the",
+        " ,",
+        " .",
+        " of",
+        " and"
+      ]
+    }
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      1281,
+      1792
+    ]
+  },
+  "arms": {
+    "clean": {
+      "rho": 0.0,
+      "payload": null,
+      "lambda": null
+    },
+    "n20": {
+      "rho": 0.2,
+      "payload": null,
+      "lambda": null
+    },
+    "n50": {
+      "rho": 0.5,
+      "payload": null,
+      "lambda": null
+    },
+    "n80": {
+      "rho": 0.8,
+      "payload": null,
+      "lambda": null
+    },
+    "n80-func": {
+      "rho": 0.8,
+      "payload": "func",
+      "lambda": 1.0
+    },
+    "n80-geom": {
+      "rho": 0.8,
+      "payload": "geom",
+      "lambda": 10.0
+    },
+    "n80-data": {
+      "rho": 0.8,
+      "payload": "data",
+      "lambda": 1.0
+    }
+  },
+  "seeds": [
+    3901,
+    3902,
+    3903,
+    3904,
+    3905
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "payload": {
+    "windows": 64,
+    "per_step": 4,
+    "seed": 4242
+  }
+}

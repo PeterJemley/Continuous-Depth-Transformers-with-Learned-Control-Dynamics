@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, and 2026-10-10 with N8 and N9. Covers the work through N9. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
+Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, 2026-10-10 with N8 and N9, and 2026-10-18 with N10. Covers the work through N10. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -49,6 +49,8 @@ Each test was a question the world could answer "no", with the plan, the thresho
 
 12. **N9. Can the measure recognise a noisy copy?** N9 built, from each clean next-word head, the perfect scrambled-answer version of it: a head that predicts exactly 20% of what the clean head predicts plus 80% word frequencies, with no training. The measure called this copy the same reading as the clean head (about 0.98): *supported*. The scrambled head N7 actually trained was nowhere near the copy (about 0.32): *refuted*.[^17] So the measure is not the problem. Trained on scrambled answers, the head learned a different and weaker reading of the context, not a noisy version of the right one. It still predicts almost the same words as the perfect copy overall, because both are mostly word frequencies, but the part that depends on the passage differs.
 
+13. **N10. How much scrambling does it take, and can a small "payload" protect a reading?** New runs scrambled 20%, 50% or 80% of the second head's answers. The more scrambling, the further the head drifted from its perfect noisy copy, in that order in every run: *supported*. At 20% the head predicted almost exactly what the perfect copy would (within 0.04 nats), yet the directions it read had already drifted a little, just short of the bar for "the same" (0.81 against 0.85): *intermediate*. Three more runs at 80% scrambling each got a small payload: matching the perfect copy on 64 passages, pinning the head's directions to the clean head's, or clean answers on the same 64 passages. The main payload test gave no verdict, because the matching payload was too weak to take hold. That was my design error, and the check written for exactly this case caught it. Of the other two, pinning the directions made the head *look* closer to the copy but barely improved what it predicted, and it made the clean head worse. Clean answers on 64 passages backfired: the network memorised those passages.[^18]
+
 ## What we now understand
 
 - **The voices are separated by direction, not by tempo.** When one internal state must serve two readings, the readings occupy partly different directions within it, and squeezing them into the same directions costs accuracy. They do not get different timescales in the continuous block.
@@ -69,7 +71,7 @@ Each test was a question the world could answer "no", with the plan, the thresho
 ## What comes next
 
 The candidates, in order:
-- **How much noise changes what a head learns?** Train scrambled-answer heads at 20%, 50% and 80% scrambling, on new runs. Measure how close each comes to its perfect copy, which N9 showed the measure can recognise.
+- **A payload strong enough to take hold.** Repeat N10's payload test with the matching payload weighted properly, at several strengths, and judge it against a fixed yardstick. That would finally test "anchor what is predicted, not the directions".
 - **Does the cost of sharing grow along the ladder?** Repeat N4's forced-sharing test at 2, 4 and 8 words ahead. This measures what sharing *costs*, which N7 does not touch.
 - **Readings that differ in kind, not only in distance,** such as a topic label.
 - **Settle N5's main question with enough runs:** about ten runs at full width would tell a cost of 0.03 from none.
@@ -126,3 +128,11 @@ The candidates, in order:
     - *In prediction space:* the KL divergence from the noisy head to the copy was 0.07 nats per position. On the clean targets the noisy head's loss was 6.62, against 6.01 for the copy; on the noisy targets, 7.36 against 7.24.
 
     Source: `N9_NOTE.md`.
+
+[^18]: **N10.** New seeds 3901–3905, 35 runs, measured on test-split windows 1281–1792.
+    - *Dose arms:* head B's agreement with its ideal copy was 0.976 (clean), 0.812, 0.636 and 0.305 at 0, 20, 50 and 80% noise, ordered in 5 of 5 seeds. G, head B's clean-target loss minus the copy's, was 0.00, 0.04, 0.17 and 0.43 nats.
+    - *Functional payload:* KL(copy ‖ head B) on 64 fixed windows, λ = 1, but on 4 windows per step against 32 in the batch. It reduced its windows' divergence only to 0.73–0.77 of the unanchored value, against at most 0.5 required, so N10a and N10b were untestable.
+    - *Geometric payload:* pinned the readouts (overlap 0.998). It raised the agreement to 0.70, improved head B's clean loss by 0.07 nats (16% of the gap), and cost head A 0.13 nats.
+    - *Data payload:* head B memorised its 64 windows (loss 0.003 nats on them). Head A got worse by 0.36 nats.
+
+    The last three results are exploratory. Sources: `N10_NOTE.md`, `N10_EXPLORATORY.md`.
