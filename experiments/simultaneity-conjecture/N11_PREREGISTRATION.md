@@ -1,6 +1,6 @@
 # Preregistration N11: a payload strong enough to test, and a yardstick it cannot move
 
-Date: 2026-10-18    Status: **approved by the author, 2026-10-18. Amendment A1 (the functional payload trains head B's readout only) proposed, awaiting approval.** No real N11 run has started.
+Date: 2026-10-18    Status: **approved by the author, 2026-10-18, with amendment A1 (the functional payload trains head B's readout only), approved 2026-10-19.** Queued; no real N11 run has started.
 
 Type: confirmatory for N11a (primary), N11b and N11c, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -216,7 +216,7 @@ This is the step N10 lacked.
   - The tiny models are too small to pass the must-match control, as in N10.
 - **Synthetic records.** 17 cases covering every branch of the three rules and every precondition gave the intended verdicts.
 
-### Amendment A1, before any real run, 2026-10-19: proposed, awaiting the author's approval
+### Amendment A1, before any real run, 2026-10-19: approved by the author
 
 Results seen before this entry:
 - the preregistered dose check at full size (seed 3001, 300 steps at the peak learning rate, the full training text);
