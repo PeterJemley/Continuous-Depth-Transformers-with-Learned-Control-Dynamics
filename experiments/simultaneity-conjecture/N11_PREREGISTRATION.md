@@ -200,6 +200,22 @@ This is the step N10 lacked.
 
 ## Deviation log
 
+### Other calibration, before any real run, 2026-10-19 (no amendment)
+
+- **Untrained full-size models** (G1's seeds 3001 and 3002), on N11's 421 windows:
+  - the analytic check scored 0.994, and identical heads 1.0;
+  - the rotated control scored 0.078 and 0.077;
+  - head A against its own ideal copy scored 0.990 and 1.009;
+  - every head and copy had a stability of at least 0.86, and the copy at ρ = 0.8 had 0.86–0.88.
+
+  The smaller window count therefore still gives stable subspaces, at least before training.
+- **Tiny test-mode run with amendment A1's code.**
+  - All 12 models trained and were measured, and a rerun skipped all finished work.
+  - The payload-window divergence fell with strength: 1.78 unanchored, then 1.39 (λ = 8), 1.36 (λ = 32) and 1.35 (λ = 128).
+  - Head A's loss was the same in every arm, 9.73 to 9.74, so the payload does not reach head A.
+  - The tiny models are too small to pass the must-match control, as in N10.
+- **Synthetic records.** 17 cases covering every branch of the three rules and every precondition gave the intended verdicts.
+
 ### Amendment A1, before any real run, 2026-10-19: proposed, awaiting the author's approval
 
 Results seen before this entry:
