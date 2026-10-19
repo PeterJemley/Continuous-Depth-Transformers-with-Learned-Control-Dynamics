@@ -104,16 +104,15 @@ def final_state(model, x):
 def readout_payload_grads(model, px, log_u, rho, lam):
     """N11 amendment A1: the functional payload for head B's readout only. The shared state and head A's copy are
     computed without gradient, so the payload cannot reach the trunk or head A. Returns the payload term's
-    gradients for head B's readout, clipped to norm 1 on their own, and the term's value."""
+    gradients for head B's readout, unclipped so that lam sets the payload's weight (Adam bounds each update),
+    and the term's value."""
     with torch.no_grad():
         z = final_state(model, px).float()
         lc = n9.copy_logits(model.head(model.proj_a(z)), log_u, rho)
     params = [model.proj_b.weight, model.head2.weight]
     term = kl(lc, torch.log_softmax(model.head2(model.proj_b(z)).float(), -1))
     grads = torch.autograd.grad(0.5 * lam * term, params)
-    norm = torch.sqrt(sum(gr.pow(2).sum() for gr in grads)).item()
-    scale = min(1.0, 1.0 / (norm + 1e-6))
-    return params, [gr * scale for gr in grads], term.detach()
+    return params, list(grads), term.detach()
 
 
 # ------------------------------------------------------------------ training
@@ -186,7 +185,7 @@ def train_n10(store, meta, arm, seed, tag, probs, log_u, payload, lam=None):
         scaler.scale(loss).backward()
         scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-        if kind == 'func-readout':                                        # N11 amendment A1: added after clipping
+        if kind == 'func-readout':                                        # N11 amendment A1: added after clipping the main loss
             j = (PAYLOAD_PER_STEP * step) % N_PAYLOAD
             params, grads, pterm = readout_payload_grads(model, px[j:j + PAYLOAD_PER_STEP], log_u, rho, lam)
             for prm, gr in zip(params, grads):

@@ -5,7 +5,7 @@ Implements N11_PREREGISTRATION.md in this folder. N10's model, training, payload
   clean      rho = 0, no payload (must-match control)
   n80        rho = 0.8, no payload (the yardstick: its head A's ideal noisy copy)
   n80-f8, n80-f32, n80-f128   rho = 0.8, functional payload at lambda = 8, 32, 128, on head B's readout only and
-             clipped separately (amendment A1; n10_payload.readout_payload_grads)
+             its gradient added after the main loss is clipped (amendment A1; n10_payload.readout_payload_grads)
   n80-geom   rho = 0.8, geometric payload at lambda = 10 (as N10)
 Measured on WikiText-103 test-split windows 1793-2213. The share of the gap closed, S, is computed by
 n11_analyze.py from the saved records: gap(arm) = head B's clean-target loss in that arm minus the clean-target
