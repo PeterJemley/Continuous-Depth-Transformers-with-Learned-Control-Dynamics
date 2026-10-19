@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10. A review of all the work in this repository, from the replication of the paper through N10, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10, updated 2026-10-18 with N10. A review of all the work in this repository, from the replication of the paper through N10, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -186,7 +186,7 @@ These are the current best explanations. They are conjectures that have survived
 ## Problems now open
 
 On Deutsch's view, problems are what knowledge grows from. These are the ones this work has made sharp:
-1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 could not say, because its functional payload was too weak. A payload weighted properly, at several strengths and against a fixed yardstick, would.
+1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 could not say, because its functional payload was too weak. A payload weighted properly, at several strengths and against a fixed yardstick, would. That test, N11, is preregistered and waiting to run (`N11_PREREGISTRATION.md`).
 2. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
 3. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
 4. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?

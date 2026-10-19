@@ -147,6 +147,7 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 ├── data/                                                   # Pinned GPT-2 tokenizer and WikiText-2 (see data/README.md)
 ├── scripts/fetch_wikitext2.py                              # One-time fetch that pins WikiText-2
 ├── experiments/
+│   ├── simultaneity-conjecture/                            # Preregistered tests of several readings at once (start with PLAIN_SUMMARY.md)
 │   ├── wikitext2-replication/                              # Preregistered replication of the paper's experiments
 │   │   ├── PREREGISTRATION.md                              # The plan, fixed before any run
 │   │   ├── KNOWN_LIMITATIONS.md                            # Limitations of the original experiments

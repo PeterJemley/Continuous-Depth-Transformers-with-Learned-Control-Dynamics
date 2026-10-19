@@ -1,6 +1,6 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, 2026-10-10 with N8 and N9, and 2026-10-18 with N10. Covers the work through N10. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
+Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, 2026-10-10 with N8 and N9, 2026-10-18 with N10, and 2026-10-19 with the plan for N11. Covers the work through N10. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -71,7 +71,7 @@ Each test was a question the world could answer "no", with the plan, the thresho
 ## What comes next
 
 The candidates, in order:
-- **A payload strong enough to take hold.** Repeat N10's payload test with the matching payload weighted properly, at several strengths, and judge it against a fixed yardstick. That would finally test "anchor what is predicted, not the directions".
+- **A payload strong enough to take hold.** Repeat N10's payload test with the matching payload weighted properly, at several strengths, and judge it against a fixed yardstick. That would finally test "anchor what is predicted, not the directions". This is now preregistered as N11 and waiting to run (`N11_PREREGISTRATION.md`). A trial run showed that a strong payload sent through the whole network damaged the clean head, so in N11 the payload trains only the second head's own readout.
 - **Does the cost of sharing grow along the ladder?** Repeat N4's forced-sharing test at 2, 4 and 8 words ahead. This measures what sharing *costs*, which N7 does not touch.
 - **Readings that differ in kind, not only in distance,** such as a topic label.
 - **Settle N5's main question with enough runs:** about ten runs at full width would tell a cost of 0.03 from none.
