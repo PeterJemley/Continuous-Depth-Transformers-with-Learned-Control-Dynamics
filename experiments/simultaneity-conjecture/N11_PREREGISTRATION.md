@@ -1,6 +1,6 @@
 # Preregistration N11: a payload strong enough to test, and a yardstick it cannot move
 
-Date: 2026-10-18    Status: **approved by the author, 2026-10-18.** Being built and calibrated; no real N11 run has started.
+Date: 2026-10-18    Status: **approved by the author, 2026-10-18. Amendment A1 (the functional payload trains head B's readout only) proposed, awaiting approval.** No real N11 run has started.
 
 Type: confirmatory for N11a (primary), N11b and N11c, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -200,7 +200,51 @@ This is the step N10 lacked.
 
 ## Deviation log
 
-None yet.
+### Amendment A1, before any real run, 2026-10-19: proposed, awaiting the author's approval
+
+Results seen before this entry:
+- the preregistered dose check at full size (seed 3001, 300 steps at the peak learning rate, the full training text);
+- two runs of a candidate fix under the same conditions;
+- synthetic records.
+
+No real N11 run has started.
+
+**What the dose check found.** The table gives the payload-window KL(head B ‖ copy) as a ratio of the unanchored arm's at the same step, at steps 100 / 200 / 300. The last column is the clean-target loss, on the payload windows, of head A's ideal copy at step 300. It shows what the payload did to head A; unanchored, it is 6.89.
+
+| Arm, as written | Ratio at 100 / 200 / 300 | Head A's copy at 300 |
+|---|---|---|
+| λ = 8 | 0.22 / 0.37 / 0.42 | 7.13 |
+| λ = 32 | 0.33 / 0.13 / 0.37 | 7.29 |
+| λ = 128 | 0.02 / 1.03 / **0.98** | **7.44** |
+
+- **λ = 128 fails the check as written.** It held its windows at step 100, then lost them. Worse, it damaged head A, the reference it was teaching head B to copy.
+- **The cause is in the implementation, not the idea.**
+  - The payload's gradient ran through the trunk that both heads share.
+  - All gradients were clipped together to a total norm of 1.
+  - So a heavy payload crowded out head A's learning, and the copy it was matching degraded.
+- **A first candidate fix failed in a different way.** It detached the trunk from the payload and clipped the payload's gradient separately. That kept head A intact, but it erased the strengths: at step 100, λ = 32 and λ = 128 gave the same divergence (0.0219 and 0.0218), because a clipped gradient no longer scales with λ.
+
+**The amendment.**
+- *What it changes.* The functional payload trains only head B's readout: P_B and W_B, its 64 × 256 projection and output matrix.
+  - The shared state and head A's copy are computed on the payload windows without gradient, so the payload cannot reach the trunk or head A.
+  - The payload's gradient is added to head B's readout after the main loss's gradient has been clipped, and is not clipped itself, so λ still sets its weight. Adam bounds the size of each update.
+  - Code: `n10_payload.readout_payload_grads`, used by the arms of kind `func-readout`.
+- *Its result in the same dose check:*
+
+  | Arm, amended | Ratio at 100 / 200 / 300 | Head A's copy at 300 |
+  |---|---|---|
+  | λ = 8 | 0.23 / 0.39 / 0.40 | 6.89 |
+  | λ = 128 | 0.15 / 0.23 / **0.27** | 6.90 |
+
+  - λ = 128 passes the check (0.27 ≤ 0.5) and holds at every checkpoint.
+  - The strengths now differ: 0.40 against 0.27.
+  - Head A is undamaged at both.
+- *What it does not change:* the claims, thresholds, arms, strengths, yardstick and every other rule. The geometric payload already acted only on head B's readout projection, so it is unchanged.
+
+**What it means for the claims.**
+- **It matches the claim's own explanation better than the original did.** The preregistration's explanation says that the state already carries the next-token information, and head B must only learn to read it. The amended payload tests exactly that.
+- **It narrows the claim.** N11 now tests whether anchoring what head B's *readout* computes preserves the reading. It no longer tests a payload that could also reshape the shared network.
+- **N10's functional payload acted through the trunk as well.** So N11 is not a pure repeat of N10's payload at higher strength. That is recorded here so that the two are not read as one design.
 
 ## References
 
