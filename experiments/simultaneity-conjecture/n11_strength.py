@@ -4,7 +4,8 @@ Implements N11_PREREGISTRATION.md in this folder. N10's model, training, payload
 (n10_payload.py), with six arms on new seeds:
   clean      rho = 0, no payload (must-match control)
   n80        rho = 0.8, no payload (the yardstick: its head A's ideal noisy copy)
-  n80-f8, n80-f32, n80-f128   rho = 0.8, functional payload at lambda = 8, 32, 128
+  n80-f8, n80-f32, n80-f128   rho = 0.8, functional payload at lambda = 8, 32, 128, on head B's readout only and
+             clipped separately (amendment A1; n10_payload.readout_payload_grads)
   n80-geom   rho = 0.8, geometric payload at lambda = 10 (as N10)
 Measured on WikiText-103 test-split windows 1793-2213. The share of the gap closed, S, is computed by
 n11_analyze.py from the saved records: gap(arm) = head B's clean-target loss in that arm minus the clean-target
@@ -29,7 +30,7 @@ n9, n8, n7, n6, n4, g, study, DEV, TEST, log = n10.n9, n10.n8, n10.n7, n10.n6, n
 SEEDS = [4001, 4002] if TEST else [4001, 4002, 4003, 4004, 4005]
 n6.SEEDS = g.SEEDS = SEEDS
 ARMS = {'clean': (0.0, None, None), 'n80': (0.8, None, None),
-        'n80-f8': (0.8, 'func', 8.0), 'n80-f32': (0.8, 'func', 32.0), 'n80-f128': (0.8, 'func', 128.0),
+        'n80-f8': (0.8, 'func-readout', 8.0), 'n80-f32': (0.8, 'func-readout', 32.0), 'n80-f128': (0.8, 'func-readout', 128.0),
         'n80-geom': (0.8, 'geom', 10.0)}
 n10.ARMS = ARMS                                     # n10.measure and n10.train_n10 read rho and kind from here
 MEAS = (80, 96) if TEST else (1792, 2213)           # test-split windows 1793-2213, the last 421
