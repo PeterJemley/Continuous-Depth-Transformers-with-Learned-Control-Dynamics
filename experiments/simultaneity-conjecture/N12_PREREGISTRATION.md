@@ -1,6 +1,6 @@
 # Preregistration N12: is the noisy head held back by its readout?
 
-Date: 2026-10-20    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** Being built and tested; no real N12 run, and no calibration run, has started.
 
 Type: confirmatory for N12a (primary), N12b, N12c and N12d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
