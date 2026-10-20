@@ -57,7 +57,10 @@ def main():
             run(f'git pull -q --rebase origin {args.branch}', cwd=R, check=False)
             time.sleep(2 ** (attempt + 1))
     run('git remote remove origin', cwd=R)
-    where = f'the {args.branch} branch as {args.job}/{args.run_id}'
+    # Written only after the push succeeded: the runner's last step releases the runtime only if this file exists.
+    with open(os.path.join(args.out, 'uploaded.json'), 'w') as f:
+        json.dump({'branch': args.branch, 'path': f'{args.job}/{args.run_id}'}, f)
+    where =f'the {args.branch} branch as {args.job}/{args.run_id}'
     log = os.path.join(args.out, 'log.txt')
     status_file = os.path.join(args.out, 'exit_status.json')
     status = json.load(open(status_file)).get('status') if os.path.exists(status_file) else None

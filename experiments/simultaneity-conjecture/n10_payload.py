@@ -89,11 +89,39 @@ def payload_term(model, kind, px, py, log_u, rho):
     return kl(lc, torch.log_softmax(lb.float(), -1))
 
 
+def final_state(model, x):
+    """The normalised final state ln_f(z) that both readouts read (as n4.forward_n4, up to the readouts)."""
+    T = x.shape[1]
+    h = model.tok_emb(x) + model.pos_emb(torch.arange(T, device=x.device))
+    for b in model.early_blocks:
+        h = b(h)
+    z = model.ode_block(h, None)
+    for b in model.late_blocks:
+        z = b(z)
+    return model.ln_f(z)
+
+
+def readout_payload_grads(model, px, log_u, rho, lam):
+    """N11 amendment A1: the functional payload for head B's readout only. The shared state and head A's copy are
+    computed without gradient, so the payload cannot reach the trunk or head A. Returns the payload term's
+    gradients for head B's readout, unclipped so that lam sets the payload's weight (Adam bounds each update),
+    and the term's value."""
+    with torch.no_grad():
+        z = final_state(model, px).float()
+        lc = n9.copy_logits(model.head(model.proj_a(z)), log_u, rho)
+    params = [model.proj_b.weight, model.head2.weight]
+    term = kl(lc, torch.log_softmax(model.head2(model.proj_b(z)).float(), -1))
+    grads = torch.autograd.grad(0.5 * lam * term, params)
+    return params, list(grads), term.detach()
+
+
 # ------------------------------------------------------------------ training
 
-def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
-    """One run, resumable. As n7.train_n7, with head B's noise rate and payload set by the arm."""
-    rho, kind = ARMS[arm]
+def train_n10(store, meta, arm, seed, tag, probs, log_u, payload, lam=None):
+    """One run, resumable. As n7.train_n7, with head B's noise rate and payload set by the arm. lam overrides
+    the payload strength (N11); by default it is LAMBDA[kind], as in N10."""
+    rho, kind = ARMS[arm][:2]
+    lam = LAMBDA.get(kind) if lam is None else lam
     res_path = store.L(f'results/{tag}.json')
     if res_path.exists():
         log(f'{tag}: already finished, skipping')
@@ -150,13 +178,18 @@ def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
             la, lb = n4.forward_n4(model, x)
             loss = 0.5 * (F.cross_entropy(la.view(-1, VOCAB), ya.reshape(-1)) + F.cross_entropy(lb.view(-1, VOCAB), yb.reshape(-1)))
             pterm = None
-            if kind is not None:
+            if kind is not None and kind != 'func-readout':
                 j = (PAYLOAD_PER_STEP * step) % N_PAYLOAD
                 pterm = payload_term(model, kind, px[j:j + PAYLOAD_PER_STEP], py[j:j + PAYLOAD_PER_STEP], log_u, rho)
-                loss = loss + 0.5 * LAMBDA[kind] * pterm
+                loss = loss + 0.5 * lam * pterm
         scaler.scale(loss).backward()
         scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        if kind == 'func-readout':                                        # N11 amendment A1: added after clipping the main loss
+            j = (PAYLOAD_PER_STEP * step) % N_PAYLOAD
+            params, grads, pterm = readout_payload_grads(model, px[j:j + PAYLOAD_PER_STEP], log_u, rho, lam)
+            for prm, gr in zip(params, grads):
+                prm.grad.add_(gr)
         before = scaler.get_scale()
         scaler.step(opt)
         scaler.update()
@@ -182,7 +215,7 @@ def train_n10(store, meta, arm, seed, tag, probs, log_u, payload):
     fx, fys = n6.windows(study.load_tokens(store, meta, 'validation'), limit=g.FINAL_LIMIT)
     l_a, l_b = n6.losses(model, fx, fys[0], fixed_noisy(fys[0], probs, rho, VAL_NOISE_SEED))
     l_b_clean = n6.losses(model, fx, fys[0], fys[0])[1]
-    result = {'tag': tag, 'arm': arm, 'rho': rho, 'payload': kind, 'lambda': LAMBDA.get(kind), 'seed': seed, 'readout_rank': n4.RANK,
+    result = {'tag': tag, 'arm': arm, 'rho': rho, 'payload': kind, 'lambda': lam, 'seed': seed, 'readout_rank': n4.RANK,
               'final_loss_A': l_a, 'final_loss_B': l_b, 'final_loss_B_clean_targets': l_b_clean,
               'final_val_windows': len(fx), 'val_curve': state['val'], 'train_loss_every_50': state['train_loss'],
               'payload_term_every_50': state['payload_term'], 'alpha_every_50': state['alpha'],

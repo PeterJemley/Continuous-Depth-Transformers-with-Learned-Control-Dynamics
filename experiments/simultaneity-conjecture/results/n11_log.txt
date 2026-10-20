@@ -1,0 +1,372 @@
+GPU check passed: NVIDIA A100-SXM4-80GB
+19:00:38 device: cuda | test mode: False | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N11 folder: /content/drive/MyDrive/cdt-colab/n11_strength_a100 | local: /content/cdt_local/n11_strength_a100
+19:00:51 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+19:00:52 measured on test-split windows 1793-2213
+19:00:52 next-task example: input ends ' the north , mountains in its central section , and along the'; targets end ' north , mountains in its central section , and along the Dal'
+19:00:52 skip-task example: input ends ' . " \n\n The journey was rich in scientific results .'; targets end ' \n\n The journey was rich in scientific results . However ,'
+19:01:00 batch check: True | test windows shifted: True | analytic: 0.994 | identical heads: 1.0000000000000002 | payload windows shifted: True
+19:01:00 same-model check: [True, True, True, True, True]
+19:01:03 clean_seed4001: starting, noise 0.0, payload None, seed 4001
+19:01:17 clean_seed4001: step 400/2879, validation loss head A 6.4254, head B 6.4195
+19:01:20 clean_seed4001: step 500/2879, validation loss head A 6.2528, head B 6.2487
+19:01:30 clean_seed4001: step 800/2879, validation loss head A 5.8725, head B 5.8703
+19:01:44 clean_seed4001: step 1200/2879, validation loss head A 5.5751, head B 5.5715
+19:01:57 clean_seed4001: step 1600/2879, validation loss head A 5.3771, head B 5.3750
+19:02:10 clean_seed4001: step 2000/2879, validation loss head A 5.2095, head B 5.2044
+19:02:23 clean_seed4001: step 2400/2879, validation loss head A 5.1116, head B 5.1079
+19:02:36 clean_seed4001: step 2800/2879, validation loss head A 5.0566, head B 5.0523
+19:02:39 clean_seed4001: step 2879/2879, validation loss head A 5.0491, head B 5.0455
+19:02:42 clean_seed4001: finished in 0.03 h; head A 5.1365, head B 5.1335 (clean targets 5.1335)
+19:02:45 m_clean_seed4001: head B clean 5.111 | copy clean 5.118 | head A clean 5.118 | B vs copy 0.977 | payload-window KL 0.046 | readouts A,B 0.723 | rotated 0.149 | 3 s
+19:02:45 n80_seed4001: starting, noise 0.8, payload None, seed 4001
+19:02:59 n80_seed4001: step 400/2879, validation loss head A 6.5008, head B 7.4956
+19:03:03 n80_seed4001: step 500/2879, validation loss head A 6.3136, head B 7.4863
+19:03:13 n80_seed4001: step 800/2879, validation loss head A 5.9518, head B 7.4489
+19:03:27 n80_seed4001: step 1200/2879, validation loss head A 5.6402, head B 7.4142
+19:03:40 n80_seed4001: step 1600/2879, validation loss head A 5.4431, head B 7.3930
+19:03:54 n80_seed4001: step 2000/2879, validation loss head A 5.2732, head B 7.3757
+19:04:07 n80_seed4001: step 2400/2879, validation loss head A 5.1750, head B 7.3654
+19:04:21 n80_seed4001: step 2800/2879, validation loss head A 5.1146, head B 7.3588
+19:04:24 n80_seed4001: step 2879/2879, validation loss head A 5.1091, head B 7.3576
+19:04:26 n80_seed4001: finished in 0.03 h; head A 5.1934, head B 7.3507 (clean targets 6.6024)
+19:04:30 m_n80_seed4001: head B clean 6.589 | copy clean 6.112 | head A clean 5.179 | B vs copy 0.330 | payload-window KL 0.063 | readouts A,B 0.489 | rotated 0.127 | 3 s
+19:04:30 n80-f8_seed4001: starting, noise 0.8, payload func-readout, seed 4001
+19:04:49 n80-f8_seed4001: step 400/2879, validation loss head A 6.5119, head B 7.4380
+19:04:53 n80-f8_seed4001: step 500/2879, validation loss head A 6.3160, head B 7.4261
+19:05:07 n80-f8_seed4001: step 800/2879, validation loss head A 5.9525, head B 7.3916
+19:05:25 n80-f8_seed4001: step 1200/2879, validation loss head A 5.6505, head B 7.3704
+19:05:43 n80-f8_seed4001: step 1600/2879, validation loss head A 5.4570, head B 7.3528
+19:06:01 n80-f8_seed4001: step 2000/2879, validation loss head A 5.2835, head B 7.3394
+19:06:19 n80-f8_seed4001: step 2400/2879, validation loss head A 5.1847, head B 7.3316
+19:06:37 n80-f8_seed4001: step 2800/2879, validation loss head A 5.1241, head B 7.3264
+19:06:41 n80-f8_seed4001: step 2879/2879, validation loss head A 5.1186, head B 7.3270
+19:06:44 n80-f8_seed4001: finished in 0.04 h; head A 5.2010, head B 7.3210 (clean targets 6.4128)
+19:06:47 m_n80-f8_seed4001: head B clean 6.399 | copy clean 6.119 | head A clean 5.190 | B vs copy 0.353 | payload-window KL 0.042 | readouts A,B 0.499 | rotated 0.120 | 3 s
+19:06:48 n80-f32_seed4001: starting, noise 0.8, payload func-readout, seed 4001
+19:07:06 n80-f32_seed4001: step 400/2879, validation loss head A 6.5058, head B 7.4278
+19:07:11 n80-f32_seed4001: step 500/2879, validation loss head A 6.3159, head B 7.4171
+19:07:25 n80-f32_seed4001: step 800/2879, validation loss head A 5.9502, head B 7.3855
+19:07:43 n80-f32_seed4001: step 1200/2879, validation loss head A 5.6431, head B 7.3633
+19:08:01 n80-f32_seed4001: step 1600/2879, validation loss head A 5.4403, head B 7.3471
+19:08:19 n80-f32_seed4001: step 2000/2879, validation loss head A 5.2783, head B 7.3336
+19:08:38 n80-f32_seed4001: step 2400/2879, validation loss head A 5.1744, head B 7.3262
+19:08:56 n80-f32_seed4001: step 2800/2879, validation loss head A 5.1169, head B 7.3219
+19:08:59 n80-f32_seed4001: step 2879/2879, validation loss head A 5.1110, head B 7.3220
+19:09:02 n80-f32_seed4001: finished in 0.04 h; head A 5.1928, head B 7.3161 (clean targets 6.3856)
+19:09:06 m_n80-f32_seed4001: head B clean 6.373 | copy clean 6.111 | head A clean 5.178 | B vs copy 0.318 | payload-window KL 0.038 | readouts A,B 0.504 | rotated 0.124 | 3 s
+19:09:06 n80-f128_seed4001: starting, noise 0.8, payload func-readout, seed 4001
+19:09:24 n80-f128_seed4001: step 400/2879, validation loss head A 6.5146, head B 7.4257
+19:09:29 n80-f128_seed4001: step 500/2879, validation loss head A 6.3179, head B 7.4154
+19:09:43 n80-f128_seed4001: step 800/2879, validation loss head A 5.9578, head B 7.3824
+19:10:01 n80-f128_seed4001: step 1200/2879, validation loss head A 5.6544, head B 7.3623
+19:10:19 n80-f128_seed4001: step 1600/2879, validation loss head A 5.4508, head B 7.3455
+19:10:37 n80-f128_seed4001: step 2000/2879, validation loss head A 5.2852, head B 7.3323
+19:10:55 n80-f128_seed4001: step 2400/2879, validation loss head A 5.1847, head B 7.3258
+19:11:13 n80-f128_seed4001: step 2800/2879, validation loss head A 5.1239, head B 7.3213
+19:11:17 n80-f128_seed4001: step 2879/2879, validation loss head A 5.1175, head B 7.3211
+19:11:19 n80-f128_seed4001: finished in 0.04 h; head A 5.1987, head B 7.3152 (clean targets 6.3791)
+19:11:23 m_n80-f128_seed4001: head B clean 6.364 | copy clean 6.115 | head A clean 5.185 | B vs copy 0.323 | payload-window KL 0.037 | readouts A,B 0.508 | rotated 0.124 | 3 s
+19:11:23 n80-geom_seed4001: starting, noise 0.8, payload geom, seed 4001
+19:11:38 n80-geom_seed4001: step 400/2879, validation loss head A 6.6197, head B 7.5360
+19:11:41 n80-geom_seed4001: step 500/2879, validation loss head A 6.3903, head B 7.5142
+19:11:51 n80-geom_seed4001: step 800/2879, validation loss head A 6.0464, head B 7.4652
+19:12:05 n80-geom_seed4001: step 1200/2879, validation loss head A 5.7731, head B 7.4403
+19:12:19 n80-geom_seed4001: step 1600/2879, validation loss head A 5.5779, head B 7.4170
+19:12:32 n80-geom_seed4001: step 2000/2879, validation loss head A 5.4164, head B 7.3978
+19:12:46 n80-geom_seed4001: step 2400/2879, validation loss head A 5.3295, head B 7.3851
+19:13:00 n80-geom_seed4001: step 2800/2879, validation loss head A 5.2756, head B 7.3788
+19:13:03 n80-geom_seed4001: step 2879/2879, validation loss head A 5.2700, head B 7.3761
+19:13:05 n80-geom_seed4001: finished in 0.03 h; head A 5.3461, head B 7.3680 (clean targets 6.5226)
+19:13:09 m_n80-geom_seed4001: head B clean 6.511 | copy clean 6.238 | head A clean 5.328 | B vs copy 0.712 | payload-window KL 0.074 | readouts A,B 0.998 | rotated 0.166 | 3 s
+19:13:09 clean_seed4002: starting, noise 0.0, payload None, seed 4002
+19:13:23 clean_seed4002: step 400/2879, validation loss head A 6.4277, head B 6.4330
+19:13:27 clean_seed4002: step 500/2879, validation loss head A 6.2478, head B 6.2480
+19:13:37 clean_seed4002: step 800/2879, validation loss head A 5.8911, head B 5.8919
+19:13:50 clean_seed4002: step 1200/2879, validation loss head A 5.5635, head B 5.5670
+19:14:03 clean_seed4002: step 1600/2879, validation loss head A 5.3594, head B 5.3637
+19:14:16 clean_seed4002: step 2000/2879, validation loss head A 5.2069, head B 5.2131
+19:14:29 clean_seed4002: step 2400/2879, validation loss head A 5.1043, head B 5.1084
+19:14:43 clean_seed4002: step 2800/2879, validation loss head A 5.0391, head B 5.0438
+19:14:45 clean_seed4002: step 2879/2879, validation loss head A 5.0311, head B 5.0352
+19:14:48 clean_seed4002: finished in 0.03 h; head A 5.1244, head B 5.1271 (clean targets 5.1271)
+19:14:51 m_clean_seed4002: head B clean 5.117 | copy clean 5.120 | head A clean 5.120 | B vs copy 0.955 | payload-window KL 0.046 | readouts A,B 0.713 | rotated 0.197 | 3 s
+19:14:51 n80_seed4002: starting, noise 0.8, payload None, seed 4002
+19:15:05 n80_seed4002: step 400/2879, validation loss head A 6.4968, head B 7.4961
+19:15:09 n80_seed4002: step 500/2879, validation loss head A 6.3014, head B 7.4922
+19:15:19 n80_seed4002: step 800/2879, validation loss head A 5.9446, head B 7.4443
+19:15:33 n80_seed4002: step 1200/2879, validation loss head A 5.6168, head B 7.4157
+19:15:46 n80_seed4002: step 1600/2879, validation loss head A 5.4127, head B 7.3936
+19:16:00 n80_seed4002: step 2000/2879, validation loss head A 5.2657, head B 7.3770
+19:16:13 n80_seed4002: step 2400/2879, validation loss head A 5.1549, head B 7.3667
+19:16:27 n80_seed4002: step 2800/2879, validation loss head A 5.0892, head B 7.3596
+19:16:30 n80_seed4002: step 2879/2879, validation loss head A 5.0827, head B 7.3584
+19:16:33 n80_seed4002: finished in 0.03 h; head A 5.1682, head B 7.3499 (clean targets 6.5962)
+19:16:36 m_n80_seed4002: head B clean 6.578 | copy clean 6.091 | head A clean 5.158 | B vs copy 0.333 | payload-window KL 0.064 | readouts A,B 0.489 | rotated 0.130 | 3 s
+19:16:36 n80-f8_seed4002: starting, noise 0.8, payload func-readout, seed 4002
+19:16:55 n80-f8_seed4002: step 400/2879, validation loss head A 6.5029, head B 7.4388
+19:17:00 n80-f8_seed4002: step 500/2879, validation loss head A 6.3092, head B 7.4299
+19:17:13 n80-f8_seed4002: step 800/2879, validation loss head A 5.9650, head B 7.3969
+19:17:31 n80-f8_seed4002: step 1200/2879, validation loss head A 5.6225, head B 7.3702
+19:17:49 n80-f8_seed4002: step 1600/2879, validation loss head A 5.4217, head B 7.3523
+19:18:07 n80-f8_seed4002: step 2000/2879, validation loss head A 5.2640, head B 7.3395
+19:18:26 n80-f8_seed4002: step 2400/2879, validation loss head A 5.1632, head B 7.3318
+19:18:44 n80-f8_seed4002: step 2800/2879, validation loss head A 5.0950, head B 7.3263
+19:18:48 n80-f8_seed4002: step 2879/2879, validation loss head A 5.0853, head B 7.3254
+19:18:50 n80-f8_seed4002: finished in 0.04 h; head A 5.1699, head B 7.3202 (clean targets 6.4068)
+19:18:54 m_n80-f8_seed4002: head B clean 6.390 | copy clean 6.093 | head A clean 5.164 | B vs copy 0.366 | payload-window KL 0.043 | readouts A,B 0.504 | rotated 0.128 | 3 s
+19:18:54 n80-f32_seed4002: starting, noise 0.8, payload func-readout, seed 4002
+19:19:13 n80-f32_seed4002: step 400/2879, validation loss head A 6.5038, head B 7.4288
+19:19:18 n80-f32_seed4002: step 500/2879, validation loss head A 6.3038, head B 7.4183
+19:19:31 n80-f32_seed4002: step 800/2879, validation loss head A 5.9579, head B 7.3878
+19:19:49 n80-f32_seed4002: step 1200/2879, validation loss head A 5.6299, head B 7.3624
+19:20:08 n80-f32_seed4002: step 1600/2879, validation loss head A 5.4231, head B 7.3479
+19:20:26 n80-f32_seed4002: step 2000/2879, validation loss head A 5.2676, head B 7.3345
+19:20:44 n80-f32_seed4002: step 2400/2879, validation loss head A 5.1619, head B 7.3267
+19:21:02 n80-f32_seed4002: step 2800/2879, validation loss head A 5.0969, head B 7.3217
+19:21:06 n80-f32_seed4002: step 2879/2879, validation loss head A 5.0874, head B 7.3212
+19:21:08 n80-f32_seed4002: finished in 0.04 h; head A 5.1708, head B 7.3158 (clean targets 6.3797)
+19:21:12 m_n80-f32_seed4002: head B clean 6.364 | copy clean 6.094 | head A clean 5.164 | B vs copy 0.362 | payload-window KL 0.039 | readouts A,B 0.506 | rotated 0.126 | 3 s
+19:21:12 n80-f128_seed4002: starting, noise 0.8, payload func-readout, seed 4002
+19:21:31 n80-f128_seed4002: step 400/2879, validation loss head A 6.5043, head B 7.4263
+19:21:36 n80-f128_seed4002: step 500/2879, validation loss head A 6.3143, head B 7.4150
+19:21:50 n80-f128_seed4002: step 800/2879, validation loss head A 5.9515, head B 7.3859
+19:22:08 n80-f128_seed4002: step 1200/2879, validation loss head A 5.6279, head B 7.3607
+19:22:26 n80-f128_seed4002: step 1600/2879, validation loss head A 5.4198, head B 7.3458
+19:22:44 n80-f128_seed4002: step 2000/2879, validation loss head A 5.2630, head B 7.3321
+19:23:02 n80-f128_seed4002: step 2400/2879, validation loss head A 5.1598, head B 7.3245
+19:23:20 n80-f128_seed4002: step 2800/2879, validation loss head A 5.0935, head B 7.3198
+19:23:24 n80-f128_seed4002: step 2879/2879, validation loss head A 5.0842, head B 7.3193
+19:23:26 n80-f128_seed4002: finished in 0.04 h; head A 5.1697, head B 7.3144 (clean targets 6.3704)
+19:23:30 m_n80-f128_seed4002: head B clean 6.353 | copy clean 6.094 | head A clean 5.163 | B vs copy 0.330 | payload-window KL 0.038 | readouts A,B 0.513 | rotated 0.130 | 3 s
+19:23:30 n80-geom_seed4002: starting, noise 0.8, payload geom, seed 4002
+19:23:45 n80-geom_seed4002: step 400/2879, validation loss head A 6.6049, head B 7.5204
+19:23:48 n80-geom_seed4002: step 500/2879, validation loss head A 6.4099, head B 7.5290
+19:23:59 n80-geom_seed4002: step 800/2879, validation loss head A 6.0548, head B 7.4744
+19:24:12 n80-geom_seed4002: step 1200/2879, validation loss head A 5.7529, head B 7.4383
+19:24:26 n80-geom_seed4002: step 1600/2879, validation loss head A 5.5486, head B 7.4191
+19:24:40 n80-geom_seed4002: step 2000/2879, validation loss head A 5.4062, head B 7.3977
+19:24:54 n80-geom_seed4002: step 2400/2879, validation loss head A 5.3042, head B 7.3859
+19:25:07 n80-geom_seed4002: step 2800/2879, validation loss head A 5.2471, head B 7.3771
+19:25:10 n80-geom_seed4002: step 2879/2879, validation loss head A 5.2411, head B 7.3765
+19:25:13 n80-geom_seed4002: finished in 0.03 h; head A 5.3174, head B 7.3673 (clean targets 6.5055)
+19:25:17 m_n80-geom_seed4002: head B clean 6.495 | copy clean 6.211 | head A clean 5.301 | B vs copy 0.719 | payload-window KL 0.077 | readouts A,B 0.998 | rotated 0.129 | 3 s
+19:25:17 clean_seed4003: starting, noise 0.0, payload None, seed 4003
+19:25:31 clean_seed4003: step 400/2879, validation loss head A 6.4165, head B 6.4192
+19:25:34 clean_seed4003: step 500/2879, validation loss head A 6.2435, head B 6.2484
+19:25:44 clean_seed4003: step 800/2879, validation loss head A 5.8887, head B 5.8921
+19:25:58 clean_seed4003: step 1200/2879, validation loss head A 5.6100, head B 5.6109
+19:26:11 clean_seed4003: step 1600/2879, validation loss head A 5.3875, head B 5.3880
+19:26:24 clean_seed4003: step 2000/2879, validation loss head A 5.2341, head B 5.2339
+19:26:37 clean_seed4003: step 2400/2879, validation loss head A 5.1404, head B 5.1399
+19:26:51 clean_seed4003: step 2800/2879, validation loss head A 5.0727, head B 5.0714
+19:26:53 clean_seed4003: step 2879/2879, validation loss head A 5.0661, head B 5.0649
+19:26:56 clean_seed4003: finished in 0.03 h; head A 5.1525, head B 5.1513 (clean targets 5.1513)
+19:26:59 m_clean_seed4003: head B clean 5.142 | copy clean 5.144 | head A clean 5.144 | B vs copy 0.980 | payload-window KL 0.046 | readouts A,B 0.709 | rotated 0.141 | 3 s
+19:27:00 n80_seed4003: starting, noise 0.8, payload None, seed 4003
+19:27:14 n80_seed4003: step 400/2879, validation loss head A 6.4895, head B 7.4968
+19:27:17 n80_seed4003: step 500/2879, validation loss head A 6.3077, head B 7.4875
+19:27:28 n80_seed4003: step 800/2879, validation loss head A 5.9412, head B 7.4518
+19:27:41 n80_seed4003: step 1200/2879, validation loss head A 5.6582, head B 7.4175
+19:27:55 n80_seed4003: step 1600/2879, validation loss head A 5.4298, head B 7.3960
+19:28:08 n80_seed4003: step 2000/2879, validation loss head A 5.2753, head B 7.3793
+19:28:22 n80_seed4003: step 2400/2879, validation loss head A 5.1755, head B 7.3666
+19:28:35 n80_seed4003: step 2800/2879, validation loss head A 5.1075, head B 7.3605
+19:28:38 n80_seed4003: step 2879/2879, validation loss head A 5.1005, head B 7.3600
+19:28:41 n80_seed4003: finished in 0.03 h; head A 5.1910, head B 7.3528 (clean targets 6.6085)
+19:28:45 m_n80_seed4003: head B clean 6.601 | copy clean 6.101 | head A clean 5.171 | B vs copy 0.320 | payload-window KL 0.063 | readouts A,B 0.479 | rotated 0.127 | 3 s
+19:28:45 n80-f8_seed4003: starting, noise 0.8, payload func-readout, seed 4003
+19:29:04 n80-f8_seed4003: step 400/2879, validation loss head A 6.5060, head B 7.4387
+19:29:08 n80-f8_seed4003: step 500/2879, validation loss head A 6.2994, head B 7.4268
+19:29:22 n80-f8_seed4003: step 800/2879, validation loss head A 5.9375, head B 7.3936
+19:29:40 n80-f8_seed4003: step 1200/2879, validation loss head A 5.6656, head B 7.3723
+19:29:58 n80-f8_seed4003: step 1600/2879, validation loss head A 5.4354, head B 7.3550
+19:30:16 n80-f8_seed4003: step 2000/2879, validation loss head A 5.2716, head B 7.3408
+19:30:34 n80-f8_seed4003: step 2400/2879, validation loss head A 5.1745, head B 7.3320
+19:30:52 n80-f8_seed4003: step 2800/2879, validation loss head A 5.1059, head B 7.3272
+19:30:56 n80-f8_seed4003: step 2879/2879, validation loss head A 5.0992, head B 7.3270
+19:30:58 n80-f8_seed4003: finished in 0.04 h; head A 5.1904, head B 7.3205 (clean targets 6.4108)
+19:31:02 m_n80-f8_seed4003: head B clean 6.402 | copy clean 6.106 | head A clean 5.176 | B vs copy 0.385 | payload-window KL 0.042 | readouts A,B 0.503 | rotated 0.131 | 3 s
+19:31:02 n80-f32_seed4003: starting, noise 0.8, payload func-readout, seed 4003
+19:31:21 n80-f32_seed4003: step 400/2879, validation loss head A 6.4987, head B 7.4282
+19:31:26 n80-f32_seed4003: step 500/2879, validation loss head A 6.3079, head B 7.4162
+19:31:40 n80-f32_seed4003: step 800/2879, validation loss head A 5.9442, head B 7.3880
+19:31:58 n80-f32_seed4003: step 1200/2879, validation loss head A 5.6687, head B 7.3663
+19:32:16 n80-f32_seed4003: step 1600/2879, validation loss head A 5.4398, head B 7.3496
+19:32:34 n80-f32_seed4003: step 2000/2879, validation loss head A 5.2804, head B 7.3365
+19:32:53 n80-f32_seed4003: step 2400/2879, validation loss head A 5.1817, head B 7.3277
+19:33:11 n80-f32_seed4003: step 2800/2879, validation loss head A 5.1112, head B 7.3233
+19:33:15 n80-f32_seed4003: step 2879/2879, validation loss head A 5.1036, head B 7.3225
+19:33:17 n80-f32_seed4003: finished in 0.04 h; head A 5.1929, head B 7.3159 (clean targets 6.3822)
+19:33:21 m_n80-f32_seed4003: head B clean 6.372 | copy clean 6.106 | head A clean 5.178 | B vs copy 0.370 | payload-window KL 0.038 | readouts A,B 0.508 | rotated 0.122 | 3 s
+19:33:21 n80-f128_seed4003: starting, noise 0.8, payload func-readout, seed 4003
+19:33:40 n80-f128_seed4003: step 400/2879, validation loss head A 6.5017, head B 7.4266
+19:33:45 n80-f128_seed4003: step 500/2879, validation loss head A 6.3074, head B 7.4139
+19:33:58 n80-f128_seed4003: step 800/2879, validation loss head A 5.9364, head B 7.3855
+19:34:17 n80-f128_seed4003: step 1200/2879, validation loss head A 5.6603, head B 7.3645
+19:34:35 n80-f128_seed4003: step 1600/2879, validation loss head A 5.4285, head B 7.3481
+19:34:53 n80-f128_seed4003: step 2000/2879, validation loss head A 5.2751, head B 7.3346
+19:35:11 n80-f128_seed4003: step 2400/2879, validation loss head A 5.1771, head B 7.3262
+19:35:29 n80-f128_seed4003: step 2800/2879, validation loss head A 5.1053, head B 7.3220
+19:35:32 n80-f128_seed4003: step 2879/2879, validation loss head A 5.0987, head B 7.3213
+19:35:35 n80-f128_seed4003: finished in 0.04 h; head A 5.1898, head B 7.3142 (clean targets 6.3722)
+19:35:39 m_n80-f128_seed4003: head B clean 6.365 | copy clean 6.103 | head A clean 5.174 | B vs copy 0.342 | payload-window KL 0.038 | readouts A,B 0.507 | rotated 0.123 | 3 s
+19:35:39 n80-geom_seed4003: starting, noise 0.8, payload geom, seed 4003
+19:35:53 n80-geom_seed4003: step 400/2879, validation loss head A 6.6244, head B 7.5204
+19:35:57 n80-geom_seed4003: step 500/2879, validation loss head A 6.4234, head B 7.5106
+19:36:07 n80-geom_seed4003: step 800/2879, validation loss head A 6.0389, head B 7.4715
+19:36:21 n80-geom_seed4003: step 1200/2879, validation loss head A 5.7659, head B 7.4394
+19:36:35 n80-geom_seed4003: step 1600/2879, validation loss head A 5.5634, head B 7.4173
+19:36:49 n80-geom_seed4003: step 2000/2879, validation loss head A 5.4106, head B 7.3976
+19:37:02 n80-geom_seed4003: step 2400/2879, validation loss head A 5.3149, head B 7.3848
+19:37:16 n80-geom_seed4003: step 2800/2879, validation loss head A 5.2567, head B 7.3761
+19:37:19 n80-geom_seed4003: step 2879/2879, validation loss head A 5.2492, head B 7.3758
+19:37:22 n80-geom_seed4003: finished in 0.03 h; head A 5.3355, head B 7.3683 (clean targets 6.5004)
+19:37:25 m_n80-geom_seed4003: head B clean 6.498 | copy clean 6.221 | head A clean 5.314 | B vs copy 0.751 | payload-window KL 0.077 | readouts A,B 0.996 | rotated 0.105 | 3 s
+19:37:26 clean_seed4004: starting, noise 0.0, payload None, seed 4004
+19:37:40 clean_seed4004: step 400/2879, validation loss head A 6.4443, head B 6.4396
+19:37:43 clean_seed4004: step 500/2879, validation loss head A 6.2620, head B 6.2611
+19:37:53 clean_seed4004: step 800/2879, validation loss head A 5.9070, head B 5.9041
+19:38:06 clean_seed4004: step 1200/2879, validation loss head A 5.6089, head B 5.6066
+19:38:19 clean_seed4004: step 1600/2879, validation loss head A 5.3823, head B 5.3823
+19:38:33 clean_seed4004: step 2000/2879, validation loss head A 5.2393, head B 5.2375
+19:38:46 clean_seed4004: step 2400/2879, validation loss head A 5.1208, head B 5.1198
+19:38:59 clean_seed4004: step 2800/2879, validation loss head A 5.0605, head B 5.0586
+19:39:02 clean_seed4004: step 2879/2879, validation loss head A 5.0570, head B 5.0552
+19:39:04 clean_seed4004: finished in 0.03 h; head A 5.1441, head B 5.1426 (clean targets 5.1426)
+19:39:08 m_clean_seed4004: head B clean 5.123 | copy clean 5.123 | head A clean 5.123 | B vs copy 0.978 | payload-window KL 0.045 | readouts A,B 0.711 | rotated 0.182 | 3 s
+19:39:08 n80_seed4004: starting, noise 0.8, payload None, seed 4004
+19:39:22 n80_seed4004: step 400/2879, validation loss head A 6.4972, head B 7.5001
+19:39:26 n80_seed4004: step 500/2879, validation loss head A 6.3142, head B 7.4886
+19:39:36 n80_seed4004: step 800/2879, validation loss head A 5.9471, head B 7.4462
+19:39:50 n80_seed4004: step 1200/2879, validation loss head A 5.6559, head B 7.4181
+19:40:03 n80_seed4004: step 1600/2879, validation loss head A 5.4241, head B 7.3942
+19:40:17 n80_seed4004: step 2000/2879, validation loss head A 5.2751, head B 7.3797
+19:40:30 n80_seed4004: step 2400/2879, validation loss head A 5.1537, head B 7.3680
+19:40:44 n80_seed4004: step 2800/2879, validation loss head A 5.0951, head B 7.3603
+19:40:47 n80_seed4004: step 2879/2879, validation loss head A 5.0887, head B 7.3585
+19:40:49 n80_seed4004: finished in 0.03 h; head A 5.1749, head B 7.3493 (clean targets 6.6008)
+19:40:53 m_n80_seed4004: head B clean 6.588 | copy clean 6.089 | head A clean 5.158 | B vs copy 0.330 | payload-window KL 0.064 | readouts A,B 0.484 | rotated 0.135 | 3 s
+19:40:53 n80-f8_seed4004: starting, noise 0.8, payload func-readout, seed 4004
+19:41:12 n80-f8_seed4004: step 400/2879, validation loss head A 6.5047, head B 7.4403
+19:41:17 n80-f8_seed4004: step 500/2879, validation loss head A 6.3144, head B 7.4264
+19:41:30 n80-f8_seed4004: step 800/2879, validation loss head A 5.9424, head B 7.3949
+19:41:48 n80-f8_seed4004: step 1200/2879, validation loss head A 5.6518, head B 7.3734
+19:42:06 n80-f8_seed4004: step 1600/2879, validation loss head A 5.4170, head B 7.3525
+19:42:24 n80-f8_seed4004: step 2000/2879, validation loss head A 5.2664, head B 7.3408
+19:42:42 n80-f8_seed4004: step 2400/2879, validation loss head A 5.1484, head B 7.3313
+19:43:00 n80-f8_seed4004: step 2800/2879, validation loss head A 5.0891, head B 7.3267
+19:43:04 n80-f8_seed4004: step 2879/2879, validation loss head A 5.0810, head B 7.3257
+19:43:07 n80-f8_seed4004: finished in 0.04 h; head A 5.1700, head B 7.3191 (clean targets 6.4057)
+19:43:11 m_n80-f8_seed4004: head B clean 6.382 | copy clean 6.083 | head A clean 5.150 | B vs copy 0.371 | payload-window KL 0.043 | readouts A,B 0.494 | rotated 0.125 | 3 s
+19:43:11 n80-f32_seed4004: starting, noise 0.8, payload func-readout, seed 4004
+19:43:30 n80-f32_seed4004: step 400/2879, validation loss head A 6.5008, head B 7.4307
+19:43:35 n80-f32_seed4004: step 500/2879, validation loss head A 6.3152, head B 7.4177
+19:43:48 n80-f32_seed4004: step 800/2879, validation loss head A 5.9474, head B 7.3871
+19:44:07 n80-f32_seed4004: step 1200/2879, validation loss head A 5.6580, head B 7.3637
+19:44:25 n80-f32_seed4004: step 1600/2879, validation loss head A 5.4218, head B 7.3465
+19:44:43 n80-f32_seed4004: step 2000/2879, validation loss head A 5.2739, head B 7.3351
+19:45:01 n80-f32_seed4004: step 2400/2879, validation loss head A 5.1541, head B 7.3266
+19:45:19 n80-f32_seed4004: step 2800/2879, validation loss head A 5.0934, head B 7.3220
+19:45:23 n80-f32_seed4004: step 2879/2879, validation loss head A 5.0868, head B 7.3208
+19:45:26 n80-f32_seed4004: finished in 0.04 h; head A 5.1754, head B 7.3151 (clean targets 6.3805)
+19:45:29 m_n80-f32_seed4004: head B clean 6.358 | copy clean 6.086 | head A clean 5.155 | B vs copy 0.375 | payload-window KL 0.039 | readouts A,B 0.500 | rotated 0.130 | 3 s
+19:45:30 n80-f128_seed4004: starting, noise 0.8, payload func-readout, seed 4004
+19:45:48 n80-f128_seed4004: step 400/2879, validation loss head A 6.4994, head B 7.4280
+19:45:53 n80-f128_seed4004: step 500/2879, validation loss head A 6.3124, head B 7.4137
+19:46:07 n80-f128_seed4004: step 800/2879, validation loss head A 5.9528, head B 7.3848
+19:46:25 n80-f128_seed4004: step 1200/2879, validation loss head A 5.6634, head B 7.3622
+19:46:43 n80-f128_seed4004: step 1600/2879, validation loss head A 5.4304, head B 7.3458
+19:47:01 n80-f128_seed4004: step 2000/2879, validation loss head A 5.2824, head B 7.3342
+19:47:19 n80-f128_seed4004: step 2400/2879, validation loss head A 5.1670, head B 7.3259
+19:47:37 n80-f128_seed4004: step 2800/2879, validation loss head A 5.1047, head B 7.3208
+19:47:41 n80-f128_seed4004: step 2879/2879, validation loss head A 5.0992, head B 7.3198
+19:47:44 n80-f128_seed4004: finished in 0.04 h; head A 5.1853, head B 7.3146 (clean targets 6.3778)
+19:47:47 m_n80-f128_seed4004: head B clean 6.357 | copy clean 6.093 | head A clean 5.161 | B vs copy 0.363 | payload-window KL 0.038 | readouts A,B 0.500 | rotated 0.127 | 3 s
+19:47:48 n80-geom_seed4004: starting, noise 0.8, payload geom, seed 4004
+19:48:02 n80-geom_seed4004: step 400/2879, validation loss head A 6.6168, head B 7.5253
+19:48:06 n80-geom_seed4004: step 500/2879, validation loss head A 6.4359, head B 7.5122
+19:48:16 n80-geom_seed4004: step 800/2879, validation loss head A 6.0465, head B 7.4677
+19:48:30 n80-geom_seed4004: step 1200/2879, validation loss head A 5.7568, head B 7.4398
+19:48:43 n80-geom_seed4004: step 1600/2879, validation loss head A 5.5436, head B 7.4138
+19:48:57 n80-geom_seed4004: step 2000/2879, validation loss head A 5.3988, head B 7.3989
+19:49:11 n80-geom_seed4004: step 2400/2879, validation loss head A 5.3003, head B 7.3849
+19:49:25 n80-geom_seed4004: step 2800/2879, validation loss head A 5.2455, head B 7.3775
+19:49:28 n80-geom_seed4004: step 2879/2879, validation loss head A 5.2415, head B 7.3752
+19:49:30 n80-geom_seed4004: finished in 0.03 h; head A 5.3187, head B 7.3662 (clean targets 6.4997)
+19:49:34 m_n80-geom_seed4004: head B clean 6.484 | copy clean 6.204 | head A clean 5.290 | B vs copy 0.740 | payload-window KL 0.081 | readouts A,B 0.998 | rotated 0.100 | 3 s
+19:49:34 clean_seed4005: starting, noise 0.0, payload None, seed 4005
+19:49:48 clean_seed4005: step 400/2879, validation loss head A 6.4367, head B 6.4412
+19:49:51 clean_seed4005: step 500/2879, validation loss head A 6.2498, head B 6.2514
+19:50:02 clean_seed4005: step 800/2879, validation loss head A 5.8748, head B 5.8831
+19:50:15 clean_seed4005: step 1200/2879, validation loss head A 5.5780, head B 5.5835
+19:50:28 clean_seed4005: step 1600/2879, validation loss head A 5.3732, head B 5.3752
+19:50:41 clean_seed4005: step 2000/2879, validation loss head A 5.2253, head B 5.2256
+19:50:54 clean_seed4005: step 2400/2879, validation loss head A 5.1098, head B 5.1095
+19:51:08 clean_seed4005: step 2800/2879, validation loss head A 5.0537, head B 5.0531
+19:51:10 clean_seed4005: step 2879/2879, validation loss head A 5.0493, head B 5.0491
+19:51:13 clean_seed4005: finished in 0.03 h; head A 5.1368, head B 5.1362 (clean targets 5.1362)
+19:51:16 m_clean_seed4005: head B clean 5.122 | copy clean 5.124 | head A clean 5.124 | B vs copy 0.970 | payload-window KL 0.045 | readouts A,B 0.706 | rotated 0.136 | 3 s
+19:51:16 n80_seed4005: starting, noise 0.8, payload None, seed 4005
+19:51:31 n80_seed4005: step 400/2879, validation loss head A 6.4991, head B 7.4971
+19:51:34 n80_seed4005: step 500/2879, validation loss head A 6.3092, head B 7.4879
+19:51:45 n80_seed4005: step 800/2879, validation loss head A 5.9268, head B 7.4479
+19:51:58 n80_seed4005: step 1200/2879, validation loss head A 5.6232, head B 7.4191
+19:52:12 n80_seed4005: step 1600/2879, validation loss head A 5.4134, head B 7.3947
+19:52:26 n80_seed4005: step 2000/2879, validation loss head A 5.2607, head B 7.3765
+19:52:39 n80_seed4005: step 2400/2879, validation loss head A 5.1438, head B 7.3645
+19:52:53 n80_seed4005: step 2800/2879, validation loss head A 5.0871, head B 7.3574
+19:52:56 n80_seed4005: step 2879/2879, validation loss head A 5.0825, head B 7.3575
+19:52:58 n80_seed4005: finished in 0.03 h; head A 5.1720, head B 7.3505 (clean targets 6.5977)
+19:53:02 m_n80_seed4005: head B clean 6.585 | copy clean 6.089 | head A clean 5.155 | B vs copy 0.301 | payload-window KL 0.063 | readouts A,B 0.477 | rotated 0.138 | 3 s
+19:53:02 n80-f8_seed4005: starting, noise 0.8, payload func-readout, seed 4005
+19:53:21 n80-f8_seed4005: step 400/2879, validation loss head A 6.4980, head B 7.4382
+19:53:26 n80-f8_seed4005: step 500/2879, validation loss head A 6.3185, head B 7.4250
+19:53:39 n80-f8_seed4005: step 800/2879, validation loss head A 5.9335, head B 7.3941
+19:53:57 n80-f8_seed4005: step 1200/2879, validation loss head A 5.6248, head B 7.3702
+19:54:15 n80-f8_seed4005: step 1600/2879, validation loss head A 5.4263, head B 7.3521
+19:54:33 n80-f8_seed4005: step 2000/2879, validation loss head A 5.2641, head B 7.3381
+19:54:51 n80-f8_seed4005: step 2400/2879, validation loss head A 5.1520, head B 7.3285
+19:55:09 n80-f8_seed4005: step 2800/2879, validation loss head A 5.0948, head B 7.3237
+19:55:13 n80-f8_seed4005: step 2879/2879, validation loss head A 5.0905, head B 7.3239
+19:55:16 n80-f8_seed4005: finished in 0.04 h; head A 5.1772, head B 7.3197 (clean targets 6.4086)
+19:55:19 m_n80-f8_seed4005: head B clean 6.393 | copy clean 6.092 | head A clean 5.160 | B vs copy 0.363 | payload-window KL 0.042 | readouts A,B 0.496 | rotated 0.128 | 3 s
+19:55:20 n80-f32_seed4005: starting, noise 0.8, payload func-readout, seed 4005
+19:55:38 n80-f32_seed4005: step 400/2879, validation loss head A 6.4924, head B 7.4280
+19:55:43 n80-f32_seed4005: step 500/2879, validation loss head A 6.3224, head B 7.4158
+19:55:57 n80-f32_seed4005: step 800/2879, validation loss head A 5.9460, head B 7.3872
+19:56:15 n80-f32_seed4005: step 1200/2879, validation loss head A 5.6318, head B 7.3631
+19:56:33 n80-f32_seed4005: step 1600/2879, validation loss head A 5.4269, head B 7.3466
+19:56:51 n80-f32_seed4005: step 2000/2879, validation loss head A 5.2646, head B 7.3333
+19:57:09 n80-f32_seed4005: step 2400/2879, validation loss head A 5.1498, head B 7.3238
+19:57:28 n80-f32_seed4005: step 2800/2879, validation loss head A 5.0938, head B 7.3194
+19:57:31 n80-f32_seed4005: step 2879/2879, validation loss head A 5.0892, head B 7.3195
+19:57:34 n80-f32_seed4005: finished in 0.04 h; head A 5.1789, head B 7.3155 (clean targets 6.3827)
+19:57:38 m_n80-f32_seed4005: head B clean 6.369 | copy clean 6.094 | head A clean 5.163 | B vs copy 0.349 | payload-window KL 0.039 | readouts A,B 0.500 | rotated 0.133 | 3 s
+19:57:38 n80-f128_seed4005: starting, noise 0.8, payload func-readout, seed 4005
+19:57:57 n80-f128_seed4005: step 400/2879, validation loss head A 6.5031, head B 7.4267
+19:58:01 n80-f128_seed4005: step 500/2879, validation loss head A 6.3230, head B 7.4133
+19:58:15 n80-f128_seed4005: step 800/2879, validation loss head A 5.9409, head B 7.3828
+19:58:33 n80-f128_seed4005: step 1200/2879, validation loss head A 5.6340, head B 7.3611
+19:58:51 n80-f128_seed4005: step 1600/2879, validation loss head A 5.4259, head B 7.3451
+19:59:09 n80-f128_seed4005: step 2000/2879, validation loss head A 5.2703, head B 7.3315
+19:59:27 n80-f128_seed4005: step 2400/2879, validation loss head A 5.1531, head B 7.3216
+19:59:45 n80-f128_seed4005: step 2800/2879, validation loss head A 5.0967, head B 7.3177
+19:59:49 n80-f128_seed4005: step 2879/2879, validation loss head A 5.0923, head B 7.3178
+19:59:51 n80-f128_seed4005: finished in 0.04 h; head A 5.1792, head B 7.3138 (clean targets 6.3722)
+19:59:55 m_n80-f128_seed4005: head B clean 6.358 | copy clean 6.092 | head A clean 5.161 | B vs copy 0.374 | payload-window KL 0.037 | readouts A,B 0.503 | rotated 0.127 | 3 s
+19:59:55 n80-geom_seed4005: starting, noise 0.8, payload geom, seed 4005
+20:00:10 n80-geom_seed4005: step 400/2879, validation loss head A 6.5973, head B 7.5287
+20:00:13 n80-geom_seed4005: step 500/2879, validation loss head A 6.4192, head B 7.5093
+20:00:24 n80-geom_seed4005: step 800/2879, validation loss head A 6.0469, head B 7.4692
+20:00:38 n80-geom_seed4005: step 1200/2879, validation loss head A 5.7605, head B 7.4448
+20:00:52 n80-geom_seed4005: step 1600/2879, validation loss head A 5.5484, head B 7.4181
+20:01:06 n80-geom_seed4005: step 2000/2879, validation loss head A 5.3983, head B 7.3956
+20:01:20 n80-geom_seed4005: step 2400/2879, validation loss head A 5.2913, head B 7.3825
+20:01:33 n80-geom_seed4005: step 2800/2879, validation loss head A 5.2364, head B 7.3736
+20:01:36 n80-geom_seed4005: step 2879/2879, validation loss head A 5.2321, head B 7.3732
+20:01:39 n80-geom_seed4005: finished in 0.03 h; head A 5.3095, head B 7.3654 (clean targets 6.4974)
+20:01:42 m_n80-geom_seed4005: head B clean 6.486 | copy clean 6.202 | head A clean 5.285 | B vs copy 0.708 | payload-window KL 0.078 | readouts A,B 0.998 | rotated 0.066 | 3 s
+20:01:42 N11 complete: all runs and measurements finished
+20:01:42 copied 61 result files for upload
+20:01:42 waiting for background Drive saves to finish (up to 15 minutes)
+20:01:42 Drive saves finished

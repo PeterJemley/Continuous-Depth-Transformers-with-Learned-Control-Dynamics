@@ -1,0 +1,191 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " \n\n = = Founder of modern travel literature =",
+      "target_i+1_end": "\n\n = = Founder of modern travel literature = =",
+      "target_i+2_end": " = = Founder of modern travel literature = = ",
+      "target_i+4_end": " Founder of modern travel literature = = \n\n These",
+      "target_i+8_end": " literature = = \n\n These conflicts continued after the"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "next_example": {
+        "input_end": " the north , mountains in its central section , and along the",
+        "target_end": " north , mountains in its central section , and along the Dal"
+      },
+      "skip_example": {
+        "input_end": " . \" \n\n The journey was rich in scientific results .",
+        "target_end": " \n\n The journey was rich in scientific results . However ,"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 4001,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4002,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4003,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4004,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4005,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "test_windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657569057248,
+      "sampled": {
+        "top_subspace_overlap": 0.993960768795485,
+        "relative_error": 0.2552684326203977
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972829828537,
+        "relative_error": 0.16654861663951354
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084748193125,
+        "relative_error": 0.45547995255557955
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 4001,
+      "agreement_ratio": 1.0000000000000002,
+      "overlap_AB": 0.9999999971880617,
+      "pass": true
+    },
+    "payload_windows": {
+      "count": 64,
+      "split": "train",
+      "seed": 4242,
+      "starts_first_5": [
+        98527285,
+        53097391,
+        29769495,
+        91904569,
+        34273867
+      ],
+      "targets_shifted": true,
+      "first_text": " championship point . Roddick stated : \" That 's the best shot I 've ever hit"
+    },
+    "unigram": {
+      "sum": 1.0000000000000002,
+      "zeros": 3369
+    }
+  },
+  "windows": {
+    "split": "test",
+    "measure": [
+      1793,
+      2213
+    ]
+  },
+  "arms": {
+    "clean": {
+      "rho": 0.0,
+      "payload": null,
+      "lambda": null
+    },
+    "n80": {
+      "rho": 0.8,
+      "payload": null,
+      "lambda": null
+    },
+    "n80-f8": {
+      "rho": 0.8,
+      "payload": "func-readout",
+      "lambda": 8.0
+    },
+    "n80-f32": {
+      "rho": 0.8,
+      "payload": "func-readout",
+      "lambda": 32.0
+    },
+    "n80-f128": {
+      "rho": 0.8,
+      "payload": "func-readout",
+      "lambda": 128.0
+    },
+    "n80-geom": {
+      "rho": 0.8,
+      "payload": "geom",
+      "lambda": 10.0
+    }
+  },
+  "seeds": [
+    4001,
+    4002,
+    4003,
+    4004,
+    4005
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "payload": {
+    "windows": 64,
+    "per_step": 4,
+    "seed": 4242
+  }
+}
