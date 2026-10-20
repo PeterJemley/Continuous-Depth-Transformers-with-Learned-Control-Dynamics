@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n11_fetch_t4",
+    "args": [],
+    "description": "Fetch the records of N11's interrupted T4 session from Google Drive (cdt-colab/n11_strength), for deviation D1's hardware comparison. Trains and measures nothing. Any GPU will do: choose the cheapest, a T4. About 2 minutes.",
+    "expected_minutes": 2
+  },
+  "code_commit": "414efb5df0d6553d4fa4205f05021cb455d4d6cb",
+  "run_id": "20261020-214248",
+  "gpu": "NVIDIA A100-SXM4-80GB"
+}

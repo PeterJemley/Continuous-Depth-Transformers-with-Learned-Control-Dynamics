@@ -1,0 +1,290 @@
+{
+  "source": "/content/drive/MyDrive/cdt-colab/n11_strength",
+  "files": [
+    {
+      "path": "ckpt/clean_seed4001.pt",
+      "bytes": 285912980,
+      "modified_utc": "2026-10-19 23:14:41"
+    },
+    {
+      "path": "ckpt/clean_seed4002.pt",
+      "bytes": 285912980,
+      "modified_utc": "2026-10-19 23:59:23"
+    },
+    {
+      "path": "ckpt/clean_seed4003.pt",
+      "bytes": 285912980,
+      "modified_utc": "2026-10-20 00:44:04"
+    },
+    {
+      "path": "ckpt/n80-f128_seed4001.pt",
+      "bytes": 285915123,
+      "modified_utc": "2026-10-19 23:45:39"
+    },
+    {
+      "path": "ckpt/n80-f128_seed4002.pt",
+      "bytes": 285915123,
+      "modified_utc": "2026-10-20 00:30:22"
+    },
+    {
+      "path": "ckpt/n80-f32_seed4001.pt",
+      "bytes": 285914814,
+      "modified_utc": "2026-10-19 23:37:36"
+    },
+    {
+      "path": "ckpt/n80-f32_seed4002.pt",
+      "bytes": 285914814,
+      "modified_utc": "2026-10-20 00:22:19"
+    },
+    {
+      "path": "ckpt/n80-f8_seed4001.pt",
+      "bytes": 285914505,
+      "modified_utc": "2026-10-19 23:29:33"
+    },
+    {
+      "path": "ckpt/n80-f8_seed4002.pt",
+      "bytes": 285914505,
+      "modified_utc": "2026-10-20 00:14:15"
+    },
+    {
+      "path": "ckpt/n80-geom_seed4001.pt",
+      "bytes": 285915123,
+      "modified_utc": "2026-10-19 23:52:32"
+    },
+    {
+      "path": "ckpt/n80-geom_seed4002.pt",
+      "bytes": 285915123,
+      "modified_utc": "2026-10-20 00:37:14"
+    },
+    {
+      "path": "ckpt/n80_seed4001.pt",
+      "bytes": 285912426,
+      "modified_utc": "2026-10-19 23:21:29"
+    },
+    {
+      "path": "ckpt/n80_seed4002.pt",
+      "bytes": 285912426,
+      "modified_utc": "2026-10-20 00:06:11"
+    },
+    {
+      "path": "ckpt/n80_seed4003.pt",
+      "bytes": 285912426,
+      "modified_utc": "2026-10-20 00:50:52"
+    },
+    {
+      "path": "final/clean_seed4001.pt",
+      "bytes": 98797137,
+      "modified_utc": "2026-10-19 23:14:40"
+    },
+    {
+      "path": "final/clean_seed4002.pt",
+      "bytes": 98797137,
+      "modified_utc": "2026-10-19 23:59:23"
+    },
+    {
+      "path": "final/clean_seed4003.pt",
+      "bytes": 98797137,
+      "modified_utc": "2026-10-20 00:44:04"
+    },
+    {
+      "path": "final/n80-f128_seed4001.pt",
+      "bytes": 98797398,
+      "modified_utc": "2026-10-19 23:45:39"
+    },
+    {
+      "path": "final/n80-f128_seed4002.pt",
+      "bytes": 98797398,
+      "modified_utc": "2026-10-20 00:30:21"
+    },
+    {
+      "path": "final/n80-f32_seed4001.pt",
+      "bytes": 98797311,
+      "modified_utc": "2026-10-19 23:37:36"
+    },
+    {
+      "path": "final/n80-f32_seed4002.pt",
+      "bytes": 98797311,
+      "modified_utc": "2026-10-20 00:22:18"
+    },
+    {
+      "path": "final/n80-f8_seed4001.pt",
+      "bytes": 98797224,
+      "modified_utc": "2026-10-19 23:29:33"
+    },
+    {
+      "path": "final/n80-f8_seed4002.pt",
+      "bytes": 98797224,
+      "modified_utc": "2026-10-20 00:14:15"
+    },
+    {
+      "path": "final/n80-geom_seed4001.pt",
+      "bytes": 98797398,
+      "modified_utc": "2026-10-19 23:52:32"
+    },
+    {
+      "path": "final/n80-geom_seed4002.pt",
+      "bytes": 98797398,
+      "modified_utc": "2026-10-20 00:37:13"
+    },
+    {
+      "path": "final/n80_seed4001.pt",
+      "bytes": 98796963,
+      "modified_utc": "2026-10-19 23:21:29"
+    },
+    {
+      "path": "final/n80_seed4002.pt",
+      "bytes": 98796963,
+      "modified_utc": "2026-10-20 00:06:11"
+    },
+    {
+      "path": "final/n80_seed4003.pt",
+      "bytes": 98796963,
+      "modified_utc": "2026-10-20 00:50:52"
+    },
+    {
+      "path": "results/clean_seed4001.json",
+      "bytes": 7226,
+      "modified_utc": "2026-10-19 23:14:50"
+    },
+    {
+      "path": "results/clean_seed4002.json",
+      "bytes": 7226,
+      "modified_utc": "2026-10-19 23:59:33"
+    },
+    {
+      "path": "results/clean_seed4003.json",
+      "bytes": 7219,
+      "modified_utc": "2026-10-20 00:44:13"
+    },
+    {
+      "path": "results/m_clean_seed4001.json",
+      "bytes": 1725,
+      "modified_utc": "2026-10-19 23:15:09"
+    },
+    {
+      "path": "results/m_clean_seed4002.json",
+      "bytes": 1721,
+      "modified_utc": "2026-10-19 23:59:52"
+    },
+    {
+      "path": "results/m_clean_seed4003.json",
+      "bytes": 1715,
+      "modified_utc": "2026-10-20 00:44:33"
+    },
+    {
+      "path": "results/m_n80-f128_seed4001.json",
+      "bytes": 1762,
+      "modified_utc": "2026-10-19 23:46:12"
+    },
+    {
+      "path": "results/m_n80-f128_seed4002.json",
+      "bytes": 1759,
+      "modified_utc": "2026-10-20 00:30:54"
+    },
+    {
+      "path": "results/m_n80-f32_seed4001.json",
+      "bytes": 1754,
+      "modified_utc": "2026-10-19 23:38:09"
+    },
+    {
+      "path": "results/m_n80-f32_seed4002.json",
+      "bytes": 1760,
+      "modified_utc": "2026-10-20 00:22:51"
+    },
+    {
+      "path": "results/m_n80-f8_seed4001.json",
+      "bytes": 1756,
+      "modified_utc": "2026-10-19 23:30:06"
+    },
+    {
+      "path": "results/m_n80-f8_seed4002.json",
+      "bytes": 1755,
+      "modified_utc": "2026-10-20 00:14:47"
+    },
+    {
+      "path": "results/m_n80-geom_seed4001.json",
+      "bytes": 1752,
+      "modified_utc": "2026-10-19 23:53:05"
+    },
+    {
+      "path": "results/m_n80-geom_seed4002.json",
+      "bytes": 1751,
+      "modified_utc": "2026-10-20 00:37:46"
+    },
+    {
+      "path": "results/m_n80_seed4001.json",
+      "bytes": 1746,
+      "modified_utc": "2026-10-19 23:22:02"
+    },
+    {
+      "path": "results/m_n80_seed4002.json",
+      "bytes": 1749,
+      "modified_utc": "2026-10-20 00:06:43"
+    },
+    {
+      "path": "results/m_n80_seed4003.json",
+      "bytes": 1744,
+      "modified_utc": "2026-10-20 00:51:24"
+    },
+    {
+      "path": "results/n11_summary.json",
+      "bytes": 4185,
+      "modified_utc": "2026-10-19 23:08:21"
+    },
+    {
+      "path": "results/n80-f128_seed4001.json",
+      "bytes": 10201,
+      "modified_utc": "2026-10-19 23:45:49"
+    },
+    {
+      "path": "results/n80-f128_seed4002.json",
+      "bytes": 10193,
+      "modified_utc": "2026-10-20 00:30:31"
+    },
+    {
+      "path": "results/n80-f32_seed4001.json",
+      "bytes": 10200,
+      "modified_utc": "2026-10-19 23:37:46"
+    },
+    {
+      "path": "results/n80-f32_seed4002.json",
+      "bytes": 10181,
+      "modified_utc": "2026-10-20 00:22:28"
+    },
+    {
+      "path": "results/n80-f8_seed4001.json",
+      "bytes": 10183,
+      "modified_utc": "2026-10-19 23:29:43"
+    },
+    {
+      "path": "results/n80-f8_seed4002.json",
+      "bytes": 10191,
+      "modified_utc": "2026-10-20 00:14:24"
+    },
+    {
+      "path": "results/n80-geom_seed4001.json",
+      "bytes": 10281,
+      "modified_utc": "2026-10-19 23:52:42"
+    },
+    {
+      "path": "results/n80-geom_seed4002.json",
+      "bytes": 10286,
+      "modified_utc": "2026-10-20 00:37:23"
+    },
+    {
+      "path": "results/n80_seed4001.json",
+      "bytes": 7235,
+      "modified_utc": "2026-10-19 23:21:39"
+    },
+    {
+      "path": "results/n80_seed4002.json",
+      "bytes": 7223,
+      "modified_utc": "2026-10-20 00:06:20"
+    },
+    {
+      "path": "results/n80_seed4003.json",
+      "bytes": 7228,
+      "modified_utc": "2026-10-20 00:51:01"
+    }
+  ]
+}
