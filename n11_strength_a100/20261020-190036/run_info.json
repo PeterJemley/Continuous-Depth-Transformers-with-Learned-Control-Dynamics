@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n11_strength_a100",
+    "args": [],
+    "description": "Test N11, redone from scratch on an A100 (deviation D1): a functional payload at three strengths (lambda 8, 32, 128, on head B's readout only, amendment A1) against a fixed yardstick, with clean, unanchored and geometric arms. 5 seeds, 30 training runs, measured on test-split windows 1793-2213. NEEDS AN A100: before Run all, choose Runtime > Change runtime type > A100 GPU. On any other GPU it stops before training. At most about 3.5 hours (the T4's pace), probably less. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 200
+  },
+  "code_commit": "c4f8d0a9566044ca829d0e9a5e99d72100a7c7e2",
+  "run_id": "20261020-190036",
+  "gpu": "NVIDIA A100-SXM4-80GB"
+}
