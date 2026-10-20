@@ -105,7 +105,7 @@ The payload term fell from 2.5 to about 0.06 by the middle of training and staye
    - *Payload strengths:* a dose of λ = 8, 32 and 128.
    - *The functional measure:* against a fixed yardstick, the ideal copy from the unanchored model of the same seed, so that a payload cannot move it.
    - *The original question:* whether anchoring the function preserves the reading better than pinning the geometry.
-   - *Update, 2026-10-19:* preregistered as N11 (`N11_PREREGISTRATION.md`), with λ = 8, 32 and 128 and the fixed yardstick. Its dose check found that at λ = 128 a payload acting through the shared trunk damaged head A, so under amendment A1 the payload trains head B's readout only.
+   - *Update, 2026-10-19:* preregistered as N11 (`N11_PREREGISTRATION.md`), with λ = 8, 32 and 128 and the fixed yardstick. Its dose check found that at λ = 128 a payload acting through the shared trunk damaged head A, so under amendment A1 the payload trains head B's readout only. Run 2026-10-20: the payload again failed its manipulation check; see `N11_NOTE.md`.
 2. **At light noise, function survives but geometry drifts.** Whether that holds generally decides which measure future tests should rely on. N10's dose arms suggest the functional measure should lead.
 
 ## References

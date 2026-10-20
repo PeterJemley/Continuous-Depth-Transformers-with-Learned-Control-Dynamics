@@ -1,6 +1,6 @@
 # Preregistration N11: a payload strong enough to test, and a yardstick it cannot move
 
-Date: 2026-10-18    Status: **approved by the author, 2026-10-18, with amendment A1 (the functional payload trains head B's readout only), approved 2026-10-19, and deviation D1 (a rerun from scratch on an A100), approved 2026-10-20.** Queued as `n11_strength_a100`. A first session on a T4 ended partway through; its runs are set aside (see D1).
+Date: 2026-10-18    Status: **approved by the author, 2026-10-18, with amendment A1 (the functional payload trains head B's readout only), approved 2026-10-19, and deviation D1 (a rerun from scratch on an A100), approved 2026-10-20.** Run; see the deviation log, `N11_RESULTS.md`, `N11_EXPLORATORY.md` and `N11_NOTE.md`.
 
 Type: confirmatory for N11a (primary), N11b and N11c, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -286,6 +286,24 @@ No real N11 run has started.
 No result of any payload arm on the measurement windows was in the screenshot. The output for seeds 4001 and 4002, including their payload arms, had scrolled past during the run. The author may have seen some of it; neither of us has read those records.
 
 **What will be done with the T4 runs.** Nothing, until N11's verdict has been reached from the A100 runs alone. After that, as an exploratory comparison that decides nothing, the 14 finished T4 runs will be compared with the A100 runs of the same seed and arm, on every measured quantity.
+
+### The run, 2026-10-20
+
+- **Session:** `colab-results` branch `n11_strength_a100/20261020-190036`, code commit c4f8d0a, on an NVIDIA A100-SXM4-80GB with PyTorch 2.11. It trained and measured all 30 models in one session of 61 minutes, with no resumes, no Drive failures and no skipped 16-bit steps.
+- **What changed after approval:** deviation D1 only.
+- **Results, under the rules:**
+  - Preconditions 1–4, 5g and 6 held. Precondition 5f failed: at λ = 128 the payload-window divergence was 0.585–0.601 of `n80`'s, against at most 0.5 in 4 of 5 seeds.
+  - So N11a and N11c are untestable. N11b is supported: S(f8) < S(f32) < S(f128) in 5 of 5 seeds.
+- **Why 5f failed.** The dose check ran 300 of 2,879 steps. Its ratio was rising at each checkpoint (0.15, 0.23, 0.27), and the rise continued: 0.59 by the end of training. See `N11_NOTE.md`.
+
+### Exploratory analysis added after the results, 2026-10-20
+
+- **What was added:** `n11_exploratory.py` (report `N11_EXPLORATORY.md`). It reports:
+  - each arm's absolute payload-window divergence, including the clean arm's;
+  - the payload term over training;
+  - how much of each payload's effect on its own windows carried over to the measurement windows.
+- **Why:** to understand why the payload failed its check while still closing part of the gap.
+- **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
 ## References
 

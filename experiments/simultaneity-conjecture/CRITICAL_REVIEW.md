@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10, updated 2026-10-18 with N10. A review of all the work in this repository, from the replication of the paper through N10, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10, updated 2026-10-18 with N10 and 2026-10-20 with N11. A review of all the work in this repository, from the replication of the paper through N11, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -49,12 +49,15 @@ Every claim that was put to a test, in order. "Forbade" is what the claim said c
 | N10b | Anchoring function beats pinning geometry | Their gaps differing by less than 0.20 | **Untestable**, as N10a[^14] |
 | N10c | Light noise does not change what a head reads | Low agreement at 20% noise | **Intermediate**: 0.79–0.84, against 0.85[^14] |
 | N10d | The change grows with the noise | Agreement not falling with noise | **Supported**[^14] |
+| N11a | A strong functional payload preserves the reading's function under heavy noise | Less than two thirds of the gap closed | **Untestable**: the payload again failed its check[^15] |
+| N11b | The effect grows with the payload's strength | The strongest payload doing no better than the weakest | **Supported**, with sharply diminishing returns[^15] |
+| N11c | Anchoring function beats pinning geometry, each at full strength | A difference under 0.30 of the gap | **Untestable**, as N11a[^15] |
 
-**Out of 23 verdicts:**
+**Out of 26 verdicts:**
 - 9 refuted, or mostly refuted;
-- 8 supported;
+- 9 supported;
 - 2 inconclusive or intermediate;
-- 4 untestable.
+- 6 untestable.
 
 None of the refuted claims was later restored.
 
@@ -156,8 +159,9 @@ That was the right order. A measure has to be trusted before it can carry the ma
 - **Reused models.** N8 and N9 measure models trained for N7 and N6r. The measures are new and the predictions were fixed first, but every finding on those models shares one set of training luck. N6r's ladder replicated in N7, and N7's in N8, but N8 used the same models again.[^10]
 - **Small models and short training.** All the models have about 30 million parameters, on one dataset, at 10% of the full training budget, with one learning rate. Any of the findings could change at scale.
 - **One readout width carries most of the claims.** It is 64 of 256. N5 showed that how much the runs vary depends strongly on width.[^7]
+- **One kind of GPU until N11.** N1 to N10 ran on a T4, and N11 on an A100. Two matched runs differed by up to 0.02 nats in loss, but barely in the gaps and agreements the claims use. The full comparison, on 14 matched runs, is still to do.[^15]
 
-### 7. A payload too weak to test anything, and a yardstick that moved (N10)
+### 7. Payloads that did not take hold, twice, and a yardstick that moved (N10, N11)
 
 - **The functional payload did not take hold.**
   - I set its strength at λ = 1, on 4 windows per step against 32 in the training batch. That gave it about an eighth of the weight of the objective it was meant to counter.
@@ -167,6 +171,11 @@ That was the right order. A measure has to be trusted before it can carry the ma
   - G compared head B with the ideal copy of the same model's head A, and the payloads changed head A.
   - So G flattered the geometric payload, whose pin made head A worse. The fix, a fixed yardstick, was added after the results as exploratory analysis.
   - *The lesson:* a measure meant to compare arms must not be defined relative to something the arms change.
+- **N11's payload failed its check too, after a dose check meant to prevent exactly that.**
+  - The dose check covered 300 of 2,879 steps. Its ratio rose at each checkpoint (0.15, 0.23, 0.27), and I recorded that the payload "holds at every checkpoint". By the end of training the ratio was 0.59, against at most 0.5 required.
+  - I read a trend as a level. The manipulation check again did its job, and the primary claim is again untestable.
+  - What the runs did show is not small: the payload closed 47% of the gap on new text at no cost to the other reading, against 19% for the geometric pin, which cost it 0.14 nats. But the claim that would weigh that difference got no verdict, and the review counts it as none.
+  - *The lesson, sharpened:* a dose check must run the whole training schedule, and a rising trend in it is a warning, not a pass.
 
 ### 8. Smaller things
 
@@ -186,7 +195,9 @@ These are the current best explanations. They are conjectures that have survived
 ## Problems now open
 
 On Deutsch's view, problems are what knowledge grows from. These are the ones this work has made sharp:
-1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 could not say, because its functional payload was too weak. A payload weighted properly, at several strengths and against a fixed yardstick, would. That test, N11, is preregistered and waiting to run (`N11_PREREGISTRATION.md`).
+1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 and N11 could not say, because in both the functional payload failed its manipulation check. N11's secondary measures point one way: the functional payload restored function without restoring geometry, and the geometric pin did the reverse. Two things would sharpen the question:
+   - finding what limits the payload. One conjecture is the *softmax bottleneck*: the noisy copy is a mixture that a single softmax readout cannot represent;
+   - anchoring the clean reading instead of the noisy copy.
 2. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
 3. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
 4. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?
@@ -200,7 +211,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 4. **Before calling an after-the-fact explanation "likely", check it against known results,** and name the test that could refute it.
 5. **State a rule in a summary only after it has survived a test against its strongest rival.**
 6. **Prefer new seeds to reused models** whenever a test can afford them.
-7. **Check that a manipulation is strong enough before queuing a run that depends on it,** with a dose across strengths, not an extrapolation from a short run.
+7. **Check that a manipulation is strong enough before queuing a run that depends on it,** with a dose across strengths over the whole training schedule, not an extrapolation from a short run. A trend in a short check is a warning, not a pass.
 8. **Define every comparison measure against a fixed yardstick** that the arms being compared cannot change.
 
 ---
@@ -273,7 +284,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 
     Sources: `N9_NOTE.md`, `N9_PREREGISTRATION.md`.
 
-[^12]: **Amendments before any real result.** G1 (the measure), N2 (a floor in the wrong units), N4 (an undefined rule), N7 (the noise rate), N8 (a must-differ control), N9 (the number of windows), T0 (made before any real result), and two in the WikiText-103 study (the learning-rate grid, and a safeguard). Each was approved by the author, and each records what had been seen when it was made. Sources: the deviation logs of each preregistration.
+[^12]: **Amendments before any real result.** G1 (the measure), N2 (a floor in the wrong units), N4 (an undefined rule), N7 (the noise rate), N8 (a must-differ control), N9 (the number of windows), N11 (the payload on head B's readout only, after the dose check), T0 (made before any real result), and two in the WikiText-103 study (the learning-rate grid, and a safeguard). Each was approved by the author, and each records what had been seen when it was made. One deviation came during a run: N11's D1, which redid all runs on one kind of GPU after a session ended partway. It too was approved, and it records the partial results that had been seen. Sources: the deviation logs of each preregistration.
 
 [^13]: **Calibration on untrained models.** It caught:
     - *G1:* the effect-size measure passed untrained models.
@@ -290,3 +301,13 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *Exploratory, after the results:* against a fixed yardstick, the functional payload closed 20% of the gap, the geometric 16%, and the data payload made it 45% worse. The geometric payload cost head A 0.13 nats, the data payload 0.36.
 
     Sources: `N10_NOTE.md`, `N10_EXPLORATORY.md`, `N10_PREREGISTRATION.md`.
+
+[^15]: **N11.** New seeds 4001–4005, 30 runs on an A100 (deviation D1: a first session on a T4 ended at a usage limit, and all runs were redone on one kind of GPU).
+    - *Functional payload,* on head B's readout only (amendment A1). S, the share of the gap closed against a fixed yardstick, was 0.40, 0.45 and 0.47 at λ = 8, 32 and 128, rising in 5 of 5 seeds, so N11b was supported.
+    - *Manipulation check:* at λ = 128 the payload-window divergence was 0.585–0.601 of the unanchored arm's, against at most 0.5 required, so N11a and N11c were untestable.
+    - *Secondary:*
+      - The geometric pin closed 0.19 and cost head A 0.14 nats; the functional payloads cost head A at most 0.005.
+      - Head B's agreement with its copy was 0.73 pinned, 0.35 under the strongest functional payload, and 0.32 unanchored.
+    - *Hardware, exploratory:* seed 4003's two control arms, seen on the T4 before D1, against the A100: losses within 0.02 nats, gap 0.503 against 0.500, agreement 0.319 against 0.320.
+
+    Sources: `N11_NOTE.md`, `N11_EXPLORATORY.md`, `N11_PREREGISTRATION.md`.

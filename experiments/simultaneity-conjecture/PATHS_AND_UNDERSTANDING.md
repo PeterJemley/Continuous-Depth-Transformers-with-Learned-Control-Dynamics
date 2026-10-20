@@ -1,6 +1,6 @@
 # Conjecture note: where this programme can go, and whether understanding works like perception
 
-Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-19: N1, N2, N4, N5, N6, N6r, N7, N8, N9 and N10, which follow from this note, have since run, and N11 is preregistered and waiting to run; their results are in the dated result lines in "After G1d" below, and in each test's note.
+Date: 2026-10-06    Status: conjecture note, written while G1d ran, before any G1d result had been seen. Updated 2026-10-20: N1, N2, N4, N5, N6, N6r, N7, N8, N9, N10 and N11, which follow from this note, have since run; their results are in the dated result lines in "After G1d" below, and in each test's note.
 
 ## The questions
 
@@ -249,6 +249,8 @@ So the model switches between readings *without* needing the large dynamical dif
 **N9 result, 2026-10-10: N9a supported, N9b refuted.** The target-free measure recognises an ideal noisy copy of the clean next-token head as the same reading (agreement 0.955–0.995 at 80% noise). The trained noisy head is not close to that copy (0.305–0.349). So N7's anomaly is in the model, not the measure. Training a head on noisy targets made it read different directions of the state, and read them less well. In what it predicts, the noisy head is close to the copy (0.07 nats of KL divergence per position), because both are dominated by the same fixed word frequencies. The ladder's measure is now validated on a case with a known answer. See `N9_NOTE.md`.
 
 **N10 result, 2026-10-18: N10a and N10b untestable, N10c intermediate, N10d supported.** On new seeds, a head trained on noisier answers read directions further from its ideal noisy copy, in the order 20% > 50% > 80% noise in every seed (ratios 0.81, 0.64, 0.31). At 20% noise it was functionally almost the ideal copy (0.04 nats), but its directions had already drifted (0.81, against 0.85 required). The payload test gave no verdict: the functional payload was too weak to take hold (a design error, caught by its preregistered manipulation check). Exploratory: pinning the geometry raised the geometric agreement to 0.70 but improved the head's function by only 16% of the gap and cost the other reading 0.13 nats, N4's cost of sharing again. Whether anchoring function beats pinning geometry is still open. See `N10_NOTE.md`.
+
+**N11 result, 2026-10-20: N11a and N11c untestable, N11b supported.** A functional payload at three strengths, on the second head's readout only, closed 40%, 45% and 47% of the gap against a fixed yardstick on new text, rising with the strength in every seed but flattening. It cost the clean reading nothing. It still failed its manipulation check (0.59 of the unanchored divergence, against at most 0.5): the dose check had covered only the first tenth of training, and its rising trend was misread as a level. Secondary measures: the geometric pin restored the directions (agreement 0.73) but only 19% of the function, and cost the clean reading 0.14 nats; the functional payload restored function without restoring the directions (0.35, against 0.32 unanchored). Function and geometry came apart. Whether anchoring function beats pinning geometry is still formally open. See `N11_NOTE.md`.
 
 ### Recommended order now
 
