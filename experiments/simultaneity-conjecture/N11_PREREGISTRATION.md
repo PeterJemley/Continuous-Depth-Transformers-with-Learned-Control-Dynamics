@@ -1,6 +1,6 @@
 # Preregistration N11: a payload strong enough to test, and a yardstick it cannot move
 
-Date: 2026-10-18    Status: **approved by the author, 2026-10-18, with amendment A1 (the functional payload trains head B's readout only), approved 2026-10-19.** Queued; no real N11 run has started.
+Date: 2026-10-18    Status: **approved by the author, 2026-10-18, with amendment A1 (the functional payload trains head B's readout only), approved 2026-10-19, and deviation D1 (a rerun from scratch on an A100), approved 2026-10-20.** Queued as `n11_strength_a100`. A first session on a T4 ended partway through; its runs are set aside (see D1).
 
 Type: confirmatory for N11a (primary), N11b and N11c, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -261,6 +261,31 @@ No real N11 run has started.
 - **It matches the claim's own explanation better than the original did.** The preregistration's explanation says that the state already carries the next-token information, and head B must only learn to read it. The amended payload tests exactly that.
 - **It narrows the claim.** N11 now tests whether anchoring what head B's *readout* computes preserves the reading. It no longer tests a payload that could also reshape the shared network.
 - **N10's functional payload acted through the trunk as well.** So N11 is not a pure repeat of N10's payload at higher strength. That is recorded here so that the two are not read as one design.
+
+### Deviation D1, during the run, 2026-10-20: a rerun from scratch on an A100, approved by the author
+
+**What happened.** The first real session ran `n11_strength` on a T4. It ended when Colab's usage limit was reached, before its results were uploaded.
+- By the order the job runs in, 14 of the 30 runs had finished: every arm of seeds 4001 and 4002, and the `clean` and `n80` arms of seed 4003. `n80-f8` of seed 4003 had reached step 2000 of 2879.
+- Each run took about 6.5 minutes on the T4, including its measurement.
+- The runs are on the author's Google Drive, in `cdt-colab/n11_strength`. None of their records has been downloaded or analysed.
+
+**What changes.** All 30 runs are redone from scratch on an A100, as a new job, `n11_strength_a100`, with its own Drive folder (`cdt-colab/n11_strength_a100`).
+- The job stops before training anything if the session has any other GPU (`colab/jobs/_run.py`), so the 30 runs cannot be split across kinds of GPU. Both A100 models (40 GB and 80 GB) are accepted. They are the same chip, and each record names the one used.
+- Each measurement record now includes the software and hardware environment, as the training records already did.
+- Nothing else changes: the code, seeds, arms, strengths, windows, claims, thresholds and analysis are exactly as preregistered and amended by A1.
+
+**Why.** The author is moving to Colab Pro+, which offers faster GPUs and runs that continue with the browser closed.
+- Every result from N1 to N10 came from a T4, and later tests on an A100 will be compared with them. Whether the kind of GPU changes the results has never been measured.
+- Finishing N11 on an A100 would mix two kinds of GPU within one test. Redoing it entirely on one kind avoids that.
+- The redo also makes the interrupted T4 runs useful: they are a matched set (same code, seeds and arms) for measuring the effect of the hardware.
+
+**What had been seen when this was decided.** The decision rests on the reasons above, which were set out before any partial result was shared. To answer whether partial results had been seen, the author shared a screenshot of the notebook's output. It showed:
+- the measurement lines of seed 4003's two control arms. `clean`: head B clean 5.121, copy clean 5.120, head B against its copy 0.977. `n80`: head B clean 6.597, copy clean 6.094, head B against its copy 0.319;
+- the validation losses of `n80-f8`, seed 4003, up to step 2000, on head B's noisy targets, which no claim uses.
+
+No result of any payload arm on the measurement windows was in the screenshot. The output for seeds 4001 and 4002, including their payload arms, had scrolled past during the run. The author may have seen some of it; neither of us has read those records.
+
+**What will be done with the T4 runs.** Nothing, until N11's verdict has been reached from the A100 runs alone. After that, as an exploratory comparison that decides nothing, the 14 finished T4 runs will be compared with the A100 runs of the same seed and arm, on every measured quantity.
 
 ## References
 

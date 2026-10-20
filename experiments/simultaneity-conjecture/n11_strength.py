@@ -11,7 +11,8 @@ Measured on WikiText-103 test-split windows 1793-2213. The share of the gap clos
 n11_analyze.py from the saved records: gap(arm) = head B's clean-target loss in that arm minus the clean-target
 loss of the ideal copy of the same seed's n80 head A, and S = 1 - gap(arm) / gap(n80).
 
-    python n11_strength.py --out OUT --work /content/drive/MyDrive/cdt-colab/n11_strength
+    python n11_strength.py --out OUT --work /content/drive/MyDrive/cdt-colab/n11_strength_a100
+    (on Colab via colab/jobs/n11_strength_a100.py, which first checks for an A100: deviation D1)
     STUDY_TEST=1 python n11_strength.py --out OUT --work W --source LOCAL_STUDY_FOLDER   # small test
 """
 import argparse
@@ -113,7 +114,8 @@ def main():
                     raise SystemExit(f'weights final/{tag}.pt are missing locally and on Drive.')
                 m = n4.new_n4(seed, n10.BASE)
                 m.load_state_dict(torch.load(store.L(f'final/{tag}.pt'), map_location=DEV, weights_only=False))
-                res = {'tag': tag, 'seed': seed, 'arm': arm, 'lambda': lam, **n10.measure(m, arm, seed, mx, mys, u, log_u, probs, payload)}
+                res = {'tag': tag, 'seed': seed, 'arm': arm, 'lambda': lam, **n10.measure(m, arm, seed, mx, mys, u, log_u, probs, payload),
+                       'environment': study.env_record()}
                 save_json(rel, res)
                 fn = res['functional']
                 log(f"m_{tag}: head B clean {fn['B_clean']:.3f} | copy clean {fn['copy_clean']:.3f} | head A clean {fn['A_clean']:.3f} | "

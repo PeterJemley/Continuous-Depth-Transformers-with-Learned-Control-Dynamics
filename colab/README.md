@@ -32,7 +32,26 @@ After uploading a new version of the notebook, open the key icon again and check
 
 ### D. Choose a GPU
 
-Choose **Runtime > Change runtime type**, select **T4 GPU**, and click **Save**.
+Choose **Runtime > Change runtime type**, select the GPU the job's description names (a **T4 GPU** unless it says otherwise), and click **Save**.
+
+A job that must run on one kind of GPU checks it before anything else. If the session has a different GPU, the job stops with a message saying which to choose, uploads that message, and trains nothing.
+
+### E. Add the release step (once)
+
+With a paid plan, compute units are used for as long as a runtime is attached, even after the job has finished. The last step releases the runtime once the results are safely on GitHub. If your copy of the notebook has no step 8, add it: click below the last cell, choose **+ Code**, and paste:
+
+```python
+# 8. Release this runtime once the results are safely on GitHub, so it stops using compute units.
+#    If the upload did not finish, the runtime is kept, so nothing on it is lost.
+if os.path.exists(f'{OUT}/uploaded.json'):
+    print('Results are on GitHub. Releasing this runtime so it stops using compute units.')
+    from google.colab import runtime
+    runtime.unassign()
+else:
+    print('The upload did not finish, so this runtime is kept. Report what step 7 printed.')
+```
+
+It is the same as the last cell of `colab/runner.ipynb`.
 
 ## Each run
 
@@ -42,7 +61,7 @@ Choose **Runtime > Change runtime type**, select **T4 GPU**, and click **Save**.
    - **Connect to Google Drive:** choose your account and allow access. Long jobs keep their checkpoints there, so they can resume after a disconnect.
    - **Secret access:** if Colab asks whether the notebook may use `GITHUB_TOKEN`, click **Grant access**.
    - **"This notebook was not authored by Google":** this appears only when opening from GitHub rather than your copy. Click **Run anyway**.
-4. Keep the tab open until the last cell prints **Done**, then report that it finished.
+4. On free Colab, keep the tab open until step 7 prints **Done**, then report that it finished. On Colab Pro+, with background execution, you can close the tab once step 6 is printing training lines. The results arrive on GitHub when the job ends, and step 8 then releases the runtime.
 
 Without a token, the last cell downloads a zip of the results instead. Share it so the results can be analysed.
 
@@ -52,7 +71,7 @@ Jobs work on the Colab machine's own disk and save copies to Drive in the backgr
 
 ## Tips
 
-- **Run it from a computer that stays awake.** The training runs on Google's GPU, but free Colab ends a session if the browser tab goes idle or the computer sleeps. Nothing is lost, because the next **Run all** resumes, but an always-on computer means fewer interruptions.
+- **Run it from a computer that stays awake** (free Colab). The training runs on Google's GPU, but free Colab ends a session if the browser tab goes idle or the computer sleeps. Nothing is lost, because the next **Run all** resumes, but an always-on computer means fewer interruptions. Colab Pro+ with background execution keeps running for up to 24 hours with the tab closed.
 - **Run one session at a time.** Two sessions running the same job would fight over the same files on Drive. Before starting on another computer, end the old session with **Runtime > Disconnect and delete runtime**.
 - **"Automatic saving failed. This file was updated remotely or in another tab."** This is about saving the notebook's on-screen output, usually because the notebook is open in two tabs. It doesn't affect the job. Close any second tab and leave the running one alone.
 - **"Cannot connect to GPU backend", or a usage-limit warning.** Free Colab limits daily GPU time. Wait a few hours, or until the next day, then choose **Run all** again.
