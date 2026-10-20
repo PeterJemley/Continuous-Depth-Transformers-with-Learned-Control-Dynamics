@@ -305,6 +305,12 @@ No result of any payload arm on the measurement windows was in the screenshot. T
 - **Why:** to understand why the payload failed its check while still closing part of the gap.
 - **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
+### D1's hardware comparison, after the verdict, 2026-10-20
+
+- **What was added:** a job, `n11_fetch_t4`, that copies the T4 session's records from Drive and lists every file it left, and `n11_hardware.py` (report `N11_HARDWARE.md`), which compares each T4 run with the A100 run of the same seed and arm.
+- **Order:** both were written and tested on simulated records before any T4 record was read, as D1 required.
+- **Its status:** exploratory. It decides nothing.
+
 ## References
 
 Deutsch, D. (1985). Quantum theory, the Church–Turing principle and the universal quantum computer. *Proceedings of the Royal Society of London A, 400*(1818), 97–117. https://doi.org/10.1098/rspa.1985.0070
