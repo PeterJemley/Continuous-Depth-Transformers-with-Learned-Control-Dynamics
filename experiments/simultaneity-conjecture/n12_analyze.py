@@ -31,7 +31,7 @@ NEEDED, LEVEL = 4, 0.975
 KEEPS, SAME_READING, DIFFERENT_READING, SD_SENSITIVE = 0.67, 0.85, 0.60, 0.05
 SAME_MIN, CLEAN_GAP, MATCH_MIN, SEPARATE = 0.95, 0.05, 0.999, 0.60
 MIN_GAP, FIT_MIX_MIN, STABLE_MIN, NOISE_TOL = 0.30, 0.95, 0.80, 0.05
-CONVERGED_REL, AT_TARGET = 0.02, 1e-3                # candidate amendment A1: or the fit's loss is below AT_TARGET
+CONVERGED_REL, AT_TARGET = 0.02, 1e-3                # amendment A1: or the fit's loss is below AT_TARGET
 N11 = {'ratio': 0.323, 'gap': 0.492, 'saturated_payload_kl': 0.038}
 
 
@@ -41,7 +41,7 @@ def load(name):
 
 
 def fit_converged(cv):
-    """Precondition 5's convergence test, recomputed from the recorded means (candidate amendment A1)."""
+    """Precondition 5's convergence test, recomputed from the recorded means (amendment A1)."""
     return cv.get('last') is not None and (cv['relative_change'] <= CONVERGED_REL or cv['last'] <= AT_TARGET)
 
 

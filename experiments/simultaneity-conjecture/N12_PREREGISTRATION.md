@@ -1,6 +1,6 @@
 # Preregistration N12: is the noisy head held back by its readout?
 
-Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** Built and tested; the full-length calibration run has run. **Amendment A1 (precondition 5's convergence test) proposed, awaiting the author's approval.** No real N12 run has started.
+Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** **Amendment A1 (precondition 5's convergence test) approved by the author, 2026-10-21.** Built, tested and calibrated; queued as `n12_bottleneck`. No real N12 run has started.
 
 Type: confirmatory for N12a (primary), N12b, N12c and N12d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -253,7 +253,7 @@ The full-length calibration run on the A100 has not started, and no real N12 run
   - The fits use the training's optimiser settings (AdamW, PyTorch's default weight decay, gradients clipped at 1.0). They run in evaluation mode, without dropout, as the measurements do.
   - The replaced positions of `n80`, `n80-mix` and `sub20` all come from N10's per-step draw, seeded by the seed and the step.
 
-### The calibration run and amendment A1, before any real run, 2026-10-21: proposed, awaiting the author's approval
+### The calibration run and amendment A1, before any real run, 2026-10-21: approved by the author
 
 **The calibration run.**
 - *The session:* `colab-results` branch `n12_calib/20261021-095316`, code commit 6f497b3, on an NVIDIA A100-SXM4-40GB with PyTorch 2.11. It ran in 12 minutes, with no resumes and no Drive failures.

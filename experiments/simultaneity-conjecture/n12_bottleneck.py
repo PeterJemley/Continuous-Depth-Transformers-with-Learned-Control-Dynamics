@@ -44,7 +44,7 @@ TOTAL, PEAK_LR = n10.TOTAL, n10.PEAK_LR
 FIT_STEPS = 60 if TEST else 3000
 FIT_SEED = 271829
 CONVERGE_CHUNKS = 1 if TEST else 6                   # 50-step chunks: the last 300 steps against the 300 before
-AT_TARGET = 1e-3                                     # candidate amendment A1: a fit whose loss is below this has reached its target
+AT_TARGET = 1e-3                                     # amendment A1: a fit whose loss is below this has reached its target
 MODES = {'real': {'seeds': [4101, 4102] if TEST else [4101, 4102, 4103, 4104, 4105], 'windows': (0, 8) if TEST else (0, 512)},
          'calibration': {'seeds': [3001], 'windows': (8, 14) if TEST else (512, 1024)}}
 VAL_NOISE_SEED, MEAS_NOISE_SEED = n10.VAL_NOISE_SEED, n10.MEAS_NOISE_SEED
@@ -255,7 +255,7 @@ def fit_readout(model, form, train, log_u, seed):
 
 def converged(curve, k=CONVERGE_CHUNKS):
     """The mean fit loss over the last k chunks, against the k before: relative change, and whether within 2%, or
-    (candidate amendment A1) the loss is already below AT_TARGET, where a relative change means nothing."""
+    (amendment A1) the loss is already below AT_TARGET, where a relative change means nothing."""
     if len(curve) < 2 * k:
         return {'relative_change': None, 'pass': False}
     last = sum(v for _, v in curve[-k:]) / k
