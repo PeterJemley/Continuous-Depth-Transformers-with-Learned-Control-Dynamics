@@ -1,6 +1,6 @@
 # Preregistration N13: the mixture head's learning signal, separated from its output form
 
-Date: 2026-10-22    Status: **draft, awaiting the author's approval.** Nothing below has been run.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N13 run has started.
 
 Type: confirmatory for N13a (primary), N13b and N13c, each with its own decision rule. N13a and N13c use new models trained for this test; N13b re-measures N12's saved models. Everything else is secondary or exploratory and labelled so.
 
