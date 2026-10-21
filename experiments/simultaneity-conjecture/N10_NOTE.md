@@ -89,7 +89,7 @@ The payload term fell from 2.5 to about 0.06 by the middle of training and staye
 
 ## Exploratory observations, not confirmatory
 
-- **Head A was unaffected by noise in head B alone.** Its validation loss was 5.13 to 5.19 in the clean and dose arms. Only the payloads changed it.
+- **Head A was unaffected by noise in head B alone.** Its validation loss was 5.13 to 5.19 in the clean and dose arms. Only the payloads changed it. *Correction, 2026-10-21, after N12:* this was wrong. The range across arms hid a consistent shift. In N10's own records, `n80`'s head A was worse than `clean`'s by 0.026–0.046 nats on the measurement windows in every seed (0.028–0.047 on validation), and in N11's by 0.027–0.061. N12 measured the cost at +0.040 [+0.033, +0.047] on new seeds, and found that a head whose form can represent the noisy target imposes little or none (−0.009 [−0.024, +0.007]). See `N12_NOTE.md`.
 - **The clean arm's readouts overlap at 0.71,** as in N7's same-target models. Two heads computing the same thing still use partly different readout directions, which is consistent with the geometry being a property of the substrate.
 
 ## Limitations

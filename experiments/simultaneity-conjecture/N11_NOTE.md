@@ -35,7 +35,7 @@ Date: 2026-10-20    Preregistration: `N11_PREREGISTRATION.md`, with amendment A1
 Ranges are across the five seeds.
 
 - **N11a and N11c are untestable.** The functional payload failed its manipulation check. At λ = 128 it brought the divergence down only to 0.585–0.601 of the unanchored arm's, against at most 0.5 required. The rules say a payload that did not take hold cannot decide these claims, and they were followed.
-- **N11b is supported.** S rose with the strength, f8 < f32 < f128, in all 5 seeds. The rise flattens, though: 0.40, 0.45, 0.47. Quadrupling the strength twice added only 0.07.
+- **N11b is supported.** S rose with the strength, f8 < f32 < f128, in all 5 seeds. The rise flattens, though: 0.40, 0.45, 0.47. Quadrupling the strength twice added only 0.07. The hardware comparison below shows that the last step, from λ = 32 to 128, is no larger than the GPU's own effect.
 
 The other preconditions held:
 - **Must match:** the clean arm's head B matched head A (ratio 0.955–0.980, losses within 0.008 nats).
@@ -95,10 +95,14 @@ Both are conjectures, formed after the results.
 
 ## Exploratory observations, not confirmatory
 
-- **The hardware.** D1 set aside the 14 interrupted T4 runs, to be compared with these runs after the verdict. That comparison needs their records from Drive. Two of them, seed 4003's control arms, were visible in the screenshot shared when D1 was decided.
-  - `clean`: head B's clean loss 5.121 on the T4 against 5.142 on the A100; agreement with the copy 0.977 against 0.980.
-  - `n80`: gap 0.503 against 0.500; agreement 0.319 against 0.320.
-  - So the hardware moved losses by up to about 0.02 nats, but the gap and the agreement barely at all. Two runs are not a test; the 14-run comparison is still to do.
+- **The hardware** (`N11_HARDWARE.md`, added 2026-10-21). After the verdict, as D1 set out, the 14 runs that finished on the T4 were compared with the A100 runs of the same seed and arm.
+  - *No systematic shift.* Every mean difference was at most 0.004.
+  - *A random one, about the size of a change of seed.* Losses differed by up to 0.024 nats, against the A100's seed-to-seed standard deviations of 0.008–0.012. Quantities measured within one model moved less: G by at most 0.003, the payload-window divergence by at most 0.002.
+  - *Enough to change N11b's last step.*
+    - S(f32) − S(f8) was +0.05 to +0.07 on both GPUs.
+    - S(f128) − S(f32) was +0.019 and +0.022 on the A100, but −0.0005 on the T4 in both seeds compared. On the T4, those two seeds would not have counted as ordered.
+    - N11b's verdict stands, because it was preregistered on the A100 runs. But only its first step is robust; the second is within the hardware's own effect. The flattening is the finding.
+  - *For later tests:* comparisons across GPUs must allow about 0.02 nats. A claim resting on a smaller difference needs one kind of GPU, which the A100 pin now guarantees.
 
 ## Limitations
 
@@ -108,10 +112,10 @@ Both are conjectures, formed after the results.
 
 ## Next conjectures
 
-1. **Where the payload's floor comes from.** Freeze trained models and fit head B's readout alone to the copy, as above. If the floor is the softmax bottleneck, a functional anchor needs a readout that can represent mixtures, or a different target.
-2. **Anchor the clean reading, not the noisy copy.** The noisy copy is 80% word frequencies, so matching it mostly teaches head B the noise. A payload that matches head A's own prediction, the clean reading, is a single softmax that head B's readout *can* represent. Whether it preserves more of the reading is a sharper version of N11's question.
+1. **Where the payload's floor comes from.** Freeze trained models and fit head B's readout alone to the copy, as above. If the floor is the softmax bottleneck, a functional anchor needs a readout that can represent mixtures, or a different target. *Run as N12, 2026-10-21:* the floor is the single-softmax form. Fitted directly to the copy it reached 62% of the gap, and a mixture-form readout reached the copy (`N12_NOTE.md`).
+2. **Anchor the clean reading, not the noisy copy.** The noisy copy is 80% word frequencies, so matching it mostly teaches head B the noise. A payload that matches head A's own prediction, the clean reading, is a single softmax that head B's readout *can* represent. Whether it preserves more of the reading is a sharper version of N11's question. *Set aside, 2026-10-21:* with a single-softmax head this would make head B a second head A, and the share measure would reward that for the wrong reason. N12 used a mixture head instead.
 3. **Rerun N11's question with a full-length dose check,** before queuing. The A100 makes it cheap.
-4. **Finish D1's hardware comparison** on the 14 matched T4 runs. Every test from N1 to N10 ran on a T4 and later tests run on an A100, so the size of the hardware effect matters.
+4. **D1's hardware comparison:** done, 2026-10-21. See the hardware observation above.
 
 ## References
 
