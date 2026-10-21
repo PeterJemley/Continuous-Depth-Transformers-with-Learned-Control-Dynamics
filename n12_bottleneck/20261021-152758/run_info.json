@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n12_bottleneck",
+    "args": [],
+    "description": "Test N12: is the noisy head held back by its readout? Four arms (clean, n80, n80-mix, sub20) on 5 new seeds (4101-4105), 20 training runs, plus 10 frozen fits of head B's readout, measured on the held-out tail's windows 1-512. Amendment A1 (fit convergence) approved. NEEDS AN A100: before Run all, choose Runtime > Change runtime type > A100 GPU. On any other GPU it stops before training. About 70 minutes. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 70
+  },
+  "code_commit": "912697474ac2abf4aa7256abdfa0646c7699c50e",
+  "run_id": "20261021-152758",
+  "gpu": "NVIDIA L4"
+}
