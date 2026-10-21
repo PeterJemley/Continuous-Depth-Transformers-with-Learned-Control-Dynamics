@@ -230,7 +230,7 @@ So the model switches between readings *without* needing the large dynamical dif
 
 **N4.** Self-set control (path E) and the probe (path B) are unaffected by G1d and stay on the list.
 
-**N1 result, 2026-10-06: supported.** An offset after the block matched the full model on both tasks within 0.001 nats. See `N1_NOTE.md`. N2 is next in the order below.
+**N1 result, 2026-10-06: supported.** An offset after the block matched the full model on both tasks: differences of 0.001 nats, 97.5% intervals within ±0.01. See `N1_NOTE.md`. N2 is next in the order below.
 
 **N2 result, 2026-10-06: refuted.** Coexisting readings did not get distinct timescales (ratios 1.14 to 1.25). By the table above, this is the "N1 supported, N2 refuted" row: readings live in representation geometry, not depth dynamics, at this scale. Exploratory: the two readings' directions overlap only about 0.6. See `N2_NOTE.md`.
 

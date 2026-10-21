@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10, updated 2026-10-18 with N10 and 2026-10-20 with N11. A review of all the work in this repository, from the replication of the paper through N11, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10, updated 2026-10-18 with N10, 2026-10-20 with N11, and 2026-10-21 with section 9, lessons 9–10 and corrections from a fresh reader's audit against the notes. A review of all the work in this repository, from the replication of the paper through N11, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -23,7 +23,7 @@ It is meant to criticise the work as hard as the work tried to criticise its gue
 
 ## The ledger
 
-Every claim that was put to a test, in order. "Forbade" is what the claim said could not happen. That is the result that would refute it.
+The main claims put to a test, in order; some rows merge a test's paired claims, and the secondary claims and T1's rivals are in the notes. "Forbade" is what the claim said could not happen. That is the result that would refute it.
 
 | Test | The guess | What it forbade | Verdict |
 |---|---|---|---|
@@ -31,14 +31,14 @@ Every claim that was put to a test, in order. "Forbade" is what the claim said c
 | WikiText-103 | The model matches an ordinary transformer when properly trained | A gap larger than 0.02 nats | **Refuted**: worse by 1.10 nats in 6 of 6 runs[^3] |
 | T0 | The training shortcut (the adjoint) gives a learning signal pointing well away from the exact one | Close agreement | **Untestable**: the measurement was too noisy[^4] |
 | T1 | The shortcut, not the design, causes most of the gap | Training exactly closing less than a material part of the gap | **Supported**: about 95% of the gap[^4] |
-| G1 | The control signal sends the flow through regions of different curvature | Curvature changing by less than a factor of 2 | **Refuted**[^5] |
-| G1c | It sets how strongly the flow pulls nearby states together | No such difference | **Supported**, and it replicated[^5] |
-| G1d | The model needs that pull | Removing it costing nothing | **Refuted**[^5] |
+| G1 | The control signal sends the flow through regions of different curvature | A curvature ratio below 1.25 | **Refuted**[^5] |
+| G1c | It sets how strongly the flow pulls nearby states together | A contraction ratio below 1.25 | **Supported**, and it replicated[^5] |
+| G1d | The model needs that pull | Removing it costing less than 0.05 nats | **Refuted**[^5] |
 | N1 | Switching readings needs only a fixed shift, not the dynamics | A loss when the dynamics are bypassed | **Supported**[^5] |
-| N2 | Two readings held at once get different paces in the flow | Paces differing by less than a factor of 2 | **Refuted**[^6] |
-| N4 | Readings are kept apart by direction, and the model needs that | Forcing shared directions costing nothing extra | **Supported**[^7] |
+| N2 | Two readings held at once get different paces in the flow | A ratio of paces below 1.25 | **Refuted**[^6] |
+| N4 | Readings are kept apart by direction, and the model needs that | Forcing shared directions costing less than 0.05 nats extra | **Supported**[^7] |
 | N5 | N4's cost is a competition for directions | A cost remaining when nothing is restricted | **Inconclusive**[^7] |
-| N6 | Sharing depends on how different the readings are | Overlap not falling as the second reading looks further ahead | **Untestable**: its control was set wrongly[^8] |
+| N6 | Sharing depends on how different the readings are | Overlap falling by less than 0.10 as the second reading looks further ahead | **Untestable**: its control was set wrongly[^8] |
 | N6r | The same, with the control fixed | The same | **Supported**[^8] |
 | N7 | Sharing tracks how different readings are, not how hard | A harder copy of the same reading sharing as little as a different one | **Refuted**[^9] |
 | N8a, N8b | With mistakes left out of the measure, the harder copy shares and converges | It still not sharing | **Refuted**[^10] |
@@ -53,11 +53,13 @@ Every claim that was put to a test, in order. "Forbade" is what the claim said c
 | N11b | The effect grows with the payload's strength | The strongest payload doing no better than the weakest | **Supported**, with sharply diminishing returns; its last step is within the GPU's own effect[^15] |
 | N11c | Anchoring function beats pinning geometry, each at full strength | A difference under 0.30 of the gap | **Untestable**, as N11a[^15] |
 
-**Out of 26 verdicts:**
+**Out of the 26 verdicts in this ledger:**
 - 9 refuted, or mostly refuted;
 - 9 supported;
 - 2 inconclusive or intermediate;
 - 6 untestable.
+
+Counted per preregistered claim, including the secondary ones the ledger leaves out (N1a, N2b and N6's N6b, each untestable; N4a, supported; N5b, inconclusive), the untestable verdicts number at least nine.
 
 None of the refuted claims was later restored.
 
@@ -86,16 +88,16 @@ The work is best read as one explanation being replaced by another. Each "no" sa
 
 These are the practices that kept the work honest. Each is a way of making the world's "no" audible.
 
-- **Plans fixed in advance.** Every test had its claim, thresholds and decision rules written and approved by the author before any run. Every change made after approval went back for approval with the reason written down, and was recorded in a deviation log. There were nine such amendments, all made before any real result.[^12]
+- **Plans fixed in advance.** Every test had its claim, thresholds and decision rules written and approved by the author before any run. Every change made after approval went back for approval with the reason written down, and was recorded in a deviation log. There have been eleven such amendments, counting N12's, each made before the real run it concerns.[^12]
 - **Checking that tests can fail, on models that know nothing.** Before every run, the measure was tried on untrained models, where a true claim should fail.
-  - This caught problems in six tests before any real run: G1, N2, N4, N7, N8 and N9.
+  - Checks before the real run caught problems in six tests: G1, N2, N4, N7, N8 and N9. Three of those catches came from the untrained models; the others came from a loss bound, a reread of the plan, and a caution that turned out not to be needed.[^13]
   - In G1, the original measure would have called an untrained model a success.
   - In N8, the planned control would have passed automatically.[^13]
 - **Controls at both ends.** Most tests from N4 on had a control that must match, such as two copies of the same reading, and one that must differ. A result counted only if both behaved.
 - **Refutations kept.** No claim refuted here was later reinstated, and no threshold was moved after a result was seen. Some exploratory observations became new claims: the contraction in G1, the directions in N2, the ladder in N6. Each was then tested as a new conjecture, on new seeds and new data, and the old verdict stayed as it was.
-- **Mistakes in the notes corrected openly.** When a later test showed that an earlier note had said too much, a dated correction was added beside the original text, which was left in place. This happened four times: in the notes of N4, N6r (twice) and N7. The plain summary was corrected the same way.
+- **Mistakes in the notes corrected openly.** When a later test showed that an earlier note had said too much, a dated correction was added beside the original text, which was left in place. This happened four times: in the notes of N4, N6r (twice) and N7. The plain summary's sentence stating the rule was replaced, and the summary now says that the rule did not survive its test. On 2026-10-21 a fresh reader, given only the summaries and the notes, audited both summaries against the notes. It found three substantive problems (N1's result stated as what the model does rather than what suffices; N11's share of the gap presented as a share of the whole cost of scrambling; section 9's statement of the amendment rule contradicting the record) and seventeen minor ones, most of them modal upgrades. All were corrected in one change, and the audit is now part of the method (`NECESSITY_AUDIT.md`).
 - **Fair comparisons.** In the WikiText-103 study, the ordinary transformer's best learning rate was the largest one tried. Its range was therefore extended before the main runs, so that the comparison would not favour the paper's model by under-tuning its rival.[^3]
-- **Numbers from code.** Every reported number was computed by an analysis script from saved records. Each script was written and tested on synthetic records, covering every branch of its rules, before the real run.
+- **Numbers from code.** Every reported number was computed by an analysis script from saved records. Each confirmatory script was written and tested on synthetic records, covering every branch of its rules, before the real run. The exploratory scripts (N10's, N11's and the hardware comparison) were written after the results, and they are labelled so.
 
 ## Where we fell short
 
@@ -156,7 +158,7 @@ That was the right order. A measure has to be trusted before it can carry the ma
 
 ### 6. Reuse, scale and scope
 
-- **Reused models.** N8 and N9 measure models trained for N7 and N6r. The measures are new and the predictions were fixed first, but every finding on those models shares one set of training luck. N6r's ladder replicated in N7, and N7's in N8, but N8 used the same models again.[^10]
+- **Reused models.** N8 and N9 measure models trained for N7 and N6r. The measures are new and the predictions were fixed first, but every finding on those models shares one set of training luck. N6r's ladder replicated in N7, and N7's in N8, but N8 used the same models again.[^10] The noisy-head finding has since replicated on new seeds, in N10 and N11.
 - **Small models and short training.** All the models have about 30 million parameters, on one dataset, at 10% of the full training budget, with one learning rate. Any of the findings could change at scale.
 - **One readout width carries most of the claims.** It is 64 of 256. N5 showed that how much the runs vary depends strongly on width.[^7]
 - **One kind of GPU until N11.** N1 to N10 ran on a T4, and N11 on an A100. On 14 matched runs, the GPU shifted nothing systematically, but it moved losses by up to 0.024 nats, about as much as a change of seed. Quantities measured within one model moved less. That was enough to erase N11b's last step on the T4, so a claim resting on a difference of about 0.02 or less needs one kind of GPU throughout.[^15]
@@ -188,10 +190,10 @@ This criticism turns the method's own instrument against it. It has the shape of
 
 - **The criticism.** A preregistration binds only because its author approves it, and the same power of approval can amend it. So it binds nothing. The record has an example: N12's preregistration said the calibration could change only the number of fit steps, and amendment A1 changed a precondition instead.
 - **The reply** fixes the condition to a time and a level:
-  - amendments come only before the results a claim depends on are seen;
-  - they may not change a claim, threshold, arm, window or measure;
-  - each records what had been seen when it was made;
-  - after results, a change can only add an exploratory analysis, labelled so.
+  - amendments come only before the real run whose claims they touch, and the ones that changed a measure, a threshold or an arm (G1, N2, N7, N11) all came before any result at full size;
+  - each records what had been seen when it was made, so a reader can judge whether what was seen could have shaped it;
+  - after the real run, a change can only add an exploratory analysis, labelled so.
+  - N12's A1 is the narrowest kind: it changed a precondition's convergence test, and no claim, threshold, arm, window or measure.
 - **The critic's best answer.** The line between before and after is formal. A1 was approved after one calibration seed had shown a value that would favour N12d (S(`fit-single`) = 0.614, below the 0.67 threshold).
 - **The next move.**
   - A1 changes only the convergence test of the fitting procedure's must-match control.
@@ -204,10 +206,10 @@ This criticism turns the method's own instrument against it. It has the shape of
 These are the current best explanations. They are conjectures that have survived tests, not established facts.
 
 - **The paper's claims are refuted at the scales tested.** The main cause was the training shortcut, not the design (T1). *Would be overturned by:* exact training failing to close the gap on another dataset or at full budget. How the shortcut goes wrong is untested.
-- **At this scale, the continuous dynamics do not carry the readings** (G1, G1d, N1, N2). The control acts like a shift, and the readings do not get their own paces. *Would be overturned by:* a design in which the dynamics are given work only they can do, such as V2's separate continuous strands, outperforming a matched model.
+- **At this scale, the continuous dynamics do not carry the readings** (G1, G1d, N1, N2). A fixed shift does the control's work as well as the dynamics do, and the readings do not get their own paces. *Would be overturned by:* a design in which the dynamics are given work only they can do, such as V2's separate continuous strands, outperforming a matched model.
 - **Readings held at once occupy partly different directions, and forcing them together costs accuracy** (N4). This is measured in loss, so it does not depend on the overlap measure. *Would be overturned by:* the cost vanishing on new seeds. Or, if the cost is a competition for directions, by a cost that stays when nothing is restricted. That is the question N5 could not settle.
 - **Readings further ahead depend on more different directions** (N6r, N7, N8c). The ladder held under two measures, and the target-free measure has now been validated on a case with a known answer (N9). *Would be overturned by:* the ladder flattening on new seeds, or under a measure of what the heads compute rather than how sensitive they are.
-- **A head trained on noisy targets reads differently from the clean head** (N7, N8, N9). It is not the ideal noisy copy of the clean reading: it reads different directions, and reads the context less well. The measure can recognise the ideal copy, so this is a property of training, not of the instrument. *Would be overturned by:* noisy heads trained on new seeds coming close to their ideal copies.
+- **A head trained on noisy targets reads differently from the clean head** (N7, N8, N9; replicated on new seeds in N10 and N11). It is not the ideal noisy copy of the clean reading: it reads different directions, and reads the context less well. The measure can recognise the ideal copy, so this is a property of training, not of the instrument. *Would be overturned by:* noisy heads coming close to their ideal copies at another scale or noise rate, or under a head whose form can represent the copy (N12 tests one).
 
 ## Problems now open
 
@@ -255,7 +257,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *G1:* curvature ratios between control values were 1.08 to 1.27, against at least 2. Amendment A1 replaced Cohen's d, which untrained models passed at up to 6.0, with this ratio.
     - *G1c:* contraction ratios were 4.1 to 10.2 in five new models, against 0.997 to 1.031 in shuffled-control models.
     - *G1d:* capping contraction removed over 90% of it. The cost difference was −0.002 nats, 95% interval [−0.007, +0.002].
-    - *N1:* a fixed offset after the block matched the full model within 0.001 nats.
+    - *N1:* a fixed offset after the block matched the full model: differences of +0.001 nats, 97.5% intervals [−0.008, +0.010]. Whether the trained model's own control acts as an offset (N1a) was untestable.
 
     Sources: `G1_NOTE.md`, `G1C_NOTE.md`, `G1D_NOTE.md`, `N1_NOTE.md`.
 
@@ -303,16 +305,17 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 
     Sources: `N9_NOTE.md`, `N9_PREREGISTRATION.md`.
 
-[^12]: **Amendments before any real result.** G1 (the measure), N2 (a floor in the wrong units), N4 (an undefined rule), N7 (the noise rate), N8 (a must-differ control), N9 (the number of windows), N11 (the payload on head B's readout only, after the dose check), T0 (made before any real result), and two in the WikiText-103 study (the learning-rate grid, and a safeguard). Each was approved by the author, and each records what had been seen when it was made. One deviation came during a run: N11's D1, which redid all runs on one kind of GPU after a session ended partway. It too was approved, and it records the partial results that had been seen. Sources: the deviation logs of each preregistration.
+[^12]: **Amendments before any real result.** G1 (the measure), N2 (a floor in the wrong units), N4 (an undefined rule), N7 (the noise rate), N8 (a must-differ control), N9 (the number of windows), N11 (the payload on head B's readout only, after the dose check), N12 (a convergence test that works at zero loss, after the calibration run), T0 (made before any real result), and two in the WikiText-103 study (the learning-rate grid, and a safeguard). Each was approved by the author, and each records what had been seen when it was made. One deviation came during a run: N11's D1, which redid all runs on one kind of GPU after a session ended partway. It too was approved, and it records the partial results that had been seen. Sources: the deviation logs of each preregistration.
 
-[^13]: **Calibration on untrained models.** It caught:
+[^13]: **Checks before the real run.** What each caught, and how:
     - *G1:* the effect-size measure passed untrained models.
-    - *N2 and N4:* thresholds in the wrong units, and an undefined rule.
-    - *N7:* a noise rate too low to make the reading hard.
+    - *N2:* a floor in the wrong units, on untrained models.
+    - *N4:* an undefined rule, found on rereading the plan; the untrained calibration found the claim working as written.
+    - *N7:* a noise rate that a loss bound suggested would very likely be too low; the untrained calibration found the controls working.
     - *N8:* a must-match control that untrained heads passed automatically (ratios 0.98 and 1.02).
     - *N9:* the copy's stability margin. In trained models the copy turned out more stable (at least 0.91), so this caution was not needed.
 
-    It missed N6's threshold, which was not re-checked for the smaller number of windows. The analytic checks that could not fail at first were N8's, where a uniform sampler scored 0.996, and N9's, where measuring head A instead of its copy scored 0.999. Both were redesigned before any run, so that the wrong version fails (0.72, and 0.66 to 0.80). Sources: `N8_PREREGISTRATION.md`, `N9_PREREGISTRATION.md`.
+    It missed N6's threshold, which was not re-checked for the smaller number of windows, and the short full-size checks before N10 and N11 missed that their payloads would not take hold (section 7). The analytic checks that could not fail at first were N8's, where a uniform sampler scored 0.996, and N9's, where measuring head A instead of its copy scored 0.999. Both were redesigned before any run, so that the wrong version fails (0.72, and 0.66 to 0.80). Sources: `N8_PREREGISTRATION.md`, `N9_PREREGISTRATION.md`.
 
 [^14]: **N10.** New seeds 3901–3905, 35 runs.
     - *Dose arms:* head B's agreement with its ideal copy was 0.812, 0.636 and 0.305 at 20, 50 and 80% noise, ordered in 5 of 5 seeds. At 20% it was 0.79–0.84, so N10c was intermediate. G there was 0.04 nats.

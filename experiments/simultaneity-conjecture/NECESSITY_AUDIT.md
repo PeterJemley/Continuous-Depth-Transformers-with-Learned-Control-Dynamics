@@ -72,7 +72,7 @@ Four features describe each claim:
 
 This follows the skill's checklist addition 6. A summary that restates a note keeps the note's modal word: "consistent with", "suggests", "exploratory", "secondary", "untestable", "intermediate". A summary never upgrades it.
 
-`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread.
+`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them.
 
 ## The record so far
 
