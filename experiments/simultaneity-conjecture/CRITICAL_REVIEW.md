@@ -50,7 +50,7 @@ Every claim that was put to a test, in order. "Forbade" is what the claim said c
 | N10c | Light noise does not change what a head reads | Low agreement at 20% noise | **Intermediate**: 0.79–0.84, against 0.85[^14] |
 | N10d | The change grows with the noise | Agreement not falling with noise | **Supported**[^14] |
 | N11a | A strong functional payload preserves the reading's function under heavy noise | Less than two thirds of the gap closed | **Untestable**: the payload again failed its check[^15] |
-| N11b | The effect grows with the payload's strength | The strongest payload doing no better than the weakest | **Supported**, with sharply diminishing returns[^15] |
+| N11b | The effect grows with the payload's strength | The strongest payload doing no better than the weakest | **Supported**, with sharply diminishing returns; its last step is within the GPU's own effect[^15] |
 | N11c | Anchoring function beats pinning geometry, each at full strength | A difference under 0.30 of the gap | **Untestable**, as N11a[^15] |
 
 **Out of 26 verdicts:**
@@ -159,7 +159,7 @@ That was the right order. A measure has to be trusted before it can carry the ma
 - **Reused models.** N8 and N9 measure models trained for N7 and N6r. The measures are new and the predictions were fixed first, but every finding on those models shares one set of training luck. N6r's ladder replicated in N7, and N7's in N8, but N8 used the same models again.[^10]
 - **Small models and short training.** All the models have about 30 million parameters, on one dataset, at 10% of the full training budget, with one learning rate. Any of the findings could change at scale.
 - **One readout width carries most of the claims.** It is 64 of 256. N5 showed that how much the runs vary depends strongly on width.[^7]
-- **One kind of GPU until N11.** N1 to N10 ran on a T4, and N11 on an A100. Two matched runs differed by up to 0.02 nats in loss, but barely in the gaps and agreements the claims use. The full comparison, on 14 matched runs, is still to do.[^15]
+- **One kind of GPU until N11.** N1 to N10 ran on a T4, and N11 on an A100. On 14 matched runs, the GPU shifted nothing systematically, but it moved losses by up to 0.024 nats, about as much as a change of seed. Quantities measured within one model moved less. That was enough to erase N11b's last step on the T4, so a claim resting on a difference of about 0.02 or less needs one kind of GPU throughout.[^15]
 
 ### 7. Payloads that did not take hold, twice, and a yardstick that moved (N10, N11)
 
@@ -308,6 +308,6 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *Secondary:*
       - The geometric pin closed 0.19 and cost head A 0.14 nats; the functional payloads cost head A at most 0.005.
       - Head B's agreement with its copy was 0.73 pinned, 0.35 under the strongest functional payload, and 0.32 unanchored.
-    - *Hardware, exploratory:* seed 4003's two control arms, seen on the T4 before D1, against the A100: losses within 0.02 nats, gap 0.503 against 0.500, agreement 0.319 against 0.320.
+    - *Hardware, exploratory, 14 matched pairs:* no mean difference above 0.004; losses within 0.024 nats; G within 0.003. S(f128) − S(f32) was −0.0005 on the T4 in both seeds compared, against +0.019 and +0.022 on the A100. Source: `N11_HARDWARE.md`.
 
     Sources: `N11_NOTE.md`, `N11_EXPLORATORY.md`, `N11_PREREGISTRATION.md`.

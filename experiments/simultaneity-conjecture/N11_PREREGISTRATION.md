@@ -310,6 +310,11 @@ No result of any payload arm on the measurement windows was in the screenshot. T
 - **What was added:** a job, `n11_fetch_t4`, that copies the T4 session's records from Drive and lists every file it left, and `n11_hardware.py` (report `N11_HARDWARE.md`), which compares each T4 run with the A100 run of the same seed and arm.
 - **Order:** both were written and tested on simulated records before any T4 record was read, as D1 required.
 - **Its status:** exploratory. It decides nothing.
+- **Run, 2026-10-21:** `colab-results` branch `n11_fetch_t4/20261020-214248` (29 records; the inventory shows no checkpoint for the run that was cut off). The 14 matched pairs:
+  - showed no systematic shift: every mean difference was at most 0.004;
+  - differed in losses by up to 0.024 nats, about one seed-to-seed standard deviation;
+  - left N11b's first step (f8 to f32, about +0.05) intact. Its second step (f32 to f128) was +0.019 and +0.022 on the A100 but −0.0005 on the T4, in both seeds compared.
+- **Added after the T4 records were read:** the report's table of N11b's steps on each GPU. It uses only quantities the report already contained.
 
 ## References
 

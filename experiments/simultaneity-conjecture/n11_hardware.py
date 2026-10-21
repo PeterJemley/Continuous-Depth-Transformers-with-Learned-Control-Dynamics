@@ -73,6 +73,17 @@ def main():
                 continue
             s4, sa = 1 - g4 / g4y, 1 - ga / gay
             L.append(f'| {a} | {s} | {s4:+.3f} | {sa:+.3f} | {s4 - sa:+.3f} |')
+    # Added after the T4 records were read (see the deviation log): N11b's steps, on each kind of GPU.
+    L += ['', '## N11b\'s ordering on each kind of GPU (added after the T4 records were read)', '',
+          'N11b required S(f8) < S(f32) < S(f128). The steps between strengths, to four decimals, for the seeds with a full T4 set.', '',
+          '| Seed | GPU | S(f32) − S(f8) | S(f128) − S(f32) | Ordered |', '|---|---|---|---|---|']
+    for s in SEEDS:
+        if None in (gap(T4, 'n80', s), gap(T4, 'n80-f128', s)):
+            continue
+        for name, folder in (('T4', T4), ('A100', A100)):
+            v = {a: 1 - gap(folder, a, s) / gap(folder, 'n80', s) for a in ('n80-f8', 'n80-f32', 'n80-f128')}
+            L.append(f"| {s} | {name} | {v['n80-f32'] - v['n80-f8']:+.4f} | {v['n80-f128'] - v['n80-f32']:+.4f} | "
+                     f"{'yes' if v['n80-f8'] < v['n80-f32'] < v['n80-f128'] else 'no'} |")
     L.append('')
     OUT.write_text('\n'.join(L))
     print('\n'.join(L))
