@@ -1,0 +1,1 @@
+This job must run on an A100 GPU, but this session has NVIDIA L4. Nothing was trained. Choose Runtime > Change runtime type > A100 GPU, Save, then Runtime > Run all again.
