@@ -1,6 +1,6 @@
 # Preregistration N12: is the noisy head held back by its readout?
 
-Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** Being built and tested; no real N12 run, and no calibration run, has started.
+Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** Built and tested; the full-length calibration run on the A100 is queued (`n12_calib`). No real N12 run has started.
 
 Type: confirmatory for N12a (primary), N12b, N12c and N12d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -223,7 +223,35 @@ Lesson 7 of `CRITICAL_REVIEW.md`, as sharpened after N11: a check must cover the
 
 ## Deviation log
 
-(none yet)
+### Calibration before any real run, 2026-10-21 (no amendment)
+
+Results seen before this entry:
+- calibration on **untrained** full-size models (G1's seeds 3001 and 3002), on the calibration windows (513–1024 of the tail);
+- test-mode runs on tiny models;
+- synthetic records.
+
+The full-length calibration run on the A100 has not started, and no real N12 run has started.
+
+- **The held-out tail:**
+  - its boundary is at token 116,740,938 of 117,920,140, and it holds 9,212 windows;
+  - u computed from the training region gives 3,390 words that never occur (3,369 for the whole training split).
+- **Untrained models,** on the calibration windows:
+  - *The estimator:* the analytic check scored 0.994, and identical heads 1.0.
+  - *The constructed mixture check* passed exactly in both models: ratio 1.0, loss difference 0.0.
+  - *Recognising copies:* head A against its ideal copy scored 0.988 and 0.995, and the zero-noise copy 1.0.
+  - *Must differ:* the rotated control scored 0.077 and 0.076.
+  - *Stability:* 0.88 to 0.98 for every head and copy.
+- **Tiny test-mode runs.**
+  - All 8 models trained and were measured, and all 4 fits ran. A rerun skipped all finished work.
+  - The calibration mode was interrupted after 26 steps of its first run. With its local folder deleted, as on a new Colab machine, it resumed from the Drive copy and finished.
+  - Every training batch and fit window stayed before the boundary.
+  - After each fit, the copy's loss was exactly unchanged (difference 0), so the fits leave the trunk and head A untouched.
+  - The tiny models are too small to pass the must-match control, and their 60-step fits do not converge. Both were expected.
+- **The Colab wrappers** run only on an A100. This was tested with simulated GPU names: a T4 is refused, and the calibration wrapper adds `--calibration`.
+- **Synthetic records.** 23 cases covering every branch of the four rules and every precondition gave the intended verdicts.
+- **Implementation details, not changes:**
+  - The fits use the training's optimiser settings (AdamW, PyTorch's default weight decay, gradients clipped at 1.0). They run in evaluation mode, without dropout, as the measurements do.
+  - The replaced positions of `n80`, `n80-mix` and `sub20` all come from N10's per-step draw, seeded by the seed and the step.
 
 ## References
 
