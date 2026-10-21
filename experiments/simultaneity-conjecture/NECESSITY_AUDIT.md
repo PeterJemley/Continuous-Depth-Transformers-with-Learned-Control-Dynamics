@@ -72,7 +72,7 @@ Four features describe each claim:
 
 This follows the skill's checklist addition 6. A summary that restates a note keeps the note's modal word: "consistent with", "suggests", "exploratory", "secondary", "untestable", "intermediate". A summary never upgrades it.
 
-`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them.
+`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them. A second round, on the N12 passages, found three substantive and ten minor problems, all corrected.
 
 ## The record so far
 
@@ -83,4 +83,4 @@ This follows the skill's checklist addition 6. A summary that restates a note ke
 | A measure of shared reading must recognise a known one (N8, N9a) | Strict, self-applied; definitional | The measure passed: identical heads scored 1, and the ideal copy 0.95–1.00 |
 | The payload holds, judged from 300 steps (N11's dose check) | A claim fixed to the wrong time; mechanism | Refuted by the full run: 0.27 at step 300, 0.59 at the end |
 | A converged fit changes by at most 2% (N12) | Rule, stated too strongly | Refuted by a counterexample at zero loss; replaced by amendment A1 |
-| N12's design (audited 2026-10-21, before its real run) | See the N12 deviation log | Three findings about interpretation, and one added secondary measure. The run bore them out: the form's share of the gap was at most 38%, as the audit's reading of N12d allowed, and the mixture head's gain over the fitted single softmax (0.10) was the learning-signal effect the audit had named |
+| N12's design (audited 2026-10-21, before its real run) | See the N12 deviation log | Three findings about interpretation, and one added secondary measure. The run was read as the audit prescribed: the form's share of the gap was reported as at most 38%, and the mixture head's gain over the fitted single softmax (0.10) was left unattributed, since it could be the cleaner learning signal the audit named or the fitting procedure's shortfall. Separating them is N12's next conjecture 1 |
