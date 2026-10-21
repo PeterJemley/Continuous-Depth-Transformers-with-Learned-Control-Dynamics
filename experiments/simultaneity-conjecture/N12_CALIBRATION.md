@@ -52,6 +52,8 @@ S4: fit-single's final fit divergence, 0.0340, against N11's saturated payload's
 
 S5, replication of N11's n80 (different seeds and windows, descriptive only): ratio with the copy 0.325 (N11 0.323); gap 0.469 (N11 0.492).
 
+S6, the decomposition (added by the necessity audit before the real run, after seed 3001's calibration values were seen; decides nothing): the readout's form accounts for at most 0.386 of n80's gap (1 − S(fit-single)), and training for at least 0.614 (S(fit-single)); n80-mix achieved +0.073 beyond what the single-softmax fit reached (S(n80-mix) − S(fit-single)).
+
 ## Run environment
 
 - NVIDIA A100-SXM4-40GB, PyTorch 2.11.0+cu130, code 6f497b3

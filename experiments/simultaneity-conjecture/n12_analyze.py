@@ -199,7 +199,11 @@ def main():
               f"S4: fit-single's final fit divergence, {mean(lambda s: fit[('single', s)]['curve_every_50'][-1][1]):.4f}, against N11's saturated payload's "
               f"{N11['saturated_payload_kl']} (different windows and seeds; N11's was measured on its payload windows).", '',
               f"S5, replication of N11's n80 (different seeds and windows, descriptive only): ratio with the copy {mean(lambda s: ratio('n80', s)):.3f} "
-              f"(N11 {N11['ratio']}); gap {mean(lambda s: gap('n80', s)):.3f} (N11 {N11['gap']}).", '']
+              f"(N11 {N11['ratio']}); gap {mean(lambda s: gap('n80', s)):.3f} (N11 {N11['gap']}).", '',
+              "S6, the decomposition (added by the necessity audit before the real run, after seed 3001's calibration values were seen; decides nothing): "
+              f"the readout's form accounts for at most {mean(lambda s: 1 - S_fit('single', s)):.3f} of n80's gap (1 − S(fit-single)), and training "
+              f"for at least {mean(lambda s: S_fit('single', s)):.3f} (S(fit-single)); n80-mix achieved "
+              f"{mean(lambda s: S('n80-mix', s) - S_fit('single', s)):+.3f} beyond what the single-softmax fit reached (S(n80-mix) − S(fit-single)).", '']
         envs = sorted({(r['environment']['gpu'], r['environment']['torch'], r['environment']['code_commit'][:7])
                        for r in [trn[k] for k in trn if trn[k]] + [mes[k] for k in mes if mes[k]] + [fit[k] for k in fit if fit[k]]})
         L += ['## Run environment', ''] + [f'- {gpu}, PyTorch {v}, code {cm}' for gpu, v, cm in envs] + ['']

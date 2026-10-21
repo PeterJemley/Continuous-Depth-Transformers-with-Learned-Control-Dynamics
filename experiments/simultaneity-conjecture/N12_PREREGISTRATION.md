@@ -294,6 +294,44 @@ The full-length calibration run on the A100 has not started, and no real N12 run
   - a new case, `fit-mix` at its target with a 7% relative change, now passes;
   - fits that are unconverged, or that are below S = 0.95, still fail.
 
+### Necessity audit before the real run, 2026-10-21 (no change to any claim, rule, arm, window or measure)
+
+This is the first use of `NECESSITY_AUDIT.md`. Results seen before this entry: the calibration values for seed 3001, recorded above. The audit was done after reading them, and findings 2–4 were prompted partly by them. No real N12 run has started, and the author may object to any of this before it does.
+
+**1. Necessity claims the design relies on, and the checks that cover them.** All are sound:
+- the held-out tail is unseen (the largest offset drawn, precondition 1);
+- u comes only from the training region (recorded in the summary);
+- `sub20` differs from `n80` only in the random targets (the replaced-position fingerprint, precondition 1);
+- the yardstick is fixed, and a fit leaves its own yardstick unchanged (the copy's loss was unchanged after the calibration fits);
+- the mixture's code path is exact (the constructed check, precondition 2);
+- the fitting procedure can reach the copy when the form allows (`fit-mix`, precondition 5);
+- the convergence test works at zero loss (amendment A1).
+
+**2. N12d is asymmetric, by reply 4 (hold an argument to its modest conclusion).** N12d speaks of "the best single-softmax readout", but a fit finds one readout, not the best.
+- S(`fit-single`) is therefore an existence proof: some single-softmax readout of this state reaches it.
+- A refutation (the interval wholly above 0.67) is conclusive, because a readout that good exists.
+- Support (the interval wholly below 0.67) shows only that this fitting procedure could not do better, the same procedure that reaches the copy when the form allows. Showing that no single softmax can would need a proof, or more fitting procedures than one.
+- A supported N12d is reported in that modest form.
+
+**3. One rival hypothesis was understated, by reply 3 (another mechanism).**
+- The mixture head's loss changes the learning signal as well as the output form. Its gradient for a target y is the single softmax's gradient scaled by r(y) = 0.2 p(y) / q(y), the posterior probability that y is a clean target. This was checked through the job's own code, to within 10⁻⁹.
+- So forward correction mostly ignores the targets the head already judges to be noise, as `sub20` ignores them entirely.
+- The rival "noise in the learning signal" therefore predicts S(`n80-mix`) high, not low as the competing-hypotheses table says. Its row should read: S(`n80-mix`) high, S(`sub20`) at least 0.67, S(`fit-single`) any.
+- So N12a does not separate this rival from the conjecture. N12d does: the conjecture needs a single softmax to be capped, and the rival does not.
+
+**4. The conjecture's wording claims more than the design can show, by replies 3 and 4.**
+- S(`fit-single`) is the share of `n80`'s gap that some single-softmax readout of the same state can close.
+- So the readout's form accounts for at most 1 − S(`fit-single`) of the gap. At least S(`fit-single`) of it comes from how the head was trained.
+- In the calibration seed that split was at most 0.39 for the form against at least 0.61 for training.
+- If the real seeds are similar, "all four supported" would not mean, as the outcome table's first row says, that the drift since N7 "was the readout's form, not noisy training." It would mean the form accounts for less than half of the gap, and training on noisy targets for the rest.
+- That row is read in this light.
+
+**5. An added secondary measure, S6, the decomposition.** It is computed from the preregistered records and decides nothing. It was defined after seeing seed 3001's values (S(`fit-single`) 0.614, S(`n80-mix`) 0.687), and it says so in the report.
+- *The form's share at most:* 1 − S(`fit-single`).
+- *Training's share at least:* S(`fit-single`).
+- *What the mixture head achieved that the single-softmax fit did not:* S(`n80-mix`) − S(`fit-single`).
+
+
 ## References
 
 Patrini, G., Rozza, A., Krishna Menon, A., Nock, R., & Qu, L. (2017). Making deep neural networks robust to label noise: A loss correction approach. In *2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)* (pp. 2233–2241). IEEE. https://doi.org/10.1109/cvpr.2017.240

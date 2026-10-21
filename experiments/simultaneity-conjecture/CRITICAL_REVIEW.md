@@ -182,6 +182,23 @@ That was the right order. A measure has to be trusted before it can carry the ma
 - **Engineering slips.** One bug, a matrix left on the wrong device, crashed two N8 sessions before any model was measured. It was logged.[^10] Earlier Colab sessions stopped for Drive and resume problems, all logged.
 - **The limits of five runs.** The exact sign test can never reach p = 0.05 with five runs. The rules therefore used intervals and counts, and intervals with only four degrees of freedom are wide. This was known in advance and stated, but it limits how small an effect any test here could see.
 
+### 9. Can a preregistration bind its own author?
+
+This criticism turns the method's own instrument against it. It has the shape of Benjamin Cardozo's argument in *Beatty v. Guggenheim Exploration Co.*, 225 N.Y. 380, 387 (1919): a contract clause forbidding oral changes can itself be changed by the parties, because the power that made it can unmake it. The author's legal-research skill *transcendental-counterplay* classifies that argument and verifies the passage, and it supplies the replies used below (`NECESSITY_AUDIT.md`).
+
+- **The criticism.** A preregistration binds only because its author approves it, and the same power of approval can amend it. So it binds nothing. The record has an example: N12's preregistration said the calibration could change only the number of fit steps, and amendment A1 changed a precondition instead.
+- **The reply** fixes the condition to a time and a level:
+  - amendments come only before the results a claim depends on are seen;
+  - they may not change a claim, threshold, arm, window or measure;
+  - each records what had been seen when it was made;
+  - after results, a change can only add an exploratory analysis, labelled so.
+- **The critic's best answer.** The line between before and after is formal. A1 was approved after one calibration seed had shown a value that would favour N12d (S(`fit-single`) = 0.614, below the 0.67 threshold).
+- **The next move.**
+  - A1 changes only the convergence test of the fitting procedure's must-match control.
+  - `fit-single`'s loss can fall below A1's new floor only by reaching the copy. In that case N12d is refuted, so A1 cannot tilt N12d's verdict towards support.
+  - Anyone can recompute the precondition under both rules from the saved records.
+- **The weakest point.** The rule A1 replaced was stated too strongly from the start, and that was my error. A convergence test should have been written to work at a loss of zero. A preregistration binds only as far as its rules survive their own boundary cases, so the defence depends on writing those rules carefully in the first place.
+
 ## What stands now, and what would overturn it
 
 These are the current best explanations. They are conjectures that have survived tests, not established facts.
@@ -213,6 +230,8 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 6. **Prefer new seeds to reused models** whenever a test can afford them.
 7. **Check that a manipulation is strong enough before queuing a run that depends on it,** with a dose across strengths over the whole training schedule, not an extrapolation from a short run. A trend in a short check is a warning, not a pass.
 8. **Define every comparison measure against a fixed yardstick** that the arms being compared cannot change.
+9. **Before each run, list the design's claims of necessity and test them against the standard replies** (`NECESSITY_AUDIT.md`). Its first use, on N12, found that a rival hypothesis had been understated and that the conjecture's wording claimed more than the design could show. Both were found before the real run.
+10. **Write every rule so that it still works at its boundaries:** zero, saturation, and the end of the schedule.
 
 ---
 
