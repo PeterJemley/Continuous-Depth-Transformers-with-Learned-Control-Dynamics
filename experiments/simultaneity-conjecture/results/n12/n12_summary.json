@@ -1,0 +1,181 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " Duran , Maurice Boitel and Eug\u00e8",
+      "target_i+1_end": "an , Maurice Boitel and Eug\u00e8ne",
+      "target_i+2_end": " , Maurice Boitel and Eug\u00e8ne B",
+      "target_i+4_end": " Boitel and Eug\u00e8ne Boudin",
+      "target_i+8_end": " Eug\u00e8ne Boudin . It was the"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1
+      ],
+      "next_example": {
+        "input_end": " across the floor , and a side door with a door @",
+        "target_end": " the floor , and a side door with a door @-"
+      },
+      "skip_example": {
+        "input_end": " cliffs on the British coast and is part of the same geological",
+        "target_end": " the British coast and is part of the same geological formation ."
+      }
+    },
+    "same_model": [
+      {
+        "seed": 4101,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4102,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4103,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4104,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4105,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657569057248,
+      "sampled": {
+        "top_subspace_overlap": 0.993960768795485,
+        "relative_error": 0.2552684326203977
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972829828537,
+        "relative_error": 0.16654861663951354
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084748193125,
+        "relative_error": 0.45547995255557955
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 4101,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 0.9999999962438677,
+      "pass": true
+    },
+    "unigram": {
+      "sum": 1.0,
+      "zeros": 3391,
+      "from_tokens": 116740938,
+      "most_frequent_tokens": [
+        " the",
+        " ,",
+        " .",
+        " of",
+        " and"
+      ]
+    },
+    "first_measurement_text": " the last legitimate emperor of the Tang dynasty , declared the Tang over and named himself emperor of China ."
+  },
+  "mode": "real",
+  "held_out": {
+    "cut_fraction": 0.99,
+    "cut_token": 116740938,
+    "training_tokens": 117920140,
+    "tail_tokens": 1179202,
+    "tail_windows": 9212,
+    "measure": [
+      1,
+      512
+    ]
+  },
+  "arms": {
+    "clean": {
+      "rho": 0.0,
+      "head_b": "single"
+    },
+    "n80": {
+      "rho": 0.8,
+      "head_b": "single"
+    },
+    "n80-mix": {
+      "rho": 0.8,
+      "head_b": "mix"
+    },
+    "sub20": {
+      "rho": 0.8,
+      "head_b": "sub"
+    }
+  },
+  "fits": {
+    "forms": [
+      "single",
+      "mix"
+    ],
+    "steps": 3000,
+    "peak_lr": 0.0024,
+    "batch": 32
+  },
+  "seeds": [
+    4101,
+    4102,
+    4103,
+    4104,
+    4105
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16
+}
