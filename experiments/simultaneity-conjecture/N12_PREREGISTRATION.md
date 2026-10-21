@@ -1,6 +1,6 @@
 # Preregistration N12: is the noisy head held back by its readout?
 
-Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** **Amendment A1 (precondition 5's convergence test) approved by the author, 2026-10-21.** Built, tested and calibrated; queued as `n12_bottleneck`. No real N12 run has started.
+Date: 2026-10-20    Status: **approved by the author, 2026-10-20.** **Amendment A1 (precondition 5's convergence test) approved by the author, 2026-10-21.** Run; see the deviation log, `N12_RESULTS.md`, `N12_EXPLORATORY.md` and `N12_NOTE.md`.
 
 Type: confirmatory for N12a (primary), N12b, N12c and N12d, each with its own decision rule, on new models trained for this test. Everything else is secondary or exploratory and labelled so.
 
@@ -331,6 +331,25 @@ This is the first use of `NECESSITY_AUDIT.md`. Results seen before this entry: t
 - *Training's share at least:* S(`fit-single`).
 - *What the mixture head achieved that the single-softmax fit did not:* S(`n80-mix`) − S(`fit-single`).
 
+
+### The run, 2026-10-21
+
+- **Session:** Colab run `n12_bottleneck/20261021-155235`, code commit 12f2957, whose job code is identical to the queued commit 9126974 (the difference is documents and the local analysis script), on an NVIDIA A100-SXM4-80GB with PyTorch 2.11. It trained the 20 models, ran the 10 fits and measured everything in 55 minutes, with no resumes and no Drive failures. One 16-bit step was skipped by the gradient scaler across the 20 runs.
+- **How the records arrived.** The notebook's upload step found no GitHub token in that session and downloaded a zip, which the author attached. The records, log and run information are committed under `results/n12/`. Three earlier sessions of this job, each stopped by the GPU check on an L4 before any training, are on the `colab-results` branch.
+- **What changed after approval:** amendment A1 and the necessity audit's additions, both before the run. Nothing after it.
+- **Results, under the rules:**
+  - All six preconditions held.
+  - N12a supported: S(`n80-mix`) = 0.713, 97.5% interval [0.690, 0.736].
+  - N12b intermediate: the ratio was 0.79–0.85, at least 0.85 in 0 of 5 seeds and at most 0.60 in 0.
+  - N12c supported: S(`sub20`) = 0.796 [0.772, 0.820].
+  - N12d supported: S(`fit-single`) = 0.616 [0.605, 0.626].
+  - The conjecture as a whole, which needed all four, did not fully survive: its geometric claim fell just short.
+
+### Exploratory analysis added after the results, 2026-10-21
+
+- **What was added:** `n12_exploratory.py` (report `N12_EXPLORATORY.md`): each arm's cost to head A against the `clean` arm, the inner readings against head A, the paired differences in S between arms and fits, and the agreement ratios and fit curves by seed.
+- **Why:** to size the two effects the audit had identified in the mixture head (representation, and a cleaner learning signal), and the standard noisy head's cost to the shared network.
+- **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
 ## References
 

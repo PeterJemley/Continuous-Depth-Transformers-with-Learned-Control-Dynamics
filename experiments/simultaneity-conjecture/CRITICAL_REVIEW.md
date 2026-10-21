@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10, updated 2026-10-18 with N10, 2026-10-20 with N11, and 2026-10-21 with section 9, lessons 9–10 and corrections from a fresh reader's audit against the notes. A review of all the work in this repository, from the replication of the paper through N11, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10, updated 2026-10-18 with N10, 2026-10-20 with N11, and 2026-10-21 with section 9, lessons 9–10, corrections from a fresh reader's audit against the notes, and N12. A review of all the work in this repository, from the replication of the paper through N12, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -52,11 +52,15 @@ The main claims put to a test, in order; some rows merge a test's paired claims,
 | N11a | A strong functional payload preserves the reading's function under heavy noise | Less than two thirds of the gap closed | **Untestable**: the payload again failed its check[^15] |
 | N11b | The effect grows with the payload's strength | The strongest payload doing no better than the weakest | **Supported**, with sharply diminishing returns; its last step is within the GPU's own effect[^15] |
 | N11c | Anchoring function beats pinning geometry, each at full strength | A difference under 0.30 of the gap | **Untestable**, as N11a[^15] |
+| N12a | A head whose form can represent the noisy mixture keeps the reading, from the noisy targets alone | Less than two thirds of the gap closed | **Supported**: 71%[^16] |
+| N12b | And reads the same directions as its ideal copy | Agreement at most 0.60 | **Intermediate**: 0.79–0.85, under 0.85 in every seed[^16] |
+| N12c | Scarcity of informative targets alone does not cause the drift | Less than two thirds closed by the data-matched clean head | **Supported**: 80%[^16] |
+| N12d | The single-softmax bottleneck is large | A single softmax fitted directly to the copy closing two thirds or more | **Supported**: 62%[^16] |
 
-**Out of the 26 verdicts in this ledger:**
+**Out of the 30 verdicts in this ledger:**
 - 9 refuted, or mostly refuted;
-- 9 supported;
-- 2 inconclusive or intermediate;
+- 12 supported;
+- 3 inconclusive or intermediate;
 - 6 untestable.
 
 Counted per preregistered claim, including the secondary ones the ledger leaves out (N1a, N2b and N6's N6b, each untestable; N4a, supported; N5b, inconclusive), the untestable verdicts number at least nine.
@@ -201,6 +205,13 @@ This criticism turns the method's own instrument against it. It has the shape of
   - Anyone can recompute the precondition under both rules from the saved records.
 - **The weakest point.** The rule A1 replaced was stated too strongly from the start, and that was my error. A convergence test should have been written to work at a loss of zero. A preregistration binds only as far as its rules survive their own boundary cases, so the defence depends on writing those rules carefully in the first place.
 
+### 10. An explanation that survived three of its four tests, and a note that had said too much (N12)
+
+- **The conjecture was worded too strongly, and the audit caught it before the run.** The preregistration said the drift since N7 "was the readout's form, not noisy training". The necessity audit, before the run, showed that the design could bound the form's share of the drift but not attribute the whole of it to the form. The run then put the form's share at most 38% of the gap, with training on noisy targets through that form accounting for the rest. Without the audit, "all four supported" would have been read as confirming the stronger wording. As it was, three of four were supported and the stronger wording had already been withdrawn.
+- **The geometric claim fell just short, for the second time.** N12b required agreement of at least 0.85 and found 0.79–0.85. N10c had required the same and found 0.79–0.84. Two near misses at the same bar, from heads functionally close to their copies, are a pattern, and a pattern is not an explanation. N12's note offers one, that the random targets leave a geometric trace that function does not show, labelled as a conjecture, with the test that would decide it.
+- **A note had said too much.** N10's note stated that head A was "unaffected by noise in head B alone", from a range of validation losses across arms. N12 found a cost of 0.04 nats, and N10's and N11's own records show the same shift in every seed. The range hid it, and nobody looked at the paired differences. A dated correction has been added to N10's note. *The lesson:* a claim of no effect needs the paired differences and their interval, as a claim of an effect does.
+- **A slip in the pipeline.** The session that ran N12 had no GitHub token, so the notebook delivered a zip instead of uploading. The records were committed from it, with the run information, and the deviation log says so. The GPU check stopped three sessions on an L4 before any training, as designed.
+
 ## What stands now, and what would overturn it
 
 These are the current best explanations. They are conjectures that have survived tests, not established facts.
@@ -209,18 +220,18 @@ These are the current best explanations. They are conjectures that have survived
 - **At this scale, the continuous dynamics do not carry the readings** (G1, G1d, N1, N2). A fixed shift does the control's work as well as the dynamics do, and the readings do not get their own paces. *Would be overturned by:* a design in which the dynamics are given work only they can do, such as V2's separate continuous strands, outperforming a matched model.
 - **Readings held at once occupy partly different directions, and forcing them together costs accuracy** (N4). This is measured in loss, so it does not depend on the overlap measure. *Would be overturned by:* the cost vanishing on new seeds. Or, if the cost is a competition for directions, by a cost that stays when nothing is restricted. That is the question N5 could not settle.
 - **Readings further ahead depend on more different directions** (N6r, N7, N8c). The ladder held under two measures, and the target-free measure has now been validated on a case with a known answer (N9). *Would be overturned by:* the ladder flattening on new seeds, or under a measure of what the heads compute rather than how sensitive they are.
-- **A head trained on noisy targets reads differently from the clean head** (N7, N8, N9; replicated on new seeds in N10 and N11). It is not the ideal noisy copy of the clean reading: it reads different directions, and reads the context less well. The measure can recognise the ideal copy, so this is a property of training, not of the instrument. *Would be overturned by:* noisy heads coming close to their ideal copies at another scale or noise rate, or under a head whose form can represent the copy (N12 tests one).
+- **A head trained on noisy targets reads differently from the clean head** (N7, N8, N9; replicated on new seeds in N10, N11 and N12), **and N12 explains most of why.** A single softmax on a linear readout cannot represent the mixture a noisy target calls for: fitted directly to the ideal copy, the best single softmax found reached 62% of the way (N12d), and trained on the noisy targets the standard head reaches none of that. A head whose form can represent the mixture keeps 71% of the function from the same targets (N12a) and most of the directions (0.83, N12b intermediate). *Would be overturned by:* a single-softmax fitting procedure that reaches the copy, or a mixture head that drifts as far as the standard one at another scale or noise rate.
 
 ## Problems now open
 
 On Deutsch's view, problems are what knowledge grows from. These are the ones this work has made sharp:
-1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 and N11 could not say, because in both the functional payload failed its manipulation check. N11's secondary measures point one way: the functional payload restored function without restoring geometry, and the geometric pin did the reverse. Two things would sharpen the question:
-   - finding what limits the payload. One conjecture is the *softmax bottleneck*: the noisy copy is a mixture that a single softmax readout cannot represent;
-   - anchoring the clean reading instead of the noisy copy.
-2. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
-3. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
-4. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?
-5. The project's own question: can a model built with separate, continuous, interacting strands hold more voices than a matched transformer (V2, V3)?
+1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 and N11 could not say, because in both the functional payload failed its manipulation check, against a target the head's form could not represent (N12d). With a mixture head the target is representable, so the test can now be built to pass its check.
+2. Why do heads that are functionally close to their ideal copies stop just under 0.85 agreement (N10c at 20% noise, and N12b)? One conjecture: the random targets leave a geometric trace that function does not show (`sub20` at 0.91 against `n80-mix` at 0.83). A dose of random targets at a fixed number of informative ones would test it.
+3. Which of the mixture head's two effects does the work: representing the mixture, or discounting the targets it judges to be noise?
+4. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
+5. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
+6. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?
+7. The project's own question: can a model built with separate, continuous, interacting strands hold more voices than a matched transformer (V2, V3)?
 
 ## What we would do differently
 
@@ -234,6 +245,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 8. **Define every comparison measure against a fixed yardstick** that the arms being compared cannot change.
 9. **Before each run, list the design's claims of necessity and test them against the standard replies** (`NECESSITY_AUDIT.md`). Its first use, on N12, found that a rival hypothesis had been understated and that the conjecture's wording claimed more than the design could show. Both were found before the real run.
 10. **Write every rule so that it still works at its boundaries:** zero, saturation, and the end of the schedule.
+11. **A claim of no effect needs the paired differences and their interval,** as a claim of an effect does. A range across arms can hide a shift that every seed shows.
 
 ---
 
@@ -333,3 +345,11 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *Hardware, exploratory, 14 matched pairs:* no mean difference above 0.004; losses within 0.024 nats; G within 0.003. S(f128) − S(f32) was −0.0005 on the T4 in both seeds compared, against +0.019 and +0.022 on the A100. Source: `N11_HARDWARE.md`.
 
     Sources: `N11_NOTE.md`, `N11_EXPLORATORY.md`, `N11_PREREGISTRATION.md`.
+
+[^16]: **N12.** New seeds 4101–4105; 20 runs and 10 frozen fits in one A100 session; measured on 512 windows held out from the last 1% of the training text. S is the share of the gap closed against the ideal copy of the same seed's `n80` head A.
+    - *N12a:* S(`n80-mix`) 0.713, 97.5% interval [0.690, 0.736]. *N12c:* S(`sub20`) 0.796 [0.772, 0.820]. *N12d:* S(`fit-single`) 0.616 [0.605, 0.626]; the must-match fit in the mixture form reached 0.997.
+    - *N12b:* `n80-mix`'s agreement with its copy 0.79–0.85, in no seed at least 0.85; `sub20` 0.90–0.93; `n80` 0.30–0.32.
+    - *Secondary and exploratory:* the fitted single softmax's agreement with the copy was 0.13–0.15, the rotated control's level. Head A's cost against `clean` was +0.040 [+0.033, +0.047] with the standard noisy head and −0.009 [−0.024, +0.007] with the mixture head. The mixture head beat the fitted single softmax by 0.097 [0.079, 0.115], and `sub20` beat the mixture head by 0.083 [0.059, 0.107].
+    - *Before the run:* amendment A1 (a convergence test that works at zero loss) and the necessity audit, which bounded what the design could show.
+
+    Sources: `N12_NOTE.md`, `N12_RESULTS.md`, `N12_EXPLORATORY.md`, `N12_PREREGISTRATION.md`.

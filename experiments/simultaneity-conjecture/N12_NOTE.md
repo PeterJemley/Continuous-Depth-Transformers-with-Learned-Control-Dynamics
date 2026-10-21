@@ -53,7 +53,7 @@ The "inner reading" is the head's own softmax, before the mixture; for `n80` tha
 
 ## Which kind of result this is
 
-- **The conjecture's functional claims survived a test they could have failed.** Changing only the head's form, with the same noisy targets, closed 71% of the gap. The data-matched clean head closed 80%, so too few informative targets is not the cause. A single softmax fitted directly to the copy stopped at 62%, so the form does cap it.
+- **The conjecture's functional claims survived a test they could have failed.** Changing only the head's form, with the same noisy targets, closed 71% of the gap. The data-matched clean head closed 80%, so too few informative targets is not the cause. A single softmax fitted directly to the copy stopped at 62%, and none fitted did better, so by the best fit found the form's ceiling is about there, and the standard head's training reached none of what the form allows.
 - **Its geometric claim fell just short.** The mixture head's directions moved most of the way to the copy's, from 0.31 to 0.83, but no seed reached 0.85. N12b is intermediate, so the conjecture as stated did not fully survive. This is the second time a head functionally close to its copy has stopped just under 0.85: N10's head at 20% noise scored 0.79–0.84.
 - **The explanation's wording was too strong, as the necessity audit said before the run.** The preregistration's conjecture was that the drift was "the readout's form, not noisy training". The numbers divide it:
   - A single softmax of the `n80` state reached 62% of the gap when fitted directly to the copy. So the form accounts for at most 38% of the gap, 0.384 [0.376, 0.393], and that bound depends on the fitting procedure, which reached the copy when the form allowed it.

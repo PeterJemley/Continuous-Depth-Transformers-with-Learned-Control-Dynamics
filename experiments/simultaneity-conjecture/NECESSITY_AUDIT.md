@@ -83,4 +83,4 @@ This follows the skill's checklist addition 6. A summary that restates a note ke
 | A measure of shared reading must recognise a known one (N8, N9a) | Strict, self-applied; definitional | The measure passed: identical heads scored 1, and the ideal copy 0.95–1.00 |
 | The payload holds, judged from 300 steps (N11's dose check) | A claim fixed to the wrong time; mechanism | Refuted by the full run: 0.27 at step 300, 0.59 at the end |
 | A converged fit changes by at most 2% (N12) | Rule, stated too strongly | Refuted by a counterexample at zero loss; replaced by amendment A1 |
-| N12's design (audited 2026-10-21, before its real run) | See the N12 deviation log | Three findings about interpretation, and one added secondary measure |
+| N12's design (audited 2026-10-21, before its real run) | See the N12 deviation log | Three findings about interpretation, and one added secondary measure. The run bore them out: the form's share of the gap was at most 38%, as the audit's reading of N12d allowed, and the mixture head's gain over the fitted single softmax (0.10) was the learning-signal effect the audit had named |

@@ -112,8 +112,8 @@ Both are conjectures, formed after the results.
 
 ## Next conjectures
 
-1. **Where the payload's floor comes from.** Freeze trained models and fit head B's readout alone to the copy, as above. If the floor is the softmax bottleneck, a functional anchor needs a readout that can represent mixtures, or a different target.
-2. **Anchor the clean reading, not the noisy copy.** The noisy copy is 80% word frequencies, so matching it mostly teaches head B the noise. A payload that matches head A's own prediction, the clean reading, is a single softmax that head B's readout *can* represent. Whether it preserves more of the reading is a sharper version of N11's question.
+1. **Where the payload's floor comes from.** Freeze trained models and fit head B's readout alone to the copy, as above. If the floor is the softmax bottleneck, a functional anchor needs a readout that can represent mixtures, or a different target. *Run as N12, 2026-10-21:* the floor is the single-softmax form. Fitted directly to the copy it reached 62% of the gap, and a mixture-form readout reached the copy (`N12_NOTE.md`).
+2. **Anchor the clean reading, not the noisy copy.** The noisy copy is 80% word frequencies, so matching it mostly teaches head B the noise. A payload that matches head A's own prediction, the clean reading, is a single softmax that head B's readout *can* represent. Whether it preserves more of the reading is a sharper version of N11's question. *Set aside, 2026-10-21:* with a single-softmax head this would make head B a second head A, and the share measure would reward that for the wrong reason. N12 used a mixture head instead.
 3. **Rerun N11's question with a full-length dose check,** before queuing. The A100 makes it cheap.
 4. **D1's hardware comparison:** done, 2026-10-21. See the hardware observation above.
 
