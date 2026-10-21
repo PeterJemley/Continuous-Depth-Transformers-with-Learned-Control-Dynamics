@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n12_calib",
+    "args": [],
+    "description": "N12's full-length calibration run, the preregistration's check before the real run: seed 3001, all four arms (clean, n80, n80-mix, sub20) and both frozen fits, on the full training schedule, measured on the held-out tail's windows 513-1024. NEEDS AN A100: before Run all, choose Runtime > Change runtime type > A100 GPU. On any other GPU it stops before training. About 15-20 minutes. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 20
+  },
+  "code_commit": "6f497b34dc6fc3e7c4028aff652daec64428d289",
+  "run_id": "20261021-095316",
+  "gpu": "NVIDIA A100-SXM4-40GB"
+}
