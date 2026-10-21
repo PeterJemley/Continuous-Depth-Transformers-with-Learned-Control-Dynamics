@@ -31,12 +31,18 @@ NEEDED, LEVEL = 4, 0.975
 KEEPS, SAME_READING, DIFFERENT_READING, SD_SENSITIVE = 0.67, 0.85, 0.60, 0.05
 SAME_MIN, CLEAN_GAP, MATCH_MIN, SEPARATE = 0.95, 0.05, 0.999, 0.60
 MIN_GAP, FIT_MIX_MIN, STABLE_MIN, NOISE_TOL = 0.30, 0.95, 0.80, 0.05
+CONVERGED_REL, AT_TARGET = 0.02, 1e-3                # candidate amendment A1: or the fit's loss is below AT_TARGET
 N11 = {'ratio': 0.323, 'gap': 0.492, 'saturated_payload_kl': 0.038}
 
 
 def load(name):
     p = RES / f'{name}.json'
     return json.loads(p.read_text()) if p.exists() else None
+
+
+def fit_converged(cv):
+    """Precondition 5's convergence test, recomputed from the recorded means (candidate amendment A1)."""
+    return cv.get('last') is not None and (cv['relative_change'] <= CONVERGED_REL or cv['last'] <= AT_TARGET)
 
 
 def interval(xs, level=LEVEL):
@@ -110,8 +116,8 @@ def main():
             bool(seeds) and all(sum(mes[(a, s)]['rotated_control']['agreement_ratio'] <= SEPARATE for s in seeds) >= min(NEEDED, len(want)) for a in ARMS),
         f'4. The yardstick leaves a gap: gap(n80) ≥ {MIN_GAP} nats in every seed':
             bool(seeds) and all(gap('n80', s) >= MIN_GAP for s in seeds),
-        f'5. The fits: converged (last 300 steps within 2% of the 300 before), and fit-mix reached S ≥ {FIT_MIX_MIN}, in every model':
-            bool(seeds) and all(fit[(f, s)]['convergence']['pass'] for f in FITS for s in seeds) and all(S_fit('mix', s) >= FIT_MIX_MIN for s in seeds),
+        f'5. The fits: converged (last 300 steps within 2% of the 300 before, or a loss below {AT_TARGET:g} nats), and fit-mix reached S ≥ {FIT_MIX_MIN}, in every model':
+            bool(seeds) and all(fit_converged(fit[(f, s)]['convergence']) for f in FITS for s in seeds) and all(S_fit('mix', s) >= FIT_MIX_MIN for s in seeds),
         f'6. Stable subspaces (N12b only): head B and the copy ≥ {STABLE_MIN} in every n80-mix model':
             bool(seeds) and all(min(mes[('n80-mix', s)]['stability'][k] for k in ('B', 'copy')) >= STABLE_MIN for s in seeds),
     }

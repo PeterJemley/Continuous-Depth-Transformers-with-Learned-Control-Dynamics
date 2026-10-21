@@ -1,0 +1,62 @@
+GPU check passed: NVIDIA A100-SXM4-40GB
+09:53:18 device: cuda | test mode: False | mode: calibration | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N12 folder: /content/drive/MyDrive/cdt-colab/n12_calib | local: /content/cdt_local/n12_calib
+09:53:27 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+09:53:28 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 513-1024 (of 9212)
+09:53:29 next-task example: input ends ' section 3 of the Indecent Representation of Women ('; targets end ' 3 of the Indecent Representation of Women ( Prohibition'
+09:53:29 skip-task example: input ends ' Geography = = \n\n Oklahoma is the 20th largest'; targets end ' = = \n\n Oklahoma is the 20th largest state in'
+09:53:34 batch check: True | windows shifted: True | analytic: 0.994 | identical heads: 0.9999999999999999
+09:53:34 same-model check: [True]
+09:53:37 clean_seed3001: starting, noise 0.0, head B single, seed 3001
+09:53:51 clean_seed3001: step 400/2879, validation loss head A 6.4317, head B 6.4246
+09:53:55 clean_seed3001: step 500/2879, validation loss head A 6.2551, head B 6.2469
+09:54:06 clean_seed3001: step 800/2879, validation loss head A 5.8880, head B 5.8828
+09:54:20 clean_seed3001: step 1200/2879, validation loss head A 5.5787, head B 5.5739
+09:54:34 clean_seed3001: step 1600/2879, validation loss head A 5.3689, head B 5.3646
+09:54:48 clean_seed3001: step 2000/2879, validation loss head A 5.2062, head B 5.2006
+09:55:02 clean_seed3001: step 2400/2879, validation loss head A 5.1049, head B 5.1014
+09:55:16 clean_seed3001: step 2800/2879, validation loss head A 5.0504, head B 5.0465
+09:55:19 clean_seed3001: step 2879/2879, validation loss head A 5.0431, head B 5.0388
+09:55:20 clean_seed3001: finished in 0.03 h; head A 5.1274, head B 5.1243 (clean targets 5.1243)
+09:55:26 m_clean_seed3001: head B clean 5.204 | copy clean 6.119 | head A clean 5.206 | B vs copy 0.949 | B noisy 9.808 (copy 7.267) | constructed 1.0000 | rotated 0.134 | 6 s
+09:55:27 n80_seed3001: starting, noise 0.8, head B single, seed 3001
+09:55:41 n80_seed3001: step 400/2879, validation loss head A 6.4848, head B 7.4972
+09:55:45 n80_seed3001: step 500/2879, validation loss head A 6.3150, head B 7.4908
+09:55:56 n80_seed3001: step 800/2879, validation loss head A 5.9348, head B 7.4503
+09:56:10 n80_seed3001: step 1200/2879, validation loss head A 5.6356, head B 7.4197
+09:56:24 n80_seed3001: step 1600/2879, validation loss head A 5.4346, head B 7.3990
+09:56:38 n80_seed3001: step 2000/2879, validation loss head A 5.2656, head B 7.3824
+09:56:52 n80_seed3001: step 2400/2879, validation loss head A 5.1695, head B 7.3689
+09:57:07 n80_seed3001: step 2800/2879, validation loss head A 5.1126, head B 7.3621
+09:57:10 n80_seed3001: step 2879/2879, validation loss head A 5.1068, head B 7.3613
+09:57:11 n80_seed3001: finished in 0.03 h; head A 5.1807, head B 7.3505 (clean targets 6.5901)
+09:57:17 m_n80_seed3001: head B clean 6.634 | copy clean 6.165 | head A clean 5.264 | B vs copy 0.325 | B noisy 7.359 (copy 7.274) | constructed 1.0000 | rotated 0.118 | 5 s
+09:57:17 n80-mix_seed3001: starting, noise 0.8, head B mix, seed 3001
+09:57:36 n80-mix_seed3001: step 400/2879, validation loss head A 6.4394, head B 7.4171
+09:57:41 n80-mix_seed3001: step 500/2879, validation loss head A 6.2643, head B 7.4090
+09:57:55 n80-mix_seed3001: step 800/2879, validation loss head A 5.8882, head B 7.3820
+09:58:14 n80-mix_seed3001: step 1200/2879, validation loss head A 5.5705, head B 7.3526
+09:58:33 n80-mix_seed3001: step 1600/2879, validation loss head A 5.3683, head B 7.3283
+09:58:51 n80-mix_seed3001: step 2000/2879, validation loss head A 5.2067, head B 7.3086
+09:59:10 n80-mix_seed3001: step 2400/2879, validation loss head A 5.1042, head B 7.2953
+09:59:29 n80-mix_seed3001: step 2800/2879, validation loss head A 5.0466, head B 7.2875
+09:59:33 n80-mix_seed3001: step 2879/2879, validation loss head A 5.0396, head B 7.2872
+09:59:34 n80-mix_seed3001: finished in 0.04 h; head A 5.1229, head B 7.2817 (clean targets 6.2361)
+09:59:41 m_n80-mix_seed3001: head B clean 6.312 | copy clean 6.117 | head A clean 5.207 | B vs copy 0.811 | B noisy 7.299 (copy 7.267) | constructed 1.0000 | rotated 0.133 | 6 s
+09:59:41 sub20_seed3001: starting, noise 0.8, head B sub, seed 3001
+09:59:57 sub20_seed3001: step 400/2879, validation loss head A 6.4625, head B 7.4068
+10:00:01 sub20_seed3001: step 500/2879, validation loss head A 6.2659, head B 7.3957
+10:00:12 sub20_seed3001: step 800/2879, validation loss head A 5.9102, head B 7.3709
+10:00:28 sub20_seed3001: step 1200/2879, validation loss head A 5.6062, head B 7.3392
+10:00:43 sub20_seed3001: step 1600/2879, validation loss head A 5.4030, head B 7.3195
+10:00:59 sub20_seed3001: step 2000/2879, validation loss head A 5.2408, head B 7.3012
+10:01:14 sub20_seed3001: step 2400/2879, validation loss head A 5.1404, head B 7.2891
+10:01:29 sub20_seed3001: step 2800/2879, validation loss head A 5.0842, head B 7.2812
+10:01:33 sub20_seed3001: step 2879/2879, validation loss head A 5.0774, head B 7.2809
+10:01:35 sub20_seed3001: finished in 0.03 h; head A 5.1587, head B 7.2753 (clean targets 6.1998)
+10:01:41 m_sub20_seed3001: head B clean 6.267 | copy clean 6.144 | head A clean 5.238 | B vs copy 0.940 | B noisy 7.290 (copy 7.270) | constructed 1.0000 | rotated 0.134 | 6 s
+10:03:29 f_single_seed3001: fit KL 0.0340 (change 0.00813995586051813) | head B clean 6.346 | copy clean 6.165 | B vs copy 0.153 | 108 s
+10:05:40 f_mix_seed3001: fit KL 0.0001 (change 0.07165032735949213) | head B clean 6.166 | copy clean 6.165 | B vs copy 0.998 | 132 s
+10:05:40 N12 calibration complete: all runs, fits and measurements finished
+10:05:40 copied 11 result files for upload
+10:05:40 waiting for background Drive saves to finish (up to 15 minutes)
+10:05:40 Drive saves finished
