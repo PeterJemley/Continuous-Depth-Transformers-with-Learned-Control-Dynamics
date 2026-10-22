@@ -1,6 +1,6 @@
 # Preregistration N13: the mixture head's learning signal, separated from its output form
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N13 run has started.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built and tested on tiny models and synthetic records (deviation log); the full-length calibration run on the A100, `n13_calib`, is queued. No real N13 run has started.
 
 Type: confirmatory for N13a (primary), N13b and N13c, each with its own decision rule. N13a and N13c use new models trained for this test; N13b re-measures N12's saved models. Everything else is secondary or exploratory and labelled so.
 
@@ -21,7 +21,7 @@ Parent documents: `N12_NOTE.md` (its section "Why the mixture head does more tha
 
 **The mixture head's advantage is its learning signal: a discount on each target by the estimated probability that it is clean, in context. The output form matters only at readout.**
 
-- **The mechanism.** The discount r(y) is small for targets the head judges likely to be random and near 1 for targets it judges likely to be clean. At the start of training, when p is flat, r(y) is set by the word frequencies alone: it nearly ignores frequent tokens, which random draws from u mostly are, and keeps rare ones. As p sharpens, the discount becomes context-aware. The standard head, with no discount, fits every target equally and so fits the noise.
+- **The mechanism.** The discount r(y) is small for targets the head judges likely to be random and near 1 for targets it judges likely to be clean. At the start of training, when p is flat, r(y) is set by the word frequencies alone: it nearly ignores frequent tokens, which random draws from u mostly are, and keeps rare ones. As p sharpens, the discount becomes context-aware. [Corrected in the deviation log, 2026-10-22, before any run: at the start the discount's means on kept and on replaced positions are equal, because both kinds of target have the unigram distribution; the discount can tell them apart only through context.] The standard head, with no discount, fits every target equally and so fits the noise.
 - **What it forbids.**
   1. A single-softmax head trained with the discounted cross-entropy differing from the mixture head's inner softmax by more than a replicate of the same training differs from it.
   2. The mixture form, applied at readout to the standard head, closing a material part of the gap.
@@ -124,7 +124,7 @@ Preconditions 1, 2 and 4 apply to every claim; 3 to N13a; 5 to N13b.
 
 ## Secondary and exploratory outcomes
 
-- **S1: the discount's discrimination over training.** The mean of r(y) on kept and on replaced positions, every 50 steps, in `n80-rw`. The conjecture's mechanism predicts the two means apart from the start, by frequency, and further apart as training proceeds.
+- **S1: the discount's discrimination over training.** The mean of r(y) on kept and on replaced positions, every 50 steps, in `n80-rw`. The conjecture's mechanism predicts the two means apart from the start, by frequency, and further apart as training proceeds. [Corrected in the deviation log, 2026-10-22, before any run: equal at the start, and apart later if the mechanism is right.]
 - **S2: the replicate floor.** The symmetrised KL between `n80-mix-rep` and `n80-mix`, and their difference in every measured quantity, for later tests to use as the pipeline's own noise.
 - **S3: S in mixture form for `n80-rw` and `n80-w02`,** against N12's 0.713 for `n80-mix`.
 - **S4: the cost to head A** in each new arm, against `n80` and `clean` of the same seed (N12: `n80` +0.040, `n80-mix` −0.009). The rival predicts `n80-w02` lowers the cost even if N13c is supported; that would separate the cost to the trunk from head B's reading.
@@ -190,7 +190,31 @@ The critic's strongest objection, two moves deep: *"N13a is a test of arithmetic
 
 ## Deviation log
 
-(none yet)
+### Calibration before any real run, 2026-10-22 (no amendment)
+
+Results seen before this entry:
+- the gradient-identity check on an untrained full-size model, with real training windows;
+- test-mode runs on tiny models: an end-to-end run with its rerun, and the resume test;
+- synthetic records.
+
+The full-length calibration run on the A100 has not started, and no real N13 run has started.
+
+- **The gradient identity, at full size.** On an untrained full-size model in float32, with a batch of 32 windows of 128 real training tokens (80.5% of targets replaced): the whole model's gradient of the mixture loss and of the discounted cross-entropy differed by a relative 8.6 × 10⁻⁸, and head B's gradient under 0.2 · CE and under 0.2 × the single-softmax loss by 5.4 × 10⁻⁷. The check's threshold is 10⁻⁴. The same check runs at the start of every job and is recorded in its summary.
+- **A correction to the stated mechanism, from the same check: at the start, the discount does not tell kept targets from replaced ones.** "The conjecture" says that at the start of training the discount "nearly ignores frequent tokens, which random draws from u mostly are, and keeps rare ones", and S1 predicted the kept and replaced means "apart from the start, by frequency". On the untrained model the discount's mean was 0.088: 0.090 on kept positions and 0.0875 on replaced ones. The two are equal, and must be. The kept targets are the text's next tokens, whose distribution over the vocabulary is the unigram u, and the replaced targets are drawn from u. A discount set by frequency alone treats the two kinds alike, whatever it does to frequent and rare tokens; it can separate them only as p becomes context-aware. S1's prediction is corrected to: the two means equal at the start, and apart later if the mechanism is right. S1 stays what it was, the descriptive measure of whether, and when, that happens. The claims, rules, arms, windows and measures are unchanged; N13a, N13b and N13c do not depend on this.
+- **Tiny test-mode runs** (2 seeds, 60 steps, 8 measurement windows, on a CPU in float32):
+  - *End to end:* the 3 new arms trained and were measured, N12's 3 arms were re-measured (`n80` also in mixture form), and the 3 partner comparisons ran: 23 records and the summary. A rerun skipped all finished work.
+  - *Re-measuring N12's models reproduced N12's records exactly:* every loss and every ratio differed by 0.
+  - *The identity, on this hardware:* `n80-rw` and `n80-mix` agreed at every measured quantity (Δ_A difference 0.0000, per-position KL 0.0000), and `n80-mix-rep` was bit-identical to `n80-mix`. In float32 on a CPU the pipeline is deterministic. The A100's mixed precision and non-deterministic kernels set the real floor, and measuring it is what the calibration run is for.
+  - *The resume test:* the calibration mode was interrupted at step 40 of 60 of its first run. With its local folder deleted, as on a new Colab machine, it resumed from the Drive copy at step 40 and finished.
+  - *S(`n80`, mixture readout) was +1.02 and +0.94 in the tiny models,* far from the claim's region (below 0.10). Tiny models are not evidence about the full-size case; the observation is recorded because it shows that the measure is not held near zero by construction.
+- **Synthetic records.** 21 cases covering every branch of the three rules and every precondition gave the intended verdicts.
+- **The Colab wrappers** run only on an A100, tested with simulated GPU names: a T4 and an L4 are refused before anything is trained, both A100 variants pass, and the calibration wrapper adds `--calibration`.
+- **Implementation details, not changes:**
+  - `n80-mix-rep` trains through N13's loop, which is N12's loop plus the discount statistics, computed without gradients every 50 steps. The bit-identical replicate in the tiny run shows that the statistics leave the training untouched.
+  - In `n80-rw` the discount is computed in float32 from head B's logits on the same batch as the loss, with its gradient stopped.
+  - Every record names the GPU, the PyTorch version and the code commit, as in N12.
+
+The values for seed 3001 from the calibration run will be recorded here when it has run.
 
 ## References
 
