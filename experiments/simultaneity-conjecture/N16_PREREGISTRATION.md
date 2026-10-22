@@ -1,6 +1,6 @@
 # Preregistration N16: the judge, not the share
 
-Date: 2026-10-22    Status: **draft, awaiting the author's approval.** Nothing has been built, calibrated or run.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built and tested on an untrained full-size model and synthetic records; the tiny end-to-end and resume tests are running, and the full-length calibration job `n16_calib` is queued when they pass (deviation log). No calibration run and no real N16 run has started.
 
 Type: confirmatory for N16a (primary), N16b, N16c and N16d, each with its own decision rule. N16a, N16b and N16d use one new arm trained for this test; N16c uses a second new arm and N14's saved control. Two further arms are exploratory, with no claim. Everything else is secondary or exploratory and labelled so.
 
@@ -192,7 +192,42 @@ The critic's strongest objection, two moves deep: *"The oracle head's recovery w
 
 ## Deviation log
 
-(none yet)
+### Approval, 2026-10-22 (no amendment)
+
+Approved by the author as drafted ("Approved; build and test N16"), with the choices made in the drafting questions: N15 withdrawn and this test preregistered in its place; the warmed-up sharper discounts as exploratory arms with no claim; the share claim (N16b) confirmatory at less than half removed; the geometry claim (N16d) confirmatory at ±0.04.
+
+### Two readings fixed at build time, before the calibration, 2026-10-22 (clarifications, not amendments; open to the author's objection before the real run)
+
+Both were found while writing `n16_analyze.py`, before any run, and were fixed in the code and tested on synthetic records. Neither changes a claim, a margin, a measure or a threshold.
+
+1. **Preconditions 1–3 are applied to the confirmatory arms and the references.** The exploratory arms carry no claim; as written, "in every arm" (precondition 3) and "each new run" (precondition 1) could be read to include them, which would let an arm with no claim make every claim untestable. Their fingerprints, rotated control and matching checks are reported under S2 instead.
+2. **Precondition 4 is applied per head:** 4a (`rw-oracle` trained in at least 4 of 5 seeds) gates N16a and N16b, and 4b (`sub20-oracle` trained) gates N16c, since each claim's quantity involves one of the two heads. As written, a `sub20-oracle` that failed to train would have made N16a untestable, and the reverse.
+
+### Calibration before any real run, 2026-10-22 (no amendment)
+
+Results seen before this entry:
+- the setup checks on an untrained full-size model with a real training batch;
+- test-mode runs on tiny models: an end-to-end run with its rerun, and the resume test;
+- synthetic records.
+
+The full-length calibration run on the A100 has not started, and no real N16 run has started.
+
+- **The 'sub' kind at full size.** On a real batch, the clean-target-only arm's targets are the clean ones, its kept set equals the single head's K, the fingerprint of its replaced positions equals the single head's, and its noise fraction is 0.805: `sub20-oracle` is trained on exactly the positions `sub20` and `sub20-rw` were.
+- **The weight identity at β = 1, at full size:** this file's weight and N13's discount differed by a relative 4.2 × 10⁻⁷ at most (threshold 10⁻⁶; float32 roundoff).
+- **The oracle's detachment, at full size:** the gradient of the oracle-weighted head B loss with respect to head A's readout (`proj_a`, `head`) was exactly 0, while the trunk and head B received gradient (largest entry 9 × 10⁻⁴).
+- **The warm-up switch, at full size:** for both exploratory arms the weight at step 299 equalled N13's discount (relative 4.2 × 10⁻⁷) and at step 300 the tempered weight at the arm's β exactly.
+- **The loss forms.** `sub20-oracle`'s loss equalled the sum over the kept positions of w_A · CE divided by all positions, to the last digit; the same form with head B's own judgement equalled N14's `sub20-rw` loss exactly, so N16c compares like with like; `rw-oracle`'s loss equalled the mean over all positions of w_A · CE, N13's convention.
+- **The weights at initialisation.** Under head A's judgement the kept and replaced means were 0.094 and 0.091, the random share 0.80 (the noise rate), and 0.49 of the kept targets were below 0.01: the same as under head B's own judgement, as it must be before either head discriminates. The judges differ only once the heads train, which is what the calibration measures. At the warm-up switch the tempered weights on the untrained model would have ignored 0.65 (β = 2) and 0.76 (β = 4) of the kept targets; whether a head that has trained for 300 steps is past that is the exploratory arms' question.
+- **The neglect measurement** ran on an untrained model (every fraction about 0.46, every loss about 10.9, as a head that knows nothing gives).
+- **Tiny test-mode runs:** the end-to-end run, its rerun and the resume test are running at this commit; their outcome is recorded here, by the next commit, before the calibration job is queued.
+- **Synthetic records.** 36 cases covering every branch of the four rules, every precondition (including a `sub20-oracle` that did not train, which leaves N16a and N16b testable, and an exploratory arm with a failed check, which leaves every claim testable), the dropped-arm path, and the calibration's rule (one arm dropped, none dropped) gave the intended verdicts and lines.
+- **The Colab wrappers** run only on an A100, tested with simulated GPU names: a T4 and an L4 are refused before anything is trained, both A100 variants pass, the calibration wrapper adds `--calibration`, and the job file's `args` reach the script (for `--drop`).
+- **Implementation details, not changes:**
+  - The weight is N15's, w = exp(−log(1 + exp(log 4 + β (log u(y) − log p(y))))), in float32, without gradient, from head A's logits (detached) or head B's own at the same forward pass; the exploratory arms use β = 1 for steps 0–299 and their β from step 300.
+  - Every new run records, every 50 steps, the mean weight over the targeted positions, on the kept and on the replaced ones, the random share, and the fraction of kept positions below 0.01; the clean-target-only arm has no replaced positions, so its replaced mean and share are recorded as absent.
+  - In the calibration run `rw-oracle` is N15's calibration model, loaded from the `n15_calib` Drive folder, re-measured and checked against its record as the other references are; its training record (the weights over training) is N15's.
+
+The values for seed 3001 from the calibration run are recorded in the next entry.
 
 ## References
 
