@@ -1,6 +1,6 @@
 # Preregistration N15: sharpening the discount
 
-Date: 2026-10-22    Status: **draft, awaiting the author's approval.** Nothing has been built, calibrated or run.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N15 run has started.
 
 Type: confirmatory for N15a (primary), N15b and N15c, each with its own decision rule. N15a and N15c compare new models with N13's and N12's saved models; N15b compares new models with N14's clean-target ladder. Everything else is secondary or exploratory and labelled so.
 
