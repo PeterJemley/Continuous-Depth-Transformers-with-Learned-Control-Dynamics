@@ -1,6 +1,6 @@
 # Preregistration N14: a dose of random targets at a fixed number of informative ones
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log). Amendment A1 (a fifth rung on the ladder, `sub0125`) approved by the author the same day; the real run, `n14_dose`, is queued. No real N14 run has started.
+Date: 2026-10-22    Status: **Run** (2026-10-22). Approved by the author, calibrated at full length and amended (A1, a fifth rung) the same day. The results are in `N14_RESULTS.md` and `N14_NOTE.md`; the deviation log records everything that happened after approval.
 
 Type: confirmatory for N14a (primary), N14b and N14c, each with its own decision rule. N14a and N14c compare new models with N12's saved models; N14b uses new models and N12's. Everything else is secondary or exploratory and labelled so.
 
@@ -249,6 +249,23 @@ The values for seed 3001 from the calibration run are recorded in the next entry
 **Amendment A1, proposed: a fifth rung on the ladder, `sub0125`** (clean targets at a nested 1.25% of positions, drawn from K as the other rungs are; single softmax; 5 runs, about 10 minutes). Its purpose is to bracket `sub20-rw` (Δ_A 0.805) and any arm whose Δ_A exceeds `sub025`'s, so that the residual against the ladder (S1) can be computed for the control, as a secondary measure. Nothing else changes: no claim, margin, dose, window, measure or rule; precondition 5 (the ladder is ordered) covers the new rung, and N14a's interpolation at `n80-mix`'s Δ_A, which lies between `sub10` and `sub05`, is unaffected. The preregistration's calibration clause allowed a rung to be added only if `sub025` failed to bracket `n80-mix`, which did not happen; so this is an amendment, and it waits for the author.
 
 **A1 approved by the author, 2026-10-22,** with the real run queued. The rung is added to the job, the analysis and the synthetic cases; the arms table, the ladder's definition, precondition 5, S2 and the cost above carry it. The new rung was not calibrated at full length: its clean-target loss is expected near 0.8 nats from head A, close to the control's 0.805, so it may bracket the control in some seeds and not others; the control's residual (S1) is reported for the seeds it brackets, and nothing else depends on it. Tests after the change: the 25 synthetic cases (one added, a collapsed control bracketed by the new rung) gave the intended verdicts; the full-size nesting check passed with the rung (fractions 0.0129 and 0.0127 in seeds 4101 and 3001); the tiny end-to-end run, resumed, trained and measured the new rung alone (every other run skipped as finished), and the analysis read the five-rung ladder with three leave-one-out residuals.
+
+### The run, 2026-10-22
+
+- **Session:** Colab run `n14_dose/20261022-122325`, code commit 8b4fb43 (the code of A1, c0619da, plus the deviation log), on an NVIDIA A100-SXM4-40GB with PyTorch 2.11. It trained the 40 models, re-measured N12's `sub20` and `n80-mix` and measured everything in 93 minutes, with no resumes, no Drive failures and no 16-bit steps skipped. The records, log and run information are committed under `results/n14/`.
+- **What changed after approval:** amendment A1, before the run. Nothing after it.
+- **Results, under the rules:**
+  - All six preconditions held. The re-measurements reproduced N12's records exactly (every loss and ratio differed by 0), on the 40 GB model. The fifth rung bracketed `sub20-rw` in every seed.
+  - N14a inconclusive: b(`n80-mix`) = +0.009, 97.5% interval [−0.035, +0.052], standard deviation 0.028.
+  - N14b intermediate: D(`r10`) < D(`n80-mix`) / 2 in 2 of 5 seeds; at least three quarters in 0.
+  - N14c refuted: a(`sub20`) − a(`sub20-rw`) = +0.125 [+0.089, +0.160], standard deviation 0.028.
+  - The conjecture did not survive.
+
+### Exploratory analysis added after the results, 2026-10-22
+
+- **What was added:** `n14_exploratory.py` (report `N14_EXPLORATORY.md`): the ladder's slopes and the clean-target loss at which it crosses 0.85; the residuals pooled over the four doses; the trace and the functional cost at each dose against the random targets' share of the gradient weight; the control taken apart; head A's cost against the `clean` arm by arm.
+- **Why:** to read N14a's inconclusive verdict (the residuals at the other doses and their pooled value), to give N12b's near miss its functional measure, and to read N14c's refuted control against the ladder.
+- **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
 ## References
 
