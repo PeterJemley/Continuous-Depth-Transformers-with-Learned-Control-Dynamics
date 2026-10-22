@@ -1,0 +1,118 @@
+# Result note: N16
+
+Date: 2026-10-22    Preregistration: `N16_PREREGISTRATION.md`    Generated report: `N16_RESULTS.md`    Calibration run: `N16_CALIBRATION.md`    Exploratory report, added after the results: `N16_EXPLORATORY.md`    Raw results: `results/n16/`, from Colab run `n16_judge/20261022-204649`, code commit 6b9501c.
+
+**How the run went.**
+- **One session:** an NVIDIA A100 with 80 GB and PyTorch 2.11. It trained the 10 models, re-measured the 40 saved ones and measured everything in 30 minutes, about 2 minutes per training run.
+- **No problems:** no resumes, no Drive failures, every training draw before the held-out boundary, every fingerprint equal to N12's `n80`'s.
+- **The re-measurements** reproduced their records exactly: every loss and every ratio differed by 0, for all 40 saved models of N12, N13 and N14.
+- **Changes after approval:** two readings of the preconditions fixed at build time, before the calibration (clarifications recorded in the deviation log: preconditions 1–3 apply to the claim arms, and precondition 4 is split per head); and the calibration's one permitted decision, by its rule, to drop both exploratory warm-up arms, whose heads did not train in seed 3001. Nothing after the calibration.
+- **What came before.** N15, "sharpening the discount", was approved, built and calibrated, and withdrawn by the author before any real run: its sharpened discounts did not train at all, and its head-A-judged arm recovered the whole shortfall while removing too little of the random share for its rule to apply. N16 was written from that calibration. The calibration is N15's record; it motivated N16 and is not evidence for it.
+
+## What we expected
+
+**The question.** The mixture head, as N13 showed, trains its inner softmax by weighting each target with the discount r(y) = 0.2 p(y) / (0.2 p(y) + 0.8 u(y)), computed from head B's own prediction p. Trained that way as a single softmax (N13's `n80-rw`, called `rw-b1` here), it ends 0.337 nats from head A on clean targets, where the oracle mask `sub20`, which drops the random targets exactly, ends at 0.163. N15 asked whether the shortfall between them, G = 0.17 nats, is the random weight the discount leaves behind. Its calibration answered, in one seed, that a discount judged by head A instead recovered all of G while leaving most of the random weight in place. N14's control had found the self-judged weighting of clean targets alone, with no random targets (`sub20-rw`), collapsing to 0.74 nats from head A.
+
+**The conjecture.** The shortfall is the discount's self-referential judgement: computed from head B's own prediction, it neglects the clean targets head B predicts poorly, and so head B never learns them. The random weight is not the cause. A judge that does not share head B's errors recovers the shortfall with most of the random weight still there, and its directions follow its function along the clean-target ladder.
+
+**The arms,** on N12's five seeds, with the saved models of the same seeds re-measured:
+- **`rw-oracle`:** `rw-b1` with the weight computed from head A's prediction, detached, so that head A's own training is unchanged.
+- **`sub20-oracle`:** `sub20`'s clean targets, each weighted by head A's judgement, with no random targets: the counterpart of N14's `sub20-rw`, which weights the same targets by head B's own.
+- **References:** `rw-b1` (N13), `sub20` and `clean` (N12), `sub20-rw` and the clean-target ladder's rungs (N14), six rungs from `clean` to `sub0125`.
+
+**The claims,** each with a 98.75% interval (four rules, Bonferroni):
+- **N16a (primary):** the recovered fraction F = (Δ_A(`rw-b1`) − Δ_A(`rw-oracle`)) / G wholly above 0.75. Refuted wholly below 0.25.
+- **N16b:** the removed share P = 1 − s(`rw-oracle`) / s(`rw-b1`), with s the random targets' share of the summed weight at the end of training, wholly below 0.5. Refuted wholly above 0.75.
+- **N16c:** C = Δ_A(`sub20-oracle`) − Δ_A(`sub20-rw`) wholly below −0.30 nats. Refuted wholly above −0.10.
+- **N16d:** the residual b(`rw-oracle`) against the ladder wholly within ±0.04. Refuted wholly outside.
+
+The preregistration said that N16a, N16b and N16c would be decisive if the calibration's values held within about 0.1, and that N16d would most likely be inconclusive unless the residual was within about 0.01 of zero.
+
+## What happened
+
+| Claim | Rule | Result (5 seeds, 98.75% intervals) | Verdict |
+|---|---|---|---|
+| N16a | F wholly above 0.75 | 1.081 [1.043, 1.119], standard deviation 0.020; 1.055–1.104 by seed | **Supported** |
+| N16b | P wholly below 0.5 | 0.103 [0.065, 0.140], standard deviation 0.020; 0.072–0.120 by seed | **Supported** |
+| N16c | C wholly below −0.30 | −0.448 [−0.474, −0.423], standard deviation 0.013; −0.471 to −0.437 by seed | **Supported** |
+| N16d | b wholly within ±0.04 | +0.011 [−0.022, +0.043], standard deviation 0.017; −0.003 to +0.039 by seed | **Inconclusive** |
+
+All six preconditions held: the setup checks (the weight identity at 4.9 × 10⁻⁷, the detachment, the warm-up switch); the 40 exact reproductions, the constructed check and the zero-noise copy in every model; the rotated control at 0.146–0.161 by arm; both new heads trained in every seed; G = 0.165–0.179; the ladder ordered and bracketing `rw-oracle` in every seed.
+
+**By arm** (means over seeds):
+
+| Arm | Judge | Random targets | Δ_A (nats) | Agreement with head A, a | The ladder at the same Δ_A, â | b = â − a | Random share at the end, s |
+|---|---|---|---|---|---|---|---|
+| `rw-b1` | head B's own | 80% | 0.337 | 0.804 | 0.814 | +0.010 | 0.422 |
+| `rw-oracle` | head A | 80% | 0.150 | 0.892 | 0.903 | +0.011 | 0.378 |
+| `sub20-rw` | head B's own | none | 0.736 | 0.772 | 0.668 | −0.104 | — |
+| `sub20-oracle` | head A | none | 0.288 | 0.853 | 0.836 | −0.017 | — |
+| `sub20` | none (full weight) | none | 0.163 | 0.896 | on the ladder | 0 | — |
+| `clean` | none (full weight) | none, every target clean | −0.001 | 0.976 | on the ladder | 0 | — |
+
+**The values against the calibration seed's**, which motivated the margins: F 1.08 against 1.02, P 0.10 against 0.15, C −0.45 against −0.48, b +0.011 against +0.022. The five new seeds landed near the one seed's values.
+
+## Which kind of result this is
+
+- **Three claims supported, with room.** Each interval sits far inside its supporting margin: F's lower end at 1.04 against 0.75, P's upper end at 0.14 against 0.5, C's upper end at −0.42 against −0.30. No seed came near a margin. The design predicted this if the calibration's values held, and they held.
+- **The fourth inconclusive, at the design's stated limit.** The residual's spread across seeds (0.017, with one seed at +0.039) gives a half-width of 0.033, so support needed a mean within about 0.007 of zero; the mean was 0.011. The preregistration stated this limit in advance. The point estimate is on the conjecture's side, within the margin, and it is no more than that.
+- **What N16c's support does and does not separate.** The rule compares the same clean targets weighted by two judges, and head A's judgement costs 0.45 nats less than head B's own. That is far from what the rival the claim was built against predicted, that any uneven weighting of clean targets costs alike whoever judges (within 0.10 nats). But head A differs from head B in two ways: it does not learn from its own weights, and it predicts better. The conjecture names the first, a self-confirming loop; the design does not separate it from the second, a judge's accuracy. The claim's label, "self-reference is the mechanism", says more than its comparison separates. The verdict stands by its rule; the attribution between the two readings is open, and the next test is designed to settle it (next conjecture 1).
+- **The critic's objection, that the claims were fitted to one seed,** was answered as the audit said it would be: the margins sat far from the calibration values, and the five new seeds landed near those values, not near the margins.
+
+## What the results say together
+
+**The shortfall is in who judges, not in how much random weight is left.** Head A's judgement removed a tenth of the random targets' share of the weight (P = 0.10) and recovered all of the shortfall and more (F = 1.08). On this evidence, and with N15's withdrawn conjecture as the rival, the random weight the discount leaves behind is not what holds the self-judged head back.
+
+**A two-by-two, exploratory.** The four reweighted heads share the same clean targets at the same positions and differ in two things: who judges, and whether the other 80% of positions carry random targets. Their clean-target losses, with 95% intervals from `N16_EXPLORATORY.md`:
+
+| | No random targets | Random targets | Effect of the random targets |
+|---|---|---|---|
+| **Head B judges itself** | 0.736 (`sub20-rw`) | 0.337 (`rw-b1`) | −0.399 [−0.422, −0.375] |
+| **Head A judges** | 0.288 (`sub20-oracle`) | 0.150 (`rw-oracle`) | −0.138 [−0.145, −0.131] |
+| **Effect of the judge** | −0.448 [−0.465, −0.432] | −0.188 [−0.194, −0.182] | interaction +0.261 [+0.243, +0.278] |
+
+Three things follow from the table, all exploratory.
+- **The weighting of clean targets is what costs.** Against `sub20`, the same clean targets at full weight, head B's own weighting costs 0.57 nats and head A's 0.12. Both judges cost something; the self-judged one costs nearly five times as much.
+- **The random targets help, under either judge.** Adding them improves the reweighted head by 0.40 nats when it judges itself and by 0.14 when head A judges. This is the opposite of the share mechanism's premise. It fits N14's exploratory conjecture, that the random targets, drawn from the word frequencies, keep the inner softmax from neglecting what the discount down-weights. The neglect measurement agrees: on the clean targets head A finds implausible (about 0.6% of them, a set defined independently of head B), the heads without random targets have losses of 14.2 (`sub20-oracle`) and 15.6 nats (`sub20-rw`), and the heads with them 11.9 (`rw-oracle`) and 11.4 (`rw-b1`), where `sub20` has 11.6.
+- **The two factors interact.** The judge matters less when the random targets are present (0.19 against 0.45 nats), and the random targets matter more when the head judges itself (0.40 against 0.14). The random targets compensate for part of the self-judged discount's damage, and the judge's effect at 80% noise is what is left after that compensation.
+
+**The oracle head beats the oracle mask, by a little, in every seed.** `rw-oracle` ends 0.014 [0.010, 0.018] nats closer to head A than `sub20` does (5 of 5 seeds), which is why F exceeds 1. The calibration entry recorded this possibility before the real run. The preregistered "head A teaches" rival predicted it through the clean targets, as `sub20-oracle` beating `sub20` (S3); S3 went the other way (+0.124 [+0.110, +0.138] at 98.75%), so head A's weighting of the clean targets teaches nothing on its own. What carries the excess is the random targets weighted by head A. *A reading, exploratory, by derivation and not tested:* at a random position the target y is drawn from u, so the expected weighted target is proportional to u(y) · w(y). That is close to a quarter of the judge's prediction where the judge finds y less likely than its frequency, and close to u(y) where it finds y more likely. With head A as the judge, the random positions therefore carry part of head A's prediction into head B's training, a form of distillation through the noise. The design did not isolate it.
+
+**Neglect is graded, not exclusion.** At the preregistered threshold (weight below 0.01), most heads ignore 0.6–1.4% of the clean targets under their own discount, the hardest ones; the two reweighted heads without random targets ignore far more: `sub20-oracle` 3.1% and `sub20-rw` 8.5%, against `sub20`'s 0.6%. `rw-b1`'s own discount ignores 1.0%, 0.3 points more than `sub20`'s, and head A's judgement 0.6%. The signature the conjecture names is therefore strong only where the random targets are absent; with them, the self-judged head's neglect is a lower weight on targets it predicts poorly, not their exclusion. A note on the measure: the loss on a head's own ignored set is high by construction (a weight below 0.01 requires p(y) below about 4% of u(y)), so the informative quantities are the fractions and the losses on the set head A ignores.
+
+**The weights over training show the judges parting early.** The two discounts start equal, as they must (kept 0.092, replaced 0.089), and head A's judgement pulls ahead by step 100 (kept 0.247 against 0.140): head A learns from every clean target at full weight, so its judgement improves without waiting for head B. At the end it tells clean from random targets 6.7 times apart, against 5.6 for head B's own.
+
+**Geometry.** The oracle head reads head A's directions at 0.892, as `sub20` does (0.896), and sits on the ladder within the design's noise (N16d inconclusive, +0.011). Read against its own copy, as N12b read the mixture head, it reaches the 0.85 bar in 5 of 5 seeds (0.87–0.92), where `rw-b1` did in 1 of 5 and N12's mixture head in none. This is consistent with N14's reading that the bar is a functional bar. The two heads reweighted without random targets read head A's directions better than their loss predicts (`sub20-rw` 0.10 above the ladder, `sub20-oracle` 0.02 above, the second's 95% interval including 0); the two with random targets sit on it (+0.010, +0.011). Exploratory.
+
+**Head A's cost** was within noise in every reweighted arm: against `clean`, from −0.007 to +0.009, every 95% interval including 0 (`sub20` itself costs +0.020, N12's finding).
+
+## What this teaches
+
+- **A diagnostic arm can answer a mechanism question that a method arm cannot.** The oracle needs a clean head, which a real noisy-label problem does not have, so it is no method. But by changing one thing, the judge, it showed where the shortfall lives. That is co-teaching's reason for using a peer network to select samples (Han et al., 2018), reached here from the other side.
+- **A calibration can be a source of conjecture, if it is kept from being evidence.** N15's calibration overturned N15's design; the author withdrew N15 rather than amend it, and N16 was preregistered from what the calibration showed, with the calibration recorded as motivation, its values beside the margins, and new seeds for the test. The margins held at a distance from the calibration values, and the new seeds landed near them.
+- **A claim's label can attribute more than its comparison separates.** N16c compared two judges that differ in self-reference and in accuracy, and its label named only the first. The audit had asked whether the comparison isolates the judge, and flagged sharpness as a second difference, but not accuracy. The verdict stands by its rule; the attribution is reported as open.
+- **The random targets were never only noise to be removed.** Earlier designs treated them as a cost: N12 took the mask that removes them as the limit, N14 looked for their trace, and N15 conjectured that their remaining weight was the shortfall. The two-by-two says that, given a reweighting, they are also part of what makes the reweighted head work.
+
+## What this does not change
+
+- Every earlier verdict stands. N13's identity stands: the self-judged reweighted head is the mixture head's inner softmax, and its shortfall is the mixture head's. N14's reading stands: along the axis of random targets, the directions a head reads follow its clean-target loss within that test's noise.
+- N15 stays withdrawn; its calibration is its record.
+
+## Limitations
+
+- **Self-reference and the judge's accuracy are not separated** (above).
+- **The oracle is a diagnostic,** and the oracle weight changes the random positions' targets as well as the clean ones' weights; the two-by-two separates them only for the clean targets.
+- **The exploratory warm-up arms were dropped** by the calibration's rule, so whether a sharper self-judged discount can work after a warm-up was seen in one seed only (it did not: after the switch its ignored fraction grew as it trained).
+- **Five seeds, reused with the saved models,** by necessity and declared; N16d's design limit, stated in advance, was reached.
+- **One noise rate, one readout width, one scale, 10% of the budget;** the discounts are told the noise.
+
+## Next conjectures
+
+1. **Separate self-reference from the judge's accuracy.** Add a third head, C, trained exactly as `rw-b1` is, with its own discount, and weight head B's targets by head C's judgement, as co-teaching weights each network by its peer. The judge then has `rw-b1`'s accuracy, but head B's weights no longer depend on head B's own prediction. If head B recovers the shortfall as the oracle head did, the self-confirming loop is the mechanism; if it ends near `rw-b1`, the judge's accuracy is.
+2. **A floor on the self-judged discount,** no clean target below a minimum weight: the preregistration's next step for a supported N16a and N16b, and a test of whether the loop can be broken without a second head.
+3. **Separate the two roles of the oracle weight:** head A judging only the random positions, with head B's own discount on the clean ones, and the reverse. The two-by-two's interaction and the excess over `sub20` both point at the random positions; this would test the distillation reading directly.
+4. **Return to N10's question with mixture heads** (carried from N12, N13 and N14).
+
+## References
+
+Han, B., Yao, Q., Yu, X., Niu, G., Xu, M., Hu, W., Tsang, I., & Sugiyama, M. (2018). *Co-teaching: Robust training of deep neural networks with extremely noisy labels* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1804.06872
