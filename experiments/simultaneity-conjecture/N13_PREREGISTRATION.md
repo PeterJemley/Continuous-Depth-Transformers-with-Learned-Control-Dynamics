@@ -1,6 +1,6 @@
 # Preregistration N13: the mixture head's learning signal, separated from its output form
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log: the replicate floor is 0, and no amendment was needed); the real run, `n13_signal`, is queued. No real N13 run has started.
+Date: 2026-10-22    Status: **Run** (2026-10-22). Approved by the author and calibrated at full length the same day, with no amendment. The results are in `N13_RESULTS.md` and `N13_NOTE.md`; the deviation log records everything that happened after approval.
 
 Type: confirmatory for N13a (primary), N13b and N13c, each with its own decision rule. N13a and N13c use new models trained for this test; N13b re-measures N12's saved models. Everything else is secondary or exploratory and labelled so.
 
@@ -247,6 +247,23 @@ The values for seed 3001 from the calibration run are recorded in the next entry
   | `n80-rw` against `n80-mix`, symmetrised KL per position: inner softmax / mixture form / head A | 0.095 / 0.010 / 0.091 |
 
 - **Timing.** Each full-length run took about 2 minutes on this A100, so the real run's 15 runs, 30 measurements and 15 comparisons should take about 40 minutes.
+
+### The run, 2026-10-22
+
+- **Session:** Colab run `n13_signal/20261022-004948`, code commit fa14e3b, whose job code is identical to the calibrated commit 122c955 (the difference is the deviation log, the calibration report and the job file), on an NVIDIA A100-SXM4-80GB with PyTorch 2.11. It trained the 15 models, re-measured N12's 15 saved models and ran the 15 comparisons in 35 minutes, with no resumes, no Drive failures and no 16-bit steps skipped. The records, log and run information are committed under `results/n13/`.
+- **What changed after approval:** nothing. The calibration's correction of the stated mechanism, above, changed no claim or rule.
+- **Results, under the rules:**
+  - All five preconditions held. The replicate was bit-identical to the original in every seed.
+  - N13a supported: |Δ_A(`n80-rw`) − Δ_A(`n80-mix`)| was −0.005 to +0.003, within 0.03 in 5 of 5 seeds.
+  - N13b supported: S(`n80`, mixture readout) = −1.014, 97.5% interval [−1.045, −0.983].
+  - N13c supported: D = +0.050 [+0.036, +0.064].
+  - The conjecture survived all three tests.
+
+### Exploratory analysis added after the results, 2026-10-22
+
+- **What was added:** `n13_exploratory.py` (report `N13_EXPLORATORY.md`): D taken apart into head A's and head B's changes under the constant discount; each arm's effect on head A against N12's `clean` arm; the identity's differences by seed with the per-position divergences, and the replicate's; the discount's means at the end and over the schedule.
+- **Why:** to read N13c (which head the constant discount affected), and to record the pipeline's noise between two implementations of the same mathematics, for later paired tests.
+- **Its status:** written after the results were seen. It decides nothing, and the preregistered analysis is unchanged.
 
 ## References
 

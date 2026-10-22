@@ -1,6 +1,6 @@
 # What we guessed, how we tried to break it, and what survived
 
-Date: 2026-10-10, updated 2026-10-18 with N10, 2026-10-20 with N11, and 2026-10-21 with section 9, lessons 9–10, corrections from a fresh reader's audit against the notes, and N12. A review of all the work in this repository, from the replication of the paper through N12, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
+Date: 2026-10-10, updated 2026-10-18 with N10, 2026-10-20 with N11, 2026-10-21 with section 9, lessons 9–10, corrections from a fresh reader's audit against the notes, and N12, and 2026-10-22 with N13, section 11 and lesson 12. A review of all the work in this repository, from the replication of the paper through N13, in the manner of Karl Popper and David Deutsch. As in `PLAIN_SUMMARY.md`, the main text avoids mathematics, and the details are in numbered notes at the end. Every number comes from a result note in this repository; the notes say which.
 
 ## How to read this review
 
@@ -56,10 +56,13 @@ The main claims put to a test, in order; some rows merge a test's paired claims,
 | N12b | And reads the same directions as its ideal copy | Agreement at most 0.60 | **Intermediate**: 0.79–0.85, under 0.85 in every seed[^16] |
 | N12c | Scarcity of informative targets alone does not cause the drift | Less than two thirds closed by the data-matched clean head | **Supported**: 80%[^16] |
 | N12d | The single-softmax bottleneck is large | A single softmax fitted directly to the copy closing two thirds or more | **Supported**: 62%[^16] |
+| N13a | The pipeline follows the chain rule's identity: a single softmax trained with the discount is the mixture head's inner softmax | A difference above 0.10 nats in 4 of 5 seeds, with the replicate within 0.03 | **Supported**: within 0.005 in 5 of 5[^17] |
+| N13b | The mixture form, applied at readout to the standard head, closes none of the gap | A third or more of the gap closed | **Supported**: S = −1.01, the gap doubled[^17] |
+| N13c | The mixture head's gain is not from head B pulling less on the shared network | A constant discount giving half or more of the gain | **Supported**: D = +0.05, none of it[^17] |
 
-**Out of the 30 verdicts in this ledger:**
+**Out of the 33 verdicts in this ledger:**
 - 9 refuted, or mostly refuted;
-- 12 supported;
+- 15 supported;
 - 3 inconclusive or intermediate;
 - 6 untestable.
 
@@ -212,6 +215,13 @@ This criticism turns the method's own instrument against it. It has the shape of
 - **A note had said too much.** N10's note stated that head A was "unaffected by noise in head B alone", from a range of validation losses across arms. N12 found a cost of 0.04 nats, and N10's and N11's own records show the same shift in every seed. The range hid it, and nobody looked at the paired differences. A dated correction has been added to N10's note. *The lesson:* a claim of no effect needs the paired differences and their interval, as a claim of an effect does.
 - **A slip in the pipeline.** The session that ran N12 had no GitHub token, so the notebook delivered a zip instead of uploading. The records were committed from it, with the run information, and the deviation log says so. The GPU check stopped three sessions on an L4 before any training, as designed.
 
+### 11. A conjecture that survived all three of its tests, and what that is worth (N13)
+
+- **The preregistration's own critic said the primary claim was a test of arithmetic.** It was, and the preregistration said so before the run: N13a tests whether the pipeline implements the chain rule's identity, and its support is knowledge about the code, not the world. What it bought is what N13c means given it, and a measured fact every later paired test needs: two implementations of the same mathematics differ by up to 0.005 nats in Δ_A, while a replicate of the same code differs by nothing.
+- **The replicate floor measured the wrong thing, and the design survived it.** Precondition 3 asked how much a replicate of the same training differs, expecting the pipeline's nondeterminism to set a floor. The pipeline is deterministic, and the floor was exactly zero. The audit at drafting had foreseen that boundary and kept an absolute tolerance, so the rule still worked. But the noise that matters for comparing two implementations was measured by N13a's own arms, not by the replicate, and the per-position divergence between those arms (0.09–0.10 nats) was as large as between two trainings with different losses. *The lesson:* a floor should be measured between two implementations of the same mathematics, not two runs of the same code, and models must be compared on aggregates.
+- **The stated mechanism was wrong at one time point, and the audit had not asked.** The preregistration said the discount tells kept from replaced targets from the start, by frequency. The calibration's gradient check found the two equal at the start, as they must be, since both kinds of target have the unigram distribution. The necessity audit had covered the identity's dependence on time (reply 5) and not the mechanism's own claim about time. The correction changed no claim or rule and went in the deviation log before any run. It is N11's dose-check error again, a claim fixed to the wrong time, caught earlier this time.
+- **What the survival is worth.** Each claim had a failure mode: a broken identity, a clean estimate hidden in the standard head, a gain from pulling less. None occurred, and together they narrow N12's reading: the mixture head's two "effects" are two roles of one form, the discount in training and the mixture at readout. The result is still one noise rate, one scale and N12's seeds, and it says nothing about a head that must estimate the noise rather than being told it.
+
 ## What stands now, and what would overturn it
 
 These are the current best explanations. They are conjectures that have survived tests, not established facts.
@@ -221,13 +231,14 @@ These are the current best explanations. They are conjectures that have survived
 - **Readings held at once occupy partly different directions, and forcing them together costs accuracy** (N4). This is measured in loss, so it does not depend on the overlap measure. *Would be overturned by:* the cost vanishing on new seeds. Or, if the cost is a competition for directions, by a cost that stays when nothing is restricted. That is the question N5 could not settle.
 - **Readings further ahead depend on more different directions** (N6r, N7, N8c). The ladder held under two measures, and the target-free measure has now been validated on a case with a known answer (N9). *Would be overturned by:* the ladder flattening on new seeds, or under a measure of what the heads compute rather than how sensitive they are.
 - **A head trained on noisy targets reads differently from the clean head** (N7, N8, N9; replicated on new seeds in N10, N11 and N12), **and N12 divides the reason in two.** A single softmax on a linear readout cannot represent the mixture a noisy target calls for, and that accounts for at most 38% of the gap (the best single softmax found by direct fitting reached 62%, N12d); training on the noisy targets through that form, which reaches none of the 62%, accounts for the rest. A head whose form can represent the mixture keeps 71% of the function from the same targets (N12a) and most of the directions (0.83, N12b intermediate). *Would be overturned by:* a single-softmax fitting procedure that reaches the copy, or a mixture head that drifts as far as the standard one at another scale or noise rate.
+- **The mixture head's advantage is its learning signal** (N13). In training the mixture form is nothing but a discount on each target by the head's own posterior that it is clean, and the pipeline follows that identity (N13a: within 0.005 nats in every seed). The form applied at readout to the standard head doubles its gap (N13b), and a constant discount that lowers head B's pull as much as the real one does on average gives head B's reading none of the gain (N13c), while removing all of head B's cost to head A. *Would be overturned by:* a discount-trained single softmax that drifts from the mixture head's inner softmax at another scale, or a constant-discount head that recovers the gain at another noise rate.
 
 ## Problems now open
 
 On Deutsch's view, problems are what knowledge grows from. These are the ones this work has made sharp:
 1. Does anchoring what a head predicts preserve its reading better than pinning the directions it reads? N10 and N11 could not say, because in both the functional payload failed its manipulation check. Both payloads were aimed at the mixture, which N12's fits show a single softmax of this state does not reach; whether that is why the checks failed was not tested. With a mixture head the target is reachable, which removes at least that obstacle.
 2. Why do heads that are functionally close to their ideal copies stop just under 0.85 agreement (N10c at 20% noise, and N12b)? One conjecture: the random targets leave a geometric trace that function does not show (`sub20` at 0.91 against `n80-mix` at 0.83). A dose of random targets at a fixed number of informative ones would test it.
-3. Which of the mixture head's two effects does the work: representing the mixture, or discounting the targets it judges to be noise?
+3. *Answered by N13, 2026-10-22:* the discounting does the work, and the form matters only at readout (section 11). What it leaves open: whether a head that must estimate the noise, rather than being told it, keeps the advantage; and why head B's cost to head A depends on its weight but not on how random its targets are (`sub20`, with clean targets on a fifth of the positions, cost more than the standard head scaled to a fifth).
 4. Is N4's cost of sharing a competition for directions, or a clash of learning signals? (N5 needed about ten runs at full width to tell.)
 5. Does the cost of sharing grow along the distance ladder? That would link the geometric finding to function.
 6. Do readings that differ in kind, such as a topic label against the next word, follow the same pattern as readings that differ in distance?
@@ -246,6 +257,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 9. **Before each run, list the design's claims of necessity and test them against the standard replies** (`NECESSITY_AUDIT.md`). Its first use, on N12, found that a rival hypothesis had been understated and that the conjecture's wording claimed more than the design could show. Both were found before the real run.
 10. **Write every rule so that it still works at its boundaries:** zero, saturation, and the end of the schedule.
 11. **A claim of no effect needs the paired differences and their interval,** as a claim of an effect does. A range across arms can hide a shift that every seed shows.
+12. **Measure a floor between two implementations of the same mathematics, not two runs of the same code, and compare models on aggregates.** A deterministic pipeline gives a replicate floor of zero, and per-position differences between models measure how training amplifies rounding, not what the models learned.
 
 ---
 
@@ -353,3 +365,10 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *Before the run:* amendment A1 (a convergence test that works at zero loss) and the necessity audit, which bounded what the design could show.
 
     Sources: `N12_NOTE.md`, `N12_RESULTS.md`, `N12_EXPLORATORY.md`, `N12_PREREGISTRATION.md`.
+
+[^17]: **N13.** N12's seeds 4101–4105 and saved models; 15 new runs in one A100 session, measured on N12's 512 held-out windows. Δ_A is the inner softmax's clean-target loss minus head A's; S is as in N12.
+    - *N13a:* |Δ_A(`n80-rw`) − Δ_A(`n80-mix`)| −0.005 to +0.003, within 0.03 in 5 of 5; the replicate `n80-mix-rep` bit-identical to `n80-mix`. *N13b:* S(`n80`, mixture readout) −1.014, 97.5% interval [−1.045, −0.983]. *N13c:* D = +0.050 [+0.036, +0.064], against margins of −0.27 (a quarter of N12's gain of 1.062 nats) and −0.53.
+    - *Secondary and exploratory:* under the constant discount, head A −0.051 [−0.066, −0.036] against `n80` and head B's own softmax −0.001 [−0.011, +0.009]; head A against `clean`: `n80-rw` −0.006 [−0.024, +0.012], `n80-w02` −0.011 [−0.026, +0.004]. The discount in `n80-rw` at the end of training: kept 0.58, replaced 0.10; its batch mean 0.19 over the schedule. `n80-rw` and `n80-mix` differ per position by 0.097 (inner softmax) and 0.095 (head A) nats of symmetrised KL; `n80-w02` and `n80` by 0.016 and 0.138.
+    - *Before the run:* no amendment; the calibration corrected the stated mechanism's claim about the start of training.
+
+    Sources: `N13_NOTE.md`, `N13_RESULTS.md`, `N13_EXPLORATORY.md`, `N13_CALIBRATION.md`, `N13_PREREGISTRATION.md`.
