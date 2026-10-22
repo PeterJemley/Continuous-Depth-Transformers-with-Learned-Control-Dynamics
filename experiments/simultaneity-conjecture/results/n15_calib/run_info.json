@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n15_calib",
+    "args": [],
+    "description": "N15's full-length calibration run, before any real N15 run: seed 3001 only. Trains rw-b2, rw-b4 and rw-oracle at full length and re-measures N13's n80-rw, N12's sub20 and clean, and N14's sub10, sub05 and sub025 of seed 3001 (read from the n13_calib, n12_calib and n14_calib Drive folders) on the held-out tail's windows 513-1024. It decides nothing: it checks that the sharpened heads train and remove random share, which fixes the beta of N15a's arm by the preregistered rule. NEEDS AN A100: before Run all, choose Runtime > Change runtime type > A100 GPU. On any other GPU it stops before training. About 15 minutes. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 15
+  },
+  "code_commit": "125142819963d580a2c6b0b410a260891b6dbbee",
+  "run_id": "20261022-160439",
+  "gpu": "NVIDIA A100-SXM4-80GB"
+}
