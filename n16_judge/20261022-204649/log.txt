@@ -1,0 +1,173 @@
+GPU check passed: NVIDIA A100-SXM4-80GB
+20:46:51 device: cuda | test mode: False | mode: real | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N16 folder: /content/drive/MyDrive/cdt-colab/n16_judge | local: /content/cdt_local/n16_judge
+20:46:51 arms trained: ['rw-oracle', 'sub20-oracle'] | references: ['rw-b1', 'sub20', 'clean', 'sub20-rw', 'sub10', 'sub05', 'sub025', 'sub0125'] | saved models from: {'n12': '/content/drive/MyDrive/cdt-colab/n12_bottleneck', 'n14': '/content/drive/MyDrive/cdt-colab/n14_dose', 'n13': '/content/drive/MyDrive/cdt-colab/n13_signal'}
+20:47:06 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+20:47:07 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 1-512
+20:47:08 next-task example: input ends ' across the floor , and a side door with a door @'; targets end ' the floor , and a side door with a door @-'
+20:47:08 skip-task example: input ends ' cliffs on the British coast and is part of the same geological'; targets end ' the British coast and is part of the same geological formation .'
+20:47:16 batch check: True | windows shifted: True | analytic: 0.994 | identical heads: 1.0 | weight identity: 4.9e-07 True | oracle detachment: True | warm-up switch: True
+20:47:16 same-model check: [True, True, True, True, True]
+20:47:27 r_rw-b1_seed4101: inner clean 5.503 | head A clean 5.170 | agreement with A 0.807 | ignored by own 0.009 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+20:47:43 r_sub20_seed4101: inner clean 5.363 | head A clean 5.208 | agreement with A 0.870 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:47:58 r_clean_seed4101: inner clean 5.165 | head A clean 5.163 | agreement with A 0.970 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:48:12 r_sub20-rw_seed4101: inner clean 5.895 | head A clean 5.170 | agreement with A 0.773 | ignored by own 0.084 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:48:25 r_sub10_seed4101: inner clean 5.470 | head A clean 5.190 | agreement with A 0.831 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:48:39 r_sub05_seed4101: inner clean 5.613 | head A clean 5.185 | agreement with A 0.787 | ignored by own 0.009 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:48:55 r_sub025_seed4101: inner clean 5.780 | head A clean 5.162 | agreement with A 0.731 | ignored by own 0.011 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:49:09 r_sub0125_seed4101: inner clean 5.994 | head A clean 5.156 | agreement with A 0.641 | ignored by own 0.015 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:49:11 rw-oracle_seed4101: starting, noise 0.8, weight head A judges, seed 4101
+20:49:27 rw-oracle_seed4101: step 400/2879, validation loss head A 6.4247, head B 7.4066
+20:49:31 rw-oracle_seed4101: step 500/2879, validation loss head A 6.2821, head B 7.3963
+20:49:43 rw-oracle_seed4101: step 800/2879, validation loss head A 5.9374, head B 7.3710
+20:49:58 rw-oracle_seed4101: step 1200/2879, validation loss head A 5.6166, head B 7.3427
+20:50:14 rw-oracle_seed4101: step 1600/2879, validation loss head A 5.4220, head B 7.3209
+20:50:29 rw-oracle_seed4101: step 2000/2879, validation loss head A 5.2582, head B 7.3027
+20:50:45 rw-oracle_seed4101: step 2400/2879, validation loss head A 5.1493, head B 7.2897
+20:51:00 rw-oracle_seed4101: step 2800/2879, validation loss head A 5.0932, head B 7.2811
+20:51:04 rw-oracle_seed4101: step 2879/2879, validation loss head A 5.0880, head B 7.2811
+20:51:06 rw-oracle_seed4101: finished in 0.03 h; head A 5.1778, head B 7.2749 (clean targets 6.1971, inner 5.3277); final share 0.388, ignored kept 0.010
+20:51:12 m_rw-oracle_seed4101: inner clean 5.355 | head A clean 5.210 | agreement with A 0.879 | ignored by own 0.007 / by A 0.006 | rotated 0.145 | 5 s
+20:51:12 sub20-oracle_seed4101: starting, noise 0.8, weight head A judges, clean targets only, seed 4101
+20:51:28 sub20-oracle_seed4101: step 400/2879, validation loss head A 6.4076, head B 7.4088
+20:51:32 sub20-oracle_seed4101: step 500/2879, validation loss head A 6.2582, head B 7.4030
+20:51:44 sub20-oracle_seed4101: step 800/2879, validation loss head A 5.8957, head B 7.3745
+20:51:59 sub20-oracle_seed4101: step 1200/2879, validation loss head A 5.5765, head B 7.3440
+20:52:15 sub20-oracle_seed4101: step 1600/2879, validation loss head A 5.3830, head B 7.3222
+20:52:30 sub20-oracle_seed4101: step 2000/2879, validation loss head A 5.2145, head B 7.3043
+20:52:46 sub20-oracle_seed4101: step 2400/2879, validation loss head A 5.1060, head B 7.2896
+20:53:02 sub20-oracle_seed4101: step 2800/2879, validation loss head A 5.0528, head B 7.2811
+20:53:05 sub20-oracle_seed4101: step 2879/2879, validation loss head A 5.0475, head B 7.2812
+20:53:07 sub20-oracle_seed4101: finished in 0.03 h; head A 5.1397, head B 7.2761 (clean targets 6.0920, inner 5.4381); ignored kept 0.009
+20:53:13 m_sub20-oracle_seed4101: inner clean 5.464 | head A clean 5.180 | agreement with A 0.844 | ignored by own 0.031 / by A 0.006 | rotated 0.152 | 5 s
+20:53:25 r_rw-b1_seed4102: inner clean 5.515 | head A clean 5.180 | agreement with A 0.787 | ignored by own 0.010 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:53:40 r_sub20_seed4102: inner clean 5.380 | head A clean 5.215 | agreement with A 0.888 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:53:54 r_clean_seed4102: inner clean 5.207 | head A clean 5.210 | agreement with A 0.988 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:54:10 r_sub20-rw_seed4102: inner clean 5.899 | head A clean 5.182 | agreement with A 0.730 | ignored by own 0.083 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:54:22 r_sub10_seed4102: inner clean 5.464 | head A clean 5.187 | agreement with A 0.836 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:54:36 r_sub05_seed4102: inner clean 5.609 | head A clean 5.182 | agreement with A 0.749 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:54:53 r_sub025_seed4102: inner clean 5.785 | head A clean 5.174 | agreement with A 0.690 | ignored by own 0.010 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:55:09 r_sub0125_seed4102: inner clean 5.992 | head A clean 5.171 | agreement with A 0.607 | ignored by own 0.013 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:55:10 rw-oracle_seed4102: starting, noise 0.8, weight head A judges, seed 4102
+20:55:25 rw-oracle_seed4102: step 400/2879, validation loss head A 6.4434, head B 7.4055
+20:55:29 rw-oracle_seed4102: step 500/2879, validation loss head A 6.2662, head B 7.3943
+20:55:41 rw-oracle_seed4102: step 800/2879, validation loss head A 5.9065, head B 7.3677
+20:55:57 rw-oracle_seed4102: step 1200/2879, validation loss head A 5.5831, head B 7.3380
+20:56:12 rw-oracle_seed4102: step 1600/2879, validation loss head A 5.3718, head B 7.3154
+20:56:28 rw-oracle_seed4102: step 2000/2879, validation loss head A 5.2211, head B 7.2974
+20:56:43 rw-oracle_seed4102: step 2400/2879, validation loss head A 5.1136, head B 7.2838
+20:56:59 rw-oracle_seed4102: step 2800/2879, validation loss head A 5.0496, head B 7.2758
+20:57:02 rw-oracle_seed4102: step 2879/2879, validation loss head A 5.0442, head B 7.2756
+20:57:04 rw-oracle_seed4102: finished in 0.03 h; head A 5.1437, head B 7.2710 (clean targets 6.1790, inner 5.3019); final share 0.379, ignored kept 0.016
+20:57:10 m_rw-oracle_seed4102: inner clean 5.341 | head A clean 5.194 | agreement with A 0.859 | ignored by own 0.006 / by A 0.006 | rotated 0.150 | 5 s
+20:57:10 sub20-oracle_seed4102: starting, noise 0.8, weight head A judges, clean targets only, seed 4102
+20:57:26 sub20-oracle_seed4102: step 400/2879, validation loss head A 6.4338, head B 7.4093
+20:57:30 sub20-oracle_seed4102: step 500/2879, validation loss head A 6.2517, head B 7.3991
+20:57:42 sub20-oracle_seed4102: step 800/2879, validation loss head A 5.8816, head B 7.3720
+20:57:57 sub20-oracle_seed4102: step 1200/2879, validation loss head A 5.5658, head B 7.3420
+20:58:13 sub20-oracle_seed4102: step 1600/2879, validation loss head A 5.3533, head B 7.3185
+20:58:28 sub20-oracle_seed4102: step 2000/2879, validation loss head A 5.2054, head B 7.2999
+20:58:44 sub20-oracle_seed4102: step 2400/2879, validation loss head A 5.0999, head B 7.2848
+20:59:00 sub20-oracle_seed4102: step 2800/2879, validation loss head A 5.0357, head B 7.2762
+20:59:03 sub20-oracle_seed4102: step 2879/2879, validation loss head A 5.0313, head B 7.2757
+20:59:05 sub20-oracle_seed4102: finished in 0.03 h; head A 5.1305, head B 7.2738 (clean targets 6.0871, inner 5.4269); ignored kept 0.015
+20:59:11 m_sub20-oracle_seed4102: inner clean 5.461 | head A clean 5.182 | agreement with A 0.838 | ignored by own 0.030 / by A 0.006 | rotated 0.141 | 5 s
+20:59:23 r_rw-b1_seed4103: inner clean 5.518 | head A clean 5.177 | agreement with A 0.802 | ignored by own 0.009 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:59:38 r_sub20_seed4103: inner clean 5.362 | head A clean 5.200 | agreement with A 0.921 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+20:59:52 r_clean_seed4103: inner clean 5.177 | head A clean 5.179 | agreement with A 0.973 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:03 r_sub20-rw_seed4103: inner clean 5.892 | head A clean 5.167 | agreement with A 0.773 | ignored by own 0.084 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:18 r_sub10_seed4103: inner clean 5.469 | head A clean 5.185 | agreement with A 0.841 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:32 r_sub05_seed4103: inner clean 5.596 | head A clean 5.165 | agreement with A 0.783 | ignored by own 0.009 / by A 0.005 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:44 r_sub025_seed4103: inner clean 5.761 | head A clean 5.159 | agreement with A 0.726 | ignored by own 0.011 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:59 r_sub0125_seed4103: inner clean 5.971 | head A clean 5.156 | agreement with A 0.660 | ignored by own 0.014 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:00:59 rw-oracle_seed4103: starting, noise 0.8, weight head A judges, seed 4103
+21:01:14 rw-oracle_seed4103: step 400/2879, validation loss head A 6.4523, head B 7.4085
+21:01:18 rw-oracle_seed4103: step 500/2879, validation loss head A 6.2837, head B 7.3961
+21:01:30 rw-oracle_seed4103: step 800/2879, validation loss head A 5.9151, head B 7.3683
+21:01:46 rw-oracle_seed4103: step 1200/2879, validation loss head A 5.6049, head B 7.3397
+21:02:01 rw-oracle_seed4103: step 1600/2879, validation loss head A 5.3914, head B 7.3171
+21:02:17 rw-oracle_seed4103: step 2000/2879, validation loss head A 5.2391, head B 7.2988
+21:02:32 rw-oracle_seed4103: step 2400/2879, validation loss head A 5.1404, head B 7.2867
+21:02:48 rw-oracle_seed4103: step 2800/2879, validation loss head A 5.0747, head B 7.2784
+21:02:51 rw-oracle_seed4103: step 2879/2879, validation loss head A 5.0720, head B 7.2780
+21:02:53 rw-oracle_seed4103: finished in 0.03 h; head A 5.1573, head B 7.2725 (clean targets 6.1873, inner 5.3079); final share 0.368, ignored kept 0.008
+21:02:59 m_rw-oracle_seed4103: inner clean 5.325 | head A clean 5.178 | agreement with A 0.928 | ignored by own 0.007 / by A 0.006 | rotated 0.143 | 5 s
+21:02:59 sub20-oracle_seed4103: starting, noise 0.8, weight head A judges, clean targets only, seed 4103
+21:03:15 sub20-oracle_seed4103: step 400/2879, validation loss head A 6.4248, head B 7.4123
+21:03:19 sub20-oracle_seed4103: step 500/2879, validation loss head A 6.2650, head B 7.3998
+21:03:31 sub20-oracle_seed4103: step 800/2879, validation loss head A 5.8951, head B 7.3717
+21:03:47 sub20-oracle_seed4103: step 1200/2879, validation loss head A 5.5879, head B 7.3432
+21:04:02 sub20-oracle_seed4103: step 1600/2879, validation loss head A 5.3870, head B 7.3196
+21:04:18 sub20-oracle_seed4103: step 2000/2879, validation loss head A 5.2323, head B 7.3033
+21:04:33 sub20-oracle_seed4103: step 2400/2879, validation loss head A 5.1333, head B 7.2893
+21:04:49 sub20-oracle_seed4103: step 2800/2879, validation loss head A 5.0709, head B 7.2809
+21:04:52 sub20-oracle_seed4103: step 2879/2879, validation loss head A 5.0655, head B 7.2792
+21:04:54 sub20-oracle_seed4103: finished in 0.03 h; head A 5.1504, head B 7.2753 (clean targets 6.0966, inner 5.4354); ignored kept 0.008
+21:05:00 m_sub20-oracle_seed4103: inner clean 5.451 | head A clean 5.171 | agreement with A 0.874 | ignored by own 0.030 / by A 0.006 | rotated 0.145 | 5 s
+21:05:09 r_rw-b1_seed4104: inner clean 5.505 | head A clean 5.166 | agreement with A 0.793 | ignored by own 0.009 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:05:24 r_sub20_seed4104: inner clean 5.351 | head A clean 5.188 | agreement with A 0.905 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:05:41 r_clean_seed4104: inner clean 5.172 | head A clean 5.173 | agreement with A 0.970 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:05:54 r_sub20-rw_seed4104: inner clean 5.934 | head A clean 5.170 | agreement with A 0.781 | ignored by own 0.090 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:06:08 r_sub10_seed4104: inner clean 5.459 | head A clean 5.173 | agreement with A 0.848 | ignored by own 0.008 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:06:26 r_sub05_seed4104: inner clean 5.590 | head A clean 5.165 | agreement with A 0.772 | ignored by own 0.008 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:06:38 r_sub025_seed4104: inner clean 5.761 | head A clean 5.149 | agreement with A 0.687 | ignored by own 0.010 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:06:50 r_sub0125_seed4104: inner clean 5.983 | head A clean 5.146 | agreement with A 0.631 | ignored by own 0.015 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:06:51 rw-oracle_seed4104: starting, noise 0.8, weight head A judges, seed 4104
+21:07:06 rw-oracle_seed4104: step 400/2879, validation loss head A 6.4548, head B 7.4073
+21:07:10 rw-oracle_seed4104: step 500/2879, validation loss head A 6.2672, head B 7.3945
+21:07:22 rw-oracle_seed4104: step 800/2879, validation loss head A 5.9066, head B 7.3654
+21:07:38 rw-oracle_seed4104: step 1200/2879, validation loss head A 5.6051, head B 7.3393
+21:07:53 rw-oracle_seed4104: step 1600/2879, validation loss head A 5.3787, head B 7.3144
+21:08:09 rw-oracle_seed4104: step 2000/2879, validation loss head A 5.2287, head B 7.2982
+21:08:24 rw-oracle_seed4104: step 2400/2879, validation loss head A 5.1284, head B 7.2852
+21:08:40 rw-oracle_seed4104: step 2800/2879, validation loss head A 5.0659, head B 7.2778
+21:08:43 rw-oracle_seed4104: step 2879/2879, validation loss head A 5.0588, head B 7.2771
+21:08:45 rw-oracle_seed4104: finished in 0.03 h; head A 5.1523, head B 7.2722 (clean targets 6.1752, inner 5.3051); final share 0.389, ignored kept 0.009
+21:08:51 m_rw-oracle_seed4104: inner clean 5.339 | head A clean 5.189 | agreement with A 0.899 | ignored by own 0.007 / by A 0.006 | rotated 0.144 | 5 s
+21:08:51 sub20-oracle_seed4104: starting, noise 0.8, weight head A judges, clean targets only, seed 4104
+21:09:07 sub20-oracle_seed4104: step 400/2879, validation loss head A 6.4278, head B 7.4094
+21:09:11 sub20-oracle_seed4104: step 500/2879, validation loss head A 6.2583, head B 7.4013
+21:09:23 sub20-oracle_seed4104: step 800/2879, validation loss head A 5.8826, head B 7.3689
+21:09:38 sub20-oracle_seed4104: step 1200/2879, validation loss head A 5.5707, head B 7.3428
+21:09:54 sub20-oracle_seed4104: step 1600/2879, validation loss head A 5.3613, head B 7.3178
+21:10:09 sub20-oracle_seed4104: step 2000/2879, validation loss head A 5.1993, head B 7.2997
+21:10:25 sub20-oracle_seed4104: step 2400/2879, validation loss head A 5.0981, head B 7.2856
+21:10:41 sub20-oracle_seed4104: step 2800/2879, validation loss head A 5.0365, head B 7.2784
+21:10:44 sub20-oracle_seed4104: step 2879/2879, validation loss head A 5.0285, head B 7.2784
+21:10:46 sub20-oracle_seed4104: finished in 0.03 h; head A 5.1241, head B 7.2741 (clean targets 6.0756, inner 5.4256); ignored kept 0.009
+21:10:52 m_sub20-oracle_seed4104: inner clean 5.461 | head A clean 5.168 | agreement with A 0.847 | ignored by own 0.032 / by A 0.006 | rotated 0.138 | 5 s
+21:11:03 r_rw-b1_seed4105: inner clean 5.524 | head A clean 5.187 | agreement with A 0.832 | ignored by own 0.011 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:11:18 r_sub20_seed4105: inner clean 5.372 | head A clean 5.200 | agreement with A 0.898 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:11:30 r_clean_seed4105: inner clean 5.181 | head A clean 5.185 | agreement with A 0.980 | ignored by own 0.006 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:11:48 r_sub20-rw_seed4105: inner clean 5.933 | head A clean 5.184 | agreement with A 0.801 | ignored by own 0.086 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:12:03 r_sub10_seed4105: inner clean 5.474 | head A clean 5.193 | agreement with A 0.836 | ignored by own 0.007 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:12:18 r_sub05_seed4105: inner clean 5.604 | head A clean 5.177 | agreement with A 0.782 | ignored by own 0.008 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:12:32 r_sub025_seed4105: inner clean 5.781 | head A clean 5.174 | agreement with A 0.704 | ignored by own 0.011 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:12:46 r_sub0125_seed4105: inner clean 5.989 | head A clean 5.178 | agreement with A 0.648 | ignored by own 0.013 / by A 0.006 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+21:12:46 rw-oracle_seed4105: starting, noise 0.8, weight head A judges, seed 4105
+21:13:02 rw-oracle_seed4105: step 400/2879, validation loss head A 6.4210, head B 7.4046
+21:13:06 rw-oracle_seed4105: step 500/2879, validation loss head A 6.2536, head B 7.3939
+21:13:18 rw-oracle_seed4105: step 800/2879, validation loss head A 5.9158, head B 7.3695
+21:13:33 rw-oracle_seed4105: step 1200/2879, validation loss head A 5.5988, head B 7.3392
+21:13:49 rw-oracle_seed4105: step 1600/2879, validation loss head A 5.3922, head B 7.3189
+21:14:04 rw-oracle_seed4105: step 2000/2879, validation loss head A 5.2373, head B 7.2997
+21:14:20 rw-oracle_seed4105: step 2400/2879, validation loss head A 5.1272, head B 7.2865
+21:14:35 rw-oracle_seed4105: step 2800/2879, validation loss head A 5.0631, head B 7.2777
+21:14:39 rw-oracle_seed4105: step 2879/2879, validation loss head A 5.0570, head B 7.2768
+21:14:40 rw-oracle_seed4105: finished in 0.03 h; head A 5.1512, head B 7.2725 (clean targets 6.1781, inner 5.3065); final share 0.368, ignored kept 0.006
+21:14:47 m_rw-oracle_seed4105: inner clean 5.342 | head A clean 5.186 | agreement with A 0.896 | ignored by own 0.007 / by A 0.006 | rotated 0.169 | 5 s
+21:14:47 sub20-oracle_seed4105: starting, noise 0.8, weight head A judges, clean targets only, seed 4105
+21:15:03 sub20-oracle_seed4105: step 400/2879, validation loss head A 6.4101, head B 7.4090
+21:15:07 sub20-oracle_seed4105: step 500/2879, validation loss head A 6.2436, head B 7.3991
+21:15:19 sub20-oracle_seed4105: step 800/2879, validation loss head A 5.9184, head B 7.3751
+21:15:34 sub20-oracle_seed4105: step 1200/2879, validation loss head A 5.6094, head B 7.3458
+21:15:50 sub20-oracle_seed4105: step 1600/2879, validation loss head A 5.3981, head B 7.3243
+21:16:05 sub20-oracle_seed4105: step 2000/2879, validation loss head A 5.2435, head B 7.3044
+21:16:21 sub20-oracle_seed4105: step 2400/2879, validation loss head A 5.1410, head B 7.2899
+21:16:36 sub20-oracle_seed4105: step 2800/2879, validation loss head A 5.0788, head B 7.2824
+21:16:39 sub20-oracle_seed4105: step 2879/2879, validation loss head A 5.0724, head B 7.2812
+21:16:41 sub20-oracle_seed4105: finished in 0.03 h; head A 5.1629, head B 7.2770 (clean targets 6.1001, inner 5.4516); ignored kept 0.008
+21:16:48 m_sub20-oracle_seed4105: inner clean 5.495 | head A clean 5.194 | agreement with A 0.865 | ignored by own 0.032 / by A 0.006 | rotated 0.183 | 5 s
+21:16:48 N16 real complete: all runs and measurements finished
+21:16:48 copied 61 result files for upload
+21:16:48 waiting for background Drive saves to finish (up to 15 minutes)
+21:16:49 Drive saves finished
