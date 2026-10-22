@@ -203,6 +203,8 @@ Both were found while writing `n16_analyze.py`, before any run, and were fixed i
 1. **Preconditions 1–3 are applied to the confirmatory arms and the references.** The exploratory arms carry no claim; as written, "in every arm" (precondition 3) and "each new run" (precondition 1) could be read to include them, which would let an arm with no claim make every claim untestable. Their fingerprints, rotated control and matching checks are reported under S2 instead.
 2. **Precondition 4 is applied per head:** 4a (`rw-oracle` trained in at least 4 of 5 seeds) gates N16a and N16b, and 4b (`sub20-oracle` trained) gates N16c, since each claim's quantity involves one of the two heads. As written, a `sub20-oracle` that failed to train would have made N16a untestable, and the reverse.
 
+*Added after the real run, 2026-10-22:* both readings were put to the author in the report that queued the calibration job, with the request to say before the real run if either should be reverted. The author raised no objection and ran the calibration and the real run.
+
 ### Calibration before any real run, 2026-10-22 (no amendment)
 
 Results seen before this entry:
