@@ -1,6 +1,6 @@
 # Preregistration N14: a dose of random targets at a fixed number of informative ones
 
-Date: 2026-10-22    Status: **draft, awaiting the author's approval.** Nothing has been built, calibrated or run.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N14 run has started.
 
 Type: confirmatory for N14a (primary), N14b and N14c, each with its own decision rule. N14a and N14c compare new models with N12's saved models; N14b uses new models and N12's. Everything else is secondary or exploratory and labelled so.
 
