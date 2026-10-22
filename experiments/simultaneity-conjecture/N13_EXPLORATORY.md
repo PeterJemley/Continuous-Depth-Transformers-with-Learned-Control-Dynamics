@@ -66,3 +66,15 @@ In `n80-rw`, the kept and replaced means along the schedule (means over seeds):
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | kept | 0.092 | 0.097 | 0.140 | 0.271 | 0.302 | 0.380 | 0.469 | 0.516 | 0.555 | 0.562 | 0.581 |
 | replaced | 0.089 | 0.093 | 0.142 | 0.167 | 0.156 | 0.140 | 0.125 | 0.113 | 0.109 | 0.104 | 0.103 |
+
+## Preconditions 2 and 5, and N13b, in numbers
+
+What the preregistered report summarises as yes or no, by seed: the largest difference between N13's re-measurement of each N12 model and N12's record (losses, then ratios); gap(`n80`), head B's clean-target loss minus the copy's; and how much worse `n80`'s softmax does on clean targets when placed in the mixture form, which is N13b's gap(`n80`, mixture readout) minus gap(`n80`).
+
+| Seed | Reproduction, largest loss difference | Reproduction, largest ratio difference | gap(n80) | Mixture form minus n80 |
+|---|---|---|---|---|
+| 4101 | 0.0e+00 | 0.0e+00 | 0.503 | +0.496 |
+| 4102 | 0.0e+00 | 0.0e+00 | 0.477 | +0.493 |
+| 4103 | 0.0e+00 | 0.0e+00 | 0.494 | +0.494 |
+| 4104 | 0.0e+00 | 0.0e+00 | 0.491 | +0.502 |
+| 4105 | 0.0e+00 | 0.0e+00 | 0.488 | +0.502 |

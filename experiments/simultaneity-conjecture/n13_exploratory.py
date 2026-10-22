@@ -113,6 +113,16 @@ def main():
         for x in steps:
             vals.append(st.mean(min(recs[s], key=lambda r: abs(r[0] - x))[j] for s in SEEDS))
         L.append(f'| {name} | ' + ' | '.join(f'{v:.3f}' for v in vals) + ' |')
+    L += ['', '## Preconditions 2 and 5, and N13b, in numbers', '',
+          'What the preregistered report summarises as yes or no, by seed: the largest difference between N13\'s re-measurement of each N12 '
+          'model and N12\'s record (losses, then ratios); gap(`n80`), head B\'s clean-target loss minus the copy\'s; and how much worse '
+          '`n80`\'s softmax does on clean targets when placed in the mixture form, which is N13b\'s gap(`n80`, mixture readout) minus gap(`n80`).', '',
+          '| Seed | Reproduction, largest loss difference | Reproduction, largest ratio difference | gap(n80) | Mixture form minus n80 |', '|---|---|---|---|---|']
+    for s in SEEDS:
+        reps = [m[(a, s)]['reproduction'] for a in OLD if m[(a, s)].get('reproduction')]
+        mixform = load(RES, f'r_n80-mixform_seed{s}')['functional']['B_clean']
+        L.append(f'| {s} | {max(r["max_loss_difference"] for r in reps):.1e} | {max(r["max_ratio_difference"] for r in reps):.1e} | '
+                 f'{fn("n80", s, "B_clean") - yard(s):.3f} | {mixform - fn("n80", s, "B_clean"):+.3f} |')
     OUT.write_text('\n'.join(L) + '\n')
     print(f'wrote {OUT}')
 
