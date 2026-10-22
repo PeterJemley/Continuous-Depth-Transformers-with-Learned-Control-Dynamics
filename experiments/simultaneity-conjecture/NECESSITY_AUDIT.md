@@ -11,9 +11,10 @@ Every preregistration rests on claims of the form "this requires that" or "witho
 - the comparison requires a yardstick the arms cannot move;
 - the measure, if it works, must recognise a known case.
 
-A claim of necessity is a universal claim ("never this without that"), so one counterexample refutes it. Two of the project's failures were necessity claims stated too strongly, and in both a run found them, when an audit before the run could have:
+A claim of necessity is a universal claim ("never this without that"), so one counterexample refutes it. Three of the project's claims were stated too strongly, two of them claims of necessity. In the first two a run found them, when an audit before the run could have; in the third a check before the run found what the audit had missed:
 - **N11's dose check** was true at step 300 and false at step 2,879, a claim fixed to the wrong time.
 - **N12's convergence rule** said a converged fit changes by at most 2%. A fit at zero loss converged and changed by 7%.
+- **N13's stated mechanism** said the discount tells kept from replaced targets from the start, by frequency. The calibration's gradient check found them equal at the start: both kinds of target have the unigram distribution. The audit had covered the identity's dependence on time, not the mechanism's own claim about time.
 
 The audit lists the necessity claims of a design before it runs, so that the cheapest criticism comes first.
 
@@ -72,7 +73,7 @@ Four features describe each claim:
 
 This follows the skill's checklist addition 6. A summary that restates a note keeps the note's modal word: "consistent with", "suggests", "exploratory", "secondary", "untestable", "intermediate". A summary never upgrades it.
 
-`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them. A second round, on the N12 passages, found three substantive and ten minor problems, all corrected.
+`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them. A second round, on the N12 passages, found three substantive and ten minor problems, all corrected. A third round, on the N13 passages, found three substantive and twenty-two minor problems, all corrected; most were again modal upgrades, and the largest was an exploratory reading of where head B's cost to head A comes from that had become a flat claim in three summaries.
 
 ## The record so far
 
@@ -84,3 +85,5 @@ This follows the skill's checklist addition 6. A summary that restates a note ke
 | The payload holds, judged from 300 steps (N11's dose check) | A claim fixed to the wrong time; mechanism | Refuted by the full run: 0.27 at step 300, 0.59 at the end |
 | A converged fit changes by at most 2% (N12) | Rule, stated too strongly | Refuted by a counterexample at zero loss; replaced by amendment A1 |
 | N12's design (audited 2026-10-21, before its real run) | See the N12 deviation log | Three findings about interpretation, and one added secondary measure. The run was read as the audit prescribed: the form's share of the gap was reported as at most 38%, and the mixture head's gain over the fitted single softmax (0.10) was left unattributed, since it could be the cleaner learning signal the audit named or the fitting procedure's shortfall. Separating them is N12's next conjecture 1 |
+| The discount tells kept from replaced targets from the start, by frequency (N13's stated mechanism) | A claim fixed to the wrong time; mechanism | Refuted by the calibration's gradient check before any run: equal at the start (0.090 against 0.087), apart by step 300 in the calibration run, and from about step 200 in the real run's record. Corrected in the deviation log; no claim or rule changed |
+| N13's design (audited 2026-10-22, at drafting, before approval) | See `N13_PREREGISTRATION.md` | Eight claims listed, each with its check and that check's behaviour at the boundary. The run met every precondition, including the foreseen boundary of a replicate floor of 0, and supported all three claims. The audit had asked after the identity's dependence on time and not after the mechanism's own time claim; see the row above |
