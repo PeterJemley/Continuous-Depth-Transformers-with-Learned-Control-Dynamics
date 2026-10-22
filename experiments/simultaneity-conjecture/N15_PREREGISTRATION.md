@@ -1,6 +1,6 @@
 # Preregistration N15: sharpening the discount
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N15 run has started.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built and tested on tiny models and synthetic records (deviation log); the full-length calibration run on the A100, `n15_calib`, is queued. No real N15 run has started.
 
 Type: confirmatory for N15a (primary), N15b and N15c, each with its own decision rule. N15a and N15c compare new models with N13's and N12's saved models; N15b compares new models with N14's clean-target ladder. Everything else is secondary or exploratory and labelled so.
 
@@ -196,7 +196,32 @@ The critic's strongest objection, two moves deep: *"Proportionality in the share
 
 ## Deviation log
 
-(none yet)
+### Calibration before any real run, 2026-10-22 (no amendment)
+
+Results seen before this entry:
+- the setup checks on an untrained full-size model with a real training batch;
+- test-mode runs on tiny models: an end-to-end run with its rerun, and the resume test;
+- synthetic records.
+
+The full-length calibration run on the A100 has not started, and no real N15 run has started.
+
+- **The weight identity at β = 1, at full size.** On an untrained full-size model with a real batch, this file's weight at β = 1 and N13's discount differed by a relative 4.2 × 10⁻⁷ at most (the check's threshold is 10⁻⁶; float32 roundoff). Where u(y) = 0 the weight is 1, as the discount's is.
+- **The oracle's detachment, at full size.** The gradient of the oracle-weighted head B loss with respect to head A's readout parameters (`proj_a`, `head`) was exactly 0, while the trunk and head B received gradient (largest entry 9 × 10⁻⁴). Head A's own training is unchanged by construction, and the check confirms it.
+- **The weights at initialisation.** On the same batch, the kept and replaced means were equal (0.107 and 0.104 at β = 2; 0.125 and 0.121 at β = 4; 0.094 and 0.091 for the oracle), so the random share of the weight was 0.80 in every arm, the noise rate, as it must be before any head discriminates. The fraction of kept targets with weight below 0.01 at initialisation was 0.65 at β = 2, 0.76 at β = 4 and 0.49 for the oracle: a sharper rule starts by admitting fewer targets, which is the cold start that precondition 5 and S3 exist for.
+- **Tiny test-mode runs** (2 seeds, 60 steps, 8 measurement windows, on a CPU in float32):
+  - *End to end:* the 3 new arms trained and were measured, and the 7 saved reference models were re-measured: 27 records and the summary. A rerun skipped all finished work.
+  - *Re-measuring the saved models reproduced their records exactly:* every loss and every ratio differed by 0, for N12's, N13's and N14's tiny models alike.
+  - *The analysis* produced every section from these records: the verdicts read "not reached" with two seeds, the by-arm table marks the arms the tiny ladder cannot bracket, and the weights' table and the β rule print.
+  - *The resume test:* the calibration mode was interrupted at step 24 of 60 of its first training run. A second session, with its local folder deleted as on a new Colab machine, resumed from the Drive copy at step 24 and finished all three runs and the six re-measurements; the calibration-mode analysis read its records.
+  - *The tiny models' numbers mean nothing,* and none is carried forward. One pattern is noted because it is what the calibration must examine: at this scale the tempered heads admitted almost nothing in 60 steps (the ignored fraction stayed at 0.77–0.87 and their inner reading ended 2.3 nats from head A), while the oracle-weighted head trained as β = 1 did. Whether a full-length schedule gets the tempered heads past the cold start is precondition 5's question, and the calibration's β rule answers it.
+- **Synthetic records.** 24 cases covering every branch of the three rules and every precondition gave the intended verdicts, including a head that did not train, a share that did not fall, and a ladder that did not bracket.
+- **The Colab wrappers** run only on an A100, tested with simulated GPU names: a T4 and an L4 are refused before anything is trained, both A100 variants pass, and the calibration wrapper adds `--calibration`.
+- **Implementation details, not changes:**
+  - The weight is computed in log space, w = exp(−log(1 + exp(log 4 + β (log u(y) − log p(y))))), from the head's own logits (or head A's, detached) at the same forward pass, in float32, without gradient; the loss is the mean over all positions of w · CE, N13's convention.
+  - The new arms are measured as N13's `n80-rw` was: a single softmax whose noisy-target prediction, for the copy comparisons, is the mixture form at 0.8; the head A measure uses the softmax itself.
+  - The share is the random targets' part of the summed weight, from sums; N13's `n80-rw` record has means and the batch's fractions, from which the analysis computes the same quantity.
+
+The values for seed 3001 from the calibration run will be recorded here when it has run.
 
 ## References
 
