@@ -1,6 +1,6 @@
 # Preregistration N14: a dose of random targets at a fixed number of informative ones
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Being built and tested; no calibration run and no real N14 run has started.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built and tested on tiny models and synthetic records (deviation log); the full-length calibration run on the A100, `n14_calib`, is queued. No real N14 run has started.
 
 Type: confirmatory for N14a (primary), N14b and N14c, each with its own decision rule. N14a and N14c compare new models with N12's saved models; N14b uses new models and N12's. Everything else is secondary or exploratory and labelled so.
 
@@ -202,7 +202,32 @@ The critic's strongest objection, two moves deep: *"The ladder is not a null. Re
 
 ## Deviation log
 
-(none yet)
+### Calibration before any real run, 2026-10-22 (no amendment)
+
+Results seen before this entry:
+- the setup checks on an untrained full-size model with real training batches;
+- test-mode runs on tiny models: an end-to-end run with its rerun, and the resume test;
+- synthetic records.
+
+The full-length calibration run on the A100 has not started, and no real N14 run has started.
+
+- **The loss identity at the dose's ends, at full size.** On an untrained full-size model with a real training batch, the job's loss for the arm with every replaced position random (dose 0.8, clean 20%) equalled N12's `n80-mix` loss to a relative 1.2 × 10⁻⁷, and its loss for the arm with no random targets (dose 0, clean 20%) equalled N12's `sub20` loss exactly. The check's threshold is 10⁻⁶. It runs at the start of every job and is recorded in its summary.
+- **The position sets, at full size.** For seeds 4101 and 3001 at step 0: every arm's kept set is a subset of `n80`'s K and its random set a subset of its R; the dose sets and the ladder sets are nested; the ends reproduce K and R exactly; the fractions are within 0.005 of design (for seed 4101: kept 0.196, random 0.096, 0.195 and 0.390 at doses 0.1, 0.2 and 0.4; clean 0.101, 0.052 and 0.024 on the ladder). The same check runs for every seed at the start of every job, and each run records its own sets' fingerprints, which the analysis compares with the check's.
+- **The discount at initialisation,** as the N13 correction says: equal on kept and random targets (0.248 against 0.265 at ρ = 1/3; 0.187 against 0.198 at ρ = 1/2; 0.134 against 0.137 at ρ = 2/3), so the random targets' share of the summed weight at the start is the arm's ρ (0.34, 0.51, 0.67). S6 will show how the share falls as the discount learns to discriminate.
+- **Tiny test-mode runs** (2 seeds, 60 steps, 8 measurement windows, on a CPU in float32):
+  - *End to end:* the 7 new arms trained and were measured, and N12's two ends were re-measured: 33 records and the summary. A rerun skipped all finished work.
+  - *Re-measuring N12's models reproduced N12's records exactly:* every loss and every ratio differed by 0.
+  - *The analysis* produced every section from these records: the ladder, the interpolation and residuals, the six preconditions, the by-seed and by-arm tables, S1–S7, and the verdicts read "not reached" with two seeds, as they must.
+  - *The resume test:* the calibration mode was interrupted at step 28 of 60 of its first training run. A second session, with its local folder deleted as on a new Colab machine, resumed from the Drive copy at step 28, and was itself cut off at step 44 by a restart of the test machine. A third session, its local folder deleted again, resumed at step 44 (its completion is recorded in the next entry).
+  - *The tiny models' numbers mean nothing* (their ladders are not even ordered in one seed), and none is carried forward.
+- **Synthetic records.** 24 cases covering every branch of the three rules and every precondition gave the intended verdicts, including an unbracketed ladder, an unordered ladder, a trace absent at dose 0.8, and mismatched set fingerprints.
+- **The Colab wrappers** run only on an A100, tested with simulated GPU names: a T4 and an L4 are refused before anything is trained, both A100 variants pass, and the calibration wrapper adds `--calibration`.
+- **Implementation details, not changes:**
+  - The nesting draw is one uniform number per position per step, seeded by the seed and the step, independent of `n80`'s replacement draw; an arm takes the positions of K (or R) whose number is below its fraction's share of K (or R).
+  - Each arm's validation curve uses noisy targets at the arm's own ρ (0.8 for the arms without random targets, as N12's `sub20` did).
+  - `n12.measure` records every model in N12's form (its copy at 0.8), so that N12's two ends reproduce their records; the arm's own ρ enters through the output form (`mix:ρ`) and the `at_rho` block, which holds the copy, the constructed check and the agreement with the copy at that ρ.
+
+The values for seed 3001 from the calibration run will be recorded here when it has run.
 
 ## References
 
