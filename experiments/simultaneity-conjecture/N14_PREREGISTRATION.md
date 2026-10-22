@@ -258,7 +258,7 @@ The values for seed 3001 from the calibration run are recorded in the next entry
   - All six preconditions held. The re-measurements reproduced N12's records exactly (every loss and ratio differed by 0), on the 40 GB model. The fifth rung bracketed `sub20-rw` in every seed.
   - N14a inconclusive: b(`n80-mix`) = +0.009, 97.5% interval [−0.035, +0.052], standard deviation 0.028.
   - N14b intermediate: D(`r10`) < D(`n80-mix`) / 2 in 2 of 5 seeds; at least three quarters in 0.
-  - N14c refuted: a(`sub20`) − a(`sub20-rw`) = +0.125 [+0.089, +0.160], standard deviation 0.028.
+  - N14c refuted: a(`sub20`) − a(`sub20-rw`) = +0.125 [+0.080, +0.169], standard deviation 0.028.
   - The conjecture did not survive.
 
 ### Exploratory analysis added after the results, 2026-10-22
