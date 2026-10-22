@@ -1,6 +1,6 @@
 # Preregistration N14: a dose of random targets at a fixed number of informative ones
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log). Amendment A1 (a fifth rung on the ladder) is proposed and awaits the author's approval; the real run is not queued. No real N14 run has started.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log). Amendment A1 (a fifth rung on the ladder, `sub0125`) approved by the author the same day; the real run, `n14_dose`, is queued. No real N14 run has started.
 
 Type: confirmatory for N14a (primary), N14b and N14c, each with its own decision rule. N14a and N14c compare new models with N12's saved models; N14b uses new models and N12's. Everything else is secondary or exploratory and labelled so.
 
@@ -50,11 +50,12 @@ Positions in a training batch are of three kinds: **kept** (a clean target), **r
 | `sub10` | a nested 10%, drawn from K | none | Single softmax | Yes | The clean-target ladder |
 | `sub05` | a nested 5%, from K | none | Single softmax | Yes | The ladder |
 | `sub025` | a nested 2.5%, from K | none | Single softmax | Yes | The ladder |
+| `sub0125` | a nested 1.25%, from K | none | Single softmax | Yes | The ladder's fifth rung, added by amendment A1 after the calibration run |
 | `sub20-rw` | K | none | Single softmax, each kept target's cross-entropy multiplied by stopgrad(r(y)) at ρ = 4/5 | Yes | The reweighting control: the mixture head's weighting of the kept targets, without the random targets |
 | `clean` | every position | none | Single softmax | No: N12's records | Head A's reference for the cost measure only |
 
 **Details, fixed now:**
-- **Nesting.** For each step, one seeded uniform draw per position (seeded by the seed and the step, independent of `n80`'s draw) orders the positions of R; dose d takes the positions of R whose draw is below d / 0.8, so the random sets are nested: `r10` ⊂ `r20` ⊂ `r40` ⊂ `n80-mix`. A second draw orders K; `sub` at fraction f takes the positions of K below f / 0.2, so `sub025` ⊂ `sub05` ⊂ `sub10` ⊂ `sub20`. The random words at the random positions are `n80`'s.
+- **Nesting.** For each step, one seeded uniform draw per position (seeded by the seed and the step, independent of `n80`'s draw) orders the positions of R; dose d takes the positions of R whose draw is below d / 0.8, so the random sets are nested: `r10` ⊂ `r20` ⊂ `r40` ⊂ `n80-mix`. A second draw orders K; `sub` at fraction f takes the positions of K below f / 0.2, so `sub0125` ⊂ `sub025` ⊂ `sub05` ⊂ `sub10` ⊂ `sub20` (`sub0125` by amendment A1). The random words at the random positions are `n80`'s.
 - **Each arm's ρ is its true noise rate among its targeted positions,** d / (0.2 + d): the head is told the noise, as in N12 and N13. Its mixture output is (1 − ρ) softmax + ρ u, its loss −log q(y), and its discount r(y) = (1 − ρ) p(y) / q(y).
 - **The loss at every arm is the sum over the targeted positions divided by the number of all positions,** which is N12's convention for `sub20` and, since every position is targeted there, for `n80-mix`. So head B's share of the trunk's gradient scales with the number of targets, as it did between those two arms. N13 showed that a constant scale changes nothing in head B's own readout.
 - **`sub20-rw`:** at each kept position, r(y) is computed at ρ = 4/5 from the head's own logits in float32 without gradient, as in N13's `n80-rw`, and multiplies that position's cross-entropy. There are no random targets, so this is the mixture head's weighting of the kept targets applied to `sub20`'s training. Its r(y) is computed from a head trained without random targets, so its weighting is sharper than `n80-mix`'s on the same positions; the recorded discount means (below) will show by how much, and this is a stated limitation.
@@ -65,7 +66,7 @@ Positions in a training batch are of three kinds: **kept** (a clean target), **r
 
 - **Agreement with head A, a:** N12's geometric measure within each model, the agreement ratio of head B's inner softmax (for a single softmax, head B itself) with head A, on the measurement windows. N12b used the agreement with the ideal copy instead; the copy's directions are head A's (N12 found their agreement 0.99), and the two measures differ by at most 0.02 on N12's models (`n80-mix` 0.826 against 0.805, `sub20` 0.911 against 0.896). N14 uses the head A measure, as N13 did, and records the copy measure beside it.
 - **The inner reading against head A, Δ_A:** the inner softmax's clean-target loss minus head A's, within the model, as in N13.
-- **The ladder prediction, â:** for each seed, the clean-target ladder is the four points (Δ_A, a) of `sub20`, `sub10`, `sub05` and `sub025`, in order of Δ_A. For a model with Δ_A inside the ladder's range, â is the linear interpolation of a between the two ladder points that bracket its Δ_A. This asks: how well does a clean-target head with the same clean-target loss read head A's directions?
+- **The ladder prediction, â:** for each seed, the clean-target ladder is the points (Δ_A, a) of `sub20`, `sub10`, `sub05`, `sub025` and, by amendment A1, `sub0125`, in order of Δ_A. For a model with Δ_A inside the ladder's range, â is the linear interpolation of a between the two ladder points that bracket its Δ_A. This asks: how well does a clean-target head with the same clean-target loss read head A's directions?
 - **The residual, b (for "beyond"):** b = â − a, how far a model's agreement falls below a clean-target head's at the same Δ_A. Positive means the random targets moved the directions more than their functional cost accounts for.
 - **The drop from dose 0, D(d) = a(`sub20`) − a(d),** within seed.
 
@@ -85,7 +86,7 @@ Positions in a training batch are of three kinds: **kept** (a clean target), **r
 
 ## Design
 
-- **Runs:** 35 training runs (`r10`, `r20`, `r40`, `sub10`, `sub05`, `sub025`, `sub20-rw` on seeds 4101–4105), measurements of those 35 models, and re-measurements of N12's `sub20` and `n80-mix` (10 models) on the same windows. `clean`'s head A loss is taken from N12's records.
+- **Runs:** 40 training runs (`r10`, `r20`, `r40`, `sub10`, `sub05`, `sub025`, `sub0125` by amendment A1, `sub20-rw` on seeds 4101–4105), measurements of those 40 models, and re-measurements of N12's `sub20` and `n80-mix` (10 models) on the same windows. `clean`'s head A loss is taken from N12's records.
 - **N12's models** are loaded from the `n12_bottleneck` Drive folder; N12's measurement records in `results/n12/` are the reference for precondition 2.
 - **Measured per model:** head A's and the inner softmax's clean-target losses and Δ_A; the agreement with head A and with the copy at the arm's ρ; the rotated control; stability; the constructed mixture check at the arm's ρ; for every new model, the fingerprints of its kept and random position sets at step 0 and a nesting check against `n80`'s sets.
 
@@ -99,7 +100,7 @@ Positions in a training batch are of three kinds: **kept** (a clean target), **r
    - The zero-noise copy matches head A at a ratio of at least 0.999 in every model.
 3. **Must differ.** The rotated control's ratio is at most 0.60 in at least 4 of 5 models of each arm.
 4. **The ladder brackets.** In at least 4 of 5 seeds, Δ_A(`sub025`) ≥ Δ_A(`n80-mix`), so that â(`n80-mix`) is an interpolation, never an extrapolation. N14a is computed over the seeds where this holds; if fewer than 4, N14a is untestable.
-5. **The ladder is ordered.** In at least 4 of 5 seeds, Δ_A increases along `sub20`, `sub10`, `sub05`, `sub025`. If it does not, the ladder is not a function of the clean-target loss, and N14a is untestable.
+5. **The ladder is ordered.** In at least 4 of 5 seeds, Δ_A increases along `sub20`, `sub10`, `sub05`, `sub025` and, by amendment A1, `sub0125`. If it does not, the ladder is not a function of the clean-target loss, and N14a is untestable.
 6. **The trace exists.** D(`n80-mix`) ≥ 0.02 in at least 4 of 5 seeds, on the re-measured models. N12 recorded 0.047–0.127. If it does not hold, N14b's ratios are undefined, and N14b is untestable.
 
 Preconditions 1–3 apply to every claim; 4 and 5 to N14a; 6 to N14b.
@@ -132,7 +133,7 @@ Preconditions 1–3 apply to every claim; 4 and 5 to N14a; 6 to N14b.
 ## Secondary and exploratory outcomes
 
 - **S1: the residuals at the other doses,** b(`r10`), b(`r20`), b(`r40`), and b(`sub20-rw`), each with its interval. The conjecture predicts them positive and growing with the dose; geometry-follows-function predicts them near zero.
-- **S2: the ladder's own noise.** For each inner ladder point (`sub10`, `sub05`), its leave-one-out residual against the line through its neighbours. This is the scale of the interpolation's error, and the test's noise floor; if it is near 0.03, N14a's margin is at the floor, and the note will say so.
+- **S2: the ladder's own noise.** For each inner ladder point (`sub10`, `sub05`, and `sub025` by amendment A1), its leave-one-out residual against the line through its neighbours. This is the scale of the interpolation's error, and the test's noise floor; if it is near 0.03, N14a's margin is at the floor, and the note will say so.
 - **S3: the ordering of agreement with the dose,** `sub20` ≥ `r10` ≥ `r20` ≥ `r40` ≥ `n80-mix` within seed: the number of seeds in which it holds in full, and D(d) at every dose with intervals.
 - **S4: Δ_A by dose,** and by ladder fraction: the functional cost of the random targets and of the missing clean targets.
 - **S5: the cost to head A** in every arm against N12's `clean`, following N13's finding that the cost tracks head B's pull. Here the pull grows with the number of targets.
@@ -177,7 +178,7 @@ The critic's strongest objection, two moves deep: *"The ladder is not a null. Re
 ## Compute, where it runs, and stopping rule
 
 - **Where:** one Colab job, `n14_dose`, on an A100, resumable, after the calibration job `n14_calib`.
-- **Cost:** 35 training runs at about 2 minutes each, 45 measurements: about 80 minutes. The calibration job: about 20 minutes.
+- **Cost:** 40 training runs at about 2 minutes each (35 before amendment A1), 50 measurements: about 90 minutes. The calibration job: about 20 minutes.
 - **Stopping rule:** exactly these runs and measurements, each once. Nothing is added after seeing results except as a dated, exploratory entry in the deviation log.
 
 ## What each outcome would teach
@@ -246,6 +247,8 @@ The values for seed 3001 from the calibration run are recorded in the next entry
 - **Head A against N12's `clean` arm** (S5, exploratory): `sub20` +0.031, `r10` +0.021, `r20` +0.023, `r40` +0.014, `n80-mix` +0.001; `sub10` +0.021, `sub05` +0.006, `sub025` +0.002; `sub20-rw` −0.004. The cost falls with the dose of random targets and with fewer clean targets alike; it is the `sub20` puzzle of N13 again, with more points, and it is left for the note.
 
 **Amendment A1, proposed: a fifth rung on the ladder, `sub0125`** (clean targets at a nested 1.25% of positions, drawn from K as the other rungs are; single softmax; 5 runs, about 10 minutes). Its purpose is to bracket `sub20-rw` (Δ_A 0.805) and any arm whose Δ_A exceeds `sub025`'s, so that the residual against the ladder (S1) can be computed for the control, as a secondary measure. Nothing else changes: no claim, margin, dose, window, measure or rule; precondition 5 (the ladder is ordered) covers the new rung, and N14a's interpolation at `n80-mix`'s Δ_A, which lies between `sub10` and `sub05`, is unaffected. The preregistration's calibration clause allowed a rung to be added only if `sub025` failed to bracket `n80-mix`, which did not happen; so this is an amendment, and it waits for the author.
+
+**A1 approved by the author, 2026-10-22,** with the real run queued. The rung is added to the job, the analysis and the synthetic cases; the arms table, the ladder's definition, precondition 5, S2 and the cost above carry it. The new rung was not calibrated at full length: its clean-target loss is expected near 0.8 nats from head A, close to the control's 0.805, so it may bracket the control in some seeds and not others; the control's residual (S1) is reported for the seeds it brackets, and nothing else depends on it. Tests after the change: the 25 synthetic cases (one added, a collapsed control bracketed by the new rung) gave the intended verdicts; the full-size nesting check passed with the rung (fractions 0.0129 and 0.0127 in seeds 4101 and 3001); the tiny end-to-end run is resumed to train and measure the new rung alone, and its outcome is recorded in the next entry.
 
 ## References
 

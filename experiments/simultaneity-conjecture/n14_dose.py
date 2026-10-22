@@ -6,7 +6,7 @@ target), random (a target drawn from u) or masked (no target); n80's per-step dr
 80%) and the random words at R, and every arm uses nested subsets of K and R:
   r10, r20, r40   clean targets at K, random targets at a nested 10/20/40% of positions drawn from R; mixture head at
                   the arm's true noise rate rho = d / (0.2 + d)
-  sub10, sub05, sub025   clean targets at a nested 10/5/2.5% of positions drawn from K, nothing elsewhere; single softmax
+  sub10, sub05, sub025, sub0125   clean targets at a nested 10/5/2.5/1.25% of positions drawn from K, nothing elsewhere; single softmax
   sub20-rw        clean targets at K, each weighted by stopgrad(r(y)) at rho = 0.8; no random targets
   sub20, n80-mix  N12's saved models, the two ends of the dose, re-measured (precondition 2)
 Every loss is the sum over the targeted positions divided by the number of all positions (N12's convention).
@@ -43,6 +43,7 @@ SPECS = {                                            # dose: random fraction of 
     'sub10': {'dose': 0.0, 'frac_keep': 0.1, 'head': 'single'},
     'sub05': {'dose': 0.0, 'frac_keep': 0.05, 'head': 'single'},
     'sub025': {'dose': 0.0, 'frac_keep': 0.025, 'head': 'single'},
+    'sub0125': {'dose': 0.0, 'frac_keep': 0.0125, 'head': 'single'},        # amendment A1: a fifth rung
     'sub20-rw': {'dose': 0.0, 'frac_keep': 0.2, 'head': 'rw'},
 }
 ENDS = {'sub20': {'dose': 0.0, 'frac_keep': 0.2, 'head': 'single'}, 'n80-mix': {'dose': 0.8, 'frac_keep': 0.2, 'head': 'mix'}}
@@ -131,7 +132,7 @@ def nesting_check(ya, probs, seed):
            'kept_subset_of_K': {a: sub(k, K) for a, (k, r, _) in sets.items()},
            'random_subset_of_R': {a: sub(r, R) for a, (k, r, _) in sets.items()},
            'dose_nested': sub(sets['r10'][1], sets['r20'][1]) and sub(sets['r20'][1], sets['r40'][1]) and sub(sets['r40'][1], sets['n80-mix'][1]),
-           'ladder_nested': sub(sets['sub025'][0], sets['sub05'][0]) and sub(sets['sub05'][0], sets['sub10'][0]) and sub(sets['sub10'][0], sets['sub20'][0]),
+           'ladder_nested': all(sub(sets[a][0], sets[b][0]) for a, b in (('sub0125', 'sub025'), ('sub025', 'sub05'), ('sub05', 'sub10'), ('sub10', 'sub20'))),
            'ends_equal_n80': bool(torch.equal(sets['sub20'][0], K) and torch.equal(sets['n80-mix'][1], R)),
            'fractions': {a: [k.float().mean().item(), r.float().mean().item()] for a, (k, r, _) in sets.items()},
            'fingerprints': {a: [n12.fingerprint(k), n12.fingerprint(r)] for a, (k, r, _) in sets.items()}}
