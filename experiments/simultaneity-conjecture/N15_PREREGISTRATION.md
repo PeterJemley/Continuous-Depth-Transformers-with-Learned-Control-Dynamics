@@ -1,6 +1,6 @@
 # Preregistration N15: sharpening the discount
 
-Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log). The calibration found that the tempered arms do not train and that the oracle arm recovers the shortfall without removing a quarter of the share, so the preregistered rules cannot be applied as written; the real run is not queued, and the author's decision (withdraw and preregister anew, or amend) is awaited. No real N15 run has started.
+Date: 2026-10-22    Status: **approved by the author, 2026-10-22.** Built, tested, and calibrated at full length on the A100 (deviation log). **Withdrawn before any real run, 2026-10-22, by the author's decision:** the calibration found that the tempered arms do not train and that the oracle arm recovers the shortfall without removing a quarter of the share, so the preregistered rules could not be applied as written. The calibration stands as N15's record; no real N15 run was made. Superseded by `N16_PREREGISTRATION.md`.
 
 Type: confirmatory for N15a (primary), N15b and N15c, each with its own decision rule. N15a and N15c compare new models with N13's and N12's saved models; N15b compares new models with N14's clean-target ladder. Everything else is secondary or exploratory and labelled so.
 
@@ -239,6 +239,8 @@ The values for seed 3001 from the calibration run are recorded in the next entry
 - **The weights over training, for the record** (kept / replaced / share / ignored): β = 1 (N13's record) 0.09 / 0.09 / 0.80 at step 0 to 0.59 / 0.10 / 0.41 at the end; β = 2 0.11 / 0.10 / 0.80 / 0.68 to 0.21 / 0.16 / 0.75 / 0.76; β = 4 0.12 / 0.12 / 0.80 / 0.76 to 0.17 / 0.17 / 0.80 / 0.83; the oracle 0.09 / 0.09 / 0.80 / 0.49 to 0.63 / 0.09 / 0.35 / 0.01.
 
 **Put to the author, 2026-10-22.** The real run is not queued. Two ways forward were put to the author: to withdraw N15 before any real run, keep this calibration as its record, and preregister the explanation the calibration suggests (the judge, not the share) as a new test on the five real seeds, with a warm-up for the tempered arms as exploratory; or to amend N15's arms and rules in place. The author's decision is recorded below when made.
+
+**The author's decision, 2026-10-22:** withdraw N15 before any real run. Its calibration stands as its record, and N16 preregisters the explanation the calibration suggests, with the warmed-up sharper discounts as exploratory arms, the share as a confirmatory claim, and the geometry claim kept at ±0.04. Nothing of N15 was run on the real seeds.
 
 ## References
 
