@@ -251,6 +251,10 @@ def main():
         def mean(f, over=None):
             xs = [v for v in (f(s) for s in (over or seeds)) if v is not None]
             return st.mean(xs) if xs else float('nan')
+
+        def hat_cell(a, over):
+            h = mean(lambda s: a_hat(s, dA(a, s)), over)
+            return 'n/a' if math.isnan(h) else f'{h:.3f}'
         with_share = ['rw-b1', 'rw-oracle'] + expl_ran
         if cal:
             s_ = seeds[0]
@@ -282,7 +286,7 @@ def main():
             else:
                 s_cell = p_cell = f_cell = '—'
             L.append(f"| {a} | {LABEL[a]} | {mean(lambda s: dA(a, s), over):+.3f} | {mean(lambda s: a_of(a, s), over):.3f} | {s_cell} | {p_cell} | {f_cell} | "
-                     f"{mean(lambda s: a_hat(s, dA(a, s)), over):.3f} | {f'{st.mean(bs):+.3f}' if bs else 'n/a'} | "
+                     f"{hat_cell(a, over)} | {f'{st.mean(bs):+.3f}' if bs else 'n/a'} | "
                      f"{mean(lambda s: rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean'], over):+.4f} | {mean(lambda s: ratio(rec(a, s), 'rotated_control'), over):.3f} | "
                      f"{mean(lambda s: ng(a, s, 'own_ignored_fraction'), over):.3f} / {mean(lambda s: ng(a, s, 'A_ignored_fraction'), over):.3f} |")
         for a in rung:
