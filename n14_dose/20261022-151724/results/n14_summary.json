@@ -1,0 +1,813 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " Duran , Maurice Boitel and Eug\u00e8",
+      "target_i+1_end": "an , Maurice Boitel and Eug\u00e8ne",
+      "target_i+2_end": " , Maurice Boitel and Eug\u00e8ne B",
+      "target_i+4_end": " Boitel and Eug\u00e8ne Boudin",
+      "target_i+8_end": " Eug\u00e8ne Boudin . It was the"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1
+      ],
+      "next_example": {
+        "input_end": " across the floor , and a side door with a door @",
+        "target_end": " the floor , and a side door with a door @-"
+      },
+      "skip_example": {
+        "input_end": " cliffs on the British coast and is part of the same geological",
+        "target_end": " the British coast and is part of the same geological formation ."
+      }
+    },
+    "same_model": [
+      {
+        "seed": 4101,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4102,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 1.0,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4103,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4104,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      },
+      {
+        "seed": 4105,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657569057248,
+      "sampled": {
+        "top_subspace_overlap": 0.993960768795485,
+        "relative_error": 0.2552684326203977
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972829828537,
+        "relative_error": 0.16654861663951354
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084748193125,
+        "relative_error": 0.45547995255557955
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 4101,
+      "agreement_ratio": 1.0,
+      "overlap_AB": 0.9999999962438677,
+      "pass": true
+    },
+    "loss_identity": {
+      "n80-mix": {
+        "this_file": 7.649253845214844,
+        "n12": 7.649253845214844,
+        "relative": 0.0
+      },
+      "sub20": {
+        "this_file": 2.130661964416504,
+        "n12": 2.130661964416504,
+        "relative": 0.0
+      },
+      "pass": true
+    },
+    "nesting": [
+      {
+        "seed": 4101,
+        "kept_subset_of_K": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "random_subset_of_R": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "dose_nested": true,
+        "ladder_nested": true,
+        "ends_equal_n80": true,
+        "fractions": {
+          "r10": [
+            0.196044921875,
+            0.095947265625
+          ],
+          "r20": [
+            0.196044921875,
+            0.194580078125
+          ],
+          "r40": [
+            0.196044921875,
+            0.389892578125
+          ],
+          "sub10": [
+            0.100830078125,
+            0.0
+          ],
+          "sub05": [
+            0.0517578125,
+            0.0
+          ],
+          "sub025": [
+            0.0244140625,
+            0.0
+          ],
+          "sub0125": [
+            0.012939453125,
+            0.0
+          ],
+          "sub20-rw": [
+            0.196044921875,
+            0.0
+          ],
+          "sub20": [
+            0.196044921875,
+            0.0
+          ],
+          "n80-mix": [
+            0.196044921875,
+            0.803955078125
+          ]
+        },
+        "fingerprints": {
+          "r10": [
+            1667684,
+            790082
+          ],
+          "r20": [
+            1667684,
+            1600395
+          ],
+          "r40": [
+            1667684,
+            3251923
+          ],
+          "sub10": [
+            865918,
+            0
+          ],
+          "sub05": [
+            451951,
+            0
+          ],
+          "sub025": [
+            203668,
+            0
+          ],
+          "sub0125": [
+            114194,
+            0
+          ],
+          "sub20-rw": [
+            1667684,
+            0
+          ],
+          "sub20": [
+            1667684,
+            0
+          ],
+          "n80-mix": [
+            1667684,
+            6722972
+          ]
+        },
+        "fractions_ok": true,
+        "pass": true
+      },
+      {
+        "seed": 4102,
+        "kept_subset_of_K": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "random_subset_of_R": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "dose_nested": true,
+        "ladder_nested": true,
+        "ends_equal_n80": true,
+        "fractions": {
+          "r10": [
+            0.2001953125,
+            0.09765625
+          ],
+          "r20": [
+            0.2001953125,
+            0.196044921875
+          ],
+          "r40": [
+            0.2001953125,
+            0.404052734375
+          ],
+          "sub10": [
+            0.095703125,
+            0.0
+          ],
+          "sub05": [
+            0.04833984375,
+            0.0
+          ],
+          "sub025": [
+            0.02587890625,
+            0.0
+          ],
+          "sub0125": [
+            0.013427734375,
+            0.0
+          ],
+          "sub20-rw": [
+            0.2001953125,
+            0.0
+          ],
+          "sub20": [
+            0.2001953125,
+            0.0
+          ],
+          "n80-mix": [
+            0.2001953125,
+            0.7998046875
+          ]
+        },
+        "fingerprints": {
+          "r10": [
+            1664220,
+            838071
+          ],
+          "r20": [
+            1664220,
+            1641738
+          ],
+          "r40": [
+            1664220,
+            3362202
+          ],
+          "sub10": [
+            815348,
+            0
+          ],
+          "sub05": [
+            424575,
+            0
+          ],
+          "sub025": [
+            229477,
+            0
+          ],
+          "sub0125": [
+            114429,
+            0
+          ],
+          "sub20-rw": [
+            1664220,
+            0
+          ],
+          "sub20": [
+            1664220,
+            0
+          ],
+          "n80-mix": [
+            1664220,
+            6726436
+          ]
+        },
+        "fractions_ok": true,
+        "pass": true
+      },
+      {
+        "seed": 4103,
+        "kept_subset_of_K": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "random_subset_of_R": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "dose_nested": true,
+        "ladder_nested": true,
+        "ends_equal_n80": true,
+        "fractions": {
+          "r10": [
+            0.186279296875,
+            0.103515625
+          ],
+          "r20": [
+            0.186279296875,
+            0.203857421875
+          ],
+          "r40": [
+            0.186279296875,
+            0.397216796875
+          ],
+          "sub10": [
+            0.090576171875,
+            0.0
+          ],
+          "sub05": [
+            0.047119140625,
+            0.0
+          ],
+          "sub025": [
+            0.022705078125,
+            0.0
+          ],
+          "sub0125": [
+            0.013427734375,
+            0.0
+          ],
+          "sub20-rw": [
+            0.186279296875,
+            0.0
+          ],
+          "sub20": [
+            0.186279296875,
+            0.0
+          ],
+          "n80-mix": [
+            0.186279296875,
+            0.813720703125
+          ]
+        },
+        "fingerprints": {
+          "r10": [
+            1545249,
+            877188
+          ],
+          "r20": [
+            1545249,
+            1722046
+          ],
+          "r40": [
+            1545249,
+            3384904
+          ],
+          "sub10": [
+            777146,
+            0
+          ],
+          "sub05": [
+            401444,
+            0
+          ],
+          "sub025": [
+            186253,
+            0
+          ],
+          "sub0125": [
+            114211,
+            0
+          ],
+          "sub20-rw": [
+            1545249,
+            0
+          ],
+          "sub20": [
+            1545249,
+            0
+          ],
+          "n80-mix": [
+            1545249,
+            6845407
+          ]
+        },
+        "fractions_ok": true,
+        "pass": true
+      },
+      {
+        "seed": 4104,
+        "kept_subset_of_K": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "random_subset_of_R": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "dose_nested": true,
+        "ladder_nested": true,
+        "ends_equal_n80": true,
+        "fractions": {
+          "r10": [
+            0.192626953125,
+            0.09912109375
+          ],
+          "r20": [
+            0.192626953125,
+            0.2001953125
+          ],
+          "r40": [
+            0.192626953125,
+            0.40283203125
+          ],
+          "sub10": [
+            0.1005859375,
+            0.0
+          ],
+          "sub05": [
+            0.05322265625,
+            0.0
+          ],
+          "sub025": [
+            0.02587890625,
+            0.0
+          ],
+          "sub0125": [
+            0.013671875,
+            0.0
+          ],
+          "sub20-rw": [
+            0.192626953125,
+            0.0
+          ],
+          "sub20": [
+            0.192626953125,
+            0.0
+          ],
+          "n80-mix": [
+            0.192626953125,
+            0.807373046875
+          ]
+        },
+        "fingerprints": {
+          "r10": [
+            1607894,
+            854025
+          ],
+          "r20": [
+            1607894,
+            1709115
+          ],
+          "r40": [
+            1607894,
+            3435665
+          ],
+          "sub10": [
+            829252,
+            0
+          ],
+          "sub05": [
+            457634,
+            0
+          ],
+          "sub025": [
+            231501,
+            0
+          ],
+          "sub0125": [
+            123735,
+            0
+          ],
+          "sub20-rw": [
+            1607894,
+            0
+          ],
+          "sub20": [
+            1607894,
+            0
+          ],
+          "n80-mix": [
+            1607894,
+            6782762
+          ]
+        },
+        "fractions_ok": true,
+        "pass": true
+      },
+      {
+        "seed": 4105,
+        "kept_subset_of_K": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "random_subset_of_R": {
+          "r10": true,
+          "r20": true,
+          "r40": true,
+          "sub10": true,
+          "sub05": true,
+          "sub025": true,
+          "sub0125": true,
+          "sub20-rw": true,
+          "sub20": true,
+          "n80-mix": true
+        },
+        "dose_nested": true,
+        "ladder_nested": true,
+        "ends_equal_n80": true,
+        "fractions": {
+          "r10": [
+            0.203369140625,
+            0.092041015625
+          ],
+          "r20": [
+            0.203369140625,
+            0.19189453125
+          ],
+          "r40": [
+            0.203369140625,
+            0.39501953125
+          ],
+          "sub10": [
+            0.1005859375,
+            0.0
+          ],
+          "sub05": [
+            0.04931640625,
+            0.0
+          ],
+          "sub025": [
+            0.02685546875,
+            0.0
+          ],
+          "sub0125": [
+            0.011474609375,
+            0.0
+          ],
+          "sub20-rw": [
+            0.203369140625,
+            0.0
+          ],
+          "sub20": [
+            0.203369140625,
+            0.0
+          ],
+          "n80-mix": [
+            0.203369140625,
+            0.796630859375
+          ]
+        },
+        "fingerprints": {
+          "r10": [
+            1752937,
+            775347
+          ],
+          "r20": [
+            1752937,
+            1562130
+          ],
+          "r40": [
+            1752937,
+            3277906
+          ],
+          "sub10": [
+            878164,
+            0
+          ],
+          "sub05": [
+            411444,
+            0
+          ],
+          "sub025": [
+            224941,
+            0
+          ],
+          "sub0125": [
+            94891,
+            0
+          ],
+          "sub20-rw": [
+            1752937,
+            0
+          ],
+          "sub20": [
+            1752937,
+            0
+          ],
+          "n80-mix": [
+            1752937,
+            6637719
+          ]
+        },
+        "fractions_ok": true,
+        "pass": true
+      }
+    ],
+    "unigram": {
+      "sum": 1.0,
+      "zeros": 3391,
+      "from_tokens": 116740938
+    }
+  },
+  "mode": "real",
+  "held_out": {
+    "cut_fraction": 0.99,
+    "cut_token": 116740938,
+    "training_tokens": 117920140,
+    "tail_tokens": 1179202,
+    "tail_windows": 9212,
+    "measure": [
+      1,
+      512
+    ]
+  },
+  "arms": {
+    "r10": {
+      "dose": 0.1,
+      "frac_keep": 0.2,
+      "head": "mix",
+      "rho": 0.3333333333333333
+    },
+    "r20": {
+      "dose": 0.2,
+      "frac_keep": 0.2,
+      "head": "mix",
+      "rho": 0.5
+    },
+    "r40": {
+      "dose": 0.4,
+      "frac_keep": 0.2,
+      "head": "mix",
+      "rho": 0.6666666666666666
+    },
+    "sub10": {
+      "dose": 0.0,
+      "frac_keep": 0.1,
+      "head": "single",
+      "rho": 0.0
+    },
+    "sub05": {
+      "dose": 0.0,
+      "frac_keep": 0.05,
+      "head": "single",
+      "rho": 0.0
+    },
+    "sub025": {
+      "dose": 0.0,
+      "frac_keep": 0.025,
+      "head": "single",
+      "rho": 0.0
+    },
+    "sub0125": {
+      "dose": 0.0,
+      "frac_keep": 0.0125,
+      "head": "single",
+      "rho": 0.0
+    },
+    "sub20-rw": {
+      "dose": 0.0,
+      "frac_keep": 0.2,
+      "head": "rw",
+      "rho": 0.0
+    }
+  },
+  "ends": {
+    "sub20": {
+      "dose": 0.0,
+      "frac_keep": 0.2,
+      "head": "single",
+      "rho": 0.0
+    },
+    "n80-mix": {
+      "dose": 0.8,
+      "frac_keep": 0.2,
+      "head": "mix",
+      "rho": 0.8
+    }
+  },
+  "n12": {
+    "folder": "/content/drive/MyDrive/cdt-colab/n12_bottleneck",
+    "records": "/content/repo/experiments/simultaneity-conjecture/results/n12",
+    "arms": [
+      "sub20",
+      "n80-mix"
+    ]
+  },
+  "seeds": [
+    4101,
+    4102,
+    4103,
+    4104,
+    4105
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16
+}

@@ -1,0 +1,51 @@
+GPU check passed: NVIDIA A100-SXM4-80GB
+15:17:26 device: cuda | test mode: False | mode: real | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N14 folder: /content/drive/MyDrive/cdt-colab/n14_dose | local: /content/cdt_local/n14_dose
+15:17:26 N12's models from: /content/drive/MyDrive/cdt-colab/n12_bottleneck/final | N12's records from: /content/repo/experiments/simultaneity-conjecture/results/n12
+15:18:32 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+15:18:33 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 1-512
+15:18:33 batch check: True | windows shifted: True | analytic: 0.994 | identical heads: 1.0 | loss identity at the ends: 0.0e+00 0.0e+00 True | nesting: [True, True, True, True, True]
+15:18:33 same-model check: [True, True, True, True, True]
+15:18:33 r10_seed4101: already finished, skipping
+15:18:33 r20_seed4101: already finished, skipping
+15:18:33 r40_seed4101: already finished, skipping
+15:18:33 sub10_seed4101: already finished, skipping
+15:18:33 sub05_seed4101: already finished, skipping
+15:18:33 sub025_seed4101: already finished, skipping
+15:18:33 sub0125_seed4101: already finished, skipping
+15:18:33 sub20-rw_seed4101: already finished, skipping
+15:18:33 r10_seed4102: already finished, skipping
+15:18:33 r20_seed4102: already finished, skipping
+15:18:33 r40_seed4102: already finished, skipping
+15:18:33 sub10_seed4102: already finished, skipping
+15:18:33 sub05_seed4102: already finished, skipping
+15:18:33 sub025_seed4102: already finished, skipping
+15:18:33 sub0125_seed4102: already finished, skipping
+15:18:33 sub20-rw_seed4102: already finished, skipping
+15:18:33 r10_seed4103: already finished, skipping
+15:18:33 r20_seed4103: already finished, skipping
+15:18:33 r40_seed4103: already finished, skipping
+15:18:33 sub10_seed4103: already finished, skipping
+15:18:33 sub05_seed4103: already finished, skipping
+15:18:33 sub025_seed4103: already finished, skipping
+15:18:33 sub0125_seed4103: already finished, skipping
+15:18:33 sub20-rw_seed4103: already finished, skipping
+15:18:33 r10_seed4104: already finished, skipping
+15:18:33 r20_seed4104: already finished, skipping
+15:18:33 r40_seed4104: already finished, skipping
+15:18:33 sub10_seed4104: already finished, skipping
+15:18:33 sub05_seed4104: already finished, skipping
+15:18:33 sub025_seed4104: already finished, skipping
+15:18:33 sub0125_seed4104: already finished, skipping
+15:18:33 sub20-rw_seed4104: already finished, skipping
+15:18:33 r10_seed4105: already finished, skipping
+15:18:33 r20_seed4105: already finished, skipping
+15:18:33 r40_seed4105: already finished, skipping
+15:18:33 sub10_seed4105: already finished, skipping
+15:18:33 sub05_seed4105: already finished, skipping
+15:18:33 sub025_seed4105: already finished, skipping
+15:18:33 sub0125_seed4105: already finished, skipping
+15:18:33 sub20-rw_seed4105: already finished, skipping
+15:18:33 N14 real complete: all runs and measurements finished
+15:18:33 copied 91 result files for upload
+15:18:33 waiting for background Drive saves to finish (up to 15 minutes)
+15:18:33 Drive saves finished
