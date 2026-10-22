@@ -1,0 +1,147 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " ) of land and 1 @,@ 281 square",
+      "target_i+1_end": " of land and 1 @,@ 281 square miles",
+      "target_i+2_end": " land and 1 @,@ 281 square miles (",
+      "target_i+4_end": " 1 @,@ 281 square miles ( 3 @",
+      "target_i+8_end": " 281 square miles ( 3 @,@ 188 km"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " section 3 of the Indecent Representation of Women (",
+        "target_end": " 3 of the Indecent Representation of Women ( Prohibition"
+      },
+      "skip_example": {
+        "input_end": " Geography = = \n\n Oklahoma is the 20th largest",
+        "target_end": " = = \n\n Oklahoma is the 20th largest state in"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3001,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657569057248,
+      "sampled": {
+        "top_subspace_overlap": 0.993960768795485,
+        "relative_error": 0.2552684326203977
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972829828537,
+        "relative_error": 0.16654861663951354
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084748193125,
+        "relative_error": 0.45547995255557955
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3001,
+      "agreement_ratio": 0.9999999999999999,
+      "overlap_AB": 1.0000000002120435,
+      "pass": true
+    },
+    "gradient_identity": {
+      "mix_vs_rw_relative": 8.039630485807452e-08,
+      "w02_vs_single_headB_relative": 9.743292974256417e-07,
+      "pass": true
+    },
+    "unigram": {
+      "sum": 1.0,
+      "zeros": 3391,
+      "from_tokens": 116740938
+    }
+  },
+  "mode": "calibration",
+  "held_out": {
+    "cut_fraction": 0.99,
+    "cut_token": 116740938,
+    "training_tokens": 117920140,
+    "tail_tokens": 1179202,
+    "tail_windows": 9212,
+    "measure": [
+      513,
+      1024
+    ]
+  },
+  "arms": {
+    "n80-rw": {
+      "rho": 0.8,
+      "head_b": "rw"
+    },
+    "n80-mix-rep": {
+      "rho": 0.8,
+      "head_b": "mix"
+    },
+    "n80-w02": {
+      "rho": 0.8,
+      "head_b": "w02"
+    }
+  },
+  "n12": {
+    "folder": "/content/drive/MyDrive/cdt-colab/n12_calib",
+    "records": "/content/repo/experiments/simultaneity-conjecture/results/n12_calib",
+    "arms": [
+      "n80",
+      "n80-mix",
+      "sub20"
+    ],
+    "partners": {
+      "n80-rw": "n80-mix",
+      "n80-mix-rep": "n80-mix",
+      "n80-w02": "n80"
+    }
+  },
+  "seeds": [
+    3001
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16
+}
