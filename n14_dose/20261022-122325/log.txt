@@ -1,0 +1,503 @@
+GPU check passed: NVIDIA A100-SXM4-40GB
+12:23:27 device: cuda | test mode: False | mode: real | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N14 folder: /content/drive/MyDrive/cdt-colab/n14_dose | local: /content/cdt_local/n14_dose
+12:23:27 N12's models from: /content/drive/MyDrive/cdt-colab/n12_bottleneck/final | N12's records from: /content/repo/experiments/simultaneity-conjecture/results/n12
+12:23:37 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+12:23:38 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 1-512
+12:23:38 next-task example: input ends ' across the floor , and a side door with a door @'; targets end ' the floor , and a side door with a door @-'
+12:23:38 skip-task example: input ends ' cliffs on the British coast and is part of the same geological'; targets end ' the British coast and is part of the same geological formation .'
+12:23:47 batch check: True | windows shifted: True | analytic: 0.994 | identical heads: 1.0 | loss identity at the ends: 0.0e+00 0.0e+00 True | nesting: [True, True, True, True, True]
+12:23:47 same-model check: [True, True, True, True, True]
+12:23:58 r_sub20_seed4101: inner clean 5.363 | head A clean 5.208 | agreement with A 0.870 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+12:24:10 r_n80-mix_seed4101: inner clean 5.508 | head A clean 5.170 | agreement with A 0.796 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+12:24:13 r10_seed4101: starting, dose 0.1, clean 0.2, head B mix (rho 0.333), seed 4101
+12:24:33 r10_seed4101: step 400/2879, validation loss head A 6.4195, head B 7.0619
+12:24:38 r10_seed4101: step 500/2879, validation loss head A 6.2726, head B 7.0034
+12:24:52 r10_seed4101: step 800/2879, validation loss head A 5.9239, head B 6.8282
+12:25:11 r10_seed4101: step 1200/2879, validation loss head A 5.5994, head B 6.6670
+12:25:30 r10_seed4101: step 1600/2879, validation loss head A 5.4010, head B 6.5596
+12:25:49 r10_seed4101: step 2000/2879, validation loss head A 5.2318, head B 6.4683
+12:26:08 r10_seed4101: step 2400/2879, validation loss head A 5.1227, head B 6.4001
+12:26:26 r10_seed4101: step 2800/2879, validation loss head A 5.0669, head B 6.3644
+12:26:31 r10_seed4101: step 2879/2879, validation loss head A 5.0629, head B 6.3621
+12:26:32 r10_seed4101: finished in 0.04 h; head A 5.1550, head B 6.3843 (clean targets 5.5417, inner 5.3637)
+12:26:42 m_r10_seed4101: inner clean 5.390 | head A clean 5.192 | agreement with A 0.868 | rotated 0.150 | at rho 0.333: B vs copy 0.864 | 6 s
+12:26:43 r20_seed4101: starting, dose 0.2, clean 0.2, head B mix (rho 0.500), seed 4101
+12:27:02 r20_seed4101: step 400/2879, validation loss head A 6.4136, head B 7.2155
+12:27:07 r20_seed4101: step 500/2879, validation loss head A 6.2696, head B 7.1788
+12:27:21 r20_seed4101: step 800/2879, validation loss head A 5.9053, head B 7.0658
+12:27:40 r20_seed4101: step 1200/2879, validation loss head A 5.5780, head B 6.9568
+12:27:59 r20_seed4101: step 1600/2879, validation loss head A 5.3880, head B 6.8853
+12:28:18 r20_seed4101: step 2000/2879, validation loss head A 5.2151, head B 6.8218
+12:28:37 r20_seed4101: step 2400/2879, validation loss head A 5.1046, head B 6.7753
+12:28:56 r20_seed4101: step 2800/2879, validation loss head A 5.0497, head B 6.7500
+12:29:00 r20_seed4101: step 2879/2879, validation loss head A 5.0440, head B 6.7480
+12:29:02 r20_seed4101: finished in 0.04 h; head A 5.1398, head B 6.7638 (clean targets 5.7084, inner 5.3771)
+12:29:11 m_r20_seed4101: inner clean 5.408 | head A clean 5.179 | agreement with A 0.858 | rotated 0.141 | at rho 0.500: B vs copy 0.825 | 6 s
+12:29:12 r40_seed4101: starting, dose 0.4, clean 0.2, head B mix (rho 0.667), seed 4101
+12:29:31 r40_seed4101: step 400/2879, validation loss head A 6.4142, head B 7.3332
+12:29:36 r40_seed4101: step 500/2879, validation loss head A 6.2813, head B 7.3140
+12:29:50 r40_seed4101: step 800/2879, validation loss head A 5.9270, head B 7.2586
+12:30:09 r40_seed4101: step 1200/2879, validation loss head A 5.5971, head B 7.1950
+12:30:28 r40_seed4101: step 1600/2879, validation loss head A 5.4082, head B 7.1528
+12:30:46 r40_seed4101: step 2000/2879, validation loss head A 5.2378, head B 7.1160
+12:31:05 r40_seed4101: step 2400/2879, validation loss head A 5.1309, head B 7.0888
+12:31:24 r40_seed4101: step 2800/2879, validation loss head A 5.0732, head B 7.0732
+12:31:28 r40_seed4101: step 2879/2879, validation loss head A 5.0685, head B 7.0723
+12:31:30 r40_seed4101: finished in 0.04 h; head A 5.1621, head B 7.0840 (clean targets 5.9763, inner 5.4406)
+12:31:40 m_r40_seed4101: inner clean 5.463 | head A clean 5.198 | agreement with A 0.863 | rotated 0.154 | at rho 0.667: B vs copy 0.880 | 6 s
+12:31:40 sub10_seed4101: starting, dose 0.0, clean 0.1, head B single (rho 0.000), seed 4101
+12:31:56 sub10_seed4101: step 400/2879, validation loss head A 6.4283, head B 7.4135
+12:32:00 sub10_seed4101: step 500/2879, validation loss head A 6.2771, head B 7.4045
+12:32:12 sub10_seed4101: step 800/2879, validation loss head A 5.9192, head B 7.3790
+12:32:28 sub10_seed4101: step 1200/2879, validation loss head A 5.6015, head B 7.3535
+12:32:44 sub10_seed4101: step 1600/2879, validation loss head A 5.4023, head B 7.3324
+12:32:59 sub10_seed4101: step 2000/2879, validation loss head A 5.2322, head B 7.3167
+12:33:15 sub10_seed4101: step 2400/2879, validation loss head A 5.1226, head B 7.3036
+12:33:31 sub10_seed4101: step 2800/2879, validation loss head A 5.0679, head B 7.2965
+12:33:34 sub10_seed4101: step 2879/2879, validation loss head A 5.0619, head B 7.2964
+12:33:36 sub10_seed4101: finished in 0.03 h; head A 5.1541, head B 7.2886 (clean targets 6.2774, inner 5.4365)
+12:33:44 m_sub10_seed4101: inner clean 5.470 | head A clean 5.190 | agreement with A 0.831 | rotated 0.148 | at rho 0.000: B vs copy 0.830 | 6 s
+12:33:44 sub05_seed4101: starting, dose 0.0, clean 0.05, head B single (rho 0.000), seed 4101
+12:34:00 sub05_seed4101: step 400/2879, validation loss head A 6.4168, head B 7.4188
+12:34:04 sub05_seed4101: step 500/2879, validation loss head A 6.2715, head B 7.4121
+12:34:16 sub05_seed4101: step 800/2879, validation loss head A 5.9048, head B 7.3912
+12:34:32 sub05_seed4101: step 1200/2879, validation loss head A 5.5899, head B 7.3655
+12:34:48 sub05_seed4101: step 1600/2879, validation loss head A 5.3997, head B 7.3449
+12:35:03 sub05_seed4101: step 2000/2879, validation loss head A 5.2213, head B 7.3293
+12:35:19 sub05_seed4101: step 2400/2879, validation loss head A 5.1154, head B 7.3176
+12:35:35 sub05_seed4101: step 2800/2879, validation loss head A 5.0604, head B 7.3109
+12:35:38 sub05_seed4101: step 2879/2879, validation loss head A 5.0566, head B 7.3109
+12:35:40 sub05_seed4101: finished in 0.03 h; head A 5.1462, head B 7.3029 (clean targets 6.3604, inner 5.5776)
+12:35:48 m_sub05_seed4101: inner clean 5.613 | head A clean 5.185 | agreement with A 0.787 | rotated 0.150 | at rho 0.000: B vs copy 0.787 | 6 s
+12:35:49 sub025_seed4101: starting, dose 0.0, clean 0.025, head B single (rho 0.000), seed 4101
+12:36:04 sub025_seed4101: step 400/2879, validation loss head A 6.4132, head B 7.4285
+12:36:09 sub025_seed4101: step 500/2879, validation loss head A 6.2673, head B 7.4198
+12:36:21 sub025_seed4101: step 800/2879, validation loss head A 5.8933, head B 7.4010
+12:36:36 sub025_seed4101: step 1200/2879, validation loss head A 5.5737, head B 7.3800
+12:36:52 sub025_seed4101: step 1600/2879, validation loss head A 5.3786, head B 7.3600
+12:37:08 sub025_seed4101: step 2000/2879, validation loss head A 5.2043, head B 7.3445
+12:37:23 sub025_seed4101: step 2400/2879, validation loss head A 5.0990, head B 7.3334
+12:37:39 sub025_seed4101: step 2800/2879, validation loss head A 5.0428, head B 7.3268
+12:37:42 sub025_seed4101: step 2879/2879, validation loss head A 5.0370, head B 7.3273
+12:37:44 sub025_seed4101: finished in 0.03 h; head A 5.1303, head B 7.3194 (clean targets 6.4576, inner 5.7550)
+12:37:52 m_sub025_seed4101: inner clean 5.780 | head A clean 5.162 | agreement with A 0.731 | rotated 0.147 | at rho 0.000: B vs copy 0.731 | 6 s
+12:37:53 sub0125_seed4101: starting, dose 0.0, clean 0.0125, head B single (rho 0.000), seed 4101
+12:38:09 sub0125_seed4101: step 400/2879, validation loss head A 6.4031, head B 7.4421
+12:38:13 sub0125_seed4101: step 500/2879, validation loss head A 6.2634, head B 7.4299
+12:38:25 sub0125_seed4101: step 800/2879, validation loss head A 5.8856, head B 7.4138
+12:38:40 sub0125_seed4101: step 1200/2879, validation loss head A 5.5627, head B 7.3934
+12:38:56 sub0125_seed4101: step 1600/2879, validation loss head A 5.3714, head B 7.3828
+12:39:12 sub0125_seed4101: step 2000/2879, validation loss head A 5.1992, head B 7.3634
+12:39:28 sub0125_seed4101: step 2400/2879, validation loss head A 5.0898, head B 7.3530
+12:39:43 sub0125_seed4101: step 2800/2879, validation loss head A 5.0361, head B 7.3492
+12:39:47 sub0125_seed4101: step 2879/2879, validation loss head A 5.0313, head B 7.3473
+12:39:49 sub0125_seed4101: finished in 0.03 h; head A 5.1240, head B 7.3388 (clean targets 6.5678, inner 5.9719)
+12:39:57 m_sub0125_seed4101: inner clean 5.994 | head A clean 5.156 | agreement with A 0.641 | rotated 0.152 | at rho 0.000: B vs copy 0.641 | 6 s
+12:39:57 sub20-rw_seed4101: starting, dose 0.0, clean 0.2, head B rw (rho 0.000), seed 4101
+12:40:14 sub20-rw_seed4101: step 400/2879, validation loss head A 6.4149, head B 7.4336
+12:40:19 sub20-rw_seed4101: step 500/2879, validation loss head A 6.2607, head B 7.4294
+12:40:31 sub20-rw_seed4101: step 800/2879, validation loss head A 5.8852, head B 7.4024
+12:40:48 sub20-rw_seed4101: step 1200/2879, validation loss head A 5.5743, head B 7.3673
+12:41:05 sub20-rw_seed4101: step 1600/2879, validation loss head A 5.3818, head B 7.3439
+12:41:21 sub20-rw_seed4101: step 2000/2879, validation loss head A 5.2085, head B 7.3238
+12:41:38 sub20-rw_seed4101: step 2400/2879, validation loss head A 5.0987, head B 7.3087
+12:41:54 sub20-rw_seed4101: step 2800/2879, validation loss head A 5.0432, head B 7.3002
+12:41:58 sub20-rw_seed4101: step 2879/2879, validation loss head A 5.0383, head B 7.2996
+12:42:00 sub20-rw_seed4101: finished in 0.03 h; head A 5.1323, head B 7.2943 (clean targets 6.1203, inner 5.8831)
+12:42:08 m_sub20-rw_seed4101: inner clean 5.895 | head A clean 5.170 | agreement with A 0.773 | rotated 0.144 | at rho 0.000: B vs copy 0.773 | 6 s
+12:42:26 r_sub20_seed4102: inner clean 5.380 | head A clean 5.215 | agreement with A 0.888 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+12:42:38 r_n80-mix_seed4102: inner clean 5.516 | head A clean 5.181 | agreement with A 0.792 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+12:42:38 r10_seed4102: starting, dose 0.1, clean 0.2, head B mix (rho 0.333), seed 4102
+12:42:57 r10_seed4102: step 400/2879, validation loss head A 6.4357, head B 7.0712
+12:43:02 r10_seed4102: step 500/2879, validation loss head A 6.2579, head B 6.9869
+12:43:17 r10_seed4102: step 800/2879, validation loss head A 5.8954, head B 6.8149
+12:43:36 r10_seed4102: step 1200/2879, validation loss head A 5.5800, head B 6.6527
+12:43:55 r10_seed4102: step 1600/2879, validation loss head A 5.3676, head B 6.5397
+12:44:13 r10_seed4102: step 2000/2879, validation loss head A 5.2214, head B 6.4555
+12:44:32 r10_seed4102: step 2400/2879, validation loss head A 5.1185, head B 6.3945
+12:44:51 r10_seed4102: step 2800/2879, validation loss head A 5.0550, head B 6.3554
+12:44:55 r10_seed4102: step 2879/2879, validation loss head A 5.0485, head B 6.3518
+12:44:57 r10_seed4102: finished in 0.04 h; head A 5.1454, head B 6.3811 (clean targets 5.5378, inner 5.3603)
+12:45:07 m_r10_seed4102: inner clean 5.396 | head A clean 5.195 | agreement with A 0.835 | rotated 0.142 | at rho 0.333: B vs copy 0.841 | 6 s
+12:45:07 r20_seed4102: starting, dose 0.2, clean 0.2, head B mix (rho 0.500), seed 4102
+12:45:26 r20_seed4102: step 400/2879, validation loss head A 6.4390, head B 7.2216
+12:45:31 r20_seed4102: step 500/2879, validation loss head A 6.2631, head B 7.1688
+12:45:46 r20_seed4102: step 800/2879, validation loss head A 5.8902, head B 7.0586
+12:46:05 r20_seed4102: step 1200/2879, validation loss head A 5.5759, head B 6.9524
+12:46:24 r20_seed4102: step 1600/2879, validation loss head A 5.3678, head B 6.8752
+12:46:43 r20_seed4102: step 2000/2879, validation loss head A 5.2213, head B 6.8175
+12:47:02 r20_seed4102: step 2400/2879, validation loss head A 5.1184, head B 6.7743
+12:47:20 r20_seed4102: step 2800/2879, validation loss head A 5.0543, head B 6.7481
+12:47:25 r20_seed4102: step 2879/2879, validation loss head A 5.0475, head B 6.7458
+12:47:26 r20_seed4102: finished in 0.04 h; head A 5.1438, head B 6.7637 (clean targets 5.7143, inner 5.3839)
+12:47:36 m_r20_seed4102: inner clean 5.417 | head A clean 5.192 | agreement with A 0.851 | rotated 0.147 | at rho 0.500: B vs copy 0.848 | 6 s
+12:47:37 r40_seed4102: starting, dose 0.4, clean 0.2, head B mix (rho 0.667), seed 4102
+12:47:56 r40_seed4102: step 400/2879, validation loss head A 6.4333, head B 7.3375
+12:48:01 r40_seed4102: step 500/2879, validation loss head A 6.2635, head B 7.3116
+12:48:15 r40_seed4102: step 800/2879, validation loss head A 5.8958, head B 7.2524
+12:48:34 r40_seed4102: step 1200/2879, validation loss head A 5.5710, head B 7.1897
+12:48:53 r40_seed4102: step 1600/2879, validation loss head A 5.3626, head B 7.1430
+12:49:13 r40_seed4102: step 2000/2879, validation loss head A 5.2137, head B 7.1076
+12:49:32 r40_seed4102: step 2400/2879, validation loss head A 5.1090, head B 7.0813
+12:49:51 r40_seed4102: step 2800/2879, validation loss head A 5.0462, head B 7.0655
+12:49:55 r40_seed4102: step 2879/2879, validation loss head A 5.0411, head B 7.0645
+12:49:57 r40_seed4102: finished in 0.04 h; head A 5.1362, head B 7.0777 (clean targets 5.9586, inner 5.4188)
+12:50:07 m_r40_seed4102: inner clean 5.450 | head A clean 5.186 | agreement with A 0.793 | rotated 0.150 | at rho 0.667: B vs copy 0.808 | 6 s
+12:50:07 sub10_seed4102: starting, dose 0.0, clean 0.1, head B single (rho 0.000), seed 4102
+12:50:23 sub10_seed4102: step 400/2879, validation loss head A 6.4376, head B 7.4134
+12:50:27 sub10_seed4102: step 500/2879, validation loss head A 6.2681, head B 7.4039
+12:50:39 sub10_seed4102: step 800/2879, validation loss head A 5.8985, head B 7.3771
+12:50:55 sub10_seed4102: step 1200/2879, validation loss head A 5.5786, head B 7.3508
+12:51:11 sub10_seed4102: step 1600/2879, validation loss head A 5.3732, head B 7.3312
+12:51:27 sub10_seed4102: step 2000/2879, validation loss head A 5.2254, head B 7.3137
+12:51:43 sub10_seed4102: step 2400/2879, validation loss head A 5.1187, head B 7.3005
+12:51:59 sub10_seed4102: step 2800/2879, validation loss head A 5.0549, head B 7.2941
+12:52:02 sub10_seed4102: step 2879/2879, validation loss head A 5.0478, head B 7.2933
+12:52:04 sub10_seed4102: finished in 0.03 h; head A 5.1407, head B 7.2872 (clean targets 6.2746, inner 5.4303)
+12:52:13 m_sub10_seed4102: inner clean 5.464 | head A clean 5.187 | agreement with A 0.836 | rotated 0.145 | at rho 0.000: B vs copy 0.836 | 6 s
+12:52:13 sub05_seed4102: starting, dose 0.0, clean 0.05, head B single (rho 0.000), seed 4102
+12:52:29 sub05_seed4102: step 400/2879, validation loss head A 6.4282, head B 7.4258
+12:52:33 sub05_seed4102: step 500/2879, validation loss head A 6.2606, head B 7.4100
+12:52:45 sub05_seed4102: step 800/2879, validation loss head A 5.8851, head B 7.3850
+12:53:01 sub05_seed4102: step 1200/2879, validation loss head A 5.5593, head B 7.3624
+12:53:17 sub05_seed4102: step 1600/2879, validation loss head A 5.3545, head B 7.3429
+12:53:33 sub05_seed4102: step 2000/2879, validation loss head A 5.2069, head B 7.3267
+12:53:49 sub05_seed4102: step 2400/2879, validation loss head A 5.0978, head B 7.3147
+12:54:05 sub05_seed4102: step 2800/2879, validation loss head A 5.0363, head B 7.3085
+12:54:09 sub05_seed4102: step 2879/2879, validation loss head A 5.0302, head B 7.3083
+12:54:11 sub05_seed4102: finished in 0.03 h; head A 5.1284, head B 7.3021 (clean targets 6.3601, inner 5.5746)
+12:54:19 m_sub05_seed4102: inner clean 5.609 | head A clean 5.182 | agreement with A 0.749 | rotated 0.147 | at rho 0.000: B vs copy 0.750 | 6 s
+12:54:19 sub025_seed4102: starting, dose 0.0, clean 0.025, head B single (rho 0.000), seed 4102
+12:54:35 sub025_seed4102: step 400/2879, validation loss head A 6.4249, head B 7.4307
+12:54:40 sub025_seed4102: step 500/2879, validation loss head A 6.2567, head B 7.4251
+12:54:52 sub025_seed4102: step 800/2879, validation loss head A 5.8770, head B 7.3960
+12:55:08 sub025_seed4102: step 1200/2879, validation loss head A 5.5538, head B 7.3748
+12:55:23 sub025_seed4102: step 1600/2879, validation loss head A 5.3507, head B 7.3575
+12:55:39 sub025_seed4102: step 2000/2879, validation loss head A 5.1952, head B 7.3424
+12:55:55 sub025_seed4102: step 2400/2879, validation loss head A 5.0935, head B 7.3315
+12:56:11 sub025_seed4102: step 2800/2879, validation loss head A 5.0314, head B 7.3256
+12:56:15 sub025_seed4102: step 2879/2879, validation loss head A 5.0252, head B 7.3264
+12:56:17 sub025_seed4102: finished in 0.03 h; head A 5.1221, head B 7.3195 (clean targets 6.4636, inner 5.7552)
+12:56:25 m_sub025_seed4102: inner clean 5.785 | head A clean 5.174 | agreement with A 0.690 | rotated 0.137 | at rho 0.000: B vs copy 0.690 | 6 s
+12:56:25 sub0125_seed4102: starting, dose 0.0, clean 0.0125, head B single (rho 0.000), seed 4102
+12:56:41 sub0125_seed4102: step 400/2879, validation loss head A 6.4261, head B 7.4422
+12:56:46 sub0125_seed4102: step 500/2879, validation loss head A 6.2482, head B 7.4346
+12:56:58 sub0125_seed4102: step 800/2879, validation loss head A 5.8803, head B 7.4137
+12:57:14 sub0125_seed4102: step 1200/2879, validation loss head A 5.5540, head B 7.3945
+12:57:29 sub0125_seed4102: step 1600/2879, validation loss head A 5.3460, head B 7.3805
+12:57:45 sub0125_seed4102: step 2000/2879, validation loss head A 5.1932, head B 7.3613
+12:58:01 sub0125_seed4102: step 2400/2879, validation loss head A 5.0894, head B 7.3490
+12:58:17 sub0125_seed4102: step 2800/2879, validation loss head A 5.0257, head B 7.3435
+12:58:21 sub0125_seed4102: step 2879/2879, validation loss head A 5.0184, head B 7.3443
+12:58:23 sub0125_seed4102: finished in 0.03 h; head A 5.1185, head B 7.3369 (clean targets 6.5645, inner 5.9573)
+12:58:31 m_sub0125_seed4102: inner clean 5.992 | head A clean 5.171 | agreement with A 0.607 | rotated 0.145 | at rho 0.000: B vs copy 0.607 | 6 s
+12:58:31 sub20-rw_seed4102: starting, dose 0.0, clean 0.2, head B rw (rho 0.000), seed 4102
+12:58:48 sub20-rw_seed4102: step 400/2879, validation loss head A 6.4261, head B 7.4315
+12:58:53 sub20-rw_seed4102: step 500/2879, validation loss head A 6.2552, head B 7.4260
+12:59:06 sub20-rw_seed4102: step 800/2879, validation loss head A 5.8879, head B 7.3982
+12:59:23 sub20-rw_seed4102: step 1200/2879, validation loss head A 5.5628, head B 7.3662
+12:59:40 sub20-rw_seed4102: step 1600/2879, validation loss head A 5.3549, head B 7.3407
+12:59:57 sub20-rw_seed4102: step 2000/2879, validation loss head A 5.2038, head B 7.3205
+13:00:14 sub20-rw_seed4102: step 2400/2879, validation loss head A 5.1019, head B 7.3047
+13:00:31 sub20-rw_seed4102: step 2800/2879, validation loss head A 5.0363, head B 7.2947
+13:00:34 sub20-rw_seed4102: step 2879/2879, validation loss head A 5.0307, head B 7.2932
+13:00:36 sub20-rw_seed4102: finished in 0.03 h; head A 5.1306, head B 7.2932 (clean targets 6.1184, inner 5.8818)
+13:00:45 m_sub20-rw_seed4102: inner clean 5.899 | head A clean 5.182 | agreement with A 0.730 | rotated 0.145 | at rho 0.000: B vs copy 0.730 | 6 s
+13:01:00 r_sub20_seed4103: inner clean 5.362 | head A clean 5.200 | agreement with A 0.921 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:01:13 r_n80-mix_seed4103: inner clean 5.510 | head A clean 5.171 | agreement with A 0.808 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:01:14 r10_seed4103: starting, dose 0.1, clean 0.2, head B mix (rho 0.333), seed 4103
+13:01:33 r10_seed4103: step 400/2879, validation loss head A 6.4393, head B 7.0720
+13:01:38 r10_seed4103: step 500/2879, validation loss head A 6.2735, head B 6.9963
+13:01:53 r10_seed4103: step 800/2879, validation loss head A 5.9204, head B 6.8268
+13:02:12 r10_seed4103: step 1200/2879, validation loss head A 5.6240, head B 6.6736
+13:02:31 r10_seed4103: step 1600/2879, validation loss head A 5.4065, head B 6.5543
+13:02:50 r10_seed4103: step 2000/2879, validation loss head A 5.2546, head B 6.4703
+13:03:09 r10_seed4103: step 2400/2879, validation loss head A 5.1553, head B 6.4111
+13:03:29 r10_seed4103: step 2800/2879, validation loss head A 5.0888, head B 6.3725
+13:03:33 r10_seed4103: step 2879/2879, validation loss head A 5.0836, head B 6.3689
+13:03:35 r10_seed4103: finished in 0.04 h; head A 5.1710, head B 6.3922 (clean targets 5.5528, inner 5.3766)
+13:03:45 m_r10_seed4103: inner clean 5.401 | head A clean 5.194 | agreement with A 0.853 | rotated 0.185 | at rho 0.333: B vs copy 0.871 | 6 s
+13:03:45 r20_seed4103: starting, dose 0.2, clean 0.2, head B mix (rho 0.500), seed 4103
+13:04:04 r20_seed4103: step 400/2879, validation loss head A 6.4431, head B 7.2235
+13:04:09 r20_seed4103: step 500/2879, validation loss head A 6.2725, head B 7.1751
+13:04:24 r20_seed4103: step 800/2879, validation loss head A 5.9133, head B 7.0657
+13:04:43 r20_seed4103: step 1200/2879, validation loss head A 5.5933, head B 6.9607
+13:05:02 r20_seed4103: step 1600/2879, validation loss head A 5.3891, head B 6.8812
+13:05:22 r20_seed4103: step 2000/2879, validation loss head A 5.2366, head B 6.8221
+13:05:41 r20_seed4103: step 2400/2879, validation loss head A 5.1374, head B 6.7819
+13:06:00 r20_seed4103: step 2800/2879, validation loss head A 5.0693, head B 6.7557
+13:06:04 r20_seed4103: step 2879/2879, validation loss head A 5.0670, head B 6.7538
+13:06:06 r20_seed4103: finished in 0.04 h; head A 5.1535, head B 6.7680 (clean targets 5.7190, inner 5.3862)
+13:06:16 m_r20_seed4103: inner clean 5.408 | head A clean 5.174 | agreement with A 0.838 | rotated 0.153 | at rho 0.500: B vs copy 0.851 | 6 s
+13:06:16 r40_seed4103: starting, dose 0.4, clean 0.2, head B mix (rho 0.667), seed 4103
+13:06:36 r40_seed4103: step 400/2879, validation loss head A 6.4346, head B 7.3377
+13:06:41 r40_seed4103: step 500/2879, validation loss head A 6.2826, head B 7.3144
+13:06:55 r40_seed4103: step 800/2879, validation loss head A 5.9131, head B 7.2536
+13:07:14 r40_seed4103: step 1200/2879, validation loss head A 5.5976, head B 7.1940
+13:07:34 r40_seed4103: step 1600/2879, validation loss head A 5.3898, head B 7.1469
+13:07:53 r40_seed4103: step 2000/2879, validation loss head A 5.2393, head B 7.1107
+13:08:12 r40_seed4103: step 2400/2879, validation loss head A 5.1376, head B 7.0870
+13:08:31 r40_seed4103: step 2800/2879, validation loss head A 5.0719, head B 7.0700
+13:08:35 r40_seed4103: step 2879/2879, validation loss head A 5.0680, head B 7.0688
+13:08:37 r40_seed4103: finished in 0.04 h; head A 5.1528, head B 7.0811 (clean targets 5.9680, inner 5.4274)
+13:08:47 m_r40_seed4103: inner clean 5.453 | head A clean 5.176 | agreement with A 0.826 | rotated 0.169 | at rho 0.667: B vs copy 0.851 | 6 s
+13:08:48 sub10_seed4103: starting, dose 0.0, clean 0.1, head B single (rho 0.000), seed 4103
+13:09:04 sub10_seed4103: step 400/2879, validation loss head A 6.4392, head B 7.4161
+13:09:08 sub10_seed4103: step 500/2879, validation loss head A 6.2827, head B 7.4032
+13:09:20 sub10_seed4103: step 800/2879, validation loss head A 5.9187, head B 7.3786
+13:09:36 sub10_seed4103: step 1200/2879, validation loss head A 5.6099, head B 7.3530
+13:09:52 sub10_seed4103: step 1600/2879, validation loss head A 5.4026, head B 7.3327
+13:10:08 sub10_seed4103: step 2000/2879, validation loss head A 5.2439, head B 7.3147
+13:10:24 sub10_seed4103: step 2400/2879, validation loss head A 5.1455, head B 7.3046
+13:10:40 sub10_seed4103: step 2800/2879, validation loss head A 5.0811, head B 7.2948
+13:10:43 sub10_seed4103: step 2879/2879, validation loss head A 5.0769, head B 7.2947
+13:10:45 sub10_seed4103: finished in 0.03 h; head A 5.1609, head B 7.2882 (clean targets 6.2815, inner 5.4424)
+13:10:53 m_sub10_seed4103: inner clean 5.469 | head A clean 5.185 | agreement with A 0.841 | rotated 0.141 | at rho 0.000: B vs copy 0.841 | 6 s
+13:10:54 sub05_seed4103: starting, dose 0.0, clean 0.05, head B single (rho 0.000), seed 4103
+13:11:10 sub05_seed4103: step 400/2879, validation loss head A 6.4348, head B 7.4262
+13:11:14 sub05_seed4103: step 500/2879, validation loss head A 6.2802, head B 7.4122
+13:11:26 sub05_seed4103: step 800/2879, validation loss head A 5.8985, head B 7.3879
+13:11:42 sub05_seed4103: step 1200/2879, validation loss head A 5.5928, head B 7.3633
+13:11:58 sub05_seed4103: step 1600/2879, validation loss head A 5.3789, head B 7.3444
+13:12:14 sub05_seed4103: step 2000/2879, validation loss head A 5.2251, head B 7.3271
+13:12:30 sub05_seed4103: step 2400/2879, validation loss head A 5.1251, head B 7.3172
+13:12:46 sub05_seed4103: step 2800/2879, validation loss head A 5.0616, head B 7.3091
+13:12:49 sub05_seed4103: step 2879/2879, validation loss head A 5.0578, head B 7.3085
+13:12:51 sub05_seed4103: finished in 0.03 h; head A 5.1397, head B 7.3010 (clean targets 6.3528, inner 5.5679)
+13:13:00 m_sub05_seed4103: inner clean 5.596 | head A clean 5.165 | agreement with A 0.783 | rotated 0.142 | at rho 0.000: B vs copy 0.783 | 6 s
+13:13:00 sub025_seed4103: starting, dose 0.0, clean 0.025, head B single (rho 0.000), seed 4103
+13:13:16 sub025_seed4103: step 400/2879, validation loss head A 6.4338, head B 7.4439
+13:13:21 sub025_seed4103: step 500/2879, validation loss head A 6.2691, head B 7.4258
+13:13:33 sub025_seed4103: step 800/2879, validation loss head A 5.9034, head B 7.3998
+13:13:49 sub025_seed4103: step 1200/2879, validation loss head A 5.5824, head B 7.3795
+13:14:05 sub025_seed4103: step 1600/2879, validation loss head A 5.3732, head B 7.3583
+13:14:20 sub025_seed4103: step 2000/2879, validation loss head A 5.2199, head B 7.3416
+13:14:36 sub025_seed4103: step 2400/2879, validation loss head A 5.1193, head B 7.3326
+13:14:52 sub025_seed4103: step 2800/2879, validation loss head A 5.0550, head B 7.3252
+13:14:56 sub025_seed4103: step 2879/2879, validation loss head A 5.0486, head B 7.3243
+13:14:58 sub025_seed4103: finished in 0.03 h; head A 5.1368, head B 7.3176 (clean targets 6.4498, inner 5.7490)
+13:15:06 m_sub025_seed4103: inner clean 5.761 | head A clean 5.159 | agreement with A 0.726 | rotated 0.142 | at rho 0.000: B vs copy 0.725 | 6 s
+13:15:06 sub0125_seed4103: starting, dose 0.0, clean 0.0125, head B single (rho 0.000), seed 4103
+13:15:23 sub0125_seed4103: step 400/2879, validation loss head A 6.4327, head B 7.4557
+13:15:27 sub0125_seed4103: step 500/2879, validation loss head A 6.2663, head B 7.4324
+13:15:39 sub0125_seed4103: step 800/2879, validation loss head A 5.9006, head B 7.4179
+13:15:55 sub0125_seed4103: step 1200/2879, validation loss head A 5.5799, head B 7.3947
+13:16:11 sub0125_seed4103: step 1600/2879, validation loss head A 5.3662, head B 7.3752
+13:16:27 sub0125_seed4103: step 2000/2879, validation loss head A 5.2121, head B 7.3593
+13:16:43 sub0125_seed4103: step 2400/2879, validation loss head A 5.1127, head B 7.3502
+13:16:58 sub0125_seed4103: step 2800/2879, validation loss head A 5.0491, head B 7.3437
+13:17:02 sub0125_seed4103: step 2879/2879, validation loss head A 5.0444, head B 7.3428
+13:17:04 sub0125_seed4103: finished in 0.03 h; head A 5.1306, head B 7.3351 (clean targets 6.5572, inner 5.9513)
+13:17:12 m_sub0125_seed4103: inner clean 5.971 | head A clean 5.156 | agreement with A 0.660 | rotated 0.149 | at rho 0.000: B vs copy 0.660 | 6 s
+13:17:12 sub20-rw_seed4103: starting, dose 0.0, clean 0.2, head B rw (rho 0.000), seed 4103
+13:17:29 sub20-rw_seed4103: step 400/2879, validation loss head A 6.4282, head B 7.4360
+13:17:34 sub20-rw_seed4103: step 500/2879, validation loss head A 6.2667, head B 7.4253
+13:17:47 sub20-rw_seed4103: step 800/2879, validation loss head A 5.9011, head B 7.3983
+13:18:04 sub20-rw_seed4103: step 1200/2879, validation loss head A 5.5868, head B 7.3661
+13:18:20 sub20-rw_seed4103: step 1600/2879, validation loss head A 5.3804, head B 7.3411
+13:18:37 sub20-rw_seed4103: step 2000/2879, validation loss head A 5.2232, head B 7.3239
+13:18:54 sub20-rw_seed4103: step 2400/2879, validation loss head A 5.1222, head B 7.3085
+13:19:11 sub20-rw_seed4103: step 2800/2879, validation loss head A 5.0601, head B 7.2996
+13:19:15 sub20-rw_seed4103: step 2879/2879, validation loss head A 5.0560, head B 7.2984
+13:19:17 sub20-rw_seed4103: finished in 0.03 h; head A 5.1426, head B 7.2939 (clean targets 6.1202, inner 5.8783)
+13:19:25 m_sub20-rw_seed4103: inner clean 5.892 | head A clean 5.167 | agreement with A 0.773 | rotated 0.145 | at rho 0.000: B vs copy 0.773 | 6 s
+13:19:41 r_sub20_seed4104: inner clean 5.351 | head A clean 5.188 | agreement with A 0.905 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:19:58 r_n80-mix_seed4104: inner clean 5.507 | head A clean 5.166 | agreement with A 0.778 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:19:59 r10_seed4104: starting, dose 0.1, clean 0.2, head B mix (rho 0.333), seed 4104
+13:20:18 r10_seed4104: step 400/2879, validation loss head A 6.4380, head B 7.0655
+13:20:23 r10_seed4104: step 500/2879, validation loss head A 6.2665, head B 6.9920
+13:20:37 r10_seed4104: step 800/2879, validation loss head A 5.8953, head B 6.8104
+13:20:57 r10_seed4104: step 1200/2879, validation loss head A 5.5826, head B 6.6568
+13:21:16 r10_seed4104: step 1600/2879, validation loss head A 5.3733, head B 6.5335
+13:21:35 r10_seed4104: step 2000/2879, validation loss head A 5.2118, head B 6.4477
+13:21:54 r10_seed4104: step 2400/2879, validation loss head A 5.1120, head B 6.3857
+13:22:14 r10_seed4104: step 2800/2879, validation loss head A 5.0487, head B 6.3503
+13:22:18 r10_seed4104: step 2879/2879, validation loss head A 5.0408, head B 6.3459
+13:22:20 r10_seed4104: finished in 0.04 h; head A 5.1345, head B 6.3714 (clean targets 5.5185, inner 5.3423)
+13:22:30 m_r10_seed4104: inner clean 5.383 | head A clean 5.173 | agreement with A 0.863 | rotated 0.138 | at rho 0.333: B vs copy 0.867 | 6 s
+13:22:30 r20_seed4104: starting, dose 0.2, clean 0.2, head B mix (rho 0.500), seed 4104
+13:22:49 r20_seed4104: step 400/2879, validation loss head A 6.4369, head B 7.2192
+13:22:54 r20_seed4104: step 500/2879, validation loss head A 6.2556, head B 7.1697
+13:23:09 r20_seed4104: step 800/2879, validation loss head A 5.8898, head B 7.0566
+13:23:28 r20_seed4104: step 1200/2879, validation loss head A 5.5724, head B 6.9515
+13:23:47 r20_seed4104: step 1600/2879, validation loss head A 5.3579, head B 6.8680
+13:24:06 r20_seed4104: step 2000/2879, validation loss head A 5.2028, head B 6.8122
+13:24:25 r20_seed4104: step 2400/2879, validation loss head A 5.1002, head B 6.7685
+13:24:45 r20_seed4104: step 2800/2879, validation loss head A 5.0370, head B 6.7438
+13:24:49 r20_seed4104: step 2879/2879, validation loss head A 5.0283, head B 6.7409
+13:24:51 r20_seed4104: finished in 0.04 h; head A 5.1237, head B 6.7570 (clean targets 5.6920, inner 5.3617)
+13:25:01 m_r20_seed4104: inner clean 5.400 | head A clean 5.169 | agreement with A 0.844 | rotated 0.140 | at rho 0.500: B vs copy 0.844 | 6 s
+13:25:01 r40_seed4104: starting, dose 0.4, clean 0.2, head B mix (rho 0.667), seed 4104
+13:25:20 r40_seed4104: step 400/2879, validation loss head A 6.4479, head B 7.3346
+13:25:25 r40_seed4104: step 500/2879, validation loss head A 6.2619, head B 7.3072
+13:25:40 r40_seed4104: step 800/2879, validation loss head A 5.9006, head B 7.2503
+13:25:59 r40_seed4104: step 1200/2879, validation loss head A 5.5830, head B 7.1895
+13:26:18 r40_seed4104: step 1600/2879, validation loss head A 5.3686, head B 7.1388
+13:26:37 r40_seed4104: step 2000/2879, validation loss head A 5.2082, head B 7.1052
+13:26:57 r40_seed4104: step 2400/2879, validation loss head A 5.1073, head B 7.0794
+13:27:16 r40_seed4104: step 2800/2879, validation loss head A 5.0461, head B 7.0645
+13:27:20 r40_seed4104: step 2879/2879, validation loss head A 5.0391, head B 7.0632
+13:27:22 r40_seed4104: finished in 0.04 h; head A 5.1318, head B 7.0778 (clean targets 5.9473, inner 5.4146)
+13:27:32 m_r40_seed4104: inner clean 5.443 | head A clean 5.170 | agreement with A 0.829 | rotated 0.140 | at rho 0.667: B vs copy 0.820 | 6 s
+13:27:32 sub10_seed4104: starting, dose 0.0, clean 0.1, head B single (rho 0.000), seed 4104
+13:27:48 sub10_seed4104: step 400/2879, validation loss head A 6.4424, head B 7.4124
+13:27:52 sub10_seed4104: step 500/2879, validation loss head A 6.2619, head B 7.4037
+13:28:04 sub10_seed4104: step 800/2879, validation loss head A 5.9009, head B 7.3767
+13:28:20 sub10_seed4104: step 1200/2879, validation loss head A 5.5815, head B 7.3505
+13:28:36 sub10_seed4104: step 1600/2879, validation loss head A 5.3685, head B 7.3282
+13:28:52 sub10_seed4104: step 2000/2879, validation loss head A 5.2061, head B 7.3116
+13:29:08 sub10_seed4104: step 2400/2879, validation loss head A 5.1053, head B 7.3000
+13:29:24 sub10_seed4104: step 2800/2879, validation loss head A 5.0418, head B 7.2928
+13:29:27 sub10_seed4104: step 2879/2879, validation loss head A 5.0334, head B 7.2916
+13:29:29 sub10_seed4104: finished in 0.03 h; head A 5.1292, head B 7.2855 (clean targets 6.2518, inner 5.4108)
+13:29:37 m_sub10_seed4104: inner clean 5.459 | head A clean 5.173 | agreement with A 0.848 | rotated 0.141 | at rho 0.000: B vs copy 0.847 | 6 s
+13:29:38 sub05_seed4104: starting, dose 0.0, clean 0.05, head B single (rho 0.000), seed 4104
+13:29:54 sub05_seed4104: step 400/2879, validation loss head A 6.4467, head B 7.4196
+13:29:58 sub05_seed4104: step 500/2879, validation loss head A 6.2525, head B 7.4150
+13:30:10 sub05_seed4104: step 800/2879, validation loss head A 5.8876, head B 7.3867
+13:30:26 sub05_seed4104: step 1200/2879, validation loss head A 5.5719, head B 7.3641
+13:30:42 sub05_seed4104: step 1600/2879, validation loss head A 5.3593, head B 7.3409
+13:30:58 sub05_seed4104: step 2000/2879, validation loss head A 5.2001, head B 7.3267
+13:31:13 sub05_seed4104: step 2400/2879, validation loss head A 5.0978, head B 7.3150
+13:31:29 sub05_seed4104: step 2800/2879, validation loss head A 5.0369, head B 7.3085
+13:31:33 sub05_seed4104: step 2879/2879, validation loss head A 5.0282, head B 7.3070
+13:31:35 sub05_seed4104: finished in 0.03 h; head A 5.1224, head B 7.2997 (clean targets 6.3417, inner 5.5462)
+13:31:43 m_sub05_seed4104: inner clean 5.590 | head A clean 5.165 | agreement with A 0.772 | rotated 0.141 | at rho 0.000: B vs copy 0.772 | 6 s
+13:31:43 sub025_seed4104: starting, dose 0.0, clean 0.025, head B single (rho 0.000), seed 4104
+13:32:00 sub025_seed4104: step 400/2879, validation loss head A 6.4321, head B 7.4290
+13:32:04 sub025_seed4104: step 500/2879, validation loss head A 6.2560, head B 7.4333
+13:32:16 sub025_seed4104: step 800/2879, validation loss head A 5.8875, head B 7.3975
+13:32:32 sub025_seed4104: step 1200/2879, validation loss head A 5.5628, head B 7.3779
+13:32:48 sub025_seed4104: step 1600/2879, validation loss head A 5.3500, head B 7.3553
+13:33:03 sub025_seed4104: step 2000/2879, validation loss head A 5.1913, head B 7.3431
+13:33:19 sub025_seed4104: step 2400/2879, validation loss head A 5.0855, head B 7.3322
+13:33:35 sub025_seed4104: step 2800/2879, validation loss head A 5.0237, head B 7.3253
+13:33:39 sub025_seed4104: step 2879/2879, validation loss head A 5.0150, head B 7.3240
+13:33:41 sub025_seed4104: finished in 0.03 h; head A 5.1093, head B 7.3172 (clean targets 6.4405, inner 5.7245)
+13:33:49 m_sub025_seed4104: inner clean 5.761 | head A clean 5.149 | agreement with A 0.687 | rotated 0.134 | at rho 0.000: B vs copy 0.687 | 6 s
+13:33:49 sub0125_seed4104: starting, dose 0.0, clean 0.0125, head B single (rho 0.000), seed 4104
+13:34:05 sub0125_seed4104: step 400/2879, validation loss head A 6.4327, head B 7.4382
+13:34:10 sub0125_seed4104: step 500/2879, validation loss head A 6.2492, head B 7.4317
+13:34:22 sub0125_seed4104: step 800/2879, validation loss head A 5.8795, head B 7.4111
+13:34:38 sub0125_seed4104: step 1200/2879, validation loss head A 5.5640, head B 7.3919
+13:34:54 sub0125_seed4104: step 1600/2879, validation loss head A 5.3423, head B 7.3724
+13:35:09 sub0125_seed4104: step 2000/2879, validation loss head A 5.1836, head B 7.3651
+13:35:25 sub0125_seed4104: step 2400/2879, validation loss head A 5.0777, head B 7.3509
+13:35:41 sub0125_seed4104: step 2800/2879, validation loss head A 5.0183, head B 7.3440
+13:35:45 sub0125_seed4104: step 2879/2879, validation loss head A 5.0092, head B 7.3432
+13:35:47 sub0125_seed4104: finished in 0.03 h; head A 5.1071, head B 7.3367 (clean targets 6.5519, inner 5.9476)
+13:35:55 m_sub0125_seed4104: inner clean 5.983 | head A clean 5.146 | agreement with A 0.631 | rotated 0.134 | at rho 0.000: B vs copy 0.631 | 6 s
+13:35:55 sub20-rw_seed4104: starting, dose 0.0, clean 0.2, head B rw (rho 0.000), seed 4104
+13:36:13 sub20-rw_seed4104: step 400/2879, validation loss head A 6.4265, head B 7.4329
+13:36:17 sub20-rw_seed4104: step 500/2879, validation loss head A 6.2485, head B 7.4242
+13:36:30 sub20-rw_seed4104: step 800/2879, validation loss head A 5.8957, head B 7.3945
+13:36:47 sub20-rw_seed4104: step 1200/2879, validation loss head A 5.5719, head B 7.3666
+13:37:04 sub20-rw_seed4104: step 1600/2879, validation loss head A 5.3630, head B 7.3406
+13:37:21 sub20-rw_seed4104: step 2000/2879, validation loss head A 5.2003, head B 7.3216
+13:37:38 sub20-rw_seed4104: step 2400/2879, validation loss head A 5.1005, head B 7.3066
+13:37:55 sub20-rw_seed4104: step 2800/2879, validation loss head A 5.0380, head B 7.2987
+13:37:58 sub20-rw_seed4104: step 2879/2879, validation loss head A 5.0294, head B 7.2981
+13:38:00 sub20-rw_seed4104: finished in 0.03 h; head A 5.1258, head B 7.2940 (clean targets 6.1114, inner 5.8843)
+13:38:09 m_sub20-rw_seed4104: inner clean 5.934 | head A clean 5.170 | agreement with A 0.781 | rotated 0.130 | at rho 0.000: B vs copy 0.781 | 6 s
+13:38:25 r_sub20_seed4105: inner clean 5.372 | head A clean 5.200 | agreement with A 0.898 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:38:39 r_n80-mix_seed4105: inner clean 5.514 | head A clean 5.177 | agreement with A 0.851 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+13:38:39 r10_seed4105: starting, dose 0.1, clean 0.2, head B mix (rho 0.333), seed 4105
+13:38:59 r10_seed4105: step 400/2879, validation loss head A 6.4174, head B 7.0636
+13:39:04 r10_seed4105: step 500/2879, validation loss head A 6.2631, head B 6.9841
+13:39:18 r10_seed4105: step 800/2879, validation loss head A 5.9160, head B 6.8215
+13:39:37 r10_seed4105: step 1200/2879, validation loss head A 5.6020, head B 6.6594
+13:39:57 r10_seed4105: step 1600/2879, validation loss head A 5.4014, head B 6.5574
+13:40:16 r10_seed4105: step 2000/2879, validation loss head A 5.2471, head B 6.4639
+13:40:35 r10_seed4105: step 2400/2879, validation loss head A 5.1410, head B 6.4004
+13:40:54 r10_seed4105: step 2800/2879, validation loss head A 5.0785, head B 6.3625
+13:40:58 r10_seed4105: step 2879/2879, validation loss head A 5.0715, head B 6.3586
+13:41:00 r10_seed4105: finished in 0.04 h; head A 5.1630, head B 6.3867 (clean targets 5.5464, inner 5.3708)
+13:41:10 m_r10_seed4105: inner clean 5.411 | head A clean 5.199 | agreement with A 0.863 | rotated 0.165 | at rho 0.333: B vs copy 0.883 | 6 s
+13:41:11 r20_seed4105: starting, dose 0.2, clean 0.2, head B mix (rho 0.500), seed 4105
+13:41:30 r20_seed4105: step 400/2879, validation loss head A 6.4169, head B 7.2193
+13:41:35 r20_seed4105: step 500/2879, validation loss head A 6.2547, head B 7.1643
+13:41:50 r20_seed4105: step 800/2879, validation loss head A 5.9035, head B 7.0610
+13:42:09 r20_seed4105: step 1200/2879, validation loss head A 5.5903, head B 6.9554
+13:42:28 r20_seed4105: step 1600/2879, validation loss head A 5.3874, head B 6.8864
+13:42:47 r20_seed4105: step 2000/2879, validation loss head A 5.2288, head B 6.8202
+13:43:07 r20_seed4105: step 2400/2879, validation loss head A 5.1240, head B 6.7761
+13:43:26 r20_seed4105: step 2800/2879, validation loss head A 5.0609, head B 6.7495
+13:43:30 r20_seed4105: step 2879/2879, validation loss head A 5.0545, head B 6.7471
+13:43:32 r20_seed4105: finished in 0.04 h; head A 5.1468, head B 6.7650 (clean targets 5.7122, inner 5.3859)
+13:43:42 m_r20_seed4105: inner clean 5.422 | head A clean 5.179 | agreement with A 0.879 | rotated 0.165 | at rho 0.500: B vs copy 0.878 | 6 s
+13:43:42 r40_seed4105: starting, dose 0.4, clean 0.2, head B mix (rho 0.667), seed 4105
+13:44:01 r40_seed4105: step 400/2879, validation loss head A 6.4146, head B 7.3347
+13:44:07 r40_seed4105: step 500/2879, validation loss head A 6.2636, head B 7.3068
+13:44:21 r40_seed4105: step 800/2879, validation loss head A 5.9161, head B 7.2549
+13:44:40 r40_seed4105: step 1200/2879, validation loss head A 5.5946, head B 7.1923
+13:45:00 r40_seed4105: step 1600/2879, validation loss head A 5.3874, head B 7.1515
+13:45:19 r40_seed4105: step 2000/2879, validation loss head A 5.2306, head B 7.1113
+13:45:38 r40_seed4105: step 2400/2879, validation loss head A 5.1261, head B 7.0849
+13:45:57 r40_seed4105: step 2800/2879, validation loss head A 5.0624, head B 7.0686
+13:46:01 r40_seed4105: step 2879/2879, validation loss head A 5.0547, head B 7.0668
+13:46:03 r40_seed4105: finished in 0.04 h; head A 5.1477, head B 7.0809 (clean targets 5.9623, inner 5.4294)
+13:46:13 m_r40_seed4105: inner clean 5.455 | head A clean 5.181 | agreement with A 0.826 | rotated 0.174 | at rho 0.667: B vs copy 0.854 | 6 s
+13:46:14 sub10_seed4105: starting, dose 0.0, clean 0.1, head B single (rho 0.000), seed 4105
+13:46:30 sub10_seed4105: step 400/2879, validation loss head A 6.4256, head B 7.4152
+13:46:34 sub10_seed4105: step 500/2879, validation loss head A 6.2659, head B 7.4023
+13:46:46 sub10_seed4105: step 800/2879, validation loss head A 5.9204, head B 7.3779
+13:47:02 sub10_seed4105: step 1200/2879, validation loss head A 5.6068, head B 7.3499
+13:47:18 sub10_seed4105: step 1600/2879, validation loss head A 5.4047, head B 7.3340
+13:47:34 sub10_seed4105: step 2000/2879, validation loss head A 5.2452, head B 7.3149
+13:47:50 sub10_seed4105: step 2400/2879, validation loss head A 5.1402, head B 7.3022
+13:48:06 sub10_seed4105: step 2800/2879, validation loss head A 5.0748, head B 7.2949
+13:48:10 sub10_seed4105: step 2879/2879, validation loss head A 5.0689, head B 7.2942
+13:48:12 sub10_seed4105: finished in 0.03 h; head A 5.1589, head B 7.2891 (clean targets 6.2809, inner 5.4418)
+13:48:20 m_sub10_seed4105: inner clean 5.474 | head A clean 5.193 | agreement with A 0.836 | rotated 0.172 | at rho 0.000: B vs copy 0.836 | 6 s
+13:48:20 sub05_seed4105: starting, dose 0.0, clean 0.05, head B single (rho 0.000), seed 4105
+13:48:37 sub05_seed4105: step 400/2879, validation loss head A 6.4191, head B 7.4244
+13:48:41 sub05_seed4105: step 500/2879, validation loss head A 6.2539, head B 7.4092
+13:48:53 sub05_seed4105: step 800/2879, validation loss head A 5.9007, head B 7.3876
+13:49:09 sub05_seed4105: step 1200/2879, validation loss head A 5.5953, head B 7.3604
+13:49:25 sub05_seed4105: step 1600/2879, validation loss head A 5.3894, head B 7.3449
+13:49:41 sub05_seed4105: step 2000/2879, validation loss head A 5.2281, head B 7.3273
+13:49:57 sub05_seed4105: step 2400/2879, validation loss head A 5.1238, head B 7.3151
+13:50:13 sub05_seed4105: step 2800/2879, validation loss head A 5.0603, head B 7.3083
+13:50:17 sub05_seed4105: step 2879/2879, validation loss head A 5.0536, head B 7.3072
+13:50:19 sub05_seed4105: finished in 0.03 h; head A 5.1425, head B 7.3020 (clean targets 6.3619, inner 5.5740)
+13:50:27 m_sub05_seed4105: inner clean 5.604 | head A clean 5.177 | agreement with A 0.782 | rotated 0.170 | at rho 0.000: B vs copy 0.782 | 6 s
+13:50:27 sub025_seed4105: starting, dose 0.0, clean 0.025, head B single (rho 0.000), seed 4105
+13:50:43 sub025_seed4105: step 400/2879, validation loss head A 6.4150, head B 7.4350
+13:50:48 sub025_seed4105: step 500/2879, validation loss head A 6.2498, head B 7.4246
+13:51:00 sub025_seed4105: step 800/2879, validation loss head A 5.9025, head B 7.4028
+13:51:16 sub025_seed4105: step 1200/2879, validation loss head A 5.5823, head B 7.3811
+13:51:32 sub025_seed4105: step 1600/2879, validation loss head A 5.3793, head B 7.3610
+13:51:48 sub025_seed4105: step 2000/2879, validation loss head A 5.2237, head B 7.3448
+13:52:04 sub025_seed4105: step 2400/2879, validation loss head A 5.1177, head B 7.3320
+13:52:20 sub025_seed4105: step 2800/2879, validation loss head A 5.0540, head B 7.3264
+13:52:23 sub025_seed4105: step 2879/2879, validation loss head A 5.0462, head B 7.3247
+13:52:25 sub025_seed4105: finished in 0.03 h; head A 5.1387, head B 7.3181 (clean targets 6.4567, inner 5.7545)
+13:52:34 m_sub025_seed4105: inner clean 5.781 | head A clean 5.174 | agreement with A 0.704 | rotated 0.169 | at rho 0.000: B vs copy 0.704 | 6 s
+13:52:34 sub0125_seed4105: starting, dose 0.0, clean 0.0125, head B single (rho 0.000), seed 4105
+13:52:50 sub0125_seed4105: step 400/2879, validation loss head A 6.4206, head B 7.4445
+13:52:54 sub0125_seed4105: step 500/2879, validation loss head A 6.2471, head B 7.4383
+13:53:07 sub0125_seed4105: step 800/2879, validation loss head A 5.9080, head B 7.4091
+13:53:23 sub0125_seed4105: step 1200/2879, validation loss head A 5.5959, head B 7.4020
+13:53:39 sub0125_seed4105: step 1600/2879, validation loss head A 5.3956, head B 7.3879
+13:53:54 sub0125_seed4105: step 2000/2879, validation loss head A 5.2297, head B 7.3623
+13:54:10 sub0125_seed4105: step 2400/2879, validation loss head A 5.1210, head B 7.3528
+13:54:26 sub0125_seed4105: step 2800/2879, validation loss head A 5.0600, head B 7.3481
+13:54:29 sub0125_seed4105: step 2879/2879, validation loss head A 5.0538, head B 7.3454
+13:54:31 sub0125_seed4105: finished in 0.03 h; head A 5.1460, head B 7.3372 (clean targets 6.5651, inner 5.9730)
+13:54:40 m_sub0125_seed4105: inner clean 5.989 | head A clean 5.178 | agreement with A 0.648 | rotated 0.177 | at rho 0.000: B vs copy 0.649 | 6 s
+13:54:40 sub20-rw_seed4105: starting, dose 0.0, clean 0.2, head B rw (rho 0.000), seed 4105
+13:54:57 sub20-rw_seed4105: step 400/2879, validation loss head A 6.4161, head B 7.4366
+13:55:01 sub20-rw_seed4105: step 500/2879, validation loss head A 6.2493, head B 7.4246
+13:55:14 sub20-rw_seed4105: step 800/2879, validation loss head A 5.9075, head B 7.3974
+13:55:31 sub20-rw_seed4105: step 1200/2879, validation loss head A 5.6012, head B 7.3709
+13:55:48 sub20-rw_seed4105: step 1600/2879, validation loss head A 5.3891, head B 7.3458
+13:56:04 sub20-rw_seed4105: step 2000/2879, validation loss head A 5.2324, head B 7.3225
+13:56:21 sub20-rw_seed4105: step 2400/2879, validation loss head A 5.1250, head B 7.3085
+13:56:38 sub20-rw_seed4105: step 2800/2879, validation loss head A 5.0636, head B 7.3008
+13:56:41 sub20-rw_seed4105: step 2879/2879, validation loss head A 5.0573, head B 7.3000
+13:56:43 sub20-rw_seed4105: finished in 0.03 h; head A 5.1480, head B 7.2954 (clean targets 6.1240, inner 5.9111)
+13:56:52 m_sub20-rw_seed4105: inner clean 5.933 | head A clean 5.184 | agreement with A 0.801 | rotated 0.172 | at rho 0.000: B vs copy 0.801 | 6 s
+13:56:52 N14 real complete: all runs and measurements finished
+13:56:52 copied 91 result files for upload
+13:56:52 waiting for background Drive saves to finish (up to 15 minutes)
+13:56:52 Drive saves finished
