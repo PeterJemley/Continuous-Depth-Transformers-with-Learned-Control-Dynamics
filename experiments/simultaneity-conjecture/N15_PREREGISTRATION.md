@@ -93,7 +93,7 @@ All use N12's model, training and batches at the 80% noise rate, on **N12's seed
 3. **Must differ.** The rotated control's ratio is at most 0.60 in at least 4 of 5 models of each arm.
 4. **The manipulation took.** s(`rw-b4`) ≤ 0.75 · s(`rw-b1`) in at least 4 of 5 seeds, for N15a; s(`rw-oracle`) ≤ 0.75 · s(`rw-b1`) in at least 4 of 5, for N15c. A discount that does not remove a quarter of the share has not been sharpened, or has not judged better, and the claim that depends on it is untestable.
 5. **The head trained.** Δ_A(`rw-b4`) ≤ 1.0 in at least 4 of 5 seeds, for N15a; the same for `rw-oracle` and N15c. A sharp discount can admit too little early, so that the head never learns; such a head is not a sharpened discount at work, and the claim is untestable, with the weights' time course recorded.
-6. **The shortfall exists.** G ≥ 0.10 nats in every seed (the records give 0.155–0.186).
+6. **The shortfall exists.** G ≥ 0.10 nats in every seed (the records give 0.165–0.179).
 7. **The ladder brackets and is ordered,** as in N14, for each arm entering N15b; N15b is computed over the arm-seed pairs it brackets, and needs at least 4 seeds with at least two arms bracketed each.
 
 Preconditions 1–3 apply to every claim; 4, 5 and 6 to N15a and N15c; 7 to N15b.
@@ -141,7 +141,7 @@ Preconditions 1–3 apply to every claim; 4, 5 and 6 to N15a and N15c; 7 to N15b
 | A sharper discount removes random share | Functional; present mechanism | Precondition 4 at the end of training. If the share falls early and recovers late, the end share misses it; S4's average share is beside it (reply 5, time) |
 | The sharpened head trains at all | Present mechanism (the cold start) | Precondition 5, with S3 showing the admitted weight over the first steps. At the boundary, a head that trains late but fully would pass with a high early ignored fraction, which S3 records |
 | Proportionality in P is the right yardstick | Borrowed from N14's dose series, where the discount was the same at every dose | Reply 3: sharpening changes the kept weights as well as the share. The refuting margin (a quarter) is reserved for the strong rival; between the margins the verdict is "some effect", and S3's ignored fraction says which part is the discount's own cost |
-| G, the shortfall, is fixed by construction | Definitional: the same seeds' re-measured models | Precondition 6; the records give 0.155–0.186 |
+| G, the shortfall, is fixed by construction | Definitional: the same seeds' re-measured models | Precondition 6; the records give 0.165–0.179 |
 | The oracle does not couple the heads' training | Definitional (detached) | The gradient check in the setup; S6 shows head A's cost, which the trunk's share of head B's gradient can still change, as in every arm |
 | The ladder is a null for function without random targets | As in N14, with its control's caveat: the ladder is not a law | N14 found the random-target heads on it and the reweighted control above it. A sharpened head is a reweighted head with random targets; where it sits is the question, and precondition 7 only asks that the ladder reach its loss |
 | Five seeds can tell three quarters from a quarter of P | Reply 5 (level); a measured noise | Stated under "What the design can detect": decisive for P ≥ 0.4, likely "some effect" below it |
