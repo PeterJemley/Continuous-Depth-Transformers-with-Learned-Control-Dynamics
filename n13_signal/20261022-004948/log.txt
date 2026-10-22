@@ -1,0 +1,218 @@
+GPU check passed: NVIDIA A100-SXM4-80GB
+00:49:50 device: cuda | test mode: False | mode: real | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N13 folder: /content/drive/MyDrive/cdt-colab/n13_signal | local: /content/cdt_local/n13_signal
+00:49:50 N12's models from: /content/drive/MyDrive/cdt-colab/n12_bottleneck/final | N12's records from: /content/repo/experiments/simultaneity-conjecture/results/n12
+00:50:01 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+00:50:02 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 1-512
+00:50:02 next-task example: input ends ' across the floor , and a side door with a door @'; targets end ' the floor , and a side door with a door @-'
+00:50:02 skip-task example: input ends ' cliffs on the British coast and is part of the same geological'; targets end ' the British coast and is part of the same geological formation .'
+00:50:11 batch check: True | windows shifted: True | analytic: 0.994 | identical heads: 1.0 | gradient identity: mix vs rw 7.83e-08 , w02 vs 0.2 single 1.01e-06 True
+00:50:11 same-model check: [True, True, True, True, True]
+00:50:23 r_n80_seed4101: head B clean 6.625 | inner clean 6.625 | copy clean 6.122 | head A clean 5.209 | B vs copy 0.313 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:50:29 r_n80-mixform_seed4101: head B clean 7.122 | inner clean 6.625 | copy clean 6.122 | head A clean 5.209 | B vs copy 0.339 | 5 s
+00:50:43 r_n80-mix_seed4101: head B clean 6.270 | inner clean 5.508 | copy clean 6.088 | head A clean 5.170 | B vs copy 0.839 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:50:57 r_sub20_seed4101: head B clean 6.232 | inner clean 5.363 | copy clean 6.119 | head A clean 5.208 | B vs copy 0.897 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:51:00 n80-rw_seed4101: starting, noise 0.8, head B rw, seed 4101
+00:51:15 n80-rw_seed4101: step 400/2879, validation loss head A 6.4210, head B 7.4178
+00:51:19 n80-rw_seed4101: step 500/2879, validation loss head A 6.2731, head B 7.4084
+00:51:31 n80-rw_seed4101: step 800/2879, validation loss head A 5.9110, head B 7.3835
+00:51:46 n80-rw_seed4101: step 1200/2879, validation loss head A 5.5740, head B 7.3560
+00:52:01 n80-rw_seed4101: step 1600/2879, validation loss head A 5.3824, head B 7.3321
+00:52:16 n80-rw_seed4101: step 2000/2879, validation loss head A 5.2130, head B 7.3141
+00:52:31 n80-rw_seed4101: step 2400/2879, validation loss head A 5.1021, head B 7.3009
+00:52:46 n80-rw_seed4101: step 2800/2879, validation loss head A 5.0486, head B 7.2925
+00:52:49 n80-rw_seed4101: step 2879/2879, validation loss head A 5.0441, head B 7.2922
+00:52:51 n80-rw_seed4101: finished in 0.03 h; head A 5.1375, head B 7.2850 (clean targets 6.2562)
+00:52:58 m_n80-rw_seed4101: head B clean 6.268 | inner clean 5.503 | head A clean 5.170 | B vs copy 0.804 | vs n80-mix: inner KL 0.1006, head A KL 0.0978 | 5 s
+00:52:58 n80-mix-rep_seed4101: starting, noise 0.8, head B mix, seed 4101
+00:53:15 n80-mix-rep_seed4101: step 400/2879, validation loss head A 6.4141, head B 7.4167
+00:53:19 n80-mix-rep_seed4101: step 500/2879, validation loss head A 6.2672, head B 7.4077
+00:53:32 n80-mix-rep_seed4101: step 800/2879, validation loss head A 5.9051, head B 7.3834
+00:53:49 n80-mix-rep_seed4101: step 1200/2879, validation loss head A 5.5779, head B 7.3556
+00:54:05 n80-mix-rep_seed4101: step 1600/2879, validation loss head A 5.3864, head B 7.3320
+00:54:22 n80-mix-rep_seed4101: step 2000/2879, validation loss head A 5.2153, head B 7.3140
+00:54:39 n80-mix-rep_seed4101: step 2400/2879, validation loss head A 5.1027, head B 7.3000
+00:54:56 n80-mix-rep_seed4101: step 2800/2879, validation loss head A 5.0492, head B 7.2917
+00:54:59 n80-mix-rep_seed4101: step 2879/2879, validation loss head A 5.0433, head B 7.2912
+00:55:01 n80-mix-rep_seed4101: finished in 0.03 h; head A 5.1357, head B 7.2842 (clean targets 6.2552)
+00:55:08 m_n80-mix-rep_seed4101: head B clean 6.270 | inner clean 5.508 | head A clean 5.170 | B vs copy 0.839 | vs n80-mix: inner KL 0.0000, head A KL 0.0000 | 5 s
+00:55:08 n80-w02_seed4101: starting, noise 0.8, head B w02, seed 4101
+00:55:22 n80-w02_seed4101: step 400/2879, validation loss head A 6.4196, head B 7.5021
+00:55:26 n80-w02_seed4101: step 500/2879, validation loss head A 6.2570, head B 7.4963
+00:55:36 n80-w02_seed4101: step 800/2879, validation loss head A 5.8916, head B 7.4602
+00:55:49 n80-w02_seed4101: step 1200/2879, validation loss head A 5.5681, head B 7.4204
+00:56:02 n80-w02_seed4101: step 1600/2879, validation loss head A 5.3697, head B 7.4018
+00:56:16 n80-w02_seed4101: step 2000/2879, validation loss head A 5.1980, head B 7.3897
+00:56:29 n80-w02_seed4101: step 2400/2879, validation loss head A 5.0902, head B 7.3739
+00:56:42 n80-w02_seed4101: step 2800/2879, validation loss head A 5.0361, head B 7.3676
+00:56:45 n80-w02_seed4101: step 2879/2879, validation loss head A 5.0307, head B 7.3664
+00:56:47 n80-w02_seed4101: finished in 0.03 h; head A 5.1231, head B 7.3552 (clean targets 6.6004)
+00:56:54 m_n80-w02_seed4101: head B clean 6.624 | inner clean 6.624 | head A clean 5.160 | B vs copy 0.309 | vs n80: inner KL 0.0156, head A KL 0.1438 | 5 s
+00:57:00 m_n80-w02-mixform_seed4101: head B clean 7.125 | inner clean 6.624 | head A clean 5.160 | B vs copy 0.322 | 5 s
+00:57:15 r_n80_seed4102: head B clean 6.628 | inner clean 6.628 | copy clean 6.151 | head A clean 5.246 | B vs copy 0.297 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:57:21 r_n80-mixform_seed4102: head B clean 7.121 | inner clean 6.628 | copy clean 6.151 | head A clean 5.246 | B vs copy 0.321 | 5 s
+00:57:35 r_n80-mix_seed4102: head B clean 6.276 | inner clean 5.516 | copy clean 6.096 | head A clean 5.181 | B vs copy 0.823 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:58:07 r_sub20_seed4102: head B clean 6.247 | inner clean 5.380 | copy clean 6.127 | head A clean 5.215 | B vs copy 0.907 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+00:58:07 n80-rw_seed4102: starting, noise 0.8, head B rw, seed 4102
+00:58:22 n80-rw_seed4102: step 400/2879, validation loss head A 6.4248, head B 7.4173
+00:58:26 n80-rw_seed4102: step 500/2879, validation loss head A 6.2519, head B 7.4086
+00:58:38 n80-rw_seed4102: step 800/2879, validation loss head A 5.8885, head B 7.3828
+00:58:53 n80-rw_seed4102: step 1200/2879, validation loss head A 5.5599, head B 7.3534
+00:59:08 n80-rw_seed4102: step 1600/2879, validation loss head A 5.3537, head B 7.3291
+00:59:23 n80-rw_seed4102: step 2000/2879, validation loss head A 5.2026, head B 7.3103
+00:59:38 n80-rw_seed4102: step 2400/2879, validation loss head A 5.0965, head B 7.2961
+00:59:53 n80-rw_seed4102: step 2800/2879, validation loss head A 5.0320, head B 7.2883
+00:59:56 n80-rw_seed4102: step 2879/2879, validation loss head A 5.0273, head B 7.2881
+00:59:58 n80-rw_seed4102: finished in 0.03 h; head A 5.1257, head B 7.2830 (clean targets 6.2504)
+01:00:05 m_n80-rw_seed4102: head B clean 6.278 | inner clean 5.515 | head A clean 5.180 | B vs copy 0.818 | vs n80-mix: inner KL 0.0954, head A KL 0.0928 | 5 s
+01:00:05 n80-mix-rep_seed4102: starting, noise 0.8, head B mix, seed 4102
+01:00:22 n80-mix-rep_seed4102: step 400/2879, validation loss head A 6.4262, head B 7.4174
+01:00:27 n80-mix-rep_seed4102: step 500/2879, validation loss head A 6.2525, head B 7.4088
+01:00:40 n80-mix-rep_seed4102: step 800/2879, validation loss head A 5.8927, head B 7.3824
+01:00:56 n80-mix-rep_seed4102: step 1200/2879, validation loss head A 5.5655, head B 7.3530
+01:01:13 n80-mix-rep_seed4102: step 1600/2879, validation loss head A 5.3574, head B 7.3299
+01:01:30 n80-mix-rep_seed4102: step 2000/2879, validation loss head A 5.2114, head B 7.3108
+01:01:47 n80-mix-rep_seed4102: step 2400/2879, validation loss head A 5.1025, head B 7.2965
+01:02:04 n80-mix-rep_seed4102: step 2800/2879, validation loss head A 5.0424, head B 7.2889
+01:02:07 n80-mix-rep_seed4102: step 2879/2879, validation loss head A 5.0357, head B 7.2883
+01:02:09 n80-mix-rep_seed4102: finished in 0.03 h; head A 5.1317, head B 7.2831 (clean targets 6.2524)
+01:02:16 m_n80-mix-rep_seed4102: head B clean 6.276 | inner clean 5.516 | head A clean 5.181 | B vs copy 0.823 | vs n80-mix: inner KL 0.0000, head A KL 0.0000 | 5 s
+01:02:16 n80-w02_seed4102: starting, noise 0.8, head B w02, seed 4102
+01:02:30 n80-w02_seed4102: step 400/2879, validation loss head A 6.4301, head B 7.5099
+01:02:34 n80-w02_seed4102: step 500/2879, validation loss head A 6.2500, head B 7.4959
+01:02:44 n80-w02_seed4102: step 800/2879, validation loss head A 5.8862, head B 7.4532
+01:02:57 n80-w02_seed4102: step 1200/2879, validation loss head A 5.5664, head B 7.4216
+01:03:10 n80-w02_seed4102: step 1600/2879, validation loss head A 5.3480, head B 7.4060
+01:03:23 n80-w02_seed4102: step 2000/2879, validation loss head A 5.2011, head B 7.3889
+01:03:37 n80-w02_seed4102: step 2400/2879, validation loss head A 5.1008, head B 7.3755
+01:03:50 n80-w02_seed4102: step 2800/2879, validation loss head A 5.0346, head B 7.3668
+01:03:53 n80-w02_seed4102: step 2879/2879, validation loss head A 5.0301, head B 7.3665
+01:03:54 n80-w02_seed4102: finished in 0.03 h; head A 5.1265, head B 7.3557 (clean targets 6.5983)
+01:04:01 m_n80-w02_seed4102: head B clean 6.625 | inner clean 6.625 | head A clean 5.178 | B vs copy 0.311 | vs n80: inner KL 0.0153, head A KL 0.1345 | 5 s
+01:04:07 m_n80-w02-mixform_seed4102: head B clean 7.124 | inner clean 6.625 | head A clean 5.178 | B vs copy 0.327 | 5 s
+01:04:25 r_n80_seed4103: head B clean 6.626 | inner clean 6.626 | copy clean 6.132 | head A clean 5.220 | B vs copy 0.319 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:04:30 r_n80-mixform_seed4103: head B clean 7.121 | inner clean 6.626 | copy clean 6.132 | head A clean 5.220 | B vs copy 0.339 | 5 s
+01:04:46 r_n80-mix_seed4103: head B clean 6.273 | inner clean 5.510 | copy clean 6.089 | head A clean 5.171 | B vs copy 0.833 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:05:02 r_sub20_seed4103: head B clean 6.230 | inner clean 5.362 | copy clean 6.114 | head A clean 5.200 | B vs copy 0.913 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:05:02 n80-rw_seed4103: starting, noise 0.8, head B rw, seed 4103
+01:05:17 n80-rw_seed4103: step 400/2879, validation loss head A 6.4400, head B 7.4186
+01:05:21 n80-rw_seed4103: step 500/2879, validation loss head A 6.2745, head B 7.4077
+01:05:33 n80-rw_seed4103: step 800/2879, validation loss head A 5.9099, head B 7.3825
+01:05:48 n80-rw_seed4103: step 1200/2879, validation loss head A 5.6033, head B 7.3548
+01:06:03 n80-rw_seed4103: step 1600/2879, validation loss head A 5.3913, head B 7.3320
+01:06:18 n80-rw_seed4103: step 2000/2879, validation loss head A 5.2339, head B 7.3127
+01:06:33 n80-rw_seed4103: step 2400/2879, validation loss head A 5.1336, head B 7.2996
+01:06:48 n80-rw_seed4103: step 2800/2879, validation loss head A 5.0690, head B 7.2903
+01:06:51 n80-rw_seed4103: step 2879/2879, validation loss head A 5.0666, head B 7.2903
+01:06:53 n80-rw_seed4103: finished in 0.03 h; head A 5.1549, head B 7.2856 (clean targets 6.2645)
+01:07:00 m_n80-rw_seed4103: head B clean 6.280 | inner clean 5.518 | head A clean 5.177 | B vs copy 0.822 | vs n80-mix: inner KL 0.0926, head A KL 0.0908 | 5 s
+01:07:00 n80-mix-rep_seed4103: starting, noise 0.8, head B mix, seed 4103
+01:07:17 n80-mix-rep_seed4103: step 400/2879, validation loss head A 6.4401, head B 7.4185
+01:07:22 n80-mix-rep_seed4103: step 500/2879, validation loss head A 6.2752, head B 7.4075
+01:07:35 n80-mix-rep_seed4103: step 800/2879, validation loss head A 5.9074, head B 7.3819
+01:07:51 n80-mix-rep_seed4103: step 1200/2879, validation loss head A 5.5922, head B 7.3544
+01:08:08 n80-mix-rep_seed4103: step 1600/2879, validation loss head A 5.3872, head B 7.3334
+01:08:25 n80-mix-rep_seed4103: step 2000/2879, validation loss head A 5.2301, head B 7.3139
+01:08:42 n80-mix-rep_seed4103: step 2400/2879, validation loss head A 5.1299, head B 7.3009
+01:08:59 n80-mix-rep_seed4103: step 2800/2879, validation loss head A 5.0636, head B 7.2921
+01:09:02 n80-mix-rep_seed4103: step 2879/2879, validation loss head A 5.0596, head B 7.2918
+01:09:04 n80-mix-rep_seed4103: finished in 0.03 h; head A 5.1451, head B 7.2851 (clean targets 6.2595)
+01:09:11 m_n80-mix-rep_seed4103: head B clean 6.273 | inner clean 5.510 | head A clean 5.171 | B vs copy 0.833 | vs n80-mix: inner KL 0.0000, head A KL 0.0000 | 5 s
+01:09:11 n80-w02_seed4103: starting, noise 0.8, head B w02, seed 4103
+01:09:25 n80-w02_seed4103: step 400/2879, validation loss head A 6.4363, head B 7.5064
+01:09:29 n80-w02_seed4103: step 500/2879, validation loss head A 6.2778, head B 7.4906
+01:09:39 n80-w02_seed4103: step 800/2879, validation loss head A 5.9048, head B 7.4513
+01:09:52 n80-w02_seed4103: step 1200/2879, validation loss head A 5.5934, head B 7.4316
+01:10:05 n80-w02_seed4103: step 1600/2879, validation loss head A 5.3862, head B 7.4026
+01:10:19 n80-w02_seed4103: step 2000/2879, validation loss head A 5.2261, head B 7.3876
+01:10:32 n80-w02_seed4103: step 2400/2879, validation loss head A 5.1253, head B 7.3725
+01:10:45 n80-w02_seed4103: step 2800/2879, validation loss head A 5.0634, head B 7.3672
+01:10:48 n80-w02_seed4103: step 2879/2879, validation loss head A 5.0574, head B 7.3669
+01:10:50 n80-w02_seed4103: finished in 0.03 h; head A 5.1441, head B 7.3544 (clean targets 6.5968)
+01:10:57 m_n80-w02_seed4103: head B clean 6.615 | inner clean 6.615 | head A clean 5.168 | B vs copy 0.318 | vs n80: inner KL 0.0155, head A KL 0.1265 | 5 s
+01:11:03 m_n80-w02-mixform_seed4103: head B clean 7.120 | inner clean 6.615 | head A clean 5.168 | B vs copy 0.332 | 6 s
+01:11:16 r_n80_seed4104: head B clean 6.617 | inner clean 6.617 | copy clean 6.126 | head A clean 5.216 | B vs copy 0.308 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:11:22 r_n80-mixform_seed4104: head B clean 7.119 | inner clean 6.617 | copy clean 6.126 | head A clean 5.216 | B vs copy 0.326 | 5 s
+01:11:38 r_n80-mix_seed4104: head B clean 6.272 | inner clean 5.507 | copy clean 6.087 | head A clean 5.166 | B vs copy 0.791 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:11:57 r_sub20_seed4104: head B clean 6.216 | inner clean 5.351 | copy clean 6.105 | head A clean 5.188 | B vs copy 0.930 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:11:57 n80-rw_seed4104: starting, noise 0.8, head B rw, seed 4104
+01:12:12 n80-rw_seed4104: step 400/2879, validation loss head A 6.4345, head B 7.4171
+01:12:16 n80-rw_seed4104: step 500/2879, validation loss head A 6.2485, head B 7.4064
+01:12:28 n80-rw_seed4104: step 800/2879, validation loss head A 5.8850, head B 7.3791
+01:12:43 n80-rw_seed4104: step 1200/2879, validation loss head A 5.5747, head B 7.3502
+01:12:58 n80-rw_seed4104: step 1600/2879, validation loss head A 5.3585, head B 7.3265
+01:13:13 n80-rw_seed4104: step 2000/2879, validation loss head A 5.1975, head B 7.3099
+01:13:28 n80-rw_seed4104: step 2400/2879, validation loss head A 5.0973, head B 7.2964
+01:13:43 n80-rw_seed4104: step 2800/2879, validation loss head A 5.0322, head B 7.2890
+01:13:46 n80-rw_seed4104: step 2879/2879, validation loss head A 5.0238, head B 7.2881
+01:13:48 n80-rw_seed4104: finished in 0.03 h; head A 5.1211, head B 7.2836 (clean targets 6.2410)
+01:13:55 m_n80-rw_seed4104: head B clean 6.267 | inner clean 5.505 | head A clean 5.166 | B vs copy 0.806 | vs n80-mix: inner KL 0.0960, head A KL 0.0930 | 5 s
+01:13:55 n80-mix-rep_seed4104: starting, noise 0.8, head B mix, seed 4104
+01:14:12 n80-mix-rep_seed4104: step 400/2879, validation loss head A 6.4329, head B 7.4166
+01:14:17 n80-mix-rep_seed4104: step 500/2879, validation loss head A 6.2496, head B 7.4056
+01:14:29 n80-mix-rep_seed4104: step 800/2879, validation loss head A 5.8895, head B 7.3806
+01:14:46 n80-mix-rep_seed4104: step 1200/2879, validation loss head A 5.5780, head B 7.3514
+01:15:03 n80-mix-rep_seed4104: step 1600/2879, validation loss head A 5.3650, head B 7.3269
+01:15:20 n80-mix-rep_seed4104: step 2000/2879, validation loss head A 5.2046, head B 7.3103
+01:15:37 n80-mix-rep_seed4104: step 2400/2879, validation loss head A 5.1010, head B 7.2973
+01:15:53 n80-mix-rep_seed4104: step 2800/2879, validation loss head A 5.0371, head B 7.2899
+01:15:57 n80-mix-rep_seed4104: step 2879/2879, validation loss head A 5.0291, head B 7.2890
+01:15:59 n80-mix-rep_seed4104: finished in 0.03 h; head A 5.1267, head B 7.2842 (clean targets 6.2458)
+01:16:06 m_n80-mix-rep_seed4104: head B clean 6.272 | inner clean 5.507 | head A clean 5.166 | B vs copy 0.791 | vs n80-mix: inner KL 0.0000, head A KL 0.0000 | 5 s
+01:16:06 n80-w02_seed4104: starting, noise 0.8, head B w02, seed 4104
+01:16:20 n80-w02_seed4104: step 400/2879, validation loss head A 6.4354, head B 7.5038
+01:16:23 n80-w02_seed4104: step 500/2879, validation loss head A 6.2451, head B 7.4906
+01:16:33 n80-w02_seed4104: step 800/2879, validation loss head A 5.8845, head B 7.4514
+01:16:46 n80-w02_seed4104: step 1200/2879, validation loss head A 5.5695, head B 7.4223
+01:17:00 n80-w02_seed4104: step 1600/2879, validation loss head A 5.3608, head B 7.4031
+01:17:13 n80-w02_seed4104: step 2000/2879, validation loss head A 5.2012, head B 7.3842
+01:17:26 n80-w02_seed4104: step 2400/2879, validation loss head A 5.0951, head B 7.3721
+01:17:40 n80-w02_seed4104: step 2800/2879, validation loss head A 5.0341, head B 7.3659
+01:17:42 n80-w02_seed4104: step 2879/2879, validation loss head A 5.0260, head B 7.3655
+01:17:44 n80-w02_seed4104: finished in 0.03 h; head A 5.1242, head B 7.3545 (clean targets 6.5913)
+01:17:51 m_n80-w02_seed4104: head B clean 6.617 | inner clean 6.617 | head A clean 5.166 | B vs copy 0.341 | vs n80: inner KL 0.0161, head A KL 0.1364 | 5 s
+01:17:57 m_n80-w02-mixform_seed4104: head B clean 7.123 | inner clean 6.617 | head A clean 5.166 | B vs copy 0.355 | 5 s
+01:18:12 r_n80_seed4105: head B clean 6.614 | inner clean 6.614 | copy clean 6.126 | head A clean 5.217 | B vs copy 0.301 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:18:17 r_n80-mixform_seed4105: head B clean 7.115 | inner clean 6.614 | copy clean 6.126 | head A clean 5.217 | B vs copy 0.336 | 5 s
+01:18:31 r_n80-mix_seed4105: head B clean 6.270 | inner clean 5.514 | copy clean 6.090 | head A clean 5.177 | B vs copy 0.846 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:18:46 r_sub20_seed4105: head B clean 6.233 | inner clean 5.372 | copy clean 6.110 | head A clean 5.200 | B vs copy 0.910 | reproduces N12: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+01:18:47 n80-rw_seed4105: starting, noise 0.8, head B rw, seed 4105
+01:19:02 n80-rw_seed4105: step 400/2879, validation loss head A 6.4530, head B 7.4187
+01:19:06 n80-rw_seed4105: step 500/2879, validation loss head A 6.2563, head B 7.4053
+01:19:17 n80-rw_seed4105: step 800/2879, validation loss head A 5.9168, head B 7.3827
+01:19:32 n80-rw_seed4105: step 1200/2879, validation loss head A 5.5980, head B 7.3541
+01:19:47 n80-rw_seed4105: step 1600/2879, validation loss head A 5.3947, head B 7.3336
+01:20:02 n80-rw_seed4105: step 2000/2879, validation loss head A 5.2353, head B 7.3125
+01:20:17 n80-rw_seed4105: step 2400/2879, validation loss head A 5.1259, head B 7.2992
+01:20:32 n80-rw_seed4105: step 2800/2879, validation loss head A 5.0622, head B 7.2906
+01:20:36 n80-rw_seed4105: step 2879/2879, validation loss head A 5.0545, head B 7.2895
+01:20:37 n80-rw_seed4105: finished in 0.03 h; head A 5.1485, head B 7.2849 (clean targets 6.2570)
+01:20:44 m_n80-rw_seed4105: head B clean 6.275 | inner clean 5.524 | head A clean 5.187 | B vs copy 0.854 | vs n80-mix: inner KL 0.1009, head A KL 0.0981 | 5 s
+01:20:45 n80-mix-rep_seed4105: starting, noise 0.8, head B mix, seed 4105
+01:21:02 n80-mix-rep_seed4105: step 400/2879, validation loss head A 6.4179, head B 7.4168
+01:21:06 n80-mix-rep_seed4105: step 500/2879, validation loss head A 6.2474, head B 7.4048
+01:21:19 n80-mix-rep_seed4105: step 800/2879, validation loss head A 5.9022, head B 7.3824
+01:21:35 n80-mix-rep_seed4105: step 1200/2879, validation loss head A 5.5908, head B 7.3538
+01:21:52 n80-mix-rep_seed4105: step 1600/2879, validation loss head A 5.3827, head B 7.3325
+01:22:09 n80-mix-rep_seed4105: step 2000/2879, validation loss head A 5.2250, head B 7.3114
+01:22:26 n80-mix-rep_seed4105: step 2400/2879, validation loss head A 5.1223, head B 7.2988
+01:22:43 n80-mix-rep_seed4105: step 2800/2879, validation loss head A 5.0582, head B 7.2909
+01:22:46 n80-mix-rep_seed4105: step 2879/2879, validation loss head A 5.0512, head B 7.2898
+01:22:48 n80-mix-rep_seed4105: finished in 0.03 h; head A 5.1419, head B 7.2846 (clean targets 6.2528)
+01:22:55 m_n80-mix-rep_seed4105: head B clean 6.270 | inner clean 5.514 | head A clean 5.177 | B vs copy 0.846 | vs n80-mix: inner KL 0.0000, head A KL 0.0000 | 5 s
+01:22:55 n80-w02_seed4105: starting, noise 0.8, head B w02, seed 4105
+01:23:09 n80-w02_seed4105: step 400/2879, validation loss head A 6.4205, head B 7.5030
+01:23:12 n80-w02_seed4105: step 500/2879, validation loss head A 6.2482, head B 7.4957
+01:23:22 n80-w02_seed4105: step 800/2879, validation loss head A 5.9041, head B 7.4494
+01:23:36 n80-w02_seed4105: step 1200/2879, validation loss head A 5.5904, head B 7.4194
+01:23:49 n80-w02_seed4105: step 1600/2879, validation loss head A 5.3875, head B 7.4024
+01:24:02 n80-w02_seed4105: step 2000/2879, validation loss head A 5.2290, head B 7.3846
+01:24:16 n80-w02_seed4105: step 2400/2879, validation loss head A 5.1244, head B 7.3726
+01:24:29 n80-w02_seed4105: step 2800/2879, validation loss head A 5.0608, head B 7.3667
+01:24:32 n80-w02_seed4105: step 2879/2879, validation loss head A 5.0540, head B 7.3657
+01:24:34 n80-w02_seed4105: finished in 0.03 h; head A 5.1441, head B 7.3554 (clean targets 6.6020)
+01:24:40 m_n80-w02_seed4105: head B clean 6.625 | inner clean 6.625 | head A clean 5.182 | B vs copy 0.369 | vs n80: inner KL 0.0161, head A KL 0.1465 | 5 s
+01:24:46 m_n80-w02-mixform_seed4105: head B clean 7.124 | inner clean 6.625 | head A clean 5.182 | B vs copy 0.384 | 5 s
+01:24:46 N13 real complete: all runs and measurements finished
+01:24:46 copied 56 result files for upload
+01:24:46 waiting for background Drive saves to finish (up to 15 minutes)
+01:24:46 Drive saves finished
