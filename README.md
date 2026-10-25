@@ -4,41 +4,42 @@ This repository holds a January 2026 paper by Peter Jemley, the code behind it, 
 
 ## Status, October 2026: where things stand
 
-**What the paper proposed.** In a small transformer, two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). Instead of passing through a fixed number of layers, each word's internal representation flows smoothly through "depth", along a field the model learns, and a small control signal u steers the flow. The paper's model is called Model A in the studies below. The paper claimed that u could steer the output toward positive or negative sentiment (98% and 88% of the time), at the same speed as an ordinary transformer, with a learned scale α (alpha) settling at 0.065, and with the two sentiments occupying geometrically distinct regions of the flow, shown by how hard the solver had to work.
+**What the paper proposed.** In a small transformer, two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). Instead of passing through a fixed number of layers, each word's internal representation flows smoothly through "depth", along a field the model learns, and a small control signal u steers the flow. The studies below call the paper's main model Model A. The paper claimed that u could steer the output toward positive or negative sentiment, assigning 98% and 88% probability to the target word on the one prompt steering was trained on, at the same speed as an ordinary transformer, with a learned scale α (alpha) settling at 0.065, and with the two sentiments occupying geometrically distinct regions of the flow, shown by how hard the solver had to work.
 
 **What an audit of the paper's own materials found.**
-- The steering target labelled " good" is GPT-2 token 220, which is a space.
-- The solver test presented as new was published earlier by Ott et al. (2020).
+- The steering target labelled " good" is GPT-2 token 220, the tokenizer's code for a single space. " good" is token 922.
+- The test of whether the model depends on its numerical solver, the method that computes the flow, was presented as new but had been published by Ott et al. (2020).
 - The reported α of 0.065 appears in no saved output.
-- The solver, probe and latency results come from a different model, trained for 50 steps on random tokens or not trained at all.
+- The solver, probe and latency results come from a second model, not Model A: an ODE block without attention, trained for 50 steps on random tokens (the solver and probe results) or not trained at all (latency). The paper describes this second model's design in its architecture section and presents all results as one model's.
 
-**What the preregistered replications found.** Loss is measured in nats; a difference of 0.05 nats is about a 5% change in how uncertain the model is about the next word.
+**What the preregistered replications found.** Loss is measured in nats. A difference of 0.05 nats is about a 5% change in how uncertain the model is about the next word, and 1.10 nats is about three times as uncertain.
 - **WikiText-2, 8 seeds** ([results](experiments/wikitext2-replication/RESULTS.md)):
-  - loss comparable to an ordinary transformer of the same size (+0.03 nats);
+  - loss slightly worse than an ordinary transformer of the same size in all 8 seeds, but within the margin for "comparable" (+0.03 nats);
   - α settled near 0.17, not 0.065;
-  - steering held in only 5 of 8 seeds;
+  - with the corrected target, token 922, steering held in only 5 of 8 seeds;
   - the extra solver effort offered as evidence of distinct regions appeared in 2 of 8;
   - the model was 7–11% slower, not as fast;
-  - two claims held: the trained model behaved as a continuous ODE under more accurate solvers, and the probe result across depth was as claimed.
-- **WikiText-103, a dataset about fifty times larger, properly trained, 6 seeds** ([results](experiments/wikitext103-training/RESULTS.md)): Model A was worse than the ordinary transformer by 1.10 nats (95% interval [0.97, 1.23]), and it did not behave as a continuous ODE under more accurate solvers.
+  - three claims held: the loss was comparable, the trained model behaved as a continuous ODE under more accurate solvers, and the probe result across depth was as claimed.
+- **WikiText-103, a dataset about fifty times larger, trained on the full budget, 6 seeds** ([results](experiments/wikitext103-training/RESULTS.md)): Model A was worse than the ordinary transformer by 1.10 nats (95% interval [0.97, 1.23]), and it did not behave as a continuous ODE under more accurate solvers.
 
-**Why it fell short** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)). The block was trained with a memory-saving shortcut for computing its learning signal, the adjoint method. At a tenth of the training budget, where Model A trailed the ordinary transformer by 0.83 nats, training with the shortcut accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind at that budget. So the design was not the main problem; the way it was trained was.
+**Why it fell short** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)). The block was trained with a memory-saving shortcut for computing its learning signal, the adjoint method. At a tenth of the training budget, where Model A trailed the ordinary transformer by 0.83 nats, training with the shortcut accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind at that budget. So, at that budget, most of the loss gap came from how the model was trained, not from its design. T1 does not explain the latency or steering results, and the model has not been trained with exact gradients on the full budget.
 
 ## What the later tests found
 
-The project's own aim, the author's, goes beyond the paper. When we listen to music we follow several voices at once; a reader likewise holds characters, arguments and tone together while the words arrive one at a time. The question is whether a model can hold its readings of a text that way, and whether continuous dynamics like the paper's block help it to. The tests in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/) start small: they ask how one model holds two readings at once, such as predicting the next word and the word after it, as a stand-in for the many strands a reader follows. They used models of about 30 million parameters, trained on WikiText-103 at a tenth of the full budget, with the plan, the decision rules and the result that would count against each claim fixed in advance. What has survived testing so far:
+The project's own aim, the author's, goes beyond the paper. When we listen to music we follow several voices at once; a reader likewise holds characters, arguments and tone together while the words arrive one at a time. The question is whether a model can hold its readings of a text that way, and whether continuous dynamics like the paper's block help it to. The tests in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/) start small: they ask how one model holds two readings at once, such as predicting the next word and the word after it, as a stand-in for the many strands a reader follows. They used the paper's Model A, trained with exact gradients on WikiText-103 at a tenth of the full budget with one learning rate: about 30 million parameters, or 23 to 43 million with two reading heads. Most of that is the tables that map words to vectors and back: in the base model, 25.7 of 30.5 million. The plan, the decision rules and the result that would count against each claim were fixed in advance. The readings tested are close relatives, words one to eight places ahead. What has survived testing so far:
 
 - **The continuous dynamics did not carry the readings, at this scale.** The control signal does change how strongly the flow draws nearby states together (G1c), but the model did not need that (G1d). Switching between two readings needed only a fixed shift of the state (N1), and two readings held at once did not get different paces in the flow (N2). A test that would give the dynamics a fairer chance, control that multiplies parts of the flow instead of adding to it (N3), was planned and not run.
-- **Two readings held at once use partly different directions in the model's internal state, and forcing them into the same directions costs accuracy** (N4). The restriction was applied at the model's final readout, not inside the continuous block. Whether the cost is a competition for directions was not settled (N5).
+- **Two readings held at once use partly different directions in the model's internal state, and forcing them through the same 64 of the state's 256 directions costs accuracy** (N4). The restriction was applied at the model's final readout, not inside the continuous block. Whether the cost is a competition for directions was not settled (N5).
 - **The further ahead a reading looks, the less it shares directions with the next-word reading** (N6r, N8). But a reading that is the next word with most of its training answers scrambled also shares little (N7), so how much two readings share does not simply measure how different they are. The measure itself recognises a reading and its ideal noisy copy as the same (N9).
-- **A reading trained on mostly scrambled answers learns something different, not a noisy copy of the right reading** (N9). That finding came out of N7's control and became its own line of tests (N10–N16):
-  - a readout that can represent the right blend of answer and noise keeps most of what the reading predicts (N12);
-  - its advantage lies in how it weighs each training answer (N13);
-  - along the axis of scrambled answers, the directions a reading uses followed its accuracy on N14's numbers, though N14's rule returned inconclusive;
-  - what still held it back was who judged its answers: judged by the clean reading's head instead of by itself, it did as well as a head given only the genuine answers (N16). Whether that judge helps by being independent, more accurate or sharper is not yet separated.
+- **A reading trained on mostly scrambled answers learns something different, not a noisy copy of the right reading** (N9). Here 80% of its training answers were replaced by words drawn at random by frequency. That finding came out of N7's scrambled-answer head and became its own line of tests (N10–N16):
+  - a readout that can represent the right blend of genuine answer and random word keeps most of what the reading predicts (N12);
+  - its advantage lies in how it trains: it weighs each answer by its own estimate that the answer is genuine (N13);
+  - along the axis of scrambled answers, N14's numbers favoured the reading that the directions a head uses follow its accuracy, though N14's primary rule returned inconclusive;
+  - what still held it back was whose estimate does the weighing: when the clean reading's head judged the answers instead of the head itself, it did as well as a head given only the genuine answers (N16). Whether that judge helps by being independent, more accurate or sharper is not yet separated.
 
-  These methods are known ones in learning from noisy labels (forward correction, Patrini et al., 2017; co-teaching, Han et al., 2018). What the tests add is what they do to the directions a reading uses.
-- **The conjecture itself is untested.** No test yet compares a model built with separate, interacting continuous strands against a matched ordinary transformer (V2 and V3 in [`CONJECTURE.md`](experiments/simultaneity-conjecture/CONJECTURE.md)).
+  N12's readout is a known method from learning with noisy labels, forward correction (Patrini et al., 2017). N16's judge is a diagnostic, not a method: it needs a clean head, which a real noisy-label problem does not have. A peer judge of equal accuracy, as in co-teaching (Han et al., 2018), is the proposed next test. On what these methods do to the directions a reading uses, the results so far are intermediate or inconclusive (N12, N14, N16).
+
+**The conjecture itself is untested.** No test has yet built the model it is about, one with separate, interacting continuous strands, and compared it with a matched ordinary transformer (V2 in [`CONJECTURE.md`](experiments/simultaneity-conjecture/CONJECTURE.md)) or with its own coupling switched off (V3).
 
 ## Who did what
 
@@ -47,7 +48,7 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 ## Start here
 
 1. [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md): the whole story in plain language.
-2. [`experiments/simultaneity-conjecture/CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md): a ledger of every claim tested, what it forbade and its verdict, and an account of where the method fell short.
+2. [`experiments/simultaneity-conjecture/CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md): a ledger of every main claim tested, what it forbade and its verdict, and an account of where the method fell short.
 3. [`experiments/too-linear-conjecture/T1_NOTE.md`](experiments/too-linear-conjecture/T1_NOTE.md): why the paper's model fell short.
 4. [`experiments/simultaneity-conjecture/README.md`](experiments/simultaneity-conjecture/README.md): an index of the tests, with links to each one's note.
 
@@ -56,7 +57,7 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 ```
 ├── README.md
 ├── LICENSE
-├── model.py                                                # Shared model definition
+├── model.py                                                # The paper's second model, used by the two notebooks below (not Model A)
 ├── pinned_data.py                                          # Offline, checksum-verified data loading
 ├── data/                                                   # Pinned GPT-2 tokenizer and WikiText-2 (see data/README.md)
 ├── scripts/fetch_wikitext2.py                              # One-time fetch that pins WikiText-2
@@ -65,8 +66,9 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 │   │   ├── PREREGISTRATION.md                              # The plan, fixed before any run
 │   │   ├── RESULTS.md                                      # The verdicts
 │   │   ├── KNOWN_LIMITATIONS.md                            # Limitations of the original experiments
+│   │   ├── paper_model.py                                  # Model A, restored from the original notebook
 │   │   └── results/                                        # One JSON record per run
-│   ├── wikitext103-training/                               # The same model properly trained on WikiText-103
+│   ├── wikitext103-training/                               # The same model trained on WikiText-103 at the full budget
 │   ├── too-linear-conjecture/                              # Why the model fell short: the author asked whether the design was "too linear"; T1 traced the gap to the training shortcut
 │   └── simultaneity-conjecture/                            # The tests of several readings at once (see its README.md)
 ├── colab/                                                  # Runs GPU jobs on Colab (see colab/README.md)
@@ -74,8 +76,8 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 ├── PAPER.md                                                # The January 2026 paper, unchanged, with a status note
 ├── continuous_depth_transformer_falsification_test.ipynb   # The paper's solver test and linear probes
 ├── continuous_depth_transformer_efficiency_benchmark.ipynb # The paper's latency benchmark
-├── continuous_depth_transformers_experiments.ipynb         # Early prototype with its own model definition
-├── README_LATEX.md                                         # The January README with LaTeX formulas
+├── continuous_depth_transformers_experiments.ipynb         # A January 30 replacement for the original experiments notebook, which is in git history (6b65d64)
+├── README_LATEX.md                                         # An earlier version of this README, with LaTeX formulas
 ├── MATH_EXPLAINER.md                                       # The architecture's mathematics (its experimental claims are obsolete)
 ├── PLAIN_LANGUAGE_EXPLAINER.md                             # Obsolete: presents the paper's results as validated
 ├── DEVELOPMENT_NOTES.md                                    # Historical: the reasoning behind the paper
@@ -92,7 +94,7 @@ pip install torch torchdiffeq datasets tiktoken
 
 ### Quick Start
 
-`model.py` holds the one shared definition of the model. The falsification and benchmark notebooks import it, and download it automatically when opened in Colab.
+`model.py` defines the paper's second model: an ODE block without attention, with the control signal concatenated onto the state, which in January was trained only on random tokens. The falsification and benchmark notebooks import it, and download it automatically when opened in Colab. Model A, behind the paper's training and steering results and used by every replication and later test, is [`experiments/wikitext2-replication/paper_model.py`](experiments/wikitext2-replication/paper_model.py), restored verbatim from the original notebook.
 
 ```python
 import torch
@@ -104,7 +106,7 @@ model = HybridTransformer(DEFAULT_CONFIG)
 batch_size = 2
 input_ids = torch.randint(0, DEFAULT_CONFIG['vocab_size'], (batch_size, DEFAULT_CONFIG['seq_len']))
 
-# Control signal u (it steers the output once the model has been trained)
+# Control signal u: the paper claimed it steers sentiment after training; the replication found that unreliable
 control = torch.zeros(batch_size, DEFAULT_CONFIG['control_dim'])
 control[:, 0] = 1.0
 
@@ -126,7 +128,7 @@ logits_adaptive = model(input_ids, control, use_adaptive=True)  # Adaptive Dopri
 
 We present a hybrid transformer architecture that replaces discrete middle layers with a continuous-depth Neural Ordinary Differential Equation (ODE) block, enabling inference-time control over generation attributes via a learned steering signal. The control signal `u` steers the model's output through a continuous manifold of semantic states, achieving 98%/88% accuracy for positive/negative sentiment control with **latency parity** compared to standard transformers.
 
-> *October 2026:* the steering target " good" was GPT-2 token 220, a space; in the WikiText-2 replication steering held in 5 of 8 seeds, and the model was 7–11% slower, not at parity.
+> *October 2026:* the steering target " good" was GPT-2 token 220, a space. With the corrected target, token 922, steering held in 5 of 8 replication seeds, and the model was 7–11% slower, not at parity.
 
 ### Key Results
 
@@ -135,8 +137,8 @@ We present a hybrid transformer architecture that replaces discrete middle layer
 | Experiment | Result claimed | What testing found |
 |------------|----------------|--------------------|
 | Gradient Stability | Zero exploding/vanishing gradients | Untestable in the replication: the paper's detector flagged nothing even on a run made deliberately unstable |
-| Semantic Steering | 98%/88% accuracy (positive/negative) | The " good" target was token 220, a space; steering held in 5 of 8 seeds |
-| Solver Invariance Test | 0.068% trajectory divergence (proves true continuity) | The test is Ott et al.'s (2020); the original result came from a model trained for 50 steps on random tokens or not at all. The replication passed it in all 8 seeds; properly trained on WikiText-103, the model failed it |
+| Semantic Steering | 98%/88% accuracy (positive/negative) | The " good" target was token 220, a space; with the corrected target, steering held in 5 of 8 seeds |
+| Solver Invariance Test | 0.068% trajectory divergence (proves true continuity) | The test is Ott et al.'s (2020); the original result came from the second model, trained for 50 steps on random tokens. Model A passed it in all 8 replication seeds; trained on WikiText-103 at the full budget, it failed |
 | Efficiency | **Latency parity** (-2.4% overhead) | 7–11% slower |
 | Solver Probing | Two distinct dynamical regimes revealed | In 2 of 8 seeds |
 
@@ -162,7 +164,7 @@ where:
 - `u` is a low-dimensional control signal
 - `α` (`alpha`) is a learned output scale (initialized to 0.1, converges to ~0.065) for stability
 
-> *October 2026:* α settled near 0.17 in all 8 replication seeds; the value 0.065 appears in no saved output.
+> *October 2026:* α settled near 0.17 in all 8 replication seeds, and grew to between 1.0 and 2.1 on WikiText-103; the value 0.065 appears in no saved output. The design described here, a vector field without attention with u concatenated onto the state, is the second model's, which `model.py` defines. Model A, behind the paper's training and steering results, has attention in its ODE block and adds u to the state (`experiments/wikitext2-replication/paper_model.py`).
 
 ### The paper's experiments
 
@@ -177,7 +179,7 @@ Run the experiments in Google Colab:
 
 Verifies stable gradient propagation through the ODE block. The learned scalar α converged from 0.1 to 0.065, indicating the model prefers a conservative, stable update regime.
 
-> *October 2026:* the value 0.065 appears in no saved output; α settled near 0.17 in the replication.
+> *October 2026:* the value 0.065 appears in no saved output; α settled near 0.17 in the replication. Gradient stability could not be tested: the paper's detector flagged nothing even on a run made deliberately unstable.
 
 ![Gradient Flow](figures/fig1_gradient_flow.png)
 
@@ -193,7 +195,7 @@ The "Hybrid Unfreeze" method trains only the ODE block to learn control semantic
 
 **Dynamics of Resistance:** The asymmetry (98% vs 88%) reflects the model's intrinsic positive bias. Positive steering is *cooperative* (working with the natural flow), while negative steering is *adversarial* (fighting the 91.4% prior toward "good"). The 88% success rate for negative sentiment represents a greater dynamical intervention.
 
-> *October 2026:* the " good" target is GPT-2 token 220, which is a space. With the corrected target, steering held on the training prompt in 5 of 8 replication seeds.
+> *October 2026:* the " good" target is GPT-2 token 220, which is a space, so the 91.4% "prior toward good" was a preference for a space. The neutral setting u = 0 was never trained, so the "dynamics of resistance" reading has no basis; with the corrected target, neutral u favoured " good" in 6 of 8 seeds, where at least 7 were required. Steering held on the training prompt in 5 of 8 replication seeds.
 
 #### Experiment 3: Solver Invariance Test (Methodological Contribution)
 
@@ -201,7 +203,7 @@ We propose a "Popperian" falsification test to verify true continuity: compare t
 
 **Result:** 0.068% trajectory divergence—proving the model learned an intrinsic continuous vector field rather than overfitting to discretization artifacts.
 
-> *October 2026:* this test was published earlier by Ott et al. (2020), and this result came from a different model, trained for 50 steps on random tokens or not trained at all. The WikiText-2 replication passed the test in all 8 seeds; properly trained on WikiText-103, the model did not.
+> *October 2026:* this test was published earlier by Ott et al. (2020), and this result came from the second model, trained for 50 steps on random tokens. Model A passed the test in all 8 WikiText-2 replication seeds; trained on WikiText-103 at the full budget, it did not.
 
 ![Continuous Steering](figures/fig2_continuous_steering.png)
 
@@ -213,13 +215,15 @@ The adaptive ODE solver reveals that positive and negative sentiment occupy geom
 
 **Key finding**: The negative sentiment regime requires 43% more solver steps (NFE=20 vs NFE=14), indicating higher curvature. This is the geometric manifestation of "Dynamics of Resistance"—the vector field must exhibit greater curvature to divert trajectories against the natural positive prior.
 
-> *October 2026:* the extra solver effort for negative steering appeared in 2 of 8 replication seeds. A later test of the geometric claim (G1) found the curvature ratio below its threshold.
+> *October 2026:* the extra solver effort for negative steering appeared in 2 of 8 replication seeds.
 
 **Global Bias Interpretation:** Linear probes trained on hidden states at intermediate depths (τ = 0, 0.5, 0.67, 1.0) showed flat sentiment separability—no "decision point" spike at τ ≈ 0.67. This confirms the control signal tilts the entire landscape from τ = 0, rather than triggering a late discrete decision.
 
-> *October 2026:* the original probe result came from the different model described above; the replication found probe selectivity flat across depth, as claimed.
+> *October 2026:* the original probe result came from the second model; the replication found probe selectivity flat across depth in Model A, as claimed.
 
 ### Core Components
+
+> *October 2026:* the first excerpt below is from `model.py`, the second model; the Hybrid Unfreeze and solver-probing excerpts come from Model A's code.
 
 #### ControlledVectorField and ContinuousDepthBlock
 
