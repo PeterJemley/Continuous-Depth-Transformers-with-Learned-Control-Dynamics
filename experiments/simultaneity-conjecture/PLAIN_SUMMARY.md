@@ -14,7 +14,7 @@ We first tried to reproduce the claims, with plans written and fixed before any 
 
 ## Why it failed
 
-The block was trained with a memory-saving shortcut for computing its learning signal, the "adjoint" method. A test at a tenth of the full training budget, where the gap was 0.83 nats, trained the same model with the exact signal instead. That closed about 95% of the gap: the shortcut alone cost about 0.8 nats.[^3] Trained exactly, the model was only 0.04 nats behind an ordinary transformer at that budget. So the idea was not the main problem; the way it was trained was.
+The block was trained with a memory-saving shortcut for computing its learning signal, the "adjoint" method. A test at a tenth of the full training budget, where the gap was 0.83 nats, trained the same model with the exact signal instead. That closed about 95% of the gap: the shortcut alone cost about 0.8 nats.[^3] Trained exactly, the model was only 0.04 nats behind an ordinary transformer at that budget. So, at that budget, most of the loss gap came from how the model was trained, not from the idea; this does not explain the steering or speed results, and the model has not been trained exactly on the full budget.
 
 ## The real aim: reading the way we hear music
 
