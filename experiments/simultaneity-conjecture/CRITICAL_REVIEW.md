@@ -202,7 +202,7 @@ That was the right order. A measure has to be trusted before it can carry the ma
 
 ### 9. Can a preregistration bind its own author?
 
-This criticism turns the method's own instrument against it. It has the shape of Benjamin Cardozo's argument in *Beatty v. Guggenheim Exploration Co.*, 225 N.Y. 380, 387 (1919): a contract clause forbidding oral changes can itself be changed by the parties, because the power that made it can unmake it. The author's legal-research skill *transcendental-counterplay* classifies that argument and verifies the passage, and it supplies the replies used below (`NECESSITY_AUDIT.md`).
+This criticism turns the method's own instrument against it. It has the shape of an old argument in contract law, Benjamin Cardozo's in *Beatty v. Guggenheim Exploration Co.*, 225 N.Y. 380, 387 (1919): a contract clause forbidding oral changes can itself be changed by the parties, because the power that made it can unmake it. The replies used below are the necessity audit's (`NECESSITY_AUDIT.md`).
 
 - **The criticism.** A preregistration binds only because its author approves it, and the same power of approval can amend it. So it binds nothing. The record has an example: N12's preregistration said the calibration could change only the number of fit steps, and amendment A1 changed a precondition instead.
 - **The reply** fixes the condition to a time and a level:

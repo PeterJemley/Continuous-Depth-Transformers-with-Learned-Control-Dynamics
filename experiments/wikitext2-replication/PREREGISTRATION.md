@@ -136,6 +136,7 @@ Seed 42 reproduces the original run's model initialisation and batch order, sinc
 - Confirm the train split gives 2,391,884 tokens.
 - Inspect one training batch as text.
 - Run `chance_check.py` from the experimentation skill for every probe and every steering test set size, before reading the results.
+  *Note added 2026-10-25: `chance_check.py` belongs to a method guide that is not part of this repository. The chance checks the results rely on are computed in `analyze.py`, which tests probe accuracy at τ = 0 against chance in every seed.*
 
 ## Analysis and reporting
 
