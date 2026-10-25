@@ -24,7 +24,9 @@ This repository contains the implementation and experiments for:
 >   - the solver-effort "regimes" appeared in 2 of 8;
 >   - the model was 7–11% slower, not at parity.
 > - **WikiText-103, properly trained, 6 seeds** ([results](experiments/wikitext103-training/RESULTS.md)): Model A was worse than the baseline by 1.10 nats (95% interval [0.97, 1.23]), and it did not behave as a continuous ODE under more accurate solvers.
-> - **Why** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)): training with adjoint gradients caused about 95% of that gap. Trained with exact gradients, the model was 0.04 nats behind the baseline at 10% of the budget.
+> - **Why** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)): at a tenth of the training budget, where Model A trailed the baseline by 0.83 nats, training with adjoint gradients accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind the baseline at that budget.
+>
+> **Who did what.** The January 2026 paper is Peter Jemley's. The audit, the replications and the tests under [`experiments/`](experiments/) were designed, run and written up by Claude, an AI model made by Anthropic, working with the author, who approved every plan before it ran. Where those documents say "I", the writer is Claude.
 >
 > **Where the work went next.** The project's own aim is a model that holds several readings of a text at once, like voices in music. That is tested in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/). Start with the plain-language summary, [`PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). A critical review of all the work, in the manner of Popper and Deutsch, including where the method fell short, is in [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md). Known limitations of the original experiments are in [`KNOWN_LIMITATIONS.md`](experiments/wikitext2-replication/KNOWN_LIMITATIONS.md).
 
@@ -231,7 +233,7 @@ class InstrumentedODEFunc(ODEFunc):
 
 ## License
 
-MIT
+MIT; see [`LICENSE`](LICENSE). The files in [`data/`](data/) keep their own licenses: WikiText under Creative Commons Attribution-ShareAlike 3.0, and OpenAI's GPT-2 tokenizer files under the modified MIT license in `data/gpt2/LICENSE` (see [`data/README.md`](data/README.md)).
 
 ## Acknowledgments
 
