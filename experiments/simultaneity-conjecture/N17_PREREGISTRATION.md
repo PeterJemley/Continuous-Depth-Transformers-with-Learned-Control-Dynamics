@@ -1,6 +1,6 @@
 # Preregistration N17: the loop, not the judge's accuracy
 
-Date: 2026-10-25    Status: **approved by the author, 2026-10-25.** Built and tested on tiny models and synthetic records the same day; the calibration is queued. No real N17 run has started. The deviation log records everything that happened after approval.
+Date: 2026-10-25    Status: **approved by the author, 2026-10-25.** Built and tested on tiny models and synthetic records the same day; the calibration job `n17_calib` is queued. No real N17 run has started. The deviation log records everything that happened after approval.
 
 Type: confirmatory for N17a (primary) and N17b, each with its own decision rule. Both use new arms trained for this test, with a third head that judges head B. Everything else is secondary or exploratory and labelled so.
 
@@ -269,6 +269,42 @@ Each was settled while writing `n17_loop.py` and `n17_analyze.py`, before any ru
 5. **x_self** is Δ_A(`rw-b1`) from the same functional measure as every Δ_A. The judge measure's x for `rw-b1` computes the same quantity through `forward_z`.
 6. **Secondary intervals** are 95% t-intervals, labelled as deciding nothing.
 7. **In tiny test mode** the passenger and copied-peer checks run 5 steps. In the calibration and the real run they run 20, as preregistered.
+
+### Built and tested before the calibration, 2026-10-25 (no amendment)
+
+Results seen before this entry: tests on tiny models on a CPU, and synthetic records. The full-length calibration on the A100 has not started, and no real N17 run has started. The tiny models' numbers mean nothing, and none is carried forward.
+
+- **The setup checks, on a tiny model:**
+  - every check passed: forward identity, weight identity, detachment, judge source, passenger, copied peer, overflow and nesting;
+  - the passenger and copied-peer checks differed by exactly 0;
+  - the judge-source check differed from head B's own discount by up to 0.39.
+- **Each check can fail.** Two planted bugs were each caught:
+  - weighting head B by its own prediction failed the judge-source check;
+  - reseeding the global random state when head C is created failed the passenger check.
+- **On the CPU, 16-bit autocast and the gradient scaler are off,** so the copied-peer check ran without scaling there. On the A100 the setup checks run as training does, with both on. If either check fails there, the job stops before training anything.
+- **The analysis, on 23 sets of synthetic records:**
+  - every outcome of both rules;
+  - every precondition failing on its own, including head C's positions differing from N14's;
+  - too few seeds;
+  - three rungs in the real run;
+  - each branch of the calibration's rule: the default pair, a shift to 20% and 10%, three rungs, falling back to x_self alone, and no rungs.
+
+  Every case gave the intended verdict or choice.
+- **The tiny end-to-end run** (2 seeds, 60 steps, 8 measurement windows):
+  - it trained the peer and the default rungs, and re-measured 16 saved models from N12, N13, N14 and N16's tiny runs, all of them exactly;
+  - precondition 1 held, including the fingerprints and head C's positions against N14's records;
+  - a rerun retrained nothing, and its 29 records were byte-identical.
+- **The resume test.** The tiny calibration run was stopped during its first training run, with its local folder deleted as on a new Colab machine. A second session resumed from the Drive copy at step 3 and finished all 8 runs and their measurements.
+  - The full-length passenger pair was bit-identical.
+  - The analysis ran the calibration's rule on the tiny values, which chose three rungs.
+- **Two bugs were found by these tests and fixed before this entry:**
+  - a start-of-run log line formatted a fraction for arms that have none (commit 5dd7608);
+  - the analysis always read the repository's own N12–N16 records, so it could not be pointed at test records (commit 52eb45b).
+
+  Neither touches a claim, a measure or a rule.
+- **The Colab wrappers** follow N16's: an A100 is required, and the calibration wrapper adds `--calibration`.
+
+The calibration job, `n17_calib`, is queued: seed 3001, the calibration windows 513–1024, all five loop-free rungs, the peer and the full-length passenger pair. Its values will be recorded in the next entry.
 
 ## References
 
