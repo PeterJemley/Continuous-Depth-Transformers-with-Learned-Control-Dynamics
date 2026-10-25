@@ -1,6 +1,8 @@
 # What we have done, in plain language
 
-Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, 2026-10-10 with N8 and N9, 2026-10-18 with N10, 2026-10-19 with the plan for N11, 2026-10-20 with N11, 2026-10-21 with N11's hardware comparison, corrections from a fresh reader's audit against the notes, and N12, and 2026-10-22 with N13, N14, and N15's withdrawal and N16. Covers the work through N16. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
+Date: 2026-10-06, updated 2026-10-07 with N5, 2026-10-08 with one added limit, N6 and N6r, 2026-10-09 with N7, 2026-10-10 with N8 and N9, 2026-10-18 with N10, 2026-10-19 with the plan for N11, 2026-10-20 with N11, 2026-10-21 with N11's hardware comparison, corrections from a fresh reader's audit against the notes, and N12, 2026-10-22 with N13, N14, and N15's withdrawal and N16, and 2026-10-25 with a line on who did what and a corrected statement of the gap T1 measured. Covers the work through N16. The mathematical and geometrical details are in the numbered notes at the end, so the main text can be read without them. Every number comes from a result note in this repository; the notes say which. A critical review of the same work, asking where each guess could have failed and where the method fell short, is in `CRITICAL_REVIEW.md`.
+
+The paper is Peter Jemley's. The tests described here were designed, run and written up by Claude, an AI model made by Anthropic, with the author approving every plan before it ran; where this summary says "I", the writer is Claude.
 
 ## The starting point: a paper's claims, tested and refuted
 
@@ -12,7 +14,7 @@ We first tried to reproduce the claims, with plans written and fixed before any 
 
 ## Why it failed
 
-The block was trained with a memory-saving shortcut for computing its learning signal, the "adjoint" method. Training the same model with the exact signal instead closed about 95% of the gap: the shortcut alone cost about 0.8 nats.[^3] Trained exactly, the model was only 0.04 nats behind an ordinary transformer at that budget. So the idea was not the main problem; the way it was trained was.
+The block was trained with a memory-saving shortcut for computing its learning signal, the "adjoint" method. A test at a tenth of the full training budget, where the gap was 0.83 nats, trained the same model with the exact signal instead. That closed about 95% of the gap: the shortcut alone cost about 0.8 nats.[^3] Trained exactly, the model was only 0.04 nats behind an ordinary transformer at that budget. So the idea was not the main problem; the way it was trained was.
 
 ## The real aim: reading the way we hear music
 

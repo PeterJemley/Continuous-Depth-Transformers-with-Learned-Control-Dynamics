@@ -13,7 +13,7 @@ Each job is prepared in this repository. You run it on a Colab GPU with one fixe
 5. Under **Permissions**, click **+ Add permissions**, choose **Contents**, and set its access to **Read and write**. GitHub may add **Metadata** as read-only by itself; leave it. Leave the **Account** tab at 0.
 6. Click **Generate token** and copy it. GitHub shows it only once.
 
-The token works only on this one repository and expires on its own. You can revoke it at any time on the same page. The repository is private, so the notebook needs the token to download the code as well as to upload results.
+The token works only on this one repository and expires on its own. You can revoke it at any time on the same page. The notebook needs the token to upload results. The repository is now public, so downloading the code works without it, but the notebook uses the token for the download too when it is set.
 
 ### B. Upload the notebook to Colab
 
