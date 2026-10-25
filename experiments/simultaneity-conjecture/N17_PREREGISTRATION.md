@@ -1,6 +1,6 @@
 # Preregistration N17: the loop, not the judge's accuracy
 
-Date: 2026-10-25    Status: **draft for the author's approval.** Not built, not run. Nothing in this file is a finding.
+Date: 2026-10-25    Status: **approved by the author, 2026-10-25.** Built and tested on tiny models and synthetic records the same day; the calibration is queued. No real N17 run has started. The deviation log records everything that happened after approval.
 
 Type: confirmatory for N17a (primary) and N17b, each with its own decision rule. Both use new arms trained for this test, with a third head that judges head B. Everything else is secondary or exploratory and labelled so.
 
@@ -254,7 +254,21 @@ Preconditions 1–3 and 5 apply to both claims. Precondition 4 applies to the ar
 
 ## Deviation log
 
-*Empty: the preregistration has not been approved.*
+### Approval, 2026-10-25 (no amendment)
+
+Approved by the author as drafted ("Approved; build and test N17"), with the two choices made in the drafting questions: the matched loop-free judges with the peer, and a third head that reads the trunk without training it. Before approval, the draft was revised once after a fresh reader's check (commit 1cf3fad).
+
+### Readings fixed at build time, before the calibration, 2026-10-25 (clarifications, not amendments; open to the author's objection before the real run)
+
+Each was settled while writing `n17_loop.py` and `n17_analyze.py`, before any run. None changes a claim, a margin, a measure or a threshold.
+
+1. **The forward pass.** Head C needs the trunk's final state, which N4's forward pass does not return. `forward_z` repeats that computation step for step and also returns the state. A forward-identity check, that both heads' logits equal N4's bit for bit, is added to precondition 1's setup checks.
+2. **Head C's initial values** follow `nn.Linear`'s default distribution (uniform within 1/√fan-in). They are drawn from a generator seeded with the seed plus 31337, and the modules are created under a fork of the CPU random state, so the main random state is untouched.
+3. **"Head C's positions equal N14's."** This is checked against N14's recorded step-0 fingerprint of its kept set, wherever N14 has a record for that fraction and seed: `rw-j10` to `rw-j0125` in the real run, and `rw-j10` to `rw-j025` in the calibration. The 20% rung's positions are K by construction. Every rung's positions are also checked at step 0 by the nesting check: inside K, each inside the next larger, at their fractions within 0.02.
+4. **Precondition 6b, as written, does not require the rungs to be ordered;** 6a does. The loop-free line sorts the rungs' points by x either way.
+5. **x_self** is Δ_A(`rw-b1`) from the same functional measure as every Δ_A. The judge measure's x for `rw-b1` computes the same quantity through `forward_z`.
+6. **Secondary intervals** are 95% t-intervals, labelled as deciding nothing.
+7. **In tiny test mode** the passenger and copied-peer checks run 5 steps. In the calibration and the real run they run 20, as preregistered.
 
 ## References
 
