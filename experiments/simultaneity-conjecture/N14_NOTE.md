@@ -1,11 +1,49 @@
 # Result note: N14
 
-Date: 2026-10-22    Preregistration: `N14_PREREGISTRATION.md`, with amendment A1    Generated report: `N14_RESULTS.md`    Calibration run: `N14_CALIBRATION.md`    Exploratory report, added after the results: `N14_EXPLORATORY.md`    Raw results: `results/n14/`, from Colab run `n14_dose/20261022-122325`, code commit 8b4fb43.
+Date: 2026-10-22    Preregistration: `N14_PREREGISTRATION.md`, with amendment A1    Generated report: `N14_RESULTS.md`    Calibration run: `N14_CALIBRATION.md`    Exploratory report, added after the results: `N14_EXPLORATORY.md`
 
-**How the run went.**
-- **One session:** an NVIDIA A100 with 40 GB and PyTorch 2.11 (N12's calibration had run on this model; its real run and N13 on the 80 GB one). It trained the 40 models, re-measured N12's `sub20` and `n80-mix` and measured everything in 93 minutes, about 2 minutes per training run.
-- **No problems:** no resumes, no Drive failures, no 16-bit steps skipped, every training draw before the held-out boundary, every position set nested and at its design fraction, every fingerprint equal to the setup check's.
-- **The re-measurements** reproduced N12's records exactly (every loss and ratio differed by 0), on the 40 GB model.
+## In brief
+
+In N12, a head given only the unscrambled 20% of its next-word answers and a head also given scrambled answers at the other 80% made predictions of similar quality, yet the second read the clean head's directions less (an agreement of 0.81 against 0.90, where 1 means the same directions), which N12's note read as a trace left by the scrambled answers. N14 asked whether heads trained with scrambled answers read those directions worse than heads trained on genuine answers alone that predict genuine answers equally well, measured against a ladder of heads given fewer and fewer genuine answers, and whether the trace grows with the number of scrambled answers. Heads with 10% to 80% scrambled answers sat on that ladder within about 0.02; the primary claim was inconclusive by its rule, with the numbers on the side of the rival that a head's directions follow how well it predicts (N14a), and the growth claim was intermediate (N14b). The claim that weighting the genuine answers by the head's own estimate that each is genuine, with no scrambled answers, lowers the agreement by less than 0.03 was refuted as stated (N14c), though that head's prediction collapsed while its directions stayed those of a far better head (an exploratory reading), and the conjecture did not survive.
+
+## The arms and measures
+
+Every model has two heads that read the next word from the same internal state. **Head A**, the clean head, is trained on the genuine next word. **Head B** is the second head, and the arms differ only in its targets and its loss. All arms use N12's five seeds, 4101 to 4105, paired with N12's saved models of the same seed. A seed is one training run from its own random start. In every arm, head B's genuine targets lie within the 20% of positions that N12's `n80` left unscrambled, and its scrambled targets are `n80`'s own, at positions `n80` scrambled. A scrambled target is a word drawn at random in proportion to its frequency; the note calls these random targets, and genuine ones clean targets. "Nested" means each smaller set of positions lies inside the larger one. Everything is measured on N12's 512 windows held out from the training text.
+
+| Arm | Genuine targets at | Scrambled targets at | Head B | Role |
+|---|---|---|---|---|
+| `sub20` | 20% of positions | None | Single softmax, the standard readout | The genuine-only head (N12's saved model): dose 0, and the top rung of the ladder |
+| `r10`, `r20`, `r40` | 20% | A nested 10%, 20% and 40% of positions | A mixture head told its true noise rate, ρ = 1/3, 1/2 and 2/3 | The dose |
+| `n80-mix` | 20% | 80% | A mixture head at ρ = 0.8 (N12's saved model; the blended head in `PLAIN_SUMMARY.md`) | Dose 0.8 |
+| `sub10`, `sub05`, `sub025`, `sub0125` | A nested 10%, 5%, 2.5% and 1.25% of positions | None | Single softmax | The rungs of the ladder below `sub20`. `sub0125` was added by amendment A1 |
+| `sub20-rw` | 20% | None | Single softmax, each target's loss weighted by the discount at ρ = 0.8, computed from its own prediction | The reweighting control: the mixture head's weighting of the genuine targets, with no scrambled targets |
+| `clean` | Every position | None | Single softmax | N12's model, the reference for head A's cost only |
+
+| Term | Meaning |
+|---|---|
+| u, ρ | u is the word frequencies of the training text. ρ is an arm's true noise rate among the positions that have a target: d / (0.2 + d) at dose d |
+| Mixture head | A head B whose output is (1 − ρ) · softmax + ρ · u. Its inner reading is the softmax inside the mixture; for a single softmax, the inner reading is the head itself |
+| The discount, r(y) | (1 − ρ) p(y) / ((1 − ρ) p(y) + ρ u(y)), with p the head's own softmax: the head's estimate that target y is genuine. The mixture head trains as a single softmax with each target weighted by it (N13) |
+| Kept, random | Positions with a genuine target, and positions with a scrambled one |
+| Nats | The unit of prediction loss |
+| Δ_A | The inner reading's loss on the genuine targets minus head A's, within a model, in nats: how far the head's prediction falls short of the clean head's |
+| a | The agreement of the inner reading with head A: N9's agreement ratio, how far two predictions depend on the same directions of the internal state, corrected for measurement noise. It is 1 for the same directions |
+| Function, geometry | A head's function is how well it predicts, here its Δ_A; its geometry is the directions it reads, here its a. The rival "geometry follows function" says a is set by Δ_A, whatever raised Δ_A |
+| The ladder | For each seed, the points (Δ_A, a) of `sub20`, `sub10`, `sub05`, `sub025` and `sub0125`, in order of Δ_A: heads that predict worse because they have fewer genuine targets, with no scrambled ones |
+| â | The ladder's agreement at a model's own Δ_A, by straight-line interpolation between the two rungs either side: how well a genuine-only head with the same clean-target loss reads head A's directions |
+| b | â − a: how far a model's agreement falls below the ladder. Positive means the scrambled targets moved the directions more than their cost to the prediction accounts for |
+| Dose d | The share of positions given scrambled targets: 0 (`sub20`), 0.1, 0.2, 0.4 and 0.8 (`n80-mix`) |
+| D(d), the trace | a(`sub20`) − a(d): how far the agreement drops from dose 0 to dose d |
+| Functional cost | Δ_A(d) − Δ_A(`sub20`) |
+| Random share | The scrambled targets' share of head B's summed discount weight |
+| Leave-one-out residual | For each inner rung, its distance from the line through its two neighbours: the ladder's own noise |
+| The 0.85 bar | The agreement taken to mean "the same reading", used by N10c and N12b |
+| Head A, vs `clean` | Head A's loss on the genuine targets minus that of the same seed's `clean` arm, in nats. Positive is worse. The preregistration lists it as secondary measure S5 |
+
+**The rules.** N14a and N14c use a Bonferroni-corrected 97.5% interval over the five seeds. N14a is *supported* if the interval for b(`n80-mix`) lies wholly above 0.03, and *refuted* if it lies wholly below 0.01 with a standard deviation of at most 0.03. N14c is *supported* if the interval for a(`sub20`) − a(`sub20-rw`) lies wholly below 0.03, and *refuted* if it lies wholly above 0.06 with a standard deviation of at most 0.03. Either is *some effect, size unclear* if its interval excludes 0 but meets neither rule, and *inconclusive* otherwise. N14b counts seeds. It is *supported* if D(`r10`) < D(`n80-mix`) / 2 in at least 4 of 5, *refuted* if D(`r10`) ≥ 0.75 · D(`n80-mix`) in at least 4 of 5, and *intermediate* otherwise. The exploratory intervals are 95%.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Nothing else was changed.*
+
 - **Changes after approval:** amendment A1, the fifth rung of the ladder, after the calibration run and before the real run. Nothing after it.
 
 ## What we expected
@@ -107,3 +145,14 @@ The last column's intervals are 95% and exploratory.
 2. **Why head A's cost is not monotone in head B's clean targets.** A dose of the constant on the standard head (N13's next conjecture 2) and a ladder of clean fractions with the standard loss scale would separate the pull's magnitude from what the pull is toward.
 3. **What the discount needs.** A floor on the discount (no target below 0.2) for the reweighted head, with and without random targets, would test the conjecture that the random targets keep the inner softmax honest about the frequencies. [N16, 2026-10-22, exploratory: adding the random targets improved the self-judged reweighted head by 0.40 nats, consistent with this conjecture; under head A's judgement they improved it by 0.14, where the conjecture's mechanism does not apply in the same way. The floor itself is untested (`N16_EXPLORATORY.md`).]
 4. **Return to N10's question with mixture heads** (carried from N12 and N13).
+
+## Records
+
+- **Raw results:** `results/n14/`, from Colab run `n14_dose/20261022-122325`.
+- **Code commit:** 8b4fb43.
+- **Analysis:** `n14_analyze.py` writes `N14_RESULTS.md` from those records and N12's, and `n14_exploratory.py` writes `N14_EXPLORATORY.md`; the job is `n14_dose.py`.
+
+**How the run went.**
+- **One session:** an NVIDIA A100 with 40 GB and PyTorch 2.11 (N12's calibration had run on this model; its real run and N13 on the 80 GB one). It trained the 40 models, re-measured N12's `sub20` and `n80-mix` and measured everything in 93 minutes, about 2 minutes per training run.
+- **No problems:** no resumes, no Drive failures, no 16-bit steps skipped, every training draw before the held-out boundary, every position set nested and at its design fraction, every fingerprint equal to the setup check's.
+- **The re-measurements** reproduced N12's records exactly (every loss and ratio differed by 0), on the 40 GB model.

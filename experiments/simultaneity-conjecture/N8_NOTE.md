@@ -1,6 +1,43 @@
 # Result note: N8
 
-Date: 2026-10-10    Preregistration: `N8_PREREGISTRATION.md`, with amendment A1 (a must-differ control)    Generated report: `N8_RESULTS.md`    Raw results: `results/n8/` and `results/n8_log.txt`, from `colab-results` branch `n8_fisher/20261010-154616`. Code commit b30f6ec.
+Date: 2026-10-10    Preregistration: `N8_PREREGISTRATION.md`, with amendment A1 (a must-differ control)    Generated report: `N8_RESULTS.md`
+
+## In brief
+
+N7's note guessed that the overlap measure used so far sees where a reading's errors fall, and not only which directions it uses, because it is built from gradients against the real answers. N8 measured the same trained models again with a target-free version, in which each answer is drawn from the head's own prediction, so that errors play no part. The head trained on scrambled answers still shared little with the clean head: 0.127 more than the head reading eight words ahead, where 0.30 was needed, and an agreement ratio of 0.315 to 0.339, where 0.85 was needed, so N8a and N8b are refuted. The overlap still fell the further ahead a head reads (0.95 for the same word, then 0.44, 0.25 and 0.19 at 2, 4 and 8 words ahead), so N8c is supported, and since the two measures agreed to within 0.045 on average, N7's explanation is refuted.
+
+## The arms and measures
+
+N8 trained nothing. It measured 40 models already trained in two earlier tests: N7's 20 (seeds 3801 to 3805) for N8a and N8b, and N6r's 20 (seeds 3701 to 3705) for N8c. In every model, two heads read the same final internal state, each through its own readout of 64 directions. Head A, *the clean head*, predicts the next word from the real answers. The arms differ in what head B predicts.
+
+| Arm | Also called in this note | Head B predicts | Models |
+|---|---|---|---|
+| `same` | Same target | The next word, as head A does. This is the must-fail control: the measure must not call these two heads different | N7's and N6r's |
+| `k2` | 2 ahead, k = 2 | The word 2 places ahead | N6r's |
+| `k4` | 4 ahead, k = 4 | The word 4 places ahead | N7's and N6r's |
+| `k8` | 8 ahead, k = 8 | The word 8 places ahead | N7's and N6r's |
+| `noisy` | Noisy next token, the noisy head | The next word from scrambled answers: in training, 80% of its answers were replaced by words drawn at random in proportion to how common they are | N7's |
+
+- **The rotated control,** or must-differ control, was added by amendment A1 and built in each `same` model. It is a second copy of head A that reads a randomly rotated copy of the state. It has head A's own weights but reads different directions by construction, so the measure must be able to call it separate.
+- **Measurement windows:** 256 fixed passages of the WikiText-103 test text (windows 513 to 768), which no earlier measurement had used.
+- **The old measure,** used from N4 to N7: for each head, the 16 directions of the internal state, at the continuous block's output, along which the gradient of its loss against its actual answers is largest on average (the top eigenvectors of the gradient covariance). The literature calls this covariance the *empirical Fisher*.
+- **The target-free measure, o_F,** new in N8: the same, except that each answer is drawn from the head's own predicted distribution instead of taken from the text. Its expected value is the *Fisher information* of the head's predictions: it picks out the directions of the state that most change what the head predicts, whatever the answers turned out to be. The two heads share one random draw per position, so two identical heads score exactly 1.
+- **The overlap:** how far two heads' 16 directions coincide, as the mean squared cosine of the angles between them. It is 1 for the same directions, and random directions score about 0.06. o_F(noisy), o_F(2) and o_F(8) are the target-free overlaps of the noisy, two-ahead and eight-ahead heads with head A.
+- **The agreement ratio:** the overlap corrected for measurement noise. Head A's directions from one half of the passages are compared with head B's from the other half. The result is divided by the geometric mean of the two heads' *split-half stabilities*, which say how well each head's directions agree with themselves across the two halves.
+- **Readout drift (S4),** added by amendment A1 and exploratory: how far each trained readout's 64 directions still overlap the readout both heads started from (1 means it did not move, and random directions would give 0.25), and how far head A's readout overlaps head B's.
+- **The ideal noisy copy,** in "Which kind of result this is": a head whose prediction is exactly 0.2·p + 0.8·(word frequencies), where p is the clean head's prediction. It is what a perfect head trained on 80% scrambled answers would predict. The plain summary calls it the perfect noisy copy.
+- **N8a (primary)** claims that, with errors removed, the noisy head shares what the clean head uses: o_F(noisy) − o_F(8) ≥ 0.30. **N8c** claims that the readings further ahead still use different directions: o_F(2) − o_F(8) ≥ 0.10. Each is judged on a Bonferroni-corrected 97.5% interval over the five seeds (a t-interval with 4 degrees of freedom). A claim is *supported* if its interval lies wholly above its threshold, *refuted* if it lies wholly below with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise.
+- **N8b** claims that the noisy head converges with the clean head. It is *supported* if its target-free agreement ratio is at least 0.85 in at least 4 of 5 models, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise.
+- **Preconditions,** without which the claims would be *untestable*. Each set of models must pass them separately:
+  - *the estimator works:* on a small model whose Fisher can be computed exactly (the *analytic check*), the sampled estimate's top directions overlap the exact ones by at least 0.98, and two identical heads score exactly 1;
+  - *the right models are loaded:* the old measure on N8's windows lies within 0.05 of the value recorded for every model;
+  - *must fail:* the `same` arm's target-free agreement ratio is at least 0.95 in at least 4 of 5 models;
+  - *must differ* (amendment A1): the rotated control's ratio is at most 0.60 in at least 4 of 5;
+  - *stability:* every head used in a rule has a split-half stability of at least 0.80.
+- **Amendment A1,** approved before any real run, added the must-differ control and S4. Calibration had shown that under the target-free measure untrained heads already score about 1, so the must-fail control alone could not show that the measure can call two heads separate.
+- **Other names.** N4, N6r, N7 and N9 are other tests in this folder, each with its own note. *N6r's ladder* is the finding that the overlap with the next-word head falls the further ahead head B reads. Runs were trained on Google Colab and saved to Google Drive; a *session* is one sitting of the Colab job.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.**
 - Two earlier sessions stopped with an error before measuring any model. Both were caused by a bug in the new control: a matrix left on the CPU. The second session had started 25 seconds before the fix was pushed. Both are recorded in the deviation log.
@@ -90,3 +127,8 @@ All preconditions held, in both sets of models:
 ## References
 
 Kunstner, F., Balles, L., & Hennig, P. (2019). *Limitations of the empirical Fisher approximation for natural gradient descent*. arXiv. https://doi.org/10.48550/arxiv.1905.12558
+
+## Records
+
+- **Raw results:** `results/n8/` and `results/n8_log.txt`, from the `colab-results` branch, run `n8_fisher/20261010-154616`. This was the third session. The two before it, `n8_fisher/20261010-143934` and `n8_fisher/20261010-144219`, stopped before measuring any model.
+- **Code:** commit b30f6ec. `n8_analyze.py` writes `N8_RESULTS.md` from those records; the job is `n8_fisher.py`.
