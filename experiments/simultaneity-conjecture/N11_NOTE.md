@@ -1,6 +1,52 @@
 # Result note: N11
 
-Date: 2026-10-20    Preregistration: `N11_PREREGISTRATION.md`, with amendment A1 and deviation D1    Generated report: `N11_RESULTS.md`    Exploratory report, added after the results: `N11_EXPLORATORY.md`    Raw results: `results/n11/` and `results/n11_log.txt`, from `colab-results` branch `n11_strength_a100/20261020-190036`. Code commit c4f8d0a.
+Date: 2026-10-20    Preregistration: `N11_PREREGISTRATION.md`, with amendment A1 and deviation D1    Generated report: `N11_RESULTS.md`    Exploratory report, added after the results: `N11_EXPLORATORY.md`
+
+## In brief
+
+N11 asked again whether anchoring what head B predicts protects its reading under 80% scrambled answers better than pinning the directions it reads, now with a functional payload at three strengths and a yardstick no payload can move. The payload again failed its own check that it took hold: at the strongest setting, its divergence from its target on its own passages fell only to 0.585–0.601 of the unanchored arm's, against at most 0.5 required, so N11a and N11c are untestable. N11b is supported: the share of the gap closed rose with the strength in all 5 seeds (0.40, 0.45 and 0.47), but the rise flattens, and its last step is no larger than the effect of changing the GPU. In secondary and exploratory measures, which decide nothing, the functional payload closed 40–47% of the gap at no cost to head A while leaving head B's directions almost where they were, and the geometric pin restored the directions (0.73) but closed only 19% of the gap and made head A worse by 0.14 nats.
+
+## The arms and measures
+
+Every model is the paper's continuous-depth transformer, trained with exact gradients for 10% of the WikiText-103 training budget. Two heads read the same final internal state, each through its own readout of 64 directions. Head A always predicts the next word from the real answers. Except in `clean`, head B predicts it from scrambled answers: 80% of its training answers are replaced by words drawn at random in proportion to how common they are. Each arm was trained from five seeds (4001 to 4005), 30 runs in all, and all six arms of a seed shared their starting weights and the order of the training text.
+
+| Arm | Head B's payload | Role |
+|---|---|---|
+| `clean` | None, and head B is trained on the real next words | The must-match control |
+| `n80` | None | The unanchored arm, and the source of the yardstick |
+| `n80-f8` | Functional, λ = 8: per passage, the same weight as the training batch | The weakest strength, for N11b |
+| `n80-f32` | Functional, λ = 32: four times that weight | The middle strength, for N11b |
+| `n80-f128` | Functional, λ = 128: sixteen times that weight | The strength tested by N11a and N11c, and the strongest for N11b |
+| `n80-geom` | Geometric, λ = 10: pins head B's readout directions to head A's (the pin) | The comparison for N11c |
+
+- **A payload** is an extra training signal meant to protect head B's reading, and λ is its weight in the training loss. The *functional payload* is a penalty on the KL divergence between head B's prediction and its own model's ideal noisy copy, on 64 fixed training passages, 4 per step against 32 in the training batch. Under amendment A1 it trains only head B's readout, its projection P_B and output matrix W_B, so it cannot reach the shared network or head A. The *geometric payload* penalises the difference between the two heads' readout projections, P_B and P_A.
+- **The ideal noisy copy:** a head built from head A, without training, whose prediction is exactly q = 0.2·p_A + 0.8·u. Here p_A is head A's prediction and u is the word frequencies of the training text. It is the best possible prediction of 80% scrambled answers, the plain summary's perfect noisy copy.
+- **The yardstick:** the ideal copy built from the same seed's `n80` model. No payload can move it, because it comes from a model trained without one.
+- **The gap** of an arm is head B's loss on the real next words minus the yardstick's loss on the same words, in nats. **S,** the share of the gap closed, is 1 − gap(arm) ÷ gap(`n80`), seed by seed. 0 means the payload did nothing, 1 means head B matches the yardstick, and below 0 means the payload made head B worse.
+- **Measurement windows:** the last 421 passages of the WikiText-103 test text (windows 1793 to 2213), which no earlier measurement had used and the payload never saw. The *payload windows* are the 64 training passages the payload used.
+- **The payload-window divergence:** KL(head B ‖ copy) on the 64 payload passages, which says how far head B's prediction is from its own model's ideal copy, in nats per position.
+- **The agreement ratio,** for geometry: N9's target-free agreement ratio of head B with its own model's ideal copy. It compares the 16 directions of the internal state that most change each head's predictions, corrected for measurement noise. It is 1 for the same directions.
+- **Secondary measures,** which decide nothing:
+  - *S1:* the agreement ratio, by arm;
+  - *S2:* head A's cost, its loss minus the same seed's `n80` head A's;
+  - *S3:* S on the payload windows against S on the measurement windows, whose ratio is the *carry-over*;
+  - *S4:* the dose curve, S and the payload-window divergence at each strength;
+  - *S5:* replication of N10's `n80` arm.
+- **G,** in the hardware observation, is head B's loss on the real next words minus its own model's copy's, as in N10.
+- **N11a (primary)** claims that a functional payload of sufficient strength preserves the reading's function: S(`n80-f128`) above 0.67. **N11c** claims function, not geometry: S(`n80-f128`) − S(`n80-geom`) of at least 0.30, paired by seed. Each is judged on a Bonferroni-corrected 97.5% interval over the five seeds (a t-interval with 4 degrees of freedom). A claim is *supported* if its interval lies wholly above its threshold, *refuted* if it lies wholly below with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise.
+- **N11b** claims that the effect grows with the strength. It is *supported* if S(f8) < S(f32) < S(f128) in at least 4 of 5 seeds, *refuted* if S(f128) ≤ S(f8) in at least 4 of 5, and *partial* otherwise.
+- **Preconditions,** without which a claim is *untestable*:
+  - *setup:* the data, batch and identical-heads checks pass;
+  - *must match:* in `clean`, head B's ratio with head A is at least 0.95 and its loss is within 0.05 nats of head A's, each in at least 4 of 5 models;
+  - *must differ:* the rotated control, head A reading a randomly rotated copy of the state, scores at most 0.60 in at least 4 of 5 models of every arm;
+  - *the yardstick leaves a gap:* gap(`n80`) is at least 0.30 nats in every seed;
+  - *the payloads took hold,* the manipulation checks: *5f,* for N11a and N11c, requires the payload-window divergence in `n80-f128` to be at most half of the same seed's `n80`, in at least 4 of 5 seeds; *5g,* for N11c, requires the two readouts to overlap by at least 0.90 in every `n80-geom` model;
+  - *stability,* for the secondary measures only: a split-half stability of at least 0.80.
+- **The dose check** was the calibration before queuing. Each strength was trained at full size for 300 of the 2,879 steps, to check that λ = 128 would take hold.
+- **Amendment A1,** approved before any real run, confined the functional payload to head B's readout. It also added the payload's gradient after the main gradient is *clipped*, that is, scaled down so that its total size is at most 1. **Deviation D1,** approved during the run, redid all 30 runs from scratch on one kind of GPU, an NVIDIA A100. A first session on another kind, a T4, had hit a usage limit after 14 runs; those T4 runs were compared afterwards, in `N11_HARDWARE.md`.
+- **Other names.** N9, N10 and N12 are other tests in this folder, each with its own note, and `CRITICAL_REVIEW.md` lists lessons drawn from the tests. A *softmax* is the readout's last step, which turns scores into a probability for every word. A *resume* restarts a run from its saved copy on Google Drive, and a *skipped 16-bit step* is a training step dropped because its 16-bit arithmetic overflowed.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.**
 - **One session:** an NVIDIA A100 (80 GB), PyTorch 2.11, the same version as N10. It trained and measured all 30 models in 61 minutes, at 1.6–2.2 minutes of training per run.
@@ -122,3 +168,9 @@ Both are conjectures, formed after the results.
 Son, C. (2026). *J-space forecasts model collapse, but only anchoring the function prevents it* [Preprint]. Research Square. https://doi.org/10.21203/rs.3.rs-10713541/v1
 
 Yang, Z., Dai, Z., Salakhutdinov, R., & Cohen, W. W. (2017). *Breaking the softmax bottleneck: A high-rank RNN language model* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1711.03953
+
+## Records
+
+- **Raw results:** `results/n11/` and `results/n11_log.txt`, from the `colab-results` branch, run `n11_strength_a100/20261020-190036`.
+- **Code:** commit c4f8d0a. `n11_analyze.py` writes `N11_RESULTS.md` and `n11_exploratory.py` writes `N11_EXPLORATORY.md` from those records. The training code is `n11_strength.py`, run by the Colab job `n11_strength_a100`.
+- **Hardware comparison:** the T4 session's records are in `results/n11_t4/`, from the `colab-results` branch, run `n11_fetch_t4/20261020-214248`. `n11_hardware.py` writes `N11_HARDWARE.md` from them and the A100 records.

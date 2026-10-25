@@ -34,7 +34,7 @@ N9 trained nothing. It measured N7's five `noisy` models (seeds 3801 to 3805). I
   - *the right models are loaded:* head A's overlap with the trained noisy head lies within 0.05 of the value N8 recorded;
   - *stability:* head A, the trained noisy head and the copy at ρ = 0.8 each have a split-half stability of at least 0.80.
 - **Amendment A1,** approved before any real run, doubled the measurement windows from 256 to 512. Calibration had put the copy's stability within 0.05 of the 0.80 threshold.
-- **Other names.** N7 and N8 are earlier tests in this folder, each with its own note. N7 trained these models, and N8 first measured them with the target-free measure. Runs were saved to Google Drive and measured in a Google Colab session.
+- **Other names.** N4, N7 and N8 are earlier tests in this folder, each with its own note. N7 trained these models, and N8 first measured them with the target-free measure. *The distance ladder* is the earlier finding that the overlap with the next-word head falls the further ahead a head reads. Runs were saved to Google Drive and measured in a Google Colab session.
 
 *The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
