@@ -69,7 +69,7 @@ Both intervals lie well inside the ±0.05 margin, and the spreads (0.006) are fa
 - **Switching between the two readings needs nothing from the ODE block's dynamics.**
   - A single learned vector per control value, added after the block, does the job as well as letting the control shape the dynamics throughout.
   - So did adding the vector *before* the block, where the dynamics carry it but never see u (S1: differences of −0.001 and +0.000).
-- **This explains G1d.** The contraction regime could be removed at no cost because the reading never depended on the dynamics. A fixed shift, read by the later layers, is enough.
+- **This explains G1d.** The contraction regime could be removed at no cost because the reading never depended on the dynamics. A fixed shift, read by the later layers, is enough. *[Corrected 2026-10-25: this goes further than N1 can. N1b shows that a model with no control inside the dynamics does as well; whether the trained model itself works by a shift was untestable (N1a), and this note's exploratory section finds its effect state-dependent. N1 is consistent with G1d, and does not explain it.]*
 - **It also explains G1c, at least in part.** See the exploratory observation on the pre arm below.
 - **By the outcome table**, this is the "N1b supported" row: switching between readings needs only a direction, and the ODE dynamics play no needed part in it. The next conjecture the table names is N2: whether dynamics matter when readings must *coexist*, where a single shift cannot keep two readings apart.
 

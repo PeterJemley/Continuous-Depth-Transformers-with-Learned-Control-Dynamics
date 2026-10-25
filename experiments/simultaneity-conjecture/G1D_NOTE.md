@@ -92,7 +92,7 @@ All six preconditions held:
 - **The cap reached the next-token reading too.**
   - The penalty acted only on u = −1 sequences, with a cap of 2.0. Yet the capped models' contraction under u = +1 also fell, from about 1 to 1.7 down to −0.44 to +0.08: slightly expanding, on average.
   - u = 0 fell too. The whole field became nearly neutral.
-  - The weakest penalty strength drove contraction far below the cap, and the penalty was zero for most of training, which suggests contraction was cheap for the model to give up.
+  - The weakest penalty strength drove contraction far below the cap, and the penalty was zero for most of training, which suggests contraction was cheap for the model to give up. *[Corrected 2026-10-25: the records show the penalty above zero at 27 to 36 of the 58 logged steps in every model, so it was not zero for most of training. The report's table shows only the first, middle and last values, which were mostly zero.]*
 - **A small difference remains.**
   - In the capped models, u = −1 still contracts a little more than u = +1, by about 0.4 to 0.9. G1c's scoring table would still classify it as "u = −1 contracts, u = +1 does not".
   - So the test removed the *large* difference, not every difference. It cannot rule out that a small residual difference is what the model uses.

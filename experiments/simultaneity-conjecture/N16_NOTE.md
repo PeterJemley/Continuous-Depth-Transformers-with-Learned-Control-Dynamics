@@ -91,7 +91,7 @@ All six preconditions held: the setup checks (the weight identity at 4.9 × 10�
 | `sub20` | none (full weight) | none | 0.163 | 0.896 | on the ladder | 0 | — |
 | `clean` | none (full weight) | none, every target clean | −0.001 | 0.976 | on the ladder | 0 | — |
 
-**The values against the calibration's.** F and P against N15's calibration seed, which motivated those two margins: F 1.08 against 1.02, P 0.10 against 0.15. C and b against N16's own calibration, run after the margins were fixed: C −0.45 against −0.48, b +0.011 against +0.022. C's margin had been set against the −0.57 implied by N14's control, and ±0.04 was carried over from N15. Each calibration value lies just outside the real run's 98.75% interval, and far from the margins.
+**The values against the calibration's.** F and P against N15's calibration seed, which motivated those two margins: F 1.08 against 1.02, P 0.10 against 0.15. C and b against N16's own calibration, run after the margins were fixed: C −0.45 against −0.48, b +0.011 against +0.022. C's margin had been set against the −0.57 implied by N14's control, and ±0.04 was carried over from N15. Each calibration value lies just outside the real run's 98.75% interval, and far from the margins. *[Corrected 2026-10-25: F, P and C lie just outside their real intervals; b's calibration value, +0.022, lies inside its real interval [−0.022, +0.043].]*
 
 ## Which kind of result this is
 

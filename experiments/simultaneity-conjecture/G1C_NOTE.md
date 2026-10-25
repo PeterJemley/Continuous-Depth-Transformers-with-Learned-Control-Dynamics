@@ -95,7 +95,7 @@ None of these had a threshold. They are reported because they bear on what the r
   - In the shuffled models the normalised ratio is 1.00 to 1.03.
 - **The field differs, not only the states (S3).**
   - At u = +1's trajectory states, u = −1's field still contracts at 9.0 to 11.0, as much as or more than at its own states.
-  - At u = −1's states, u = +1's field contracts at 0.3 to 1.3, near its own rates.
+  - At u = −1's states, u = +1's field contracts at 0.3 to 1.3, near its own rates. *[Corrected 2026-10-25: lower than its own rates in every model (0.30 to 1.31 against 0.80 to 1.91), and near them only beside u = −1's rates of about 8.]*
   - So the difference belongs to the two fields themselves, not to the different places their trajectories go.
 - **Where it is strongest (S1).**
   - The ratio is largest at the start of the block, 8.1 at depth 0, and falls to 4.5 at depth 1.

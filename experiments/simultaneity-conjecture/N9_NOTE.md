@@ -69,7 +69,7 @@ All five preconditions held:
 - **Must match.** The copy at zero noise matched the clean head at 0.99999 to 1.00000 in all 20 models.
 - **Must differ.** The rotated control scored 0.119 to 0.133.
 - **The right models were loaded.** The clean and noisy heads' overlap reproduced N8's to within 0.023 on N9's new windows.
-- **Stability.** Every head in the comparison scored at least 0.91. Amendment A1's extra windows turned out not to be needed: the copies in trained models were more stable than calibration on untrained ones suggested.
+- **Stability.** Every head in the comparison scored at least 0.91. Amendment A1's extra windows turned out not to be needed: the copies in trained models were more stable than calibration on untrained ones suggested. *[Corrected 2026-10-25: the lowest was 0.907 (the copy at ρ = 0.8, seed 3805). N9 measured only at 512 windows, so whether 256 would have been enough was not measured; the trained copies' stability at 512 supports the guess without testing it.]*
 
 ## What this teaches
 

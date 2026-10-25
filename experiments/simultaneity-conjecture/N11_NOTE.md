@@ -86,7 +86,7 @@ Ranges are across the five seeds.
 The other preconditions held:
 - **Must match:** the clean arm's head B matched head A (ratio 0.955–0.980, losses within 0.008 nats).
 - **Must differ:** the rotated control scored 0.07–0.20.
-- **The yardstick:** it left a gap of at least 0.48 nats in every seed.
+- **The yardstick:** it left a gap of at least 0.48 nats in every seed. *[Corrected 2026-10-25: 0.477 in seed 4001.]*
 - **The geometric pin took hold:** overlap 0.997.
 - **Stability:** every subspace was stable.
 
@@ -97,7 +97,7 @@ The other preconditions held:
 This is a design error of mine, of the kind the preregistration itself named as the only way this outcome could arise ("possible only if the dose check misled again").
 - **The dose check stopped too early.** It ran 300 steps of the 2,879, at the peak learning rate. There, λ = 128 held its passages at 0.27 of the unanchored arm's divergence, and I recorded that it "holds at every checkpoint".
   - In fact the ratio was rising at each checkpoint: 0.15, 0.23, 0.27. I read a trend as a level.
-  - Over the full run the two arms moved towards each other. The payload arm's divergence rose from about 0.021 at step 300 to 0.038 at the end; the unanchored arm's fell from about 0.078 to 0.063.
+  - Over the full run the two arms moved towards each other. The payload arm's divergence rose from about 0.021 at step 300 to 0.038 at the end; the unanchored arm's fell from about 0.078 to 0.063. *[Corrected 2026-10-25: the step-300 values come from the dose check, a different run (G1's seed 3001, at the peak learning rate), and are not in the records; the end values are the real runs'. The two are not one run's course.]*
   - The training records show the same thing: the payload term rose steadily through training, from 0.027 at step 300 to 0.047 at the end (`N11_EXPLORATORY.md`).
 - **The lesson.** This is lesson 7 of `CRITICAL_REVIEW.md` failing a second time in a new form. A dose check must cover the whole training schedule, not its start.
   - On the A100 a full run takes about two minutes, so a full-length dose check now costs almost nothing.
@@ -143,7 +143,7 @@ Both are conjectures, formed after the results.
 
 - **The hardware** (`N11_HARDWARE.md`, added 2026-10-21). After the verdict, as D1 set out, the 14 runs that finished on the T4 were compared with the A100 runs of the same seed and arm.
   - *No systematic shift.* Every mean difference was at most 0.004.
-  - *A random one, about the size of a change of seed.* Losses differed by up to 0.024 nats, against the A100's seed-to-seed standard deviations of 0.008–0.012. Quantities measured within one model moved less: G by at most 0.003, the payload-window divergence by at most 0.002.
+  - *A random one, about the size of a change of seed.* Losses differed by up to 0.024 nats, against the A100's seed-to-seed standard deviations of 0.008–0.012. Quantities measured within one model moved less: G by at most 0.003, the payload-window divergence by at most 0.002. *[Corrected 2026-10-25: two of the hardware report's rows differ by more than that. Head B's validation loss differed by up to 0.020 nats between the GPUs, against seed-to-seed spreads of 0.0022 on its own targets and 0.0055 on clean targets, about 9 and 4 times. The largest difference, 0.024, is about two of the A100's standard deviations, not one.]*
   - *Enough to change N11b's last step.*
     - S(f32) − S(f8) was +0.05 to +0.07 on both GPUs.
     - S(f128) − S(f32) was +0.019 and +0.022 on the A100, but −0.0005 on the T4 in both seeds compared. On the T4, those two seeds would not have counted as ordered.

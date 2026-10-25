@@ -67,7 +67,7 @@ The k = 4 and k = 8 overlaps replicated N6r's on new seeds and windows: 0.297 ag
 
 ## What this teaches
 
-- **The overlap measure does not track relatedness alone.** A head reading exactly the same thing as the clean head, only with most of its targets randomised, shared no more with it (0.31) than a head reading four words ahead (0.30). If the overlap measured how related two readings are, the noisy head should have scored near 0.95.
+- **The overlap measure does not track relatedness alone.** A head reading exactly the same thing as the clean head, only with most of its targets randomised, shared no more with it (0.31) than a head reading four words ahead (0.30). *[Corrected 2026-10-25: it shared slightly more, 0.307 against 0.297, and more in 4 of the 5 seeds; N8, measuring without the right answers, also found it sharing more than the far readings.]* If the overlap measured how related two readings are, the noisy head should have scored near 0.95.
 - **N6r's result stands; its explanation does not.**
   - N6r found, and N7 replicated, that the overlap falls the further ahead head B reads. That stands as stated.
   - N6r's note explained this as "how much two readings share depends on how different they are". N7 refutes that explanation as the whole story. The ladder is at least as consistent with difficulty, or with something difficulty brings with it.

@@ -71,7 +71,7 @@ The controls held:
   - N2 showed coexistence does not produce distinct timescales.
   - N4 shows that two readings forced through the same directions pay about 0.09 nats, while the identical restriction costs one reading nothing measurable.
 - **The polyphony idea, in the form that survives.** The voices are not separated in depth or time; they are separated in direction, and the separation is load-bearing. This is the form N2's exploratory finding pointed to, now tested and passed.
-- **Which reading pays.** When directions were shared, the next-token reading lost more (+0.062) than the farther reading (+0.036). N2 found the same asymmetry when the two readings coexisted at full width: the nearer reading paid 0.05 nats.
+- **Which reading pays.** When directions were shared, the next-token reading lost more (+0.062) than the farther reading (+0.036). N2 found the same asymmetry when the two readings coexisted at full width: the nearer reading paid 0.05 nats. *[Corrected 2026-10-25: N2 measured only the nearer reading's cost (its S6, +0.052); it had no measure of what the farther reading paid, so it cannot show an asymmetry.]*
 
 ## What this does not change
 
