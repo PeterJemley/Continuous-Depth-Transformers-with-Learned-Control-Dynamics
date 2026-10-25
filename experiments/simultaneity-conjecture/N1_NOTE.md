@@ -1,6 +1,46 @@
 # Result note: N1
 
-Date: 2026-10-06    Preregistration: `N1_PREREGISTRATION.md`    Generated report: `N1_RESULTS.md`    Raw results: `results/n1/` and `results/n1_log.txt`, from `colab-results` branch `n1_offset/20261006-121140`. Code commit ead1207. One session, no resumes, no Drive failures, no deviations from the plan.
+Date: 2026-10-06    Preregistration: `N1_PREREGISTRATION.md`    Generated report: `N1_RESULTS.md`
+
+## In brief
+
+N1 asked whether switching between the two readings needs anything from the continuous block's dynamics, or whether one learned vector per control value, added after the block, is enough. That offset-only model did both tasks as well as the model with the control inside the block: the differences were +0.0010 and +0.0008 nats, with 97.5% intervals of [−0.008, +0.010], well inside the ±0.05 margin. The primary verdict, N1b, is supported: an offset is enough. The secondary hypothesis N1a, that the trained model's own control effect is mostly one constant vector, is untestable, because the check that its measure could fail read 0.28 to 0.37 against a limit of 0.1.
+
+## The arms and the measures
+
+The setup is G1c's. Model A is trained with exact gradients (ordinary backpropagation, not the adjoint shortcut), at 10% of the WikiText-103 training budget. Its continuous block is also called the ODE block. Inside it, the vector field is the learned function that says how the state changes with depth; the block's dynamics are the motion it produces. The control u says which task, or reading, each sequence has: u = +1 asks for the next token (the next-token task), and u = −1 for the token after next (the farther task). Strictly the tasks predict tokens, which are words or pieces of words. The arms differ only in where the control's learned vector, `control_embed(u)`, enters. Every arm has the same modules and the same number of parameters.
+
+| Arm | Where the control enters |
+|---|---|
+| full | Inside the vector field, at every evaluation, as in G1, G1c and G1d |
+| post | Nowhere inside the block: it is added once to the block's output. This is the offset-only model. |
+| pre (secondary) | Added once to the block's input, so the dynamics carry it but the field never sees u |
+| none (positive control) | Nowhere: the model is never told the task |
+
+Every arm uses seeds 3301 to 3305, and a seed's arms start from identical weights.
+
+- **N1b, the primary claim:** the post model does both tasks as well as the full model. Its two contrasts are post − full in validation loss, one per task, on the whole validation split.
+- **N1a, the secondary hypothesis:** in the trained full model, the control's effect on the block's output is mostly one constant vector, an offset.
+- **Δ:** the block's output under u = −1 minus its output under u = +1, per token, on validation windows 769 to 1,024.
+- **Offset fraction:** the share of Δ that is one constant vector across all tokens and windows. It is 1 if Δ is the same everywhere, and near 0 if it varies freely.
+- **Injected multiplicative check:** N1a's test that its measure can fail. The block's output is scaled by 0.9 against 1.1, a scaling rather than a shift, and the offset fraction must read at most 0.1 on it.
+- **Logits:** the model's raw scores for every possible next token.
+- **The outcome table:** the preregistration's table of what each result would teach. Its rows are named by the two verdicts, N1b's first, so "supported / refuted" means N1b supported and N1a refuted.
+- **Secondary measures:**
+  - S1 is pre − full for each task, with 95% intervals.
+  - S2 covers the top singular direction's share (how much of Δ lies along its single strongest direction) and Δ's size relative to the block's output.
+  - S3 is G1c's contraction ratio in the full and pre arms: how many times more strongly the block draws nearby states together under u = −1 than under u = +1.
+  - S4 is the wrong-control costs (how much worse the next-token loss is with the wrong control value), α (a learned scale on the block's update) and training time.
+- **Other codes:** G1, G1c and G1d are the earlier tests of curvature, contraction and whether the contraction is needed. N2 asks whether regimes, distinct kinds of motion in the flow, matter when two readings must coexist in one state; a dual-reading model gives both predictions from one forward pass, and a reading's subspace is the set of directions in the state it relies on. N3, or G3, is control that multiplies the vector field instead of adding to it. Path B, in `PATHS_AND_UNDERSTANDING.md`, is a probe of whether the current token's identity is harder to recover after the block.
+
+**The decision rules.** N1b's two contrasts each use a Bonferroni-corrected 97.5% t-interval over the 5 seeds, with 4 degrees of freedom; the correction allows for testing two contrasts together. The margin of practical importance is 0.05 nats. N1b is *supported* if both upper bounds lie below +0.05 and both standard deviations are at most 0.04, the sensitivity limit. It is *refuted* if at least one interval lies wholly above +0.05. It is *some effect, size unclear* if at least one interval excludes 0 on the positive side and neither rule is met, and *inconclusive* otherwise, including a standard deviation above 0.04. Three preconditions must hold, or the result is *untestable*:
+- must match, by construction: with the control zeroed, all four arms give bit-identical logits for every seed;
+- positive control: for the farther task, none − full has a 97.5% interval wholly above +0.05, so the tasks need the control;
+- the full models use u: the wrong control costs at least 0.5 nats on the next-token task in at least 4 of 5 full models.
+
+N1a is *untestable* if the injected check reads above 0.1 in a trained full model. Otherwise it is *supported* if the offset fraction is at least 0.8 in at least 4 of 5 full models, *refuted* if it is at most 0.5 in at least 4 of 5, and *intermediate* otherwise.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 ## What we expected
 
@@ -73,3 +113,9 @@ None of these had a decision rule. N1a's measures are reported as description on
    - The must-fail control is a single-reading model.
 2. **What the state-dependent part of the control's effect encodes, exploratory and cheap.** The full model computes a large, state-dependent control effect that it does not need. Probing it, for example for current-token identity (path B), would show what it carries.
 3. **N3 / G3: multiplicative control.** If additive control lets the model get away with an offset, control that multiplies the field might make the dynamics worth using. The prediction is a G1d-style necessity test that passes.
+
+## Records
+
+- **Raw results:** `results/n1/` and `results/n1_log.txt`, from the `colab-results` branch, run `n1_offset/20261006-121140`.
+- **Run:** code commit ead1207. One session, no resumes, no Drive failures, no deviations from the plan.
+- **Analysis:** `n1_analyze.py` writes `N1_RESULTS.md` from those records; the job is `n1_offset.py`.

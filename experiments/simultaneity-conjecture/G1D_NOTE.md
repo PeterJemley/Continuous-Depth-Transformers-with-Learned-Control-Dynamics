@@ -1,8 +1,46 @@
 # Result note: G1d
 
-Date: 2026-10-06    Preregistration: `G1D_PREREGISTRATION.md`    Generated report: `G1D_RESULTS.md`    Raw results: `results/g1d/` and `results/g1d_log.txt`, from `colab-results` branch `g1d_functional/20261006-003944`. Code commit 935f8a9. One session, no resumes, no Drive failures, no deviations from the plan.
+Date: 2026-10-06    Preregistration: `G1D_PREREGISTRATION.md`    Generated report: `G1D_RESULTS.md`
 
-A second session the next morning (`g1d_functional/20261006-093947`), after a runtime reconnect, found every run finished and skipped them all. Its 48 result files are byte-for-byte identical to the first session's.
+## In brief
+
+G1d asked whether Model A needs the strong contraction that G1c found under the farther reading (u = −1, the word after next). It trained models with a penalty that capped that contraction, cutting it by over 90%, and compared each with an uncapped model from the same seed. The cap cost the farther task no more than the next-word task: the difference D averaged −0.002 nats, with a 95% interval of [−0.007, +0.002], wholly below the 0.05 margin. The preregistered verdict is refuted: the contraction is real but not, by this test, functional, and the test cannot say whether it was a by-product or whether the later layers did the same work.
+
+## The arms and the measures
+
+The setup is G1c's. Model A is trained with exact gradients (ordinary backpropagation, not the adjoint shortcut), at 10% of the WikiText-103 training budget. Its control u is added inside the vector field of the continuous block (the ODE block). The vector field is the learned function that says how the state changes with depth. The trained model computes the block in four fixed steps, its Euler steps. u = +1 asks for the next token (the next-token task or reading), and u = −1 for the token after next (the farther task or reading). Strictly the tasks predict tokens, which are words or pieces of words. The arms differ only in a penalty added to the training loss.
+
+| Arm | Penalty during training |
+|---|---|
+| Control | None: G1c's training, on new seeds |
+| Capped | λ · P, where P penalises contraction above a cap of 2.0 per token, on u = −1 sequences only, at the four states the block's Euler steps visit |
+| Sham | The same penalty computation and λ, with a cap of 10⁶ that never binds. Its gradient is exactly zero. It is the null contrast. |
+
+Every arm uses seeds 3201 to 3205. A seed fixes the initial weights, the data order and the tasks, so a seed's three arms differ only in the penalty. A pilot on seed 100 chose λ.
+
+- **Contraction, c̄(u):** G1c's measure of how strongly the block draws nearby states together under control value u: minus the divergence (the trace of the vector field's Jacobian, which says how a small change in the state changes its velocity), per token, averaged over five depths and 256 windows. Here it is measured on validation windows 513 to 768. **R** is G1c's contraction ratio, c̄(−1) / c̄(+1). G1c's scoring table handles rates too near zero for a ratio.
+- **λ:** the penalty's strength. The pilot tried 0.01, 0.1, 1 and 10 in turn, and kept the smallest at which the capped model's c̄(−1) was at most 3.0.
+- **D, the primary contrast:** for each seed, (farther-task loss, capped − control) − (next-token loss, capped − control). Positive D means the cap hurts the farther task more. Losses are on the whole validation split, each task with its right control value.
+- **The sensitivity limit:** if the standard deviation of D across seeds were above 0.04 nats, the design could not detect 0.05 reliably, and *refuted* would not be claimed.
+- **By-product and substitution:** the two explanations the test cannot tell apart, as the note defines them below.
+- **Secondary measures:**
+  - S1 is each task's change on its own, capped minus control, with its own 95% interval.
+  - S2 is contraction under both control values in the capped models, by depth.
+  - S3 is the penalty's value every 50 steps.
+  - S4 is G1's other geometry: the curvature ratio, speed, and the curvature-profile classifier, which predicts u from how sharply trajectories turn at each depth (chance is 50%).
+  - S5 is the wrong-control costs and α, a learned scale on the block's update. S6 is training time.
+- **Wrong-control cost:** how much worse a task's loss is with the wrong control value.
+- **Paths B, C and D:** directions of work set out in `PATHS_AND_UNDERSTANDING.md`. Path B is a probe of whether the current token's identity is harder to recover after the block under u = −1. Path C is polyphony on a task built for it, such as two interleaved texts. Path D is a model that holds several readings at once, with several flows read out together.
+
+**The decision rule.** The interval for D is a 95% t-interval over the 5 seeds, with 4 degrees of freedom. The margin of practical importance is 0.05 nats. The claim is *supported* if the interval lies wholly above +0.05, and *refuted* if it lies wholly below +0.05. It is *some effect, size unclear* if the interval excludes 0 but meets neither rule, and *inconclusive* otherwise. Six preconditions must hold, or the result is *untestable*:
+- the cap was imposed: a λ in the grid met the pilot rule;
+- the cap took hold: c̄(−1) is at most 3.0 in at least 4 of 5 capped models;
+- there was something to remove: R ≥ 2 in at least 4 of 5 control models;
+- the models use u: the wrong control costs at least 0.5 nats on the next-token task in at least 4 of 5 control models;
+- the null contrast: the sham arm's D has a 95% interval wholly within ±0.05;
+- the analytic check: on a linear field with a known trace, the training penalty's estimate of the trace, and its gradient, are within 2%.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 ## What we expected
 
@@ -92,3 +130,10 @@ The preregistered outcome table's next step, and the paths in `PATHS_AND_UNDERST
    - The control's effect is fully present in the capped models: wrong-control costs and classifier accuracy are unchanged. So whatever implements the two readings is not the contraction difference.
    - Finding what it is, for example by tracing u's effect from the ODE block through the later layers, is the next mechanistic question.
 4. **Polyphony (paths C and D)** is unaffected. G1d says the regimes found so far are not load-bearing when the model *switches* between readings. Whether regimes matter when readings must run *at the same time* is still open, and that was always the founding question.
+
+## Records
+
+- **Raw results:** `results/g1d/` and `results/g1d_log.txt`, from the `colab-results` branch, run `g1d_functional/20261006-003944`.
+- **Run:** code commit 935f8a9. One session, no resumes, no Drive failures, no deviations from the plan.
+- **Second session:** a second session the next morning (`g1d_functional/20261006-093947`), after a runtime reconnect, found every run finished and skipped them all. Its 48 result files are byte-for-byte identical to the first session's.
+- **Analysis:** `g1d_analyze.py` writes `G1D_RESULTS.md` from those records; the job is `g1d_functional.py`.
