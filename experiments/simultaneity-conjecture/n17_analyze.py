@@ -181,6 +181,8 @@ def main():
             ref = n14.get((a, s))
             if ref is not None:
                 ok = ok and t['judge_keep_fingerprint_step0'] == ref['keep_fingerprint_step0']
+            elif a in N14_TAG and not (cal and a == 'rw-j0125'):
+                ok = False
         return ok
 
     measured = [rec(a, s) for a in new + refs for s in seeds]
@@ -243,8 +245,8 @@ def main():
          'F* = F_lf(x_self); d = F(rw-peer) − F_lf(x_peer). '
          f'The two claims\' intervals are Bonferroni-corrected t-intervals at {LEVEL:.1%}; every other interval is a {EXPLORATORY:.0%} t-interval and decides nothing.', '']
     if not cal:
-        pa = [s for s in seeds if ok6a(s)]
-        pb = [s for s in seeds if ok6b(s)]
+        pa = [s for s in seeds if F_star(s) is not None]                  # each claim pools the seeds its precondition 6 brackets
+        pb = [s for s in seeds if F_lf(s, xj('rw-peer', s)) is not None]
         v_a = gate([0, 1, 2, 3, 5, 6]) or one_sided([F_star(s) for s in pa], 'F*', 'above', A_SUP, A_REF, A_SD,
                                                     'without the loop, a judge as accurate as head B recovers the shortfall.')
         v_b = gate([0, 1, 2, 4, 5, 7]) or one_sided([d_of(s) for s in pb], 'd', 'below', D_SUP, D_REF, D_SD,

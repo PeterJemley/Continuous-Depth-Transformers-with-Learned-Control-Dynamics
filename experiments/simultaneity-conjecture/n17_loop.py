@@ -253,16 +253,13 @@ def detachment_check(seed, x, ya, yb, keep_c_peer, keep_c_clean, log_u):
     return out
 
 
-def judge_source_check(seed, x, yb, log_u):
-    """With head C at its own initial values, the weight in head B's loss is exactly the weight from head C's logits, and
-    differs from head B's own discount."""
+def judge_source_check(seed, x, ya, yb, log_u):
+    """With head C at its own initial values, the weight the training step gives head B's loss (step_forward's) is exactly the
+    weight from head C's logits, and differs from head B's own discount."""
     model, hc = n4.new_n4(seed, BASE), HeadC(seed)
     model.eval()
     with torch.no_grad():
-        with torch.autocast(DEV.type, dtype=torch.float16, enabled=AMP):
-            la, lb, z = forward_z(model, x)
-            lc = hc(z.detach())
-        w = judge_weights(lb, lc, yb, log_u, SPECS['rw-peer'])
+        la, lb, lc, w, _, _ = step_forward(model, hc, x, ya, yb, None, log_u, SPECS['rw-peer'])
         from_c = n15.weight(lc.reshape(-1, VOCAB).float(), yb.reshape(-1), log_u, 1.0)
         own = n15.weight(lb.reshape(-1, VOCAB).float(), yb.reshape(-1), log_u, 1.0)
     diff_own = (w - own).abs().max().item()
@@ -495,7 +492,7 @@ def main():
         ap.add_argument(f'--{k}', default=None, help=f"{k.upper()}'s Drive folder (default: {real}, or {cal}, next to --work)")
         ap.add_argument(f'--{k}-records', default=None, help=f"{k.upper()}'s committed records (default: results/{k} or results/{k}_calib here)")
     ap.add_argument('--calibration', action='store_true', help="the calibration run: seed 3001, the tail's windows 513-1024, every rung")
-    ap.add_argument('--rungs', default=','.join(DEFAULT_RUNGS), help="the real run's loop-free rungs, as the calibration's rule chose them")
+    ap.add_argument('--rungs', default=None, help="the real run's loop-free rungs, as the calibration's rule chose them (required in the real run)")
     args = ap.parse_args()
     mode = 'calibration' if args.calibration else 'real'
     seeds, (w0, w1) = MODES[mode]['seeds'], MODES[mode]['windows']
@@ -520,6 +517,8 @@ def main():
     if args.calibration:
         new_arms = ['rw-peer', *RUNGS, *CALIB_ONLY]
     else:
+        if args.rungs is None:
+            raise SystemExit("The real run needs --rungs, the loop-free rungs the calibration's rule chose (for example --rungs rw-j10,rw-j05).")
         rungs = [a for a in args.rungs.split(',') if a]
         bad = [a for a in rungs if a not in RUNGS]
         if bad or not 2 <= len(rungs) <= 3:
@@ -539,6 +538,8 @@ def main():
         log_u = probs.float().log().to(DEV)
         summary_path = store.L('results/n17_summary.json')
         summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+        if summary.get('arms') is not None and list(summary['arms']) != new_arms:
+            raise SystemExit(f"This folder's earlier session trained {list(summary['arms'])}; this session would train {new_arms}. Stopping.")
 
         def save_json(rel, obj):
             store.L(rel).write_text(json.dumps(obj, indent=2 if rel.endswith('n17_summary.json') else None))
@@ -566,7 +567,7 @@ def main():
                 'weight_identity': n15.weight_identity_check(m0, xd, ybd, log_u),
                 'forward_identity': forward_check(m0, xd),
                 'detachment': detachment_check(s0, xd, yad, ybd, None, kc_clean.to(DEV), log_u),
-                'judge_source': judge_source_check(s0, xd, ybd, log_u),
+                'judge_source': judge_source_check(s0, xd, yad, ybd, log_u),
                 'passenger': passenger_check(s0, train, probs, log_u),
                 'copied_peer': copied_peer_check(s0, train, probs, log_u),
                 'overflow': overflow_test(s0, xd, yad, ybd, None, log_u),
@@ -635,6 +636,9 @@ def main():
                     f"rotated {res['rotated_control']['agreement_ratio']:.3f} | {res['seconds']:.0f} s")
         if args.calibration and 'passenger_pair' not in summary:              # the full-length passenger pair, bit for bit
             s = seeds[0]
+            for t_ in ('rw-b1-plain', 'rw-b1-passenger'):                     # a resumed session has not pulled them
+                if not store.pull(f'final/{t_}_seed{s}.pt'):
+                    raise SystemExit(f'weights final/{t_}_seed{s}.pt are missing locally and on Drive.')
             a = torch.load(store.L(f'final/rw-b1-plain_seed{s}.pt'), map_location='cpu', weights_only=False)
             b = torch.load(store.L(f'final/rw-b1-passenger_seed{s}.pt'), map_location='cpu', weights_only=False)
             same = all(torch.equal(a[k], b[k]) for k in a)

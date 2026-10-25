@@ -306,6 +306,17 @@ Results seen before this entry: tests on tiny models on a CPU, and synthetic rec
 
 The calibration job, `n17_calib`, is queued: seed 3001, the calibration windows 513–1024, all five loop-free rungs, the peer and the full-length passenger pair. Its values will be recorded in the next entry.
 
+### Fixes after an independent review of the code, while the calibration ran, 2026-10-25 (no amendment)
+
+A fresh reviewer compared `n17_loop.py` and `n17_analyze.py` with this preregistration and with N16's training loop. It found two defects and three gaps in the checks, all fixed and tested on tiny models and synthetic records. No calibration value had been seen.
+1. **Pooling for the claims** now follows the text above: each claim pools the seeds its precondition 6 brackets. The analysis had pooled N17b over the seeds where F_lf(x_peer) was also at least 0.75. That would have dropped a bracketed seed by part of the quantity it tests, which favours support. The 0.75 condition stays where precondition 6b puts it, as a condition on testability.
+2. **A resumed calibration session** would have stopped at its last step: the passenger pair's weights were read without being fetched from Drive. They are now fetched. On the tiny calibration, with its local weights deleted, the pair was fetched and found bit-identical.
+3. **A missing N14 record** now fails the check that head C's positions are N14's, instead of skipping it. The calibration's 1.25% rung is exempt, as reading 3 above already says, since N14 calibrated no such rung.
+4. **The judge-source check** now tests the weight the training step itself gives head B's loss. A bug planted in the training step fails it.
+5. **The real run requires `--rungs`,** and a session stops if its folder's earlier session trained other arms. Both guards were tested.
+
+None changes a claim, a margin, a measure or a threshold. The calibration's training and measurement code is unchanged, so the calibration now running is unaffected. If its session is interrupted, the next one downloads the fixed code.
+
 ## References
 
 Arazo, E., Ortego, D., O'Connor, N. E., & McGuinness, K. (2020). Pseudo-labeling and confirmation bias in deep semi-supervised learning. In *2020 International Joint Conference on Neural Networks (IJCNN)* (pp. 1–8). IEEE. https://doi.org/10.1109/ijcnn48605.2020.9207304
