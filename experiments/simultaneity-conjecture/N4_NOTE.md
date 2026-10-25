@@ -1,6 +1,37 @@
 # Result note: N4
 
-Date: 2026-10-06    Preregistration: `N4_PREREGISTRATION.md`, with amendment A1    Generated report: `N4_RESULTS.md`    Raw results: `results/n4/` and `results/n4_log.txt`, from `colab-results` branch `n4_directions/20261006-200755`. Code commit aebb830.
+Date: 2026-10-06    Preregistration: `N4_PREREGISTRATION.md`, with amendment A1    Generated report: `N4_RESULTS.md`
+
+## In brief
+
+N4 asked whether two readings held at once, the next token and the token after next, need separate directions in what their heads read from the model's state. Forcing both heads to read through one shared set of 64 directions cost 0.088 nats more than the same restriction cost two heads reading the same target, 95% interval [+0.078, +0.097], so N4b, the primary claim, is supported. N4a is supported too: on new seeds and windows, the two readings' most sensitive directions overlapped 0.455 to 0.488, while two heads reading the same target overlapped 0.952 to 0.967. The test acts at the readout, so it bears on nothing in the continuous block's depth dynamics.
+
+## The arms and measures
+
+Every arm is N2's two-head model: Model A, the paper's model, trained with exact gradients and no control signal for 2,879 steps (10% of the WikiText-103 budget), on seeds 3501 to 3505. Head A reads the next token (i + 1). Each head now reads the final state z through a narrow readout, logits_k = W_k (P_k · LayerNorm(z)). P_k, a 64 × 256 matrix, keeps 64 directions of the 256-number state, and W_k turns those 64 numbers into logits, a raw score for every word.
+
+| Arm | Head B reads | Readout |
+|---|---|---|
+| dual-sep | the token after next (i + 2) | Separate: P_A and P_B are independent, so the two heads can read up to 128 directions between them |
+| dual-tied | i + 2 | Tied: P_A = P_B, one shared matrix, so both heads read the same 64 directions |
+| same-sep | the next token (i + 1), like head A | Separate |
+| same-tied | i + 1 | Tied |
+
+P_B starts as a copy of P_A, so separate and tied readouts are the same function at the start and differ only through training. All four arms of a seed start from the same weights and see the same batches.
+
+- **J** is the combined validation loss, L_A + L_B, on the whole validation split, each head against its own target.
+- **The cost of tying** is J_tied − J_sep for one pair of arms. "Two readings" is the dual pair, and "same reading" the same pair.
+- **D**, N4b's measure, is (J_dual-tied − J_dual-sep) − (J_same-tied − J_same-sep): the extra cost that two different readings pay for sharing directions, beyond what the same restriction costs two heads reading one target.
+- **Overlap**, N4a's measure, is how much the two readings rely on the same directions. A reading's directions are the 16 directions of the ODE block's output that its loss is most sensitive to, found from the gradient covariance on validation windows 1,537 to 1,792. The ODE block is Model A's continuous block, and a window is one fixed-length passage of text. The overlap is the mean squared cosine of the angles between the two sets of directions: 1 when they are identical, about 0.06 for random directions. It is measured in the separate arms; the odd and even halves of the windows give a stability check.
+- **The row space** of P_A or P_B is the 64 directions that readout reads. Two row spaces are compared by the same overlap.
+- **Must match:** separate and tied readouts must give bit-identical logits at initialisation, for every seed. **Must fail:** the same-sep overlap must be at least 0.95 in at least 4 of 5 models, since two heads reading the same target must converge on the same directions.
+- **Binding** (amendment A1): the restriction counts as not binding if the 95% intervals for the cost of tying lie wholly within ±0.01 nats for both pairs. N4b would then be untestable at this width.
+- **fp16:** training ran in 16-bit arithmetic, and a step whose gradients overflow is skipped.
+- **G1, G1c, G1d, N1 and N2** are earlier tests, and **N5** a later one, each with a note in this folder.
+
+Each interval is a 95% t-interval over the five seeds. N4b's margin of practical importance is 0.05 nats. It is *supported* if D's interval lies wholly above +0.05, *refuted* if wholly below +0.05 with a standard deviation of at most 0.04, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise. N4a is *supported* if the dual-sep overlap is at most 0.8 in at least 4 of 5 models, *refuted* if it is at least 0.95 in at least 4 of 5, and *intermediate* otherwise.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes and no Drive failures. One fp16 step in 57,580 was skipped. Nothing was changed after approval.
 
@@ -82,3 +113,8 @@ These had no decision rule.
 Elhage, N., Hume, T., Olsson, C., Schiefer, N., Henighan, T., Kravec, S., et al. (2022). *Toy models of superposition*. arXiv. https://doi.org/10.48550/arxiv.2209.10652
 
 Yu, T., Kumar, S., Gupta, A., Levine, S., Hausman, K., & Finn, C. (2020). *Gradient surgery for multi-task learning*. arXiv. https://doi.org/10.48550/arxiv.2001.06782
+
+## Records
+
+- **Raw results:** `results/n4/` and `results/n4_log.txt`, from the `colab-results` branch, run `n4_directions/20261006-200755`.
+- **Code:** commit aebb830. `n4_directions.py` trains the four arms and measures them, and `n4_analyze.py` writes `N4_RESULTS.md` from the records; the Colab job is `colab/jobs/n4_directions.py`.

@@ -1,6 +1,32 @@
 # Result note: N6
 
-Date: 2026-10-08    Preregistration: `N6_PREREGISTRATION.md`    Generated report: `N6_RESULTS.md`    Raw results: `results/n6/` and `results/n6_log.txt`, from `colab-results` branch `n6_halfoverlap/20261008-102605`. Code commit 70b476b.
+Date: 2026-10-08    Preregistration: `N6_PREREGISTRATION.md`    Generated report: `N6_RESULTS.md`
+
+## In brief
+
+N6 asked whether two readings share fewer directions the more they differ: head A read the next token, and head B the token 1, 2, 4 or 8 places ahead. Both verdicts are untestable, because the must-fail control, two heads reading the same target, had to reach an overlap of at least 0.95 in 4 of 5 models and did so in 3, one missing by 0.0002. The note calls this a control set too tight for the measurement: its threshold came from N4, which measured on 256 passages of text, where N6 had 139. As exploratory data only, the mean overlap fell from 0.481 at 2 places ahead to 0.305 at 4 and 0.254 at 8, in that order in every seed.
+
+## The arms and measures
+
+Every model is N4's (`N4_NOTE.md`): Model A, the paper's model, trained with exact gradients and no control signal, with two heads reading the final state through separate 64-direction readouts, and P_B starting as a copy of P_A. Training is 2,879 steps (10% of the WikiText-103 budget) on seeds 3601 to 3605. Every training window carries 8 extra tokens, so all four arms of a seed see the same inputs and differ only in head B's target.
+
+| Arm | Head A reads | Head B reads | Role |
+|---|---|---|---|
+| same | i + 1 | i + 1 (k = 1) | The must-fail control: two heads, one target |
+| k2 | i + 1 | i + 2 | N5's pair, replicated |
+| k4 | i + 1 | i + 4 | |
+| k8 | i + 1 | i + 8 | |
+
+- **k** is how many tokens ahead head B reads.
+- **o(k)** is the overlap in arm k: how much the two heads rely on the same directions. A head's directions are the 16 directions of the ODE block's output (Model A's continuous block) that its loss is most sensitive to, found from the gradient covariance. The overlap is the mean squared cosine of the angles between the two sets: 1 when they are identical, about 0.06 for random directions. It is measured on validation windows 1,793 to 1,931, the last 139; a window is one fixed-length passage of text.
+- **Split-half stability** compares a head's directions found from the odd windows with its own found from the even windows, by the same overlap.
+- **The stability-corrected overlap** is o(k) divided by the geometric mean of the two heads' stabilities, √(stability A × stability B).
+- **The agreement ratio**, in the dated note at the end, is the control that N6r used in place of this one. It is built entirely from estimates on independent halves of the windows (`N6R_PREREGISTRATION.md`).
+- **N4** and **N5** are earlier tests, and **N6r** the repeat of this one, each with a note in this folder.
+
+Three preconditions had to hold: the data and setup checks pass, with the same batches in all four arms; *must fail*, the same arm's overlap is at least 0.95 in at least 4 of 5 models; and every head in arms k2, k4 and k8 has a stability of at least 0.80. If any fails, both verdicts are *untestable*. N6a, the primary claim, uses o(2) − o(8), with a 95% t-interval over the five seeds and a margin of 0.10 in overlap. It is *supported* if the interval lies wholly above +0.10, *refuted* if wholly below +0.10 with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise. N6b is *supported* if o(2) lies between 0.40 and 0.60 in at least 4 of 5 models, *refuted* if it lies outside that band in at least 4 of 5, and *intermediate* otherwise.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes, no skipped fp16 steps and no Drive failures. Nothing was changed after approval.
 
@@ -87,3 +113,8 @@ These had no decision rule once the precondition failed. They are recorded becau
 ## References
 
 Lin, H. W., & Tegmark, M. (2017). Critical behavior in physics and probabilistic formal languages. *Entropy, 19*(7), 299. https://doi.org/10.3390/e19070299
+
+## Records
+
+- **Raw results:** `results/n6/` and `results/n6_log.txt`, from the `colab-results` branch, run `n6_halfoverlap/20261008-102605`.
+- **Code:** commit 70b476b. `n6_halfoverlap.py` runs the checks, the runs and their measurements, using N4's code for the model and the overlap measure. `n6_analyze.py` writes `N6_RESULTS.md` from the records; the Colab job is `colab/jobs/n6_halfoverlap.py`.

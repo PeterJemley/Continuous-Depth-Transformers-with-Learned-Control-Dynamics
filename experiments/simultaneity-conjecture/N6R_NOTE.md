@@ -1,6 +1,33 @@
 # Result note: N6r
 
-Date: 2026-10-08    Preregistration: `N6R_PREREGISTRATION.md`    Generated report: `N6R_RESULTS.md`    Raw results: `results/n6r/` and `results/n6r_log.txt`, from `colab-results` branch `n6r_halfoverlap/20261008-182116`. Code commit 3ebe497.
+Date: 2026-10-08    Preregistration: `N6R_PREREGISTRATION.md`    Generated report: `N6R_RESULTS.md`
+
+## In brief
+
+N6r repeated N6, whose verdicts were untestable, with new seeds, fresh text and a must-fail control judged against the measurement's own noise. Head A read the next token and head B the token 2, 4 or 8 places ahead, and the overlap of their directions fell from 0.49 to 0.31 to 0.23, in that order in every model. The fall from 2 to 8 places was +0.252, 95% interval [+0.219, +0.286], so N6a is supported, and N6b is supported because at 2 places the overlap lay between 0.445 and 0.506 in all 5 models. Dated corrections from N7 and N8 change how the note explains this ladder, not its verdicts: the ladder cannot be read as a measure of how different two readings are on its own.
+
+## The arms and measures
+
+N6r repeats N6's design (`N6_NOTE.md`) on new seeds, 3701 to 3705. Every model is N4's: Model A, the paper's model, trained with exact gradients and no control signal, with two heads reading the final state through separate 64-direction readouts. Training is 2,879 steps (10% of the WikiText-103 budget), and all four arms of a seed see the same inputs. Head A reads the next token (i + 1), and head B the token k places ahead.
+
+| Arm | Head B reads | Role |
+|---|---|---|
+| same | i + 1 (k = 1) | The must-fail control: two heads, one target |
+| k2 | i + 2 | |
+| k4 | i + 4 | |
+| k8 | i + 8 | |
+
+- **o(k)** is the overlap in arm k, as in N6: how much the two heads rely on the same directions. A head's directions are the 16 directions of the ODE block's output (Model A's continuous block) that its loss is most sensitive to. The overlap is the mean squared cosine of the angles between the two sets: 1 when they are identical, about 0.06 for random directions. Here it is measured on windows 1 to 256 of the WikiText-103 test split, which no overlap measurement had used before; a window is one fixed-length passage of text.
+- **The ladder** is the overlap falling as head B reads further ahead.
+- **Split-half stability** compares a head's directions found from the odd windows with its own found from the even windows, by the same overlap.
+- **The agreement ratio** compares head A's directions from one half of the windows with head B's from the other half, both ways and averaged, and divides by the geometric mean of the two heads' stabilities. Two heads that rely on the same directions score about 1 whatever the number of windows; heads that rely on different ones score lower. It is used only for the must-fail control. **The identical-heads check** requires a model whose two heads have identical weights to score exactly 1.
+- **S3 and S5** are secondary measures in the generated report: S3 gives the stabilities and the agreement ratio for every arm, and S5 sets N6r's ladder beside N6's.
+- **A target-free measure**, in the dated correction from N8, is one that leaves the right answers out (`N8_NOTE.md`).
+- **N4, N5, N6, N7 and N8** are other tests, each with a note in this folder.
+
+Three preconditions had to hold: the data and setup checks pass, with the same batches in all four arms; *must fail*, the same arm's agreement ratio is at least 0.95 in at least 4 of 5 models; and every head in arms k2, k4 and k8 has a stability of at least 0.80. The rules are otherwise N6's, unchanged. N6a, the primary claim, uses o(2) − o(8), with a 95% t-interval over the five seeds and a margin of 0.10 in overlap. It is *supported* if the interval lies wholly above +0.10, *refuted* if wholly below +0.10 with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise. N6b is *supported* if o(2) lies between 0.40 and 0.60 in at least 4 of 5 models, *refuted* if it lies outside that band in at least 4 of 5, and *intermediate* otherwise.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.** The first Colab session did not upload, and evidently its progress did not reach Drive, since the second session found nothing to resume. A second session ran all 20 models and their measurements from the start, with no resumes, no skipped fp16 steps and no Drive failures. Nothing was changed after approval.
 
@@ -71,3 +98,8 @@ All three preconditions held:
 ## References
 
 Lin, H. W., & Tegmark, M. (2017). Critical behavior in physics and probabilistic formal languages. *Entropy, 19*(7), 299. https://doi.org/10.3390/e19070299
+
+## Records
+
+- **Raw results:** `results/n6r/` and `results/n6r_log.txt`, from the `colab-results` branch, run `n6r_halfoverlap/20261008-182116`.
+- **Code:** commit 3ebe497. `n6r_halfoverlap.py` reuses N6's code for the model, arms and training, and adds the test-split windows, the identical-heads check and the agreement ratio. `n6r_analyze.py` writes `N6R_RESULTS.md` from the records; the Colab job is `colab/jobs/n6r_halfoverlap.py`.
