@@ -2,7 +2,7 @@
 
 Date: 2026-10-21    Status: method note, adopted from N12 on.
 
-**Source.** This note adapts the detection step and the catalogue of replies of *transcendental-counterplay*, a legal-research skill written by the project's author. That skill finds, in legal writing, the arguments that turn on a claim that some condition is necessary, and it answers them move by move. This note borrows its structure and applies it to the project's own designs. The skill's legal examples, and their verification, stay in the skill.
+**Source.** This note adapts a method the project's author developed for analysing arguments in legal writing: finding the arguments that turn on a claim that some condition is necessary, which philosophers call transcendental arguments, and answering them move by move. Here the method's structure and its catalogue of replies are applied to the project's own designs.
 
 ## Why
 
@@ -36,7 +36,7 @@ Four features describe each claim:
 
 ## The replies, as questions the audit asks
 
-| Reply (from the skill) | The question asked of each necessity claim | Where the project has met it |
+| Reply | The question asked of each necessity claim | Where the project has met it |
 |---|---|---|
 | 1. Examine how the starting point is described | Does the description of the test already contain its conclusion? | `sub20` is defined by `n80`'s exact unreplaced positions, so "the same informative targets" holds by construction |
 | 2. Show the starting point without the condition | Is there a counterexample? | N7; N12's convergence rule |
@@ -71,9 +71,9 @@ Four features describe each claim:
 
 ## Modal words in summaries
 
-This follows the skill's checklist addition 6. A summary that restates a note keeps the note's modal word: "consistent with", "suggests", "exploratory", "secondary", "untestable", "intermediate". A summary never upgrades it.
+A summary that restates a note keeps the note's modal word: "consistent with", "suggests", "exploratory", "secondary", "untestable", "intermediate". A summary never upgrades it.
 
-`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, as the author's writing method prescribes for its adversarial reread. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them. A second round, on the N12 passages, found three substantive and ten minor problems, all corrected. A third round, on the N13 passages, found three substantive and twenty-two minor problems, all corrected; most were again modal upgrades, and the largest was an exploratory reading of where head B's cost to head A comes from that had become a flat claim in three summaries. A fourth round, on the N14 passages, found nine substantive and seventeen minor problems, all corrected; the largest were a 95% exploratory interval quoted beside a preregistered 97.5% rule in five places, "the same in five seeds to within 0.02" said of a ladder whose rungs vary by 0.05 across seeds, and an inconclusive verdict described as the forbidden outcome having happened. A fifth round, on the N15 and N16 passages, found eight substantive and twenty minor problems, all corrected; the largest were an error in the algebra of an exploratory derivation, a calibration value presented as an input to a margin it had postdated, and claims beyond what the comparisons separated (a rival "ruled out" where only its prediction failed, and a judge's two differences counted where there were three).
+`PLAIN_SUMMARY.md`, `CRITICAL_REVIEW.md` and the result lines in `CONJECTURE.md` and `PATHS_AND_UNDERSTANDING.md` are checked against the notes by a fresh reader that has not seen the drafting, an adversarial reread that is part of the method. The first such check, on 2026-10-21, found three substantive problems and seventeen minor ones in the two summaries, most of them modal upgrades; all were corrected, and the review's section on open correction records them. A second round, on the N12 passages, found three substantive and ten minor problems, all corrected. A third round, on the N13 passages, found three substantive and twenty-two minor problems, all corrected; most were again modal upgrades, and the largest was an exploratory reading of where head B's cost to head A comes from that had become a flat claim in three summaries. A fourth round, on the N14 passages, found nine substantive and seventeen minor problems, all corrected; the largest were a 95% exploratory interval quoted beside a preregistered 97.5% rule in five places, "the same in five seeds to within 0.02" said of a ladder whose rungs vary by 0.05 across seeds, and an inconclusive verdict described as the forbidden outcome having happened. A fifth round, on the N15 and N16 passages, found eight substantive and twenty minor problems, all corrected; the largest were an error in the algebra of an exploratory derivation, a calibration value presented as an input to a margin it had postdated, and claims beyond what the comparisons separated (a rival "ruled out" where only its prediction failed, and a judge's two differences counted where there were three).
 
 ## The record so far
 

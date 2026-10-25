@@ -87,3 +87,4 @@ Other documents:
 - [`PATHS_AND_UNDERSTANDING.md`](PATHS_AND_UNDERSTANDING.md): a note written while G1d ran; its section "After G1d" plans N1–N4. With result lines.
 - [`NECESSITY_AUDIT.md`](NECESSITY_AUDIT.md): from N12 on, a check of what each design relies on, made before the real run (for N12 after approval, from N13 at drafting).
 - `N11_HARDWARE.md`: N11's runs on a T4 GPU against its runs on an A100, exploratory.
+- [`make_figures.py`](make_figures.py) and [`figures/`](figures/): the plain summary's figures, drawn from the records, with every plotted value in [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).

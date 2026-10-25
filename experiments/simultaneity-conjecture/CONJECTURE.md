@@ -2,7 +2,7 @@
 
 Date: 2026-10-05    Status: conjecture, partly tested (updated 2026-10-22). G1 and the tests that followed from it (G1c, G1d, N1, N2, N4, N5, N6, N6r, N7, N8, N9, N10, N11, N12, N13, N14, N16) have run, and N15 was withdrawn before its real run. Their results are in the dated result lines at the end of "Dynamical regimes as voices" below, and in each test's note. V1–V3, G2 and G3 remain untested.
 
-Written with the scientific-experimentation skill (conjecture-note template). Nothing here is a finding. Revised the same day after the author corrected the first version, which had misread the aim as setting word order aside.
+Apart from the dated result lines, nothing here is a finding. Revised the same day after the author corrected the first version, which had misread the aim as setting word order aside.
 
 ## The question
 
