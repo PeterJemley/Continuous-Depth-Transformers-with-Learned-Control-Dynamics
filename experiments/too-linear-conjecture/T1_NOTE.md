@@ -1,6 +1,35 @@
 # Result note: T1
 
-Date: 2026-10-04    Preregistration: `T1_PREREGISTRATION.md`    Generated report: `T1_RESULTS.md`    Raw results: `results/t1/`, from `colab-results` branch `t1_ladder/20261004-190740` (second session; the first session's finished runs were resumed from Drive)
+Date: 2026-10-04    Preregistration: `T1_PREREGISTRATION.md`    Generated report: `T1_RESULTS.md`
+
+## In brief
+
+Model A, the paper's model, trailed an ordinary transformer of the same size by 0.83 nats at a tenth of the training budget. T1 asked which of Model A's four differences from that baseline carries the gap, by changing one at a time across five models, each trained on five seeds. Training the same model with exact gradients instead of the adjoint shortcut removed about 95% of the gap (0.79 nats). Losing one block's worth of separate weights cost 0.02 nats, reusing one block four times cost nothing beyond the margin, and the continuous block's form cost a further 0.035 nats whose practical size the test could not settle.
+
+## The arms and the contrasts
+
+All five arms share the paper's embedding, width 256, 4 attention heads, and layers 0–1 and 4–5; only what replaces layers 2–3 differs.
+
+| Arm | Layers 2–3 replaced by |
+|---|---|
+| B6 | Two standard transformer blocks with their own weights: the baseline, an ordinary transformer |
+| B5 | One standard block, applied once |
+| T4 | One standard block, applied four times (the same weights reused) |
+| AX | Model A's continuous block, trained with exact gradients |
+| AA | Model A's continuous block, trained with the adjoint shortcut, as in the paper and the WikiText-103 study |
+
+Each contrast is a paired difference in validation loss, run by run; positive means the first-named arm is worse.
+
+| Contrast | What it measures | The guess it tests (`CONJECTURE.md`) |
+|---|---|---|
+| G = AA − AX (primary) | The cost of the adjoint shortcut | Rival G: the shortcut, not the design, causes the gap |
+| P = B5 − B6 | The cost of losing one block's separate weights | Rival P: too few separate weights cause it |
+| C2 = T4 − B6 | Whether one block reused four times matches two separate blocks | Conjecture C2, which predicted it would not |
+| F = AX − T4 | The cost of the continuous block's form (α scaling, the time embedding, the parallel update, steps of α/4) beyond reusing one block | — |
+
+The margin of practical importance is 0.05 nats, and each interval is a Bonferroni-corrected 98.75% interval over the five runs. A contrast is *material* if its interval lies wholly beyond ±0.05, *negligible* if wholly within, and *some effect, size unclear* if it excludes 0 but meets neither rule.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 ## Controls
 
@@ -53,3 +82,8 @@ These are not part of the confirmatory family.
 1. **Model A trained with exact gradients at the full budget**, against the baseline. This is a new model with new evidence and needs its own preregistration. It does not revisit the paper's claims.
 2. **Contrast F's 0.035 nats.** Which part of the ODE form costs it: α, the time embedding, or the parallel update? Each is a single-change test.
 3. **The steering conjectures, C1 and C3,** should be tested on exactly-trained models, since adjoint training changes both α and the loss.
+
+## Records
+
+- **Raw results:** `results/t1/`, from the `colab-results` branch, run `t1_ladder/20261004-190740`. This was the second session; the first session's finished runs were resumed from their saved copies on Drive.
+- **Analysis:** `t1_analyze.py` writes `T1_RESULTS.md` from those records; the job is `t1_ladder.py`.
