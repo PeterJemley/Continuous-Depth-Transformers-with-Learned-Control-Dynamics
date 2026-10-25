@@ -136,7 +136,7 @@ Seed 42 reproduces the original run's model initialisation and batch order, sinc
 - Confirm the train split gives 2,391,884 tokens.
 - Inspect one training batch as text.
 - Run `chance_check.py` from the experimentation skill for every probe and every steering test set size, before reading the results.
-  *Note added 2026-10-25: `chance_check.py` belongs to a method guide that is not part of this repository. The chance checks the results rely on are computed in `analyze.py`, which tests probe accuracy at τ = 0 against chance in every seed.*
+  *Note added 2026-10-25: `chance_check.py` belongs to the method guide named here as "the experimentation skill", which is not part of this repository. The same step is in `run_sanity.py`, which `run_all.sh` runs first: it computes the range of results guessing would give for each test-set size (40 and 320 held-out prompts, 512 probe examples) and records them in `results/sanity.json` under `guessing_range_95`. `analyze.py` then applies the check at τ = 0 for the probes and the binomial test against 50% for H5b.*
 
 ## Analysis and reporting
 

@@ -56,22 +56,22 @@ So at this scale the dynamics were not needed to switch readings, and they did n
 
 - **The model needs the separation.** Forcing both readings through the same 64 of the state's 256 directions, at the heads' readout, cost 0.088 nats more than the same squeeze cost one reading (N4, *supported*).
 - **Why was not settled.** With all 256 directions the cost shrank to a third, but the runs varied too much for a verdict (N5, *inconclusive*). The same runs showed the next-word and following-word readings settling at about half-overlap from either starting point (exploratory).
-- **The further ahead, the more separate:** at 2, 4 and 8 words ahead the overlap fell from about a half to a third to under a quarter, in every run (N6r, *supported*). Its first version, N6, was *untestable*: a control's threshold had been carried over from a test measured on almost twice as many passages. So half-overlap is what the next word and the word after need, not a rule for any two readings.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/distance_ladder_dark.png">
-  <img src="figures/distance_ladder_light.png" width="720" alt="Line chart. The share of directions a second reading has in common with the next-word reading falls from 0.95 for two heads reading the same word to 0.44 at two words ahead, 0.25 at four and 0.19 at eight, against 0.06 for random directions. A next-word reading trained on 80% scrambled answers shares 0.31.">
-</picture>
-
-*Figure 1. The distance ladder on N6r's models, as N8 re-measured it without the right answers (0.44, 0.25 and 0.19 at 2, 4 and 8 words ahead, a little below N6r's own 0.49, 0.31 and 0.23), and the next-word reading trained on scrambled answers (Chapter 3). Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
+- **The further ahead, the more separate:** at 2, 4 and 8 words ahead the overlap fell from about a half to a third to under a quarter (0.49, 0.31, 0.23), in every run (N6r, *supported*). Its first version, N6, was *untestable*: a control's threshold had been carried over from a test measured on almost twice as many passages. So half-overlap is what the next word and the word after need, not a rule for any two readings.
 
 This **distance ladder** raised the question: is a reading further ahead more *different*, or only *harder*?
 
 ## Chapter 3: different, or harder? (N7 to N9)
 
-- **Neither alone orders the results.** A next-word reading made harder by scrambling 80% of its training answers shared about a third with the clean one, as little as the reading four words ahead (N7, *refuted*). So the distance ladder does not simply measure how different readings are. Difficulty alone does not order it either: this head was the hardest of all, yet shared more than the reading eight words ahead.
-- **It is not where the mistakes fall:** a measure that leaves the right answers out gave the same results (N8).
+- **Neither alone orders the results.** A next-word reading made harder by scrambling 80% of its training answers shared about a third with the clean one, as little as the reading four words ahead (0.31 against 0.30; N7, *refuted*). So the distance ladder does not simply measure how different readings are. Difficulty alone does not order it either: this head was the hardest of all, yet shared more than the reading eight words ahead.
+- **It is not where the mistakes fall:** a measure that leaves the right answers out gave the same pattern (N8). On it the scrambled head shares a little more than the far readings (0.31 against 0.25 four words ahead), still far from the 0.95 of two heads reading the same word (Figure 1).
 - **The measure passed its check; the scrambled head is not a noisy copy.** The measure recognised a perfect noisy copy of the clean head as the same reading (N9, *supported*), and the trained scrambled head was nowhere near it (*refuted*). Trained on scrambled answers, the head learned a different, weaker reading.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/distance_ladder_dark.png">
+  <img src="figures/distance_ladder_light.png" width="720" alt="Line chart. The share of directions a second reading has in common with the next-word reading falls from 0.95 for two heads reading the same word to 0.44 at two words ahead, 0.25 at four and 0.19 at eight. A deliberately mismatched head scores 0.13 to 0.18, and random directions 0.06. A next-word reading trained on 80% scrambled answers shares 0.31.">
+</picture>
+
+*Figure 1. The distance ladder (N6r's models) and the next-word reading trained on scrambled answers (N7's models), both as N8 re-measured them without the right answers. On this measure the ladder reads 0.44, 0.25 and 0.19 at 2, 4 and 8 words ahead, a little below N6r's own 0.49, 0.31 and 0.23. The shaded band is a deliberately mismatched head: below it, "shared" means nothing. Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
 
 From here the tests followed that puzzle. It is a question about learning from noisy answers more than about holding several readings, and it bears on the conjecture in one way: the directions a reading uses depend on how it was trained, not only on what it reads.
 
@@ -85,17 +85,17 @@ From here the tests followed that puzzle. It is a question about learning from n
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/accuracy_ladder_dark.png">
-  <img src="figures/accuracy_ladder_light.png" width="720" alt="Scatter chart of agreement with the clean head against how much worse a head predicts the genuine answers. Heads given fewer genuine answers form a descending line from 0.98 at no loss to 0.64 at 0.82 nats. Heads trained with scrambled answers sit close to that line. A discounted head given no scrambled answers and judging itself sits well above it, at 0.77 and 0.74 nats.">
+  <img src="figures/accuracy_ladder_light.png" width="720" alt="Scatter chart of agreement with the clean head against how much worse a head predicts the genuine answers. Heads given fewer genuine answers form a descending line from agreement 0.98 at no loss to 0.64 at 0.82 nats. Heads trained with scrambled answers sit close to that line. Of the two discounted heads given no scrambled answers, the one judged by the clean head sits near the line at agreement 0.85 and 0.29 nats, and the one that judges itself sits well above it, at agreement 0.77 and 0.74 nats.">
 </picture>
 
-*Figure 2. Heads placed by the accuracy they reached (N14 and N16). Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
+*Figure 2. Heads placed by the accuracy they reached (N14 and N16). For the blended and discounted heads, the loss is that of the reading inside the blend. Whether the heads sit on the ladder got no verdict (N14a and N16d inconclusive). Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/judge_two_by_two_dark.png">
   <img src="figures/judge_two_by_two_light.png" width="720" alt="Grouped bar chart of how far each discounted head falls behind the clean head. When the head judges its own answers: 0.74 nats with genuine answers only, 0.34 with the scrambled answers added. When the clean head judges: 0.29 and 0.15. A head given the genuine answers at full weight falls 0.16 behind.">
 </picture>
 
-*Figure 3. N16's two-by-two, an exploratory comparison. Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
+*Figure 3. N16's two-by-two. The glossary's shortfall is the distance from an orange bar down to the line: 0.17 nats when the head judges itself, none when the clean head judges. The comparisons of the two judges are N16's claims (N16a, N16c, supported); the effect of the scrambled answers is exploratory. Values by run: [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).*
 
 ## What we now understand
 

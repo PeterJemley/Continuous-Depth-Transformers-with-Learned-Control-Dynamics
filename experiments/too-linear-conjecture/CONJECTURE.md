@@ -6,7 +6,7 @@ Date: 2026-10-04    Status: conjecture, partly tested (updated 2026-10-07). T0 a
 
 **T1 result, 2026-10-04: rival G confirmed from the training side; P and C2 refuted at this scale.** Training Model A with adjoint gradients cost +0.79 nats (95% interval [+0.66, +0.92]), about 95% of the gap to the baseline at 10% of the budget. Losing one block's separate weights cost only +0.02 (rival P refuted). A weight-tied repeated block matched the two separate blocks it replaced, +0.007 (C2's forbidden case, so C2 is refuted at this scale). Trained with exact gradients, Model A was 0.04 nats behind the baseline. See `T1_NOTE.md`. C1 and C3 remain untested; the work moved on to the simultaneity conjecture (`../simultaneity-conjecture/`).
 
-Nothing here is a finding. The refutations recorded in `experiments/wikitext2-replication/RESULTS.md` and `experiments/wikitext103-training/RESULTS.md` stand whatever the tests below show. These conjectures are new explanations to be criticised, not ways to restore the paper's claims.
+Apart from the dated result lines, nothing here is a finding. The refutations recorded in `experiments/wikitext2-replication/RESULTS.md` and `experiments/wikitext103-training/RESULTS.md` stand whatever the tests below show. These conjectures are new explanations to be criticised, not ways to restore the paper's claims.
 
 ## The question
 
@@ -50,7 +50,7 @@ These results are criticism already in hand.
 | G. The gradients were wrong. `odeint_adjoint` recomputes the vector field in the backward pass with fresh dropout masks, and the Euler adjoint is only approximate, more so as α grows (Gholami et al., 2019). | The gap is mostly an optimisation defect. Exact backpropagation, with no architectural change, closes much of it. | T0 below: measure the gradient error directly on the saved checkpoints, with no training. |
 | P. Fewer separate weights. | A 5-layer baseline loses about as much as Model A. | A short 5-layer baseline run in T1. |
 | S. Steering is weak because of the steering procedure: one training prompt, 500 steps, control attached after training. | The weak steering persists unchanged with multiplicative modulation unless the procedure changes, and improves with a better procedure even with additive control. | In T2, fix the procedure first, with many prompts and the control used in training, and only then compare injection forms. |
-| N. Too few runs or prompts. | Differences between variants vanish with more seeds or prompts. | Preregister at least 5 seeds per variant and enough held-out prompts for a narrow chance range (`chance_check.py`). |
+| N. Too few runs or prompts. | Differences between variants vanish with more seeds or prompts. | Preregister at least 5 seeds per variant and enough held-out prompts for a narrow chance range (as `../wikitext2-replication/run_sanity.py` computes it). |
 
 ## Prior art
 
