@@ -31,7 +31,7 @@ P_B starts as a copy of P_A, so separate and tied readouts are the same function
 
 Each interval is a 95% t-interval over the five seeds. N4b's margin of practical importance is 0.05 nats. It is *supported* if D's interval lies wholly above +0.05, *refuted* if wholly below +0.05 with a standard deviation of at most 0.04, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise. N4a is *supported* if the dual-sep overlap is at most 0.8 in at least 4 of 5 models, *refuted* if it is at least 0.95 in at least 4 of 5, and *intermediate* otherwise.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes and no Drive failures. One fp16 step in 57,580 was skipped. Nothing was changed after approval.
 
@@ -89,7 +89,7 @@ These had no decision rule.
   - In N2, with full-width heads, the two readings started at 0.07 and ended at 0.57 to 0.63.
   - So the overlap level that two different readings end at depends on where they start; it is not a fixed property of the readings. What replicates across N2 and N4 is the contrast: two heads on the same target converge on the same directions, and two different readings do not.
   - N4a's verdict is unaffected, since its must-fail control was built to catch exactly this. But "the separation replicates" should be read as "different readings do not converge", not as "training pushes them apart".
-  - **Correction, 2026-10-07, from N5.** The two sentences above generalised from one width and are wrong. N5 measured the same overlap at readout widths 32, 128 and 256 on the same seeds. Two different readings started at 0.67–0.74, 0.28–0.31 and 0.18–0.20, and ended at 0.42–0.53 in every case. At width 32 training pushed them apart; at 128 and 256 it pulled them together. So the level they end at does *not* depend on where they start: for these two readings it is about 0.5. Width 64 merely started near that level. See `N5_NOTE.md`. N4a's verdict is unaffected.
+  - **Correction, 2026-10-07, from N5.** The two sentences above generalised from one width and are wrong. N5 measured the same overlap at readout widths 32, 128 and 256 on the same seeds. Two different readings started at 0.67–0.74, 0.28–0.31 and 0.18–0.20, and ended at 0.42–0.53 in every case. At width 32 training pushed them apart; at 128 and 256 it pulled them together. So the level they end at does *not* depend on where they start: for these two readings it is about 0.5. Width 64 merely started near that level. See `N5_NOTE.md`. N4a's verdict is unaffected. *[Corrected 2026-10-25: this holds for separate readouts (dual-sep), the arm the sentences above describe. With one tied readout the two readings ended higher, 0.58 to 0.75, and higher the narrower the readout (0.65–0.71 here, at width 64); see `N5_NOTE.md`.]*
 - **Tying pulls the readings together.** In the tied dual models the overlap rose to 0.65 to 0.71, from the same starting point of about 0.48. The model paid 0.099 nats for that.
 - **The readouts drift apart even for the same target.** The row spaces of P_A and P_B, identical at the start, ended at an overlap of about 0.51 for two readings and about 0.71 for one. The second number shows the readout matrices are not unique: different 64-dimensional readouts can serve the same reading. The upstream sensitivity subspaces converged regardless.
 - **The 64-direction readout is a severe bottleneck.** The rank-64 models' next-token loss was about 0.3 nats worse than N2's full-width models (5.14 against 4.83; different seeds, descriptive only). The result was shown where directions are scarce. Whether separate directions matter at full width is untested; N2's 0.05-nat cost of reading twice is suggestive.
@@ -116,5 +116,5 @@ Yu, T., Kumar, S., Gupta, A., Levine, S., Hausman, K., & Finn, C. (2020). *Gradi
 
 ## Records
 
-- **Raw results:** `results/n4/` and `results/n4_log.txt`, from the `colab-results` branch, run `n4_directions/20261006-200755`.
+- **Raw results:** `results/n4/` and `results/n4_log.txt`, from the `colab-results` branch, run `n4_directions/20261006-200755`. The untrained baseline, measured after the run: `results/n4_exploratory/untrained_overlap.json`, from `n4_init_baseline.py`.
 - **Code:** commit aebb830. `n4_directions.py` trains the four arms and measures them, and `n4_analyze.py` writes `N4_RESULTS.md` from the records; the Colab job is `colab/jobs/n4_directions.py`.

@@ -4,7 +4,7 @@ Date: 2026-10-04    Preregistration: `T0_PREREGISTRATION.md`    Generated report
 
 ## In brief
 
-Model A, the paper's model, was trained with the adjoint method, a memory-saving shortcut for computing its gradients. T0 asked, without training anything, whether those gradients point more than about 26° away from the exact gradients of the same computation, in at least 5 of the 6 models trained on WikiText-103. The preregistered verdict is untestable: a required agreement check fell short in five of the six models, and the measure was too noisy in four, even after averaging over 64 random dropout patterns. Every check of the pipeline itself passed, so T0 neither supports nor refutes the claim, and its two notable findings are exploratory: with dropout off, the two gradients diverge as α, a learned scale on the block's update, grows, and α's own adjoint gradient has the opposite sign to the exact one.
+Model A, the paper's model, was trained with the adjoint method, a memory-saving shortcut for computing its gradients. T0 asked, without training anything, whether those gradients point more than about 26° away from the exact gradients of the same computation, in at least 5 of the 6 models trained on WikiText-103. The preregistered verdict is untestable: a required agreement check fell short in five of the six models, and the measure was too noisy in four, even after averaging over 64 random dropout patterns. Every check of the pipeline itself passed, so T0 neither supports nor refutes the claim, and two exploratory observations stand out: with dropout off, the two gradients diverge as α, a learned scale on the block's update, grows, and α's own adjoint gradient has the opposite sign to the exact one.
 
 ## The gradients and the measures
 
@@ -32,7 +32,7 @@ Model A replaces layers 2–3 of an ordinary six-layer transformer with a contin
 
 **The decision rule.** The unit is the trained model, and there is no interval. First, the noise reference had to reach 0.95 in every model, with the draws doubled up to 64; if it never did, the result is "too noisy to decide". The claim is *supported* if, in at least 5 of 6 models, the primary cosine is below 0.90 and more than 0.05 below the noise reference. It is *refuted* if, in at least 5 of 6, the primary cosine is at least the lower of 0.98 and the noise reference minus 0.01. Anything else is *intermediate*. The result is *untestable* if any must-match control fails.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 ## What we expected
 

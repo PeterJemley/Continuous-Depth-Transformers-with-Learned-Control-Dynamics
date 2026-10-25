@@ -4,7 +4,7 @@ Date: 2026-10-07    Preregistration: `N5_PREREGISTRATION.md`    Generated report
 
 ## In brief
 
-N4 found that forcing two readings, the next token and the token after next, through one shared 64-direction readout cost 0.088 nats more than it cost two heads reading the same target. N5 tested N4's explanation, a competition for directions, by changing only the readout's width: at the full width of 256 the extra cost should vanish (N5a), and at width 32 it should exceed the cost at width 128 by at least 0.05 nats (N5b). At full width the extra cost was +0.030 nats, 97.5% interval [−0.004, +0.065], and the width-32 cost minus the width-128 cost was −0.063, interval [−0.323, +0.196]: both verdicts are inconclusive, because the runs varied far more than the plan assumed. An exploratory observation stood out: all 20 models reading two different targets ended with their most sensitive directions about half shared (overlap 0.42 to 0.53), whatever their starting point.
+N4 found that forcing two readings, the next token and the token after next, through one shared 64-direction readout cost 0.088 nats more than it cost two heads reading the same target. N5 tested N4's explanation, a competition for directions, by changing only the readout's width: at the full width of 256 the extra cost should vanish (N5a), and at width 32 it should exceed the cost at width 128 by at least 0.05 nats (N5b). At full width the extra cost was +0.030 nats, 97.5% interval [−0.004, +0.065], and the width-32 cost minus the width-128 cost was −0.063, interval [−0.323, +0.196]: both verdicts are inconclusive, because the runs varied far more than the plan assumed. An exploratory observation stood out: all 20 models reading two different targets through separate readouts (15 here and 5 from N4) ended with their most sensitive directions about half shared (overlap 0.42 to 0.53), whatever their starting point. With one shared readout the two readings ended higher, 0.58 to 0.75, and highest at the narrowest width.
 
 ## The arms and measures
 
@@ -22,7 +22,7 @@ P_B starts as a copy of P_A, so separate and tied readouts are the same function
 - **The two explanations of N4's cost.** *A competition for directions:* a tied readout of width w must hold both readings' needs in w directions, while separate readouts give each reading its own w. *A clash of learning signals in the shared matrix* (gradient conflict): tying makes both heads' learning signals meet in one matrix, where different targets can pull against each other, even when directions are plentiful.
 - **J** is the combined validation loss, L_A + L_B, on the whole validation split. **D(w)** is N4's measure at width w, (J_dual-tied − J_dual-sep) − (J_same-tied − J_same-sep): the extra cost of tying for two different readings, beyond its cost for two heads reading one target. "The cost of tying" is J_tied − J_sep for one pair of arms.
 - **N5a**, the primary claim, uses D(256). At width 256, P is square, and while it stays invertible, tied and separate readouts can represent exactly the same functions. **N5b** uses D(32) − D(128), paired by seed.
-- **Full rank** means the width-256 readout's smallest singular value is above 1e-4 times its largest, so it loses no direction of the state. The ratio of smallest to largest singular value measures how close P comes to losing one; P is **invertible** while it loses none.
+- **Full rank**, a precondition, means the initial width-256 readout's smallest singular value is above 1e-4 times its largest. The threshold only guards against a matrix too close to singular to compute with: mathematically, tied and separate readouts are equivalent at width 256 whenever P is **invertible**, that is, loses no direction of the state. The ratio of smallest to largest singular value measures how close P comes to losing one.
 - **Overlap** is N4a's measure. A reading's directions are the 16 directions of the ODE block's output (Model A's continuous block) that its loss is most sensitive to, on validation windows 1,537 to 1,792, where a window is one fixed-length passage of text. The overlap is the mean squared cosine of the angles between two readings' directions: 1 when identical, about 0.06 for random directions. The untrained overlap is the same measure before training.
 - **α**, the ODE scale, is a learned number that scales the continuous block's update.
 - **fp16:** training ran in 16-bit arithmetic, and a step whose gradients overflow is skipped.
@@ -30,7 +30,7 @@ P_B starts as a copy of P_A, so separate and tied readouts are the same function
 
 Three preconditions had to hold: separate and tied readouts give bit-identical logits at initialisation, at every width and seed; the batch, data and same-model checks pass, with the same batches in all four arms; and the width-256 readout is full rank at initialisation, for every seed. The two rules form one family, so each interval is a Bonferroni-corrected 97.5% t-interval over the five seeds. N5a's rows are checked in order, and the first that applies is the verdict: *supported* (the cost vanishes) if D(256)'s interval lies wholly below +0.02; *refuted* (the cost persists) if wholly above +0.05; *partly* (a smaller cost remains) if wholly above 0 and wholly below +0.05; *inconclusive* otherwise. N5b's margin of practical importance is 0.05 nats. It is *supported* if the interval for D(32) − D(128) lies wholly above +0.05, *refuted* if wholly below +0.05 with a standard deviation of at most 0.04, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session ran all 60 models and their measurements, with no resumes and no Drive failures. One fp16 step in 172,740 was skipped. A second session the next morning (`n5_widths/20261007-091612`) found every run finished and skipped them all; its 121 result files are byte-for-byte identical to the first session's. Nothing was changed after approval.
 
@@ -92,7 +92,7 @@ The interval reaches both below zero and above the 0.05 margin, so it meets neit
 
 These had no decision rule.
 
-- **Two different readings settle at about half-overlap, whatever their starting point.** This is the most striking result of the run.
+- **Two different readings settle at about half-overlap, whatever their starting point.** This is the most striking result of the run. *[Corrected 2026-10-25: this holds for the separate readouts (dual-sep), the 15 models here and N4's 5, which are the table's two-reading column. With one tied readout (dual-tied), the two readings ended higher, and higher the narrower the readout: 0.71–0.75 at width 32, 0.65–0.71 at 64 (N4), 0.62–0.67 at 128 and 0.58–0.64 at 256, from the same starting points, since tied and separate are identical at the start. At width 32 they stayed near where they started. So the end point is about half whatever the start only for separate readouts.]*
 
   | Width | Untrained overlap | Trained, two readings (5 seeds) | Trained, same reading |
   |---|---|---|---|
@@ -118,7 +118,7 @@ These had no decision rule.
 
 ## Next conjectures
 
-1. **Half-overlap as a regularity.** For two related readings, the trained overlap of their sensitive directions is about 0.5, independent of readout width and starting overlap. A sharper form: readings that differ more (the next token against a topic label) settle at a *lower* overlap, and readings that differ less (the next token against the next token at a slightly later layer) at a higher one. This would turn N5's strongest observation into a test that can fail, on new seeds and new readings.
+1. **Half-overlap as a regularity.** For two related readings, the trained overlap of their sensitive directions is about 0.5, independent of readout width and starting overlap. *[Corrected 2026-10-25: with separate readouts; see the correction above.]* A sharper form: readings that differ more (the next token against a topic label) settle at a *lower* overlap, and readings that differ less (the next token against the next token at a slightly later layer) at a higher one. This would turn N5's strongest observation into a test that can fail, on new seeds and new readings.
 2. **Settle N5a with the right power.** Repeat width 256 alone on new seeds, with the number of seeds set from N5's spread (standard deviation 0.022): about 10 seeds would resolve a cost of 0.03 from zero. If the cost is real, the next step is to remove the clash of learning signals directly in the shared matrix, for example by projecting out conflicting gradient components (Yu et al., 2020), and see whether the cost goes.
 3. **More voices.** Three or four readings at once, at width 64 where training is consistent. The question is whether the cost of sharing grows with the number of voices, and whether each pair still settles at about half-overlap.
 
@@ -128,5 +128,5 @@ Yu, T., Kumar, S., Gupta, A., Levine, S., Hausman, K., & Finn, C. (2020). *Gradi
 
 ## Records
 
-- **Raw results:** `results/n5/` and `results/n5_log.txt`, from the `colab-results` branch, run `n5_widths/20261006-233331`.
+- **Raw results:** `results/n5/` and `results/n5_log.txt`, from the `colab-results` branch, run `n5_widths/20261006-233331`. The width-64 values are N4's, from `results/n4/`.
 - **Code:** commit 0e60457, whose experiment code is identical to the queued commit 92382e6 (only the plain-language summary changed between them). `n5_widths.py` runs the checks, the runs and their measurements, using N4's `n4_directions.py` for the models, training and measures. `n5_analyze.py` writes `N5_RESULTS.md` from the records; the Colab job is `colab/jobs/n5_widths.py`.

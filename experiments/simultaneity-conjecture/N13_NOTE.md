@@ -38,10 +38,11 @@ Every model has two heads that read the next word from the same internal state, 
 | Symmetrised KL, per position | How far two models' predictions differ, averaged over positions, in nats |
 | Replicate floor | How far two runs of the same code with the same seed differ |
 | AdamW, ε | The optimiser. It normalises each parameter's update, so a constant scale on a head's loss leaves that head's own update unchanged, up to its small constant ε, and changes only the head's share of the trunk's gradient |
+| The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
 
 **The rules.** N13a counts seeds. It is *supported* if |Δ_A(`n80-rw`) − Δ_A(`n80-mix`)| ≤ 0.03 nats in at least 4 of 5, *refuted* if it exceeds 0.10 in at least 4 of 5 while the replicate stays within 0.03, and *intermediate* otherwise. N13b and N13c use a Bonferroni-corrected 97.5% interval over the five seeds. N13b is *supported* if its interval lies wholly below 0.10, and *refuted* if wholly above 0.33 with a standard deviation of at most 0.05. N13c is *supported* if its interval lies wholly above −0.27 nats, a quarter of N12's gain, and *refuted* if wholly below −0.53 nats, half of the gain, with a standard deviation of at most 0.10. Either is *some effect, size unclear* if its interval excludes 0 but meets neither rule, and *inconclusive* otherwise. The exploratory intervals are 95%.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 - **Changes after approval:** none. The calibration corrected the stated mechanism's claim about the start of training, before any run, with no claim or rule changed.
 

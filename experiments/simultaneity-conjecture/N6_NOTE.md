@@ -26,7 +26,7 @@ Every model is N4's (`N4_NOTE.md`): Model A, the paper's model, trained with exa
 
 Three preconditions had to hold: the data and setup checks pass, with the same batches in all four arms; *must fail*, the same arm's overlap is at least 0.95 in at least 4 of 5 models; and every head in arms k2, k4 and k8 has a stability of at least 0.80. If any fails, both verdicts are *untestable*. N6a, the primary claim, uses o(2) − o(8), with a 95% t-interval over the five seeds and a margin of 0.10 in overlap. It is *supported* if the interval lies wholly above +0.10, *refuted* if wholly below +0.10 with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise. N6b is *supported* if o(2) lies between 0.40 and 0.60 in at least 4 of 5 models, *refuted* if it lies outside that band in at least 4 of 5, and *intermediate* otherwise.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes, no skipped fp16 steps and no Drive failures. Nothing was changed after approval.
 

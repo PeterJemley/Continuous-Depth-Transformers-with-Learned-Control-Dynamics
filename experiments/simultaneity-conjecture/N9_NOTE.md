@@ -8,7 +8,7 @@ N8 left two explanations for why the head trained on scrambled answers reads dif
 
 ## The heads and measures
 
-N9 trained nothing. It measured N7's five `noisy` models (seeds 3801 to 3805). In each, two heads read the same final internal state through their own readouts of 64 directions. Head A, *the clean head*, predicts the next word from the real answers. Head B, *the trained noisy head*, predicts it from scrambled answers: in training, 80% of its answers were replaced by words drawn at random in proportion to how common they are. N9 also built new heads from each head A, without training, and compared them all with N8's target-free measure.
+N9 trained nothing. It measured all 20 of N7's models; the claims use its five `noisy` models (seeds 3801 to 3805), and S4 the other 15. In each, two heads read the same final internal state through their own readouts of 64 directions. Head A, *the clean head*, predicts the next word from the real answers. Head B, *the trained noisy head*, predicts it from scrambled answers: in training, 80% of its answers were replaced by words drawn at random in proportion to how common they are. N9 also built new heads from each head A, without training, and compared them all with N8's target-free measure.
 
 | Head | What it is | Role |
 |---|---|---|
@@ -36,7 +36,7 @@ N9 trained nothing. It measured N7's five `noisy` models (seeds 3801 to 3805). I
 - **Amendment A1,** approved before any real run, doubled the measurement windows from 256 to 512. Calibration had put the copy's stability within 0.05 of the 0.80 threshold.
 - **Other names.** N4, N7 and N8 are earlier tests in this folder, each with its own note. N7 trained these models, and N8 first measured them with the target-free measure. *The distance ladder* is the earlier finding that the overlap with the next-word head falls the further ahead a head reads. Runs were saved to Google Drive and measured in a Google Colab session.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session measured all 20 models, with no resumes and no Drive failures. Nothing was changed after amendment A1 was approved.
 

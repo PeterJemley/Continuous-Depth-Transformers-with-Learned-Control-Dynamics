@@ -7,7 +7,7 @@ Type: confirmatory for N8a (primary), N8b and N8c, each with its own decision ru
 Parent documents: `N7_NOTE.md` (next conjecture 1), `N6R_NOTE.md` (with its dated correction), and `PLAIN_SUMMARY.md`.
 
 **Relation to earlier results.**
-- **What N7 found.** A head reading exactly the next token, with 80% of its targets randomised, shared no more with the clean next-token head (overlap 0.31) than a head reading four tokens ahead (0.30). It did not converge with it (agreement ratio 0.30–0.33).
+- **What N7 found.** A head reading exactly the next token, with 80% of its targets randomised, shared no more with the clean next-token head (overlap 0.31) than a head reading four tokens ahead (0.30). *[Corrected 2026-10-25: it shared slightly more, 0.307 against 0.297, and more in 4 of the 5 seeds (`N7_NOTE.md`).]* It did not converge with it (agreement ratio 0.30–0.33).
 - **N7's conjecture.** The overlap measure used from N4 to N7 is built from the gradient of each head's loss against its *actual* targets. So it sees where a reading's errors fall as well as which features it uses. Readings with unpredictable targets, whether far ahead or randomised, then look separate partly because their errors differ.
 - **What N8 does.** It measures again with a target-free version of the same quantity, on the same trained models and on fresh windows. That separates the two explanations.
 - **What stands regardless.** Every earlier verdict stands, including N6r's ladder and N7's refutations, which were made with the measure as preregistered. N8 tests an explanation of them with a different measure.
@@ -206,6 +206,10 @@ No trained full-size model has been measured with the new measure.
   - Its threshold of 0.98 is unchanged.
 
 **A risk that can't be calibrated without trained models.** The trained same-target heads might fall below 0.95 under the new measure, which would make N8 untestable. In N7's trained same-target models, the two readout projections overlapped at only 0.71.
+
+### A correction to the background, 2026-10-25 (not an amendment)
+
+The account of N7 at the top of this file said its noisy head shared no more with the clean head than the four-ahead head did. It shared slightly more, 0.307 against 0.297, in 4 of 5 seeds. A dated correction was added beside the sentence. No claim, margin, measure or verdict depends on it.
 
 ## References
 

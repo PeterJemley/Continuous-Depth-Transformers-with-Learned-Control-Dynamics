@@ -35,10 +35,11 @@ Every model has two heads that read the next word from the same internal state. 
 | Fit divergence | What the frozen fits minimise, KL(copy ‖ head B's output): how far the fitted output is from the copy |
 | Payload | An extra training signal meant to protect a reading under scrambling (N10, N11) |
 | The checks | The *constructed mixture check* is a mixture head built from head A's own readout, which must reproduce the copy exactly. The *rotated control* is head A reading a randomly rotated state, so it reads different directions by construction; its agreement must be at most 0.60 in at least 4 of 5 models of each arm. *Stability* is how well a head's directions agree between two halves of the windows; for N12b it must be at least 0.80 |
+| The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
 
 **The rules.** N12a, N12c and N12d use a Bonferroni-corrected 97.5% interval over the five seeds. Each is *supported* if its interval lies wholly on the claim's side of 0.67 (above for N12a and N12c, below for N12d), *refuted* if wholly on the other side with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 (N12a, N12c) or 1 (N12d) but meets neither rule, and *inconclusive* otherwise. N12b counts seeds. It is *supported* if the agreement is at least 0.85 in at least 4 of 5, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise. The secondary measures use 95% intervals. Earlier tests' claims are cited by test and letter, such as N9b; each test has its own note in this folder.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Apart from one typo fixed in the body (a comma for a full stop), nothing else was changed.*
 
 - **Changes after approval:** amendment A1 (the convergence test at zero loss) and the necessity audit's additions, both before the run. Nothing changed after it.
 

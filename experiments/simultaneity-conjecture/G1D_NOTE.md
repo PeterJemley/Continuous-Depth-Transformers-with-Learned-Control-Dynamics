@@ -19,7 +19,7 @@ The setup is G1c's. Model A is trained with exact gradients (ordinary backpropag
 Every arm uses seeds 3201 to 3205. A seed fixes the initial weights, the data order and the tasks, so a seed's three arms differ only in the penalty. A pilot on seed 100 chose λ.
 
 - **Contraction, c̄(u):** G1c's measure of how strongly the block draws nearby states together under control value u: minus the divergence (the trace of the vector field's Jacobian, which says how a small change in the state changes its velocity), per token, averaged over five depths and 256 windows. Here it is measured on validation windows 513 to 768. **R** is G1c's contraction ratio, c̄(−1) / c̄(+1). G1c's scoring table handles rates too near zero for a ratio.
-- **λ:** the penalty's strength. The pilot tried 0.01, 0.1, 1 and 10 in turn, and kept the smallest at which the capped model's c̄(−1) was at most 3.0.
+- **λ:** the penalty's strength. The pilot was to try 0.01, 0.1, 1 and 10 in turn and keep the smallest at which the capped model's c̄(−1) was at most 3.0. The first, 0.01, qualified, so no other value was run.
 - **D, the primary contrast:** for each seed, (farther-task loss, capped − control) − (next-token loss, capped − control). Positive D means the cap hurts the farther task more. Losses are on the whole validation split, each task with its right control value.
 - **The sensitivity limit:** if the standard deviation of D across seeds were above 0.04 nats, the design could not detect 0.05 reliably, and *refuted* would not be claimed.
 - **By-product and substitution:** the two explanations the test cannot tell apart, as the note defines them below.
@@ -40,7 +40,7 @@ Every arm uses seeds 3201 to 3205. A seed fixes the initial weights, the data or
 - the null contrast: the sham arm's D has a 95% interval wholly within ±0.05;
 - the analytic check: on a linear field with a known trace, the training penalty's estimate of the trace, and its gradient, are within 2%.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 ## What we expected
 
@@ -92,7 +92,7 @@ All six preconditions held:
 - **The cap reached the next-token reading too.**
   - The penalty acted only on u = −1 sequences, with a cap of 2.0. Yet the capped models' contraction under u = +1 also fell, from about 1 to 1.7 down to −0.44 to +0.08: slightly expanding, on average.
   - u = 0 fell too. The whole field became nearly neutral.
-  - The weakest penalty strength drove contraction far below the cap, and the penalty was zero for most of training, which suggests contraction was cheap for the model to give up. *[Corrected 2026-10-25: the records show the penalty above zero at 27 to 36 of the 58 logged steps in every model, so it was not zero for most of training. The report's table shows only the first, middle and last values, which were mostly zero.]*
+  - The weakest penalty strength drove contraction far below the cap, and the penalty was zero for most of training, which suggests contraction was cheap for the model to give up. *[Corrected 2026-10-25: the records show the penalty above zero at 27 to 36 of the 58 logged steps, and zero at the other 22 to 31, including every logged step up to step 500. So it was zero for about half of training, not most. The report's table shows only the first, middle and last values, which were mostly zero.]*
 - **A small difference remains.**
   - In the capped models, u = −1 still contracts a little more than u = +1, by about 0.4 to 0.9. G1c's scoring table would still classify it as "u = −1 contracts, u = +1 does not".
   - So the test removed the *large* difference, not every difference. It cannot rule out that a small residual difference is what the model uses.

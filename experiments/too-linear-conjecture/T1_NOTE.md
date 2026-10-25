@@ -4,7 +4,7 @@ Date: 2026-10-04    Preregistration: `T1_PREREGISTRATION.md`    Generated report
 
 ## In brief
 
-Model A, the paper's model, trailed an ordinary transformer of the same size by 0.83 nats at a tenth of the training budget. T1 asked which of Model A's four differences from that baseline carries the gap, by changing one at a time across five models, each trained on five seeds. Training the same model with exact gradients instead of the adjoint shortcut removed about 95% of the gap (0.79 nats). Losing one block's worth of separate weights cost 0.02 nats, reusing one block four times cost nothing beyond the margin, and the continuous block's form cost a further 0.035 nats whose practical size the test could not settle.
+Model A, the paper's model, trailed an ordinary six-layer transformer of the same width by 0.83 nats at a tenth of the training budget. T1 asked which of Model A's four differences from that baseline carries the gap, by changing one at a time across five models, each trained on five seeds. Training the same model with exact gradients instead of the adjoint shortcut removed about 95% of the gap (0.79 nats). Losing one block's worth of separate weights cost 0.02 nats, reusing one block four times cost nothing beyond the margin, and the continuous block's form cost a further 0.035 nats whose practical size the test could not settle.
 
 ## The arms and the contrasts
 

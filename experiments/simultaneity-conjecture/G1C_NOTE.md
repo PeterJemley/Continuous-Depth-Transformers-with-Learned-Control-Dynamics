@@ -48,7 +48,7 @@ The setup is G1's. Model A is trained with exact gradients (ordinary backpropaga
 
 The claim is *supported* if R ≥ 2 in at least 4 of 5 main models. It is *refuted* if R < 1.25 in at least 4 of 5, which includes a difference in the other direction. Anything else is *intermediate*. There is no interval: the unit is the trained model. The thresholds of 2 and 1.25 are reused from G1's amendment A1, as judgements.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 ## What we expected
 

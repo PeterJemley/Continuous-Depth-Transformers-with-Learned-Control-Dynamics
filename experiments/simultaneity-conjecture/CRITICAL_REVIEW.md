@@ -323,7 +323,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 [^7]: **N4 and N5.**
     - *N4:* the difference-of-differences cost of tying the readouts was D = +0.088 nats, 95% interval [+0.078, +0.097].
     - *N5:* at full width, D = +0.030, 97.5% interval [−0.004, +0.065], inconclusive. The standard deviation across seeds was 0.022 to 0.194 at N5's widths, against 0.008 at N4's width.
-    - *N4's note* originally said the balance depends on the starting point. A dated correction from N5 records that it does not: two different readings ended at 0.42 to 0.53 from every start.
+    - *N4's note* originally said the balance depends on the starting point. A dated correction from N5 records that it does not: two different readings ended at 0.42 to 0.53 from every start. *[Corrected 2026-10-25: this holds for separate readouts. With one shared readout the two readings ended higher, 0.58 to 0.75, and higher the narrower the readout (`N5_NOTE.md`).]*
 
     Sources: `N4_NOTE.md`, `N5_NOTE.md`.
 
@@ -366,7 +366,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
     - *N4:* an undefined rule, found on rereading the plan; the untrained calibration found the claim working as written.
     - *N7:* a noise rate that a loss bound suggested would very likely be too low; the untrained calibration found the controls working.
     - *N8:* a must-match control that untrained heads passed automatically (ratios 0.98 and 1.02).
-    - *N9:* the copy's stability margin. In trained models the copy turned out more stable (at least 0.91), so this caution was not needed.
+    - *N9:* the copy's stability margin. In trained models the copy turned out more stable (at least 0.91), so this caution was not needed. *[Corrected 2026-10-25: at least 0.907. N9 measured only with the extra windows, so whether it could have done without them was not tested (`N9_NOTE.md`).]*
 
     It missed N6's threshold, which was not re-checked for the smaller number of windows, and the short full-size checks before N10 and N11 missed that their payloads would not take hold (section 7). The analytic checks that could not fail at first were N8's, where a uniform sampler scored 0.996, and N9's, where measuring head A instead of its copy scored 0.999. Both were redesigned before any run, so that the wrong version fails (0.72, and 0.66 to 0.80). Sources: `N8_PREREGISTRATION.md`, `N9_PREREGISTRATION.md`.
 

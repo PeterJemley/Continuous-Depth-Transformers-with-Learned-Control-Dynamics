@@ -32,7 +32,7 @@ Every model is the paper's continuous-depth transformer, trained with exact grad
 - **Amendment A1,** approved before any real run, raised the share of scrambled answers from the planned 60% to 80%. Calibration had shown that at 60% the noisy head would probably not be as hard as `k4`.
 - **Other names.** N4, N6r and N8 are other tests in this folder, each with its own note. *N6r's ladder* is its finding that the overlap with the next-word head falls the further ahead head B reads (0.49, 0.31 and 0.23 at 2, 4 and 8 words ahead). The *target-free measure*, in the dated correction, is N8's version of the overlap: it draws each answer from the head's own prediction instead of using the real one. Runs were trained on Google Colab and saved to Google Drive. A *resume* restarts a run from its saved copy, and a *skipped fp16 step* is a training step dropped because its 16-bit arithmetic overflowed.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes, no skipped fp16 steps and no Drive failures. Nothing was changed after approval.
 

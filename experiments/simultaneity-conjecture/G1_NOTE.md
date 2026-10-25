@@ -4,7 +4,7 @@ Date: 2026-10-05    Preregistration: `G1_PREREGISTRATION.md`, with amendment A1 
 
 ## In brief
 
-G1 asked whether Model A, trained with exact gradients and with its control signal u choosing between two readings (the next word, or the word after next), sends the paths through its continuous block along regions of clearly different curvature. The preregistered verdict, under amendment A1, is refuted: paths under one control value turned only 1.08 to 1.27 times as sharply as under the other, where at least 2 was required in 4 of 5 models. Under the rule as first approved, which used Cohen's d, the verdict would have been supported, so the amendment, made before any real run, decided it. The small difference was consistent across models and absent when u carried no information, and an exploratory measure found a larger one in how strongly the flow contracts the state, 4.4 to 5.7 times.
+G1 asked whether Model A, trained with exact gradients and with its control signal u choosing between two readings (the next word, or the word after next), sends the paths through its continuous block along regions of clearly different curvature. The preregistered verdict, under amendment A1, is refuted: paths under one control value turned only 1.08 to 1.27 times as sharply as under the other: below the 1.25 at which the rule refutes, in 4 of 5 models (the fifth was 1.27), and far from the 2 that support required. Under the rule as first approved, which used Cohen's d, the verdict would have been supported, so the amendment, made before any real run, decided it. The small difference was consistent across models and absent when u carried no information, and an exploratory measure found a larger one in how strongly the flow contracts the state, 4.4 to 5.7 times.
 
 ## The models and the measures
 
@@ -41,7 +41,7 @@ G1 trains Model A with exact gradients (ordinary backpropagation, not the adjoin
 
 The claim is *supported* if the ratio is at least 2 in at least 4 of 5 main models, *refuted* if it is below 1.25 in at least 4 of 5, and *intermediate* otherwise. There is no interval: the unit is the trained model. The thresholds are judgements, set from the untrained models. As first approved, the rule used |d| instead: at least 0.8 in 4 of 5 for *supported*, below 0.2 for *refuted*.
 
-*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 ## What we expected
 
@@ -106,7 +106,7 @@ These are secondary measures. None of them had a threshold, and none decides any
   - In the shuffled models the two control values agree to within 3%.
   - The conjecture note's G1 named "curvature and Jacobian spectrum". The preregistration made curvature primary, and divergence is one summary of the Jacobian spectrum.
 - **Speed also differs** (S3). Trajectories move 14 to 26% faster at u = −1.
-- **The curvature difference sits at the start of the block** (S2). It is a factor of 1.08 to 1.63 at depth 0, fades steadily, and is about 1.02 at depth 1. *[Corrected 2026-10-25: 1.08 to 1.63 is the range across the five models at depth 0, while 1.02 is their average at depth 1, where the models range from 0.85 (seed 3001, reversed) to 1.12. The steady fade is the average's: seed 3003 dips and then peaks in mid-block.]* The control acts mainly as the block begins its work.
+- **The curvature difference sits at the start of the block** (S2). It is a factor of 1.08 to 1.63 at depth 0, fades steadily, and is about 1.02 at depth 1. *[Corrected 2026-10-25: 1.08 to 1.63 is the range across the five models at depth 0, while 1.02 is their average at depth 1. At depth 1 the models range from 1.12 to a reversal in seed 3001, where u = −1 curves 1.17 times as sharply. The steady fade is the average's: seed 3003 dips and then peaks in mid-block, at 1.28. So the next sentence holds on average and in four of the five models, not in seed 3003.]* The control acts mainly as the block begins its work.
 - **The curvature profile still identifies the control value** (S6). A classifier using only the 17-depth curvature profile tells u = +1 from u = −1 with 91 to 98% accuracy on held-out windows. In the shuffled models it is at chance, 48 to 52%. Small differences, consistently placed, are enough to classify; distinct regimes need more than that.
 - **u = 0, never seen in training, gives a third kind of motion** (S7). Its trajectories curve more than under either trained value, by factors of about 1.3 to 1.7. Its losses on both tasks lie between those of the right and wrong control.
 - **α grew to 0.20–0.22 in the main models** and 0.09–0.12 in the shuffled ones. The model that uses its control signal uses its ODE block more.
