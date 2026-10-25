@@ -14,8 +14,9 @@ points (x, F), sorted by x and joined by straight lines; F_lf(x) inside their ra
 N17a: F* = F_lf(x_self) wholly above 0.75 (refuted wholly below 0.25, sd at most 0.15).
 N17b: d = F(rw-peer) - F_lf(x_peer) wholly below -0.5 (refuted wholly above -0.25, sd at most 0.15).
 
-    python n17_analyze.py [results folder] [report path]
-    # defaults: results/n17 here and N17_RESULTS.md; for a calibration summary, results/n17_calib and N17_CALIBRATION.md
+    python n17_analyze.py [results folder] [report path] [N12 records] [N13 records] [N14 records] [the saved rw-oracle's records]
+    # defaults: results/n17 here and N17_RESULTS.md; for a calibration summary, results/n17_calib and N17_CALIBRATION.md;
+    # results/n12, n13, n14 and n16 (or n12_calib, n13_calib, n14_calib and n15_calib for a calibration summary)
 """
 import json
 import math
@@ -108,8 +109,9 @@ def main():
         cal = summary.get('mode') == 'calibration'
     OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE / ('N17_CALIBRATION.md' if cal else 'N17_RESULTS.md')
     sub = lambda k: HERE / 'results' / (f'{k}_calib' if cal else k)
-    n12_dir, n13_dir, n14_dir = sub('n12'), sub('n13'), sub('n14')
-    oracle_dir = HERE / 'results' / ('n15_calib' if cal else 'n16')
+    arg = lambda i, default: Path(sys.argv[i]) if len(sys.argv) > i else default
+    n12_dir, n13_dir, n14_dir = arg(3, sub('n12')), arg(4, sub('n13')), arg(5, sub('n14'))
+    oracle_dir = arg(6, HERE / 'results' / ('n15_calib' if cal else 'n16'))
     want = summary.get('seeds', REAL_SEEDS) if cal else REAL_SEEDS
     arms = list(summary.get('arms', {}))
     rungs = [a for a in RUNG_ORDER if a in arms]
