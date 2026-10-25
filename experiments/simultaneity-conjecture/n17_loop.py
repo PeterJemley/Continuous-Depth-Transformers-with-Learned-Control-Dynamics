@@ -380,7 +380,8 @@ def train_n17(store, meta, arm, seed, tag, train, probs, log_u):
         state = ck['state']; state['resumes'] += 1
         log(f"{tag}: resuming at step {state['step']}")
     else:
-        what = {'self': "head C judges itself (the peer)", 'clean': f"head C at full weight on {spec['frac']:.2%} clean targets", None: 'no head C'}[spec['c']]
+        what = ('head C judges itself (the peer)' if spec['c'] == 'self' else
+                f"head C at full weight on {spec['frac']:.2%} clean targets" if spec['c'] == 'clean' else 'no head C')
         log(f"{tag}: starting, noise {RHO}, head B weighted by head {spec['judge']}'s prediction, {what}, seed {seed}")
 
     def save_ckpt():
