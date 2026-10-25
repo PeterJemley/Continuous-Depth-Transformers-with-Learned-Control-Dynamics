@@ -26,11 +26,11 @@ Every model has two heads that read the next word from the same internal state. 
 | The discount, r(y) | (1 − ρ) p(y) / ((1 − ρ) p(y) + ρ u(y)), with p the head's own softmax: the head's estimate that target y is genuine. The mixture head trains as a single softmax with each target weighted by it (N13) |
 | Kept, random | Positions with a genuine target, and positions with a scrambled one |
 | Nats | The unit of prediction loss |
-| Δ_A | The inner reading's loss on the genuine targets minus head A's, within a model, in nats: how far the head's prediction falls short of the clean head's |
+| Δ_A | The inner reading's loss on the genuine targets minus head A's, within a model, in nats: how far the head's prediction falls short of the clean head's. The note also calls it the clean-target loss |
 | a | The agreement of the inner reading with head A: N9's agreement ratio, how far two predictions depend on the same directions of the internal state, corrected for measurement noise. It is 1 for the same directions |
 | Function, geometry | A head's function is how well it predicts, here its Δ_A; its geometry is the directions it reads, here its a. The rival "geometry follows function" says a is set by Δ_A, whatever raised Δ_A |
 | The ladder | For each seed, the points (Δ_A, a) of `sub20`, `sub10`, `sub05`, `sub025` and `sub0125`, in order of Δ_A: heads that predict worse because they have fewer genuine targets, with no scrambled ones |
-| â | The ladder's agreement at a model's own Δ_A, by straight-line interpolation between the two rungs either side: how well a genuine-only head with the same clean-target loss reads head A's directions |
+| â | The ladder's agreement at a model's own Δ_A, by straight-line interpolation between the two rungs either side: how well a genuine-only head with the same Δ_A reads head A's directions |
 | b | â − a: how far a model's agreement falls below the ladder. Positive means the scrambled targets moved the directions more than their cost to the prediction accounts for |
 | Dose d | The share of positions given scrambled targets: 0 (`sub20`), 0.1, 0.2, 0.4 and 0.8 (`n80-mix`) |
 | D(d), the trace | a(`sub20`) − a(d): how far the agreement drops from dose 0 to dose d |
