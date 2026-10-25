@@ -1,6 +1,46 @@
 # Result note: N10
 
-Date: 2026-10-18    Preregistration: `N10_PREREGISTRATION.md`    Generated report: `N10_RESULTS.md`    Exploratory report, added after the results: `N10_EXPLORATORY.md`    Raw results: `results/n10/` and `results/n10_log.txt`, from `colab-results` branch `n10_payload/20261018-191435`. Code commit e2f9f13.
+Date: 2026-10-18    Preregistration: `N10_PREREGISTRATION.md`    Generated report: `N10_RESULTS.md`    Exploratory report, added after the results: `N10_EXPLORATORY.md`
+
+## In brief
+
+N10 trained new models to ask how much scrambling it takes to change what a head reads, and whether a small payload, an extra training signal, can protect the reading when 80% of its answers are scrambled. The head's directions moved further from its ideal noisy copy as the scrambling grew, with agreement ratios of 0.81, 0.64 and 0.31 at 20, 50 and 80%, so N10d is supported; at 20% they fell just short of the 0.85 required (0.79 to 0.84), so N10c is intermediate. The two payload claims, N10a and N10b, are untestable, because the functional payload failed its own check that it took hold. In exploratory analyses, pinning head B's readout to head A's raised its agreement ratio to 0.70 but closed only 16% of the gap in what it predicts and made head A worse by 0.13 nats, and the data payload backfired.
+
+## The arms and measures
+
+Every model is the paper's continuous-depth transformer, trained with exact gradients for 10% of the WikiText-103 training budget. Two heads read the same final internal state, each through its own readout of 64 directions. Head A always predicts the next word from the real answers. Head B predicts it from scrambled answers: a share ρ of its training answers is replaced by words drawn at random in proportion to how common they are. The arms differ only in head B's training. Each arm was trained from five seeds (3901 to 3905), 35 runs in all, and all seven arms of a seed shared their starting weights and the order of the training text.
+
+| Arm | Head B's answers | Payload |
+|---|---|---|
+| `clean` | The real next words (ρ = 0) | None. The must-match control |
+| `n20` | 20% scrambled | None |
+| `n50` | 50% scrambled | None |
+| `n80` | 80% scrambled | None. The unanchored arm, which repeats N7 on new seeds |
+| `n80-func` | 80% scrambled | *Functional:* on 64 fixed training passages, a penalty on how far head B's prediction is from head A's ideal noisy copy (λ = 1) |
+| `n80-geom` | 80% scrambled | *Geometric,* also called the pin: a penalty that pins head B's readout directions to head A's (λ = 10) |
+| `n80-data` | 80% scrambled | *Data:* on the same 64 passages, head B is also trained on the real answers (λ = 1) |
+
+- **A payload** is an extra training signal meant to protect head B's reading. Its weight is λ: the training loss is half the sum of the two heads' losses, plus ½λ times the payload term. Each step used 4 of the 64 payload passages, against 32 passages in the training batch.
+- **The ideal noisy copy:** a head built from head A, without training, whose prediction is exactly (1 − ρ)·p_A + ρ·u. Here p_A is head A's prediction and u is the word frequencies of the training text. It is the best possible prediction of answers scrambled at rate ρ, the plain summary's perfect noisy copy.
+- **Measurement windows:** 512 fixed passages of the WikiText-103 test text (windows 1281 to 1792), which no earlier measurement had used and the payload never saw.
+- **The agreement ratio,** the geometric measure: N9's target-free agreement ratio between head B and its ideal copy. It compares the 16 directions of the internal state that most change each head's predictions, corrected for measurement noise by each head's split-half stability. It is 1 for the same directions, and random directions score about 0.06.
+- **G,** the functional measure: head B's loss on the real next words minus the ideal copy's loss on the same words, in nats, on the measurement windows. 0 means head B carries as much next-word information as the copy.
+- **The fixed yardstick,** in the exploratory analysis (`N10_EXPLORATORY.md`): the ideal copy built from the same seed's `n80` model, which no payload could change. *The gap* is head B's loss on the real next words minus that copy's, and *the share of the gap closed* is measured against `n80`'s gap.
+- **P_A and P_B** are the two heads' readout projections, the 64 directions each reads. Their *readout overlap* is 1 when they are the same. The *KL divergence* says how far one predicted distribution is from another, in nats per position.
+- **N10a (primary)** claims that the functional payload preserves the reading: G(`n80-func`) below 0.20 nats. **N10b** claims that it beats the geometric payload: G(`n80-geom`) − G(`n80-func`) of at least 0.20, paired by seed. Each is judged on a Bonferroni-corrected 97.5% interval over the five seeds (a t-interval with 4 degrees of freedom). N10a is *supported* if its interval lies wholly below 0.20, and N10b if its interval lies wholly above 0.20. Each is *refuted* if its interval lies wholly on the other side of 0.20 with a standard deviation of at most 0.05. A claim that meets neither rule is *some effect, size unclear* if an interval excludes 0, and *inconclusive* otherwise. For N10b that is its own interval; for N10a it is the paired interval for G(`n80`) − G(`n80-func`).
+- **N10c** claims that light noise does not change what the head reads. It is *supported* if head B's agreement ratio with its copy in `n20` is at least 0.85 in at least 4 of 5 models, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise.
+- **N10d** claims that the change grows with the noise. It is *supported* if the ratio falls in the order `n20` > `n50` > `n80` in at least 4 of 5 seeds, *refuted* if `n20` is at or below `n80` in at least 4 of 5, and *partial* otherwise.
+- **Preconditions,** without which a claim is *untestable*:
+  - *setup:* the data, batch and identical-heads checks pass;
+  - *must match:* in `clean`, head B's ratio with head A is at least 0.95 and |G| is at most 0.05, each in at least 4 of 5 models, and the copy at zero noise matches head A in every model;
+  - *recognising copies,* for N10c and N10d: head A's ratio with its own copy is at least 0.85 in at least 4 of 5 models of every arm;
+  - *must differ:* the rotated control, head A reading a randomly rotated copy of the state, scores at most 0.60 in at least 4 of 5 models of every arm;
+  - *the payloads took hold,* the manipulation checks for N10a and N10b: P_A and P_B overlap by at least 0.90 in every `n80-geom` model; and, for the functional payload, head B's KL divergence from the copy on the 64 payload passages is at most half of the same seed's `n80`, in at least 4 of 5 seeds;
+  - *stability:* head B and the copies have a split-half stability of at least 0.80.
+- **S1 to S5** are the preregistered secondary measures, which decide nothing. The note cites S2: head B's ratio with its copy in `n80-geom`, which asks whether pinning the directions satisfies the geometric measure without preserving the function.
+- **Other names.** N4, N7, N9, N11 and N12 are other tests in this folder, each with its own note. *Substrate independence* is the principle, argued by Deutsch, that information is independent of the physical form that holds it. Here it predicts that anchoring what a head predicts (its function) should protect its reading better than pinning the directions it reads (its geometry, the substrate). Runs were trained in a Google Colab session and saved to Google Drive.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Nothing else was changed.*
 
 **How the run went.** One Colab session trained and measured all 35 models, with no resumes and no Drive failures. Nothing was changed after approval.
 
@@ -111,3 +151,8 @@ The payload term fell from 2.5 to about 0.06 by the middle of training and staye
 ## References
 
 Son, C. (2026). *J-space forecasts model collapse, but only anchoring the function prevents it* [Preprint]. Research Square. https://doi.org/10.21203/rs.3.rs-10713541/v1
+
+## Records
+
+- **Raw results:** `results/n10/` and `results/n10_log.txt`, from the `colab-results` branch, run `n10_payload/20261018-191435`.
+- **Code:** commit e2f9f13. `n10_analyze.py` writes `N10_RESULTS.md` and `n10_exploratory.py` writes `N10_EXPLORATORY.md` from those records; the job is `n10_payload.py`.

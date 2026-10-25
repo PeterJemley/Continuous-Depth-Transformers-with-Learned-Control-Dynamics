@@ -1,11 +1,53 @@
 # Result note: N16
 
-Date: 2026-10-22    Preregistration: `N16_PREREGISTRATION.md`    Generated report: `N16_RESULTS.md`    Calibration run: `N16_CALIBRATION.md`    Exploratory report, added after the results: `N16_EXPLORATORY.md`    Raw results: `results/n16/`, from Colab run `n16_judge/20261022-204649`, code commit 6b9501c.
+Date: 2026-10-22    Preregistration: `N16_PREREGISTRATION.md`    Generated report: `N16_RESULTS.md`    Calibration run: `N16_CALIBRATION.md`    Exploratory report, added after the results: `N16_EXPLORATORY.md`
 
-**How the run went.**
-- **One session:** an NVIDIA A100 with 80 GB and PyTorch 2.11. It trained the 10 models, re-measured the 40 saved ones and measured everything in 30 minutes, about 2 minutes per training run.
-- **No problems:** no resumes, no Drive failures, every training draw before the held-out boundary, every fingerprint equal to N12's `n80`'s.
-- **The re-measurements** reproduced their records exactly: every loss and every ratio differed by 0, for all 40 saved models of N12, N13 and N14.
+## In brief
+
+A standard head trained on next-word answers, 80% of them scrambled, with each answer weighted by the head's own estimate that it is genuine, learns as N12's mixture head does (N13), and it ends 0.17 nats, a unit of prediction loss, further from the clean head than a head given only the genuine answers: the shortfall. N16 asked whether the shortfall comes from the head judging its own answers rather than from the weight the scrambled answers keep, by letting the clean head, head A, make that estimate instead. Head A's judgement recovered all of the shortfall and more, 108% of it (N16a, supported), while removing a tenth of the scrambled answers' share of the weight (N16b, supported), and on genuine answers alone it cost 0.45 nats less than the head's own judgement (N16c, supported); whether the recovered head's directions sit where its accuracy predicts was inconclusive (N16d). As a judge, head A differs from head B in at least three ways: it does not learn from the weights it sets (though it shares the trunk with head B), it predicts better, and its judgement is sharper; the test does not separate which of these matters.
+
+## The arms and measures
+
+Every model has two heads that read the next word from the same internal state, through a shared network, the trunk. **Head A**, the clean head, is trained on the genuine next word. **Head B** is the second head. In the arms with scrambled targets, 80% of head B's targets were replaced by words drawn at random in proportion to their frequency, u; the note calls these random targets, and genuine ones clean targets. The other 20%, the kept positions, keep the genuine word. All arms use N12's five seeds, 4101 to 4105, paired with the saved models of the same seed. A seed is one training run from its own random start. Everything is measured on N12's 512 windows held out from the training text.
+
+**The judge** is the head whose prediction p sets each target's weight, the discount: w(y) = 0.2 p(y) / (0.2 p(y) + 0.8 u(y)), an estimate that target y is genuine. The note writes it r(y) when head B judges itself. In a self-judged arm, p is head B's own prediction. With head A as the judge, the oracle, p is head A's prediction, detached so that head A's own loss and gradient do not depend on it. The oracle needs a clean head, so it is a diagnostic, not a method.
+
+| Arm | Genuine targets at | Random targets at | Weight on each target | Source |
+|---|---|---|---|---|
+| `rw-b1` | 20% of positions | The other 80% | Head B judges itself | N13's `n80-rw`, saved. By N13, the mixture head's inner softmax under another name |
+| `rw-oracle` | 20% | 80% | Head A judges | New: the oracle head |
+| `sub20` | 20% | None | Full weight | N12's genuine-only head, saved: the oracle mask, which drops the random targets exactly |
+| `sub20-rw` | 20% | None | Head B judges itself | N14's control, saved |
+| `sub20-oracle` | 20% | None | Head A judges | New |
+| `clean` | Every position | None | Full weight | N12's, saved: the top rung of the ladder, and the reference for head A's cost |
+| `sub10`, `sub05`, `sub025`, `sub0125` | 10%, 5%, 2.5% and 1.25%, each set inside the larger | None | Full weight | N14's, saved: the lower rungs of the ladder |
+
+Two exploratory arms, with a sharper self-judged weight after a 300-step warm-up, were preregistered and dropped before the real run by the calibration's rule, because their heads did not train in the calibration seed.
+
+| Term | Meaning |
+|---|---|
+| Nats | The unit of prediction loss |
+| Inner reading | Head B's softmax: inside the mixture, for a mixture head; the head itself, for a single softmax |
+| Δ_A | The inner reading's loss on the genuine targets minus head A's, within a model, in nats. Lower is closer to the clean head |
+| G, the shortfall | Δ_A(`rw-b1`) − Δ_A(`sub20`), within a seed |
+| F | (Δ_A(`rw-b1`) − Δ_A(`rw-oracle`)) / G: the fraction of the shortfall that head A's judgement recovers. 1 is all of it; above 1 is more |
+| s, the random share | The random targets' share of head B's summed weight at the end of training |
+| P | 1 − s(`rw-oracle`) / s(`rw-b1`): the share of that weight that head A's judgement removed |
+| C | Δ_A(`sub20-oracle`) − Δ_A(`sub20-rw`): the two judges compared on genuine targets alone. Negative when head A's judgement costs less than head B's own |
+| a | The agreement of the inner reading with head A: N9's agreement ratio, how far two predictions depend on the same directions of the internal state, corrected for measurement noise. It is 1 for the same directions |
+| The ladder | N14's yardstick: for each seed, the points (Δ_A, a) of six heads trained on fewer and fewer genuine targets with no random ones, `clean`, `sub20`, `sub10`, `sub05`, `sub025` and `sub0125` |
+| â, b | â is the ladder's agreement at a model's own Δ_A, by straight-line interpolation between the two rungs either side. b = â − a; positive means the head reads head A's directions worse than a genuine-only head with the same Δ_A |
+| Kept, replaced | In the weights over training: positions with a genuine target, and positions with a random one |
+| Ignored, neglect | A genuine target is ignored when its weight is below 0.01 |
+| The copy and the 0.85 bar | The copy is the perfect noisy copy, 0.2 × head A's prediction + 0.8 × u. An agreement of 0.85 is taken to mean "the same reading" |
+| S1, S3 | Two of the preregistration's secondary measures: S1 is the neglect measurement, and S3 is Δ_A(`sub20-oracle`) − Δ_A(`sub20`) |
+| Head A's cost | Head A's loss on the genuine targets minus that of the same seed's `clean` arm, in nats. Positive is worse |
+| The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
+
+**The rules.** Each claim uses a Bonferroni-corrected 98.75% interval over the five seeds: four rules, so the level is 1 − 0.05 / 4. A claim is *supported* if its interval lies wholly on the claim's side of its margin: F above 0.75, P below 0.5, C below −0.30 nats, b within ±0.04. It is *refuted* if its interval lies wholly past the refuting margin with a capped standard deviation: F below 0.25 (at most 0.15), P above 0.75 (at most 0.15), C above −0.10 nats (at most 0.10), b outside ±0.04 (at most 0.03). It is *some effect, size unclear* if its interval excludes 0 but meets neither rule, and *inconclusive* otherwise. The exploratory intervals are 95%.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullets on changes after approval and on the withdrawn N15, which stay below. Apart from the corrections dated 2026-10-25, nothing else was changed.*
+
 - **Changes after approval:** two readings of the preconditions fixed at build time, before the calibration (clarifications recorded in the deviation log: preconditions 1–3 apply to the claim arms, and precondition 4 is split per head); put to the author with the report that queued the calibration, with no objection raised before the real run; and the calibration's one permitted decision, by its rule, to drop both exploratory warm-up arms, whose heads did not train in seed 3001. Nothing after the calibration.
 - **What came before.** N15, "sharpening the discount", was approved, built and calibrated, and withdrawn by the author before any real run: its sharpened discounts did not train at all, and its head-A-judged arm recovered the whole shortfall while removing too little of the random share for its rule to apply. N16 was written from that calibration. The calibration is N15's record; it motivated N16 and is not evidence for it.
 
@@ -50,7 +92,7 @@ All six preconditions held: the setup checks (the weight identity at 4.9 × 10�
 | `sub20` | none (full weight) | none | 0.163 | 0.896 | on the ladder | 0 | — |
 | `clean` | none (full weight) | none, every target clean | −0.001 | 0.976 | on the ladder | 0 | — |
 
-**The values against the calibration's.** F and P against N15's calibration seed, which motivated those two margins: F 1.08 against 1.02, P 0.10 against 0.15. C and b against N16's own calibration, run after the margins were fixed: C −0.45 against −0.48, b +0.011 against +0.022. C's margin had been set against the −0.57 implied by N14's control, and ±0.04 was carried over from N15. Each calibration value lies just outside the real run's 98.75% interval, and far from the margins.
+**The values against the calibration's.** F and P against N15's calibration seed, which motivated those two margins: F 1.08 against 1.02, P 0.10 against 0.15. C and b against N16's own calibration, run after the margins were fixed: C −0.45 against −0.48, b +0.011 against +0.022. C's margin had been set against the −0.57 implied by N14's control, and ±0.04 was carried over from N15. Each calibration value lies just outside the real run's 98.75% interval, and far from the margins. *[Corrected 2026-10-25: F, P and C lie just outside their real intervals, and far from their margins. b's calibration value, +0.022, lies inside its real interval [−0.022, +0.043], and 0.018 from its ±0.04 margin, which that interval crosses.]*
 
 ## Which kind of result this is
 
@@ -116,3 +158,14 @@ Three things follow from the table, all exploratory.
 ## References
 
 Han, B., Yao, Q., Yu, X., Niu, G., Xu, M., Hu, W., Tsang, I., & Sugiyama, M. (2018). *Co-teaching: Robust training of deep neural networks with extremely noisy labels* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1804.06872
+
+## Records
+
+- **Raw results:** `results/n16/`, from Colab run `n16_judge/20261022-204649`.
+- **Code commit:** 6b9501c.
+- **Analysis:** `n16_analyze.py` writes `N16_RESULTS.md` from those records, with N12's and N13's, and `n16_exploratory.py` writes `N16_EXPLORATORY.md`; the job is `n16_judge.py`.
+
+**How the run went.**
+- **One session:** an NVIDIA A100 with 80 GB and PyTorch 2.11. It trained the 10 models, re-measured the 40 saved ones and measured everything in 30 minutes, about 2 minutes per training run.
+- **No problems:** no resumes, no Drive failures, every training draw before the held-out boundary, every fingerprint equal to N12's `n80`'s.
+- **The re-measurements** reproduced their records exactly: every loss and every ratio differed by 0, for all 40 saved models of N12, N13 and N14.

@@ -1,6 +1,54 @@
 # Result note: G1c
 
-Date: 2026-10-06    Preregistration: `G1C_PREREGISTRATION.md`    Generated report: `G1C_RESULTS.md`    Raw results: `results/g1c/` and `results/g1c_log.txt`, from `colab-results` branch `g1c_contraction/20261005-225340`. Code commit ca3dcb5. One session, no resumes, no Drive failures, no deviations from the plan.
+Date: 2026-10-06    Preregistration: `G1C_PREREGISTRATION.md`    Generated report: `G1C_RESULTS.md`
+
+## In brief
+
+G1c asked whether the control signal u sets how strongly Model A's continuous block draws nearby states together, its contraction, a difference that G1 had noticed only as an exploratory observation. On new seeds and new text windows, the block contracted the state 4.1 to 10.2 times faster under the farther reading (u = −1, the word after next) than under the next-word reading (u = +1), against a threshold of 2 in at least 4 of 5 models. The preregistered verdict is supported, and models whose control carried no information, or that were untrained, showed none of the difference. The note stresses that this shows contraction differs, not that the model needs it, and G1's curvature refutation replicated here as a secondary measure.
+
+## The models and the measures
+
+The setup is G1's. Model A is trained with exact gradients (ordinary backpropagation, not the adjoint shortcut), at 10% of the WikiText-103 training budget. Its control u is added inside the vector field of the continuous block (the ODE block), and nothing else in the model sees it. The vector field is the learned function that says how the state changes with depth. For each sequence, u says which task, or reading, the model must perform. Strictly the tasks predict tokens, which are words or pieces of words.
+
+| u | Task at every position |
+|---|---|
+| +1 | Predict the next token: the next-token reading |
+| −1 | Predict the token after next: the farther-ahead, or farther, reading, also called the skip task |
+| 0 | Never used in training; measured only as S4 |
+
+| Models | Role |
+|---|---|
+| Main, seeds 3101–3105 | u tells the task. These seeds were not used in G1. |
+| Shuffled-control, the same seeds | u is drawn at random, independently of the task, so it carries no information. Must-fail control A. |
+| Untrained, the main seeds at initialisation | Measured before any training step. Must-fail control B. |
+
+- **Regime:** the paper's word for a region of the flow with its own kind of motion.
+- **Measurement:** on validation windows 257 to 512 of 128 tokens, which G1 did not use, with dropout off and an accurate solver (dopri5).
+- **Jacobian and divergence:** the Jacobian of the vector field says how a small change in the state changes its velocity. Its trace is the divergence: positive when nearby states spread apart, negative when they are drawn together. It is estimated per token with 8 random probe vectors (Hutchinson's estimator), at depths 0, 0.25, 0.5, 0.75 and 1, where 0 is the start of the block and 1 its end.
+- **Contraction rate, c:** minus the divergence, averaged over the five depths: how strongly the flow draws nearby states together. c̄(u) is its mean over the 256 windows, for control value u.
+- **Contraction ratio, R, the primary measure:** R = c̄(−1) / c̄(+1). Rates below 0.1 per token are too near zero for a ratio, so the plan scores them by fixed cases. If c̄(+1) is below 0.1 and c̄(−1) is at least 0.2, the model counts as R ≥ 2. If c̄(+1) is below 0.1 and c̄(−1) is from 0.1 to below 0.2, it counts as neither. If c̄(−1) is below 0.1, it counts as R < 1.25.
+- **Log ratio:** the logarithm of R, used by the must-match checks.
+- **Secondary measures:**
+  - S1 is contraction by depth.
+  - S2 is the normalised contraction: contraction divided by the Jacobian's overall size, its Frobenius norm (the square root of the sum of its squared entries). Scaling the whole Jacobian leaves it unchanged. A ratio near 1 would mean u sets only the Jacobian's overall strength, its gain; a larger ratio means u changes its shape.
+  - S3 evaluates each control value's field at the other value's trajectory states, to tell a difference in the field from a difference in where the trajectories go.
+  - S4 places u = 0 between the two trained values on a log scale, 0 at u = +1 and 1 at u = −1.
+  - S5 repeats G1's measures: the curvature ratio (how much more sharply trajectories turn under one control value), the curvature-profile classifier (which predicts u from how sharply trajectories turn at each depth; chance is 50%) and speed.
+- **α:** a learned scale on the block's update, which starts at 0.1.
+- **Wrong-control cost:** how much worse the next-token loss is with u = −1 than with u = +1.
+- **Other codes:** G1 is the test that found this pattern and refuted regimes of different curvature. Its amendment A1 set the thresholds reused here. G2 (regimes as voices: strands of a text carried in distinct regimes) is an untested conjecture in `CONJECTURE.md`, and TV1 is a planned measure of how well a model tracks several strands of a text.
+
+**The decision rule.** Six preconditions must hold, or the result is *untestable*:
+- the wrong control costs at least 0.5 nats on the next-token task in at least 4 of 5 main models;
+- the analytic check: the divergence code is exact to 1e-5 on a diagonal linear field and within 2% on a dense one, and G1's curvature check passes again;
+- must fail A: the shuffled-control models give R between 0.8 and 1.25 in at least 4 of 5;
+- must fail B: in at least 4 of 5 untrained models, the two contraction rates differ by less than 0.1;
+- must match A: in every main model, the log ratios from odd-numbered and even-numbered windows differ by less than 0.1;
+- must match B: in every main model, a second set of probe vectors gives a log ratio within 0.05 of the first.
+
+The claim is *supported* if R ≥ 2 in at least 4 of 5 main models. It is *refuted* if R < 1.25 in at least 4 of 5, which includes a difference in the other direction. Anything else is *intermediate*. There is no interval: the unit is the trained model. The thresholds of 2 and 1.25 are reused from G1's amendment A1, as judgements.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 ## What we expected
 
@@ -47,7 +95,7 @@ None of these had a threshold. They are reported because they bear on what the r
   - In the shuffled models the normalised ratio is 1.00 to 1.03.
 - **The field differs, not only the states (S3).**
   - At u = +1's trajectory states, u = −1's field still contracts at 9.0 to 11.0, as much as or more than at its own states.
-  - At u = −1's states, u = +1's field contracts at 0.3 to 1.3, near its own rates.
+  - At u = −1's states, u = +1's field contracts at 0.3 to 1.3, near its own rates. *[Corrected 2026-10-25: lower than its own rates in every model (0.30 to 1.31 against 0.80 to 1.91), and near them only beside u = −1's rates of about 8.]*
   - So the difference belongs to the two fields themselves, not to the different places their trajectories go.
 - **Where it is strongest (S1).**
   - The ratio is largest at the start of the block, 8.1 at depth 0, and falls to 4.5 at depth 1.
@@ -94,3 +142,9 @@ None of these had a threshold. They are reported because they bear on what the r
 ## References
 
 Finlay, C., Jacobsen, J.-H., Nurbekyan, L., & Oberman, A. M. (2020). *How to train your neural ODE: The world of Jacobian and kinetic regularization*. arXiv. https://doi.org/10.48550/arxiv.2002.02798
+
+## Records
+
+- **Raw results:** `results/g1c/` and `results/g1c_log.txt`, from the `colab-results` branch, run `g1c_contraction/20261005-225340`.
+- **Run:** code commit ca3dcb5. One session, no resumes, no Drive failures, no deviations from the plan.
+- **Analysis:** `g1c_analyze.py` writes `G1C_RESULTS.md` from those records; the job is `g1c_contraction.py`.

@@ -1,11 +1,46 @@
 # Result note: N12
 
-Date: 2026-10-21    Preregistration: `N12_PREREGISTRATION.md`, with amendment A1 and the necessity audit's additions    Generated report: `N12_RESULTS.md`    Calibration run: `N12_CALIBRATION.md`    Exploratory report, added after the results: `N12_EXPLORATORY.md`    Raw results: `results/n12/` and `results/n12_log.txt`, from Colab run `n12_bottleneck/20261021-155235`. Code commit 12f2957, whose job code is identical to the queued commit 9126974.
+Date: 2026-10-21    Preregistration: `N12_PREREGISTRATION.md`, with amendment A1 and the necessity audit's additions    Generated report: `N12_RESULTS.md`    Calibration run: `N12_CALIBRATION.md`    Exploratory report, added after the results: `N12_EXPLORATORY.md`
 
-**How the run went.**
-- **One session:** an NVIDIA A100 (80 GB) with PyTorch 2.11, as N11 used; the calibration had run on the 40 GB model. It trained the 20 models, ran the 10 fits and measured everything in 55 minutes.
-- **No problems in the job:** no resumes, no Drive failures, every training draw before the held-out boundary. One 16-bit step was skipped by the gradient scaler across the 20 runs, which is routine.
-- **The records came by a different route.** The notebook's upload step found no GitHub token in that session and downloaded a zip instead, which the author attached. The records, log and run information are committed under `results/n12/`. The results branch holds only this job's three earlier sessions, each stopped by the GPU check on an L4 before any training.
+## In brief
+
+N12 asked why a head trained on next-word answers, 80% of them scrambled, does not become the ideal noisy copy of the clean head: the prediction a perfect head would make from such answers. It tested one explanation, that a standard readout cannot produce that prediction, which is a blend of the true next-word prediction and word frequencies. A head whose output is such a blend, the mixture head, closed 71% of the standard head's gap to the copy (N12a, supported), a head given only the unscrambled answers closed 80% (N12c, supported), and a standard readout fitted directly to the copy stopped at 62% (N12d, supported). The mixture head's directions moved most of the way to the copy's (an agreement of 0.83, where 1 means the same directions, against the standard head's 0.31), but no seed reached the 0.85 bar for "the same reading" (N12b, intermediate), so the conjecture as stated did not fully survive.
+
+## The arms and measures
+
+Every model has two heads that read the next word from the same internal state. **Head A**, the clean head, is always trained on the genuine next word. **Head B** is the second head, and the arms differ only in its targets and its output. A scrambled target is the genuine next word replaced by a word drawn at random in proportion to its frequency, u; the note calls these noisy or random targets, and genuine ones clean targets. Each arm was trained on five new seeds, 4101 to 4105. A seed is one training run from its own random start, and the arms of a seed share their starting weights and the order of their training data. Everything is measured on 512 windows held out from the training text.
+
+| Arm | What head B is trained on | Head B's output |
+|---|---|---|
+| `clean` | The genuine next word at every position | A single softmax, the standard readout |
+| `n80` | Targets of which 80% were scrambled | A single softmax. This is the standard noisy head (the scrambled head in `PLAIN_SUMMARY.md`), and the yardstick for S |
+| `n80-mix` | The same scrambled targets | The mixture 0.2 · softmax + 0.8 · u: the mixture head (the blended head in `PLAIN_SUMMARY.md`) |
+| `sub20` | The genuine next word at exactly the positions where `n80`'s targets were left alone (about 20%), and no target elsewhere | A single softmax: the data-matched clean head (the genuine-only head) |
+| `fit-single` | Not a new training. In each finished `n80` model, only head B's readout is fitted, with everything else frozen, to match that model's own ideal copy | A single softmax |
+| `fit-mix` | The same frozen fit | The mixture form, which can match the copy exactly. It is the check that the fitting procedure reaches the copy when the form allows |
+
+| Term | Meaning |
+|---|---|
+| u | The word frequencies of the training text, from which scrambled targets are drawn |
+| Single softmax | The standard readout: one probability for every word, from a linear readout of the state |
+| The ideal copy, or the copy | The perfect noisy copy: 0.2 × head A's prediction + 0.8 × u. It is the best available estimate of what a head trained on the scrambled targets should predict. Each model has its own |
+| Nats | The unit of prediction loss |
+| Gap | An arm's prediction of the scrambled target, scored on the genuine targets: its loss minus the loss of the ideal copy of the same seed's `n80` head A, in nats. For `sub20` the prediction is the mixture formed from its softmax |
+| S | The share of `n80`'s gap that an arm closes: S = 1 − gap(arm) / gap(`n80`). It is 0 for `n80` and 1 for a head that matches the copy |
+| Agreement | N9's agreement ratio: how far two predictions depend on the same directions of the model's internal state, corrected for measurement noise. It is 1 for the same directions. In N12's claims it compares head B's prediction with its own model's ideal copy |
+| The 0.85 bar | The agreement taken to mean "the same reading" |
+| Inner reading | The softmax inside the mixture head, before the mixture. For a single-softmax head it is the head itself. "Inner reading, minus head A" is its loss on the genuine targets minus head A's |
+| Cost to head A | Head A's loss on the genuine targets minus that of the same seed's `clean` arm, in nats. Positive is worse |
+| p(y), q(y) | For a target word y: p is the mixture head's inner softmax, and q = 0.2 p + 0.8 u is its output. The ratio 0.2 p(y) / q(y) is the head's own estimate that y is a genuine target (the discount, in later notes) |
+| Fit divergence | What the frozen fits minimise, KL(copy ‖ head B's output): how far the fitted output is from the copy |
+| Payload | An extra training signal meant to protect a reading under scrambling (N10, N11) |
+| The checks | The *constructed mixture check* is a mixture head built from head A's own readout, which must reproduce the copy exactly. The *rotated control* is head A reading a randomly rotated state, so it reads different directions by construction; its agreement must be at most 0.60 in at least 4 of 5 models of each arm. *Stability* is how well a head's directions agree between two halves of the windows; for N12b it must be at least 0.80 |
+| The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
+
+**The rules.** N12a, N12c and N12d use a Bonferroni-corrected 97.5% interval over the five seeds. Each is *supported* if its interval lies wholly on the claim's side of 0.67 (above for N12a and N12c, below for N12d), *refuted* if wholly on the other side with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 (N12a, N12c) or 1 (N12d) but meets neither rule, and *inconclusive* otherwise. N12b counts seeds. It is *supported* if the agreement is at least 0.85 in at least 4 of 5, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise. The secondary measures use 95% intervals. Earlier tests' claims are cited by test and letter, such as N9b; each test has its own note in this folder.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Apart from one typo fixed in the body (a comma for a full stop), nothing else was changed.*
+
 - **Changes after approval:** amendment A1 (the convergence test at zero loss) and the necessity audit's additions, both before the run. Nothing changed after it.
 
 ## What we expected
@@ -56,7 +91,7 @@ The "inner reading" is the head's own softmax, before the mixture; for `n80` tha
 - **The conjecture's functional claims survived a test they could have failed.** Changing the head's output form, with the same noisy targets and no payload, closed 71% of the gap. The data-matched clean head closed 80%, so too few informative targets is not, on its own, the cause. A single softmax fitted directly to the copy stopped at 62%, and none fitted did better, so by the best fit found the form's ceiling is about there, and the standard head's training reached none of what the form allows.
 - **Its geometric claim fell just short.** The mixture head's directions moved most of the way to the copy's, from 0.31 to 0.83, but no seed reached 0.85. N12b is intermediate, so the conjecture as stated did not fully survive. This is the second time a head functionally close to its copy has stopped just under 0.85: N10's head at 20% noise scored 0.79–0.84.
 - **The explanation's wording was too strong, as the necessity audit said before the run.** The preregistration's outcome table said that all four claims supported would mean the drift "was the readout's form, not noisy training". The numbers divide it:
-  - A single softmax of the `n80` state reached 62% of the gap when fitted directly to the copy. So the form accounts for at most 38% of the gap, 0.384 [0.376, 0.393], The bound holds whatever the procedure, since a better fit could only lower it; how tight it is depends on this procedure, which reached the copy when the form allowed it.
+  - A single softmax of the `n80` state reached 62% of the gap when fitted directly to the copy. So the form accounts for at most 38% of the gap, 0.384 [0.376, 0.393]. The bound holds whatever the procedure, since a better fit could only lower it; how tight it is depends on this procedure, which reached the copy when the form allowed it.
   - The standard head, trained on the noisy targets, reached none of the 62% its form allowed. Training through a single softmax on noisy targets fails first, and the form's ceiling comes after.
   - The mixture head beat the fitted single softmax by 0.097 [0.079, 0.115]. So it did more than escape the ceiling.
 
@@ -102,3 +137,14 @@ N12 did not separate the two effects, and neither verdict needs them separated. 
 Patrini, G., Rozza, A., Krishna Menon, A., Nock, R., & Qu, L. (2017). Making deep neural networks robust to label noise: A loss correction approach. In *2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)* (pp. 2233–2241). IEEE. https://doi.org/10.1109/cvpr.2017.240
 
 Yang, Z., Dai, Z., Salakhutdinov, R., & Cohen, W. W. (2017). *Breaking the softmax bottleneck: A high-rank RNN language model* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1711.03953
+
+## Records
+
+- **Raw results:** `results/n12/` and `results/n12_log.txt`, from Colab run `n12_bottleneck/20261021-155235`.
+- **Code commit:** 12f2957, whose job code is identical to the queued commit 9126974.
+- **Analysis:** `n12_analyze.py` writes `N12_RESULTS.md` from those records, and `n12_exploratory.py` writes `N12_EXPLORATORY.md`; the job is `n12_bottleneck.py`.
+
+**How the run went.**
+- **One session:** an NVIDIA A100 (80 GB) with PyTorch 2.11, as N11 used; the calibration had run on the 40 GB model. It trained the 20 models, ran the 10 fits and measured everything in 55 minutes.
+- **No problems in the job:** no resumes, no Drive failures, every training draw before the held-out boundary. One 16-bit step was skipped by the gradient scaler across the 20 runs, which is routine.
+- **The records came by a different route.** The notebook's upload step found no GitHub token in that session and downloaded a zip instead, which the author attached. The records, log and run information are committed under `results/n12/`. The results branch holds only this job's three earlier sessions, each stopped by the GPU check on an L4 before any training.

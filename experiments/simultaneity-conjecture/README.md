@@ -49,7 +49,7 @@ Each row links to the test's note, the account to read first.
 | N5 | Is N4's cost a competition for directions? | Inconclusive | [N5](N5_NOTE.md) |
 | N6 | Does how much two readings share depend on how different they are? | Untestable: a control that had to score two copies of one reading as the same reached 0.9498, just under its 0.95 threshold | [N6](N6_NOTE.md) |
 | N6r | N6 again, with the control fixed | Supported | [N6r](N6R_NOTE.md) |
-| N7 | Does sharing track how different two readings are, rather than how hard? | Refuted, both claims: a scrambled copy of the next-word reading shared as little as a reading four words ahead | [N7](N7_NOTE.md) |
+| N7 | Does sharing track how different two readings are, rather than how hard? | Refuted, both claims: a scrambled copy of the next-word reading shared barely more than a reading four words ahead | [N7](N7_NOTE.md) |
 | N8 | Does the pattern survive a measure that leaves the right answers out? | Yes: the scrambled head still shared little and did not converge (two claims that it would, refuted), and the ladder across distances held (supported) | [N8](N8_NOTE.md) |
 | N9 | Can the measure recognise an ideal noisy copy, and is the scrambled head one? | The measure supported; the head is not a copy (refuted) | [N9](N9_NOTE.md) |
 | N10 | How much scrambling does it take, and can a small payload protect a reading? | Drift grows with scrambling (supported); at 20% it is intermediate; the payload claims untestable, as the payloads did not take hold | [N10](N10_NOTE.md) |

@@ -1,6 +1,38 @@
 # Result note: N7
 
-Date: 2026-10-09    Preregistration: `N7_PREREGISTRATION.md`, with amendment A1 (noise rate 0.8)    Generated report: `N7_RESULTS.md`    Raw results: `results/n7/` and `results/n7_log.txt`, from `colab-results` branch `n7_harder/20261009-162206`. Code commit 554679f.
+Date: 2026-10-09    Preregistration: `N7_PREREGISTRATION.md`, with amendment A1 (noise rate 0.8)    Generated report: `N7_RESULTS.md`
+
+## In brief
+
+An earlier test, N6r, found that a head reading further ahead shares fewer directions with the next-word head, and N7 asked whether that sharing tracks how different two readings are or how hard they are. It added a head trained on scrambled answers: the next word, with 80% of its training answers replaced, which is the same reading made harder. That head shared only 0.066 more with the clean head than a head reading eight words ahead did, where the primary claim needed 0.30, and its agreement ratio was 0.30 to 0.33, where the second claim needed 0.85. Both claims are refuted, and because this head was also the hardest yet shared more than the eight-ahead head, neither difference nor difficulty orders the results on its own.
+
+## The arms and measures
+
+Every model is the paper's continuous-depth transformer, trained with exact gradients for 10% of the WikiText-103 training budget. Two heads read the same final internal state, each through its own readout of 64 directions, and head B's readout starts as a copy of head A's. Head A always predicts the next word from the real answers: it is *the clean head*. The arms differ only in what head B predicts. Each arm was trained from five seeds (3801 to 3805), 20 runs in all, and all four arms of a seed saw the same inputs in the same order.
+
+| Arm | Also called in this note | Head B predicts | Role |
+|---|---|---|---|
+| `same` | Same target, the same arm | The next word, as head A does | The must-fail control: two heads reading the same word, which the measure must not call different |
+| `k4` | 4 ahead, k = 4 | The word 4 places ahead | A reading known from N6r to share little with the next word, and the bar for how hard the noisy head must be |
+| `k8` | 8 ahead, k = 8 | The word 8 places ahead | The comparison for N7a |
+| `noisy` | Noisy next token, the noisy head | The next word from scrambled answers: in training, each answer is replaced, with probability 0.8, by a word drawn at random in proportion to how common it is | The new reading: the same reading as head A, made harder |
+
+- **Measurement windows:** 256 fixed passages of the WikiText-103 test text (windows 257 to 512), which no earlier measurement had used.
+- **The sensitivity subspace:** for each head, the 16 directions of the internal state, at the continuous block's output, along which the gradient of the head's loss against its own answers is largest on average over the passages (the top eigenvectors of the gradient covariance). For the noisy head, its own answers are the scrambled ones.
+- **The overlap, o:** how far two heads' 16 directions coincide, as the mean squared cosine of the angles between them. It is 1 for the same directions, and random directions score about 0.06. o(noisy) and o(8) are the overlaps of the noisy head and the eight-ahead head with head A.
+- **The agreement ratio:** the overlap corrected for measurement noise. Head A's directions from one half of the passages are compared with head B's from the other half. The result is divided by the geometric mean of the two heads' *split-half stabilities*, which say how well each head's directions agree with themselves across the two halves. It is 1 for the same reading.
+- **Losses** are in nats, on the validation text. A head's *own targets* are the answers it was trained on, scrambled for the noisy head. The *clean targets* are the real next words.
+- **N7a (primary)** claims that sharing tracks how different the readings are, not how hard: o(noisy) − o(8) ≥ 0.30. It is judged on a 95% interval over the five seeds (a t-interval with 4 degrees of freedom). It is *supported* if the interval lies wholly above +0.30, *refuted* if it lies wholly below +0.30 with a standard deviation of at most 0.05, *some effect, size unclear* if it excludes 0 but meets neither rule, and *inconclusive* otherwise.
+- **N7b** claims that a harder copy of the same reading converges with it. It is *supported* if the noisy head's agreement ratio is at least 0.85 in at least 4 of 5 models, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise.
+- **Preconditions,** without which the claims would be *untestable*:
+  - *data and setup:* among these checks, the *noise check* counts the share of answers actually replaced, and the *identical-heads check* requires two copies of one head to score exactly 1;
+  - *must fail:* the `same` arm's agreement ratio is at least 0.95 in at least 4 of 5 models;
+  - *stability:* every head in `k4`, `k8` and `noisy` has a split-half stability of at least 0.80;
+  - *hardness:* the noisy head's loss on its own targets is at least the `k4` head's, in at least 4 of 5 seeds.
+- **Amendment A1,** approved before any real run, raised the share of scrambled answers from the planned 60% to 80%. Calibration had shown that at 60% the noisy head would probably not be as hard as `k4`.
+- **Other names.** N4, N6r and N8 are other tests in this folder, each with its own note. *N6r's ladder* is its finding that the overlap with the next-word head falls the further ahead head B reads (0.49, 0.31 and 0.23 at 2, 4 and 8 words ahead). The *target-free measure*, in the dated correction, is N8's version of the overlap: it draws each answer from the head's own prediction instead of using the real one. Runs were trained on Google Colab and saved to Google Drive. A *resume* restarts a run from its saved copy, and a *skipped fp16 step* is a training step dropped because its 16-bit arithmetic overflowed.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session ran all 20 models and their measurements, with no resumes, no skipped fp16 steps and no Drive failures. Nothing was changed after approval.
 
@@ -35,7 +67,7 @@ The k = 4 and k = 8 overlaps replicated N6r's on new seeds and windows: 0.297 ag
 
 ## What this teaches
 
-- **The overlap measure does not track relatedness alone.** A head reading exactly the same thing as the clean head, only with most of its targets randomised, shared no more with it (0.31) than a head reading four words ahead (0.30). If the overlap measured how related two readings are, the noisy head should have scored near 0.95.
+- **The overlap measure does not track relatedness alone.** A head reading exactly the same thing as the clean head, only with most of its targets randomised, shared no more with it (0.31) than a head reading four words ahead (0.30). *[Corrected 2026-10-25: it shared slightly more, 0.307 against 0.297, and more in 4 of the 5 seeds; N8, measuring without the right answers, also found it sharing more than the far readings.]* If the overlap measured how related two readings are, the noisy head should have scored near 0.95.
 - **N6r's result stands; its explanation does not.**
   - N6r found, and N7 replicated, that the overlap falls the further ahead head B reads. That stands as stated.
   - N6r's note explained this as "how much two readings share depends on how different they are". N7 refutes that explanation as the whole story. The ladder is at least as consistent with difficulty, or with something difficulty brings with it.
@@ -73,3 +105,8 @@ The k = 4 and k = 8 overlaps replicated N6r's on new seeds and windows: 0.297 ag
 ## References
 
 Patrini, G., Rozza, A., Menon, A. K., et al. (2017). Making deep neural networks robust to label noise: A loss correction approach. *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition*, 2233–2241. https://doi.org/10.1109/cvpr.2017.240
+
+## Records
+
+- **Raw results:** `results/n7/` and `results/n7_log.txt`, from the `colab-results` branch, run `n7_harder/20261009-162206`.
+- **Code:** commit 554679f. `n7_analyze.py` writes `N7_RESULTS.md` from those records; the job is `n7_harder.py`.

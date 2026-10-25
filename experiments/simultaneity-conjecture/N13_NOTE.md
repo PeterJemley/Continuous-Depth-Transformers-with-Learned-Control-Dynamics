@@ -1,11 +1,49 @@
 # Result note: N13
 
-Date: 2026-10-22    Preregistration: `N13_PREREGISTRATION.md` (no amendments)    Generated report: `N13_RESULTS.md`    Calibration run: `N13_CALIBRATION.md`    Exploratory report, added after the results: `N13_EXPLORATORY.md`    Raw results: `results/n13/`, from Colab run `n13_signal/20261022-004948`, code commit fa14e3b, whose job code is identical to the calibrated commit 122c955.
+Date: 2026-10-22    Preregistration: `N13_PREREGISTRATION.md` (no amendments)    Generated report: `N13_RESULTS.md`    Calibration run: `N13_CALIBRATION.md`    Exploratory report, added after the results: `N13_EXPLORATORY.md`
 
-**How the run went.**
-- **One session:** an NVIDIA A100 (80 GB) with PyTorch 2.11, the GPU N12 ran on. It trained the 15 models, re-measured N12's 15 saved models and ran the 15 cross-model comparisons in 35 minutes, about 2 minutes per training run.
-- **No problems:** no resumes, no Drive failures, no 16-bit steps skipped, every training draw before the held-out boundary, and every fingerprint equal to N12's `n80`'s.
-- **The records arrived by the usual route,** uploaded to the results branch and committed under `results/n13/`.
+## In brief
+
+In N12, a head whose output blends its own prediction with word frequencies, the mixture head, closed 71% of a standard head's gap to the ideal noisy copy, the prediction a perfect head would make from next-word answers 80% of them scrambled; N13 asked why. By the chain rule, the mixture head trains its inner prediction exactly as a standard head would if each answer's loss were weighted by the head's own estimate that the answer is genuine, the discount. A standard head trained with that discount matched the mixture head's inner reading within the tolerance of 0.03 nats, the unit of prediction loss, in all 5 seeds (N13a, supported), the blended output applied after training to the standard head doubled its gap instead of closing any of it (N13b, supported), and a constant weight of 0.2, which lowers the head's pull on the network both heads share without telling answers apart, gave the head's own reading nothing (N13c, supported). The conjecture survived as a whole: the mixture head's advantage is its learning signal, a discount that tells genuine answers from scrambled ones in context, and the output form matters only at readout.
+
+## The arms and measures
+
+Every model has two heads that read the next word from the same internal state, through a shared network, the trunk. **Head A**, the clean head, is trained on the genuine next word. **Head B** is the second head, and the arms differ only in how it is trained. A scrambled target is the genuine next word replaced by a word drawn at random in proportion to its frequency, u; the note calls these noisy or random targets, and genuine ones clean targets. All arms use N12's five seeds, 4101 to 4105, so that each new model is paired with N12's saved models of the same seed: the same starting weights, batches and scrambled positions. A seed is one training run from its own random start. Everything is measured on N12's 512 windows held out from the training text.
+
+| Arm | Head B | Trained for N13? |
+|---|---|---|
+| `n80` | The standard noisy head (the scrambled head in `PLAIN_SUMMARY.md`): a single softmax, the standard readout, trained by plain cross-entropy (CE) on targets of which 80% were scrambled | No: N12's saved model |
+| `n80-mix` | The mixture head (the blended head in `PLAIN_SUMMARY.md`): output q = 0.2 · softmax + 0.8 · u, trained on the same targets by the loss −log q(y) | No: N12's saved model |
+| `n80-rw` | A single softmax trained on the same targets, with each target's cross-entropy multiplied by the discount r(y), computed from its own prediction and held constant in the gradient. By the chain rule, it is the mixture head's inner softmax under another name | Yes |
+| `n80-mix-rep` | `n80-mix` trained again with the same code, seed, data order and scrambling: the replicate | Yes |
+| `n80-w02` | A single softmax trained with the loss 0.2 · CE: the scale-only control, a constant discount that tells no targets apart | Yes |
+| `n80` in mixture form | `n80`'s softmax placed in 0.2 · softmax + 0.8 · u at readout, after training, with no retraining | No: a readout of N12's model |
+| `sub20` | The genuine-only head: the genuine next word only at the 20% of positions `n80` left unscrambled, and no target elsewhere | No: N12's saved model, for secondary comparisons |
+| `clean` | Head B trained on the genuine next word everywhere | No: N12's, the reference for head A's cost |
+
+| Term | Meaning |
+|---|---|
+| u, ρ | u is the word frequencies of the training text, from which scrambled targets are drawn. ρ is the noise rate, the share of targets scrambled: 0.8 here |
+| p, q, e_y | For a head and a target word y: p is the head's softmax, q = 0.2 p + 0.8 u is the mixture, and e_y puts all probability on y |
+| r(y), the discount | r(y) = 0.2 p(y) / q(y): the head's own estimate, from its prediction, that target y is genuine rather than scrambled. The gradient of the mixture loss is r(y) · (p − e_y), the standard head's gradient scaled by r(y) |
+| Kept, replaced | Positions whose target was left genuine, and positions whose target was scrambled |
+| Nats | The unit of prediction loss |
+| Inner reading | Head B's softmax: inside the mixture, for the mixture head; the head itself, for a single softmax |
+| Δ_A | The inner reading's loss on the genuine targets minus head A's, within a model, in nats. Lower is closer to the clean head |
+| The ideal copy and S | The ideal copy is the perfect noisy copy, 0.2 × head A's prediction + 0.8 × u. S is N12's share of the gap closed: a prediction of the scrambled target is scored on the genuine targets against the ideal copy of the same seed's `n80` head A, and S = 1 − its gap / `n80`'s gap. S is 0 for `n80` and 1 at the copy; a negative S is a wider gap than `n80`'s. "S in mixture form" scores 0.2 · softmax + 0.8 · u formed from a model's head B |
+| D | Δ_A(`n80-w02`) − Δ_A(`n80`): how much the constant discount improves the inner reading. Negative is an improvement |
+| N12's gain | Δ_A(`n80`) − Δ_A(`n80-mix`) = 1.400 − 0.338 = 1.062 nats: how much closer to head A the mixture head's inner reading is than the standard head |
+| Agreement with head A | N9's agreement ratio: how far two predictions depend on the same directions of the internal state, corrected for measurement noise. It is 1 for the same directions |
+| Head A, vs `clean` | Head A's loss on the genuine targets minus that of the same seed's `clean` arm, in nats. Positive is worse |
+| Symmetrised KL, per position | How far two models' predictions differ, averaged over positions, in nats |
+| Replicate floor | How far two runs of the same code with the same seed differ |
+| AdamW, ε | The optimiser. It normalises each parameter's update, so a constant scale on a head's loss leaves that head's own update unchanged, up to its small constant ε, and changes only the head's share of the trunk's gradient |
+| The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
+
+**The rules.** N13a counts seeds. It is *supported* if |Δ_A(`n80-rw`) − Δ_A(`n80-mix`)| ≤ 0.03 nats in at least 4 of 5, *refuted* if it exceeds 0.10 in at least 4 of 5 while the replicate stays within 0.03, and *intermediate* otherwise. N13b and N13c use a Bonferroni-corrected 97.5% interval over the five seeds. N13b is *supported* if its interval lies wholly below 0.10, and *refuted* if wholly above 0.33 with a standard deviation of at most 0.05. N13c is *supported* if its interval lies wholly above −0.27 nats, a quarter of N12's gain, and *refuted* if wholly below −0.53 nats, half of the gain, with a standard deviation of at most 0.10. Either is *some effect, size unclear* if its interval excludes 0 but meets neither rule, and *inconclusive* otherwise. The exploratory intervals are 95%.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. The record details, including the account of how the run went, were moved to the end, except its bullet on changes after approval, which stays below. Apart from the corrections dated 2026-10-25, nothing else was changed.*
+
 - **Changes after approval:** none. The calibration corrected the stated mechanism's claim about the start of training, before any run, with no claim or rule changed.
 
 ## What we expected
@@ -74,7 +112,7 @@ So the explanation now reads: *the standard noisy head drifts because it is trai
 - **Where the cost to head A comes from.** N12 found that the standard noisy head costs head A 0.040 nats and the mixture head costs it little or nothing. The constant discount left no measurable cost (−0.011 [−0.026, +0.004] against `clean`, 95%, beside the mixture head's −0.009 and `n80-rw`'s −0.006), with the same random targets at a fifth of the weight. On this evidence the cost tracks how hard head B pulls on the shared network rather than the random targets as such. This narrows N12's exploratory conjecture that "the random targets themselves cost something more": at a fifth of the weight they cost nothing measurable. A puzzle remains, exploratory: `sub20`, with clean targets on a fifth of the positions, cost head A 0.020 [0.002, 0.039], more than `n80-w02` did with random targets at a fifth of the weight; the paired difference is positive in every seed, +0.018 to +0.048. The cost does not track how random head B's targets are.
 - **Head B's gain and head A's relief come apart.** Under the constant discount, head A improved by 0.051 and head B's own reading by nothing; under the real discount, head A improved by about the same (0.046–0.049) and head B's own reading by 1.11 nats (1.06 relative to head A). The mixture head's two effects on the two heads appear to have different causes, the pull's magnitude for head A and the discrimination for head B. Exploratory.
 - **The discount sharpens itself.** Computed from the standard head's logits, where it was not in use, the discount would weight a kept target 1.9 times a replaced one at the end of training; in the head trained with it, 5.6 times. A head trained with the discount becomes better at the discrimination the discount depends on. Descriptive.
-- **The discount's time course corrected a stated mechanism.** The preregistration said the discount tells kept from replaced targets "from the start, by frequency". The calibration found the two means equal at the start, and they must be: both kinds of target have the unigram distribution. The discount separates them only through context, from about step 200 on; the replaced mean, after rising with the kept one to 0.14 at step 100, falls back to 0.10 as the kept mean rises to 0.58. The mechanism's claim was fixed to the wrong time, the same error as N11's dose check, caught this time before the run.
+- **The discount's time course corrected a stated mechanism.** The preregistration said the discount tells kept from replaced targets "from the start, by frequency". The calibration found the two means equal at the start, and they must be: both kinds of target have the unigram distribution. The discount separates them only through context, from about step 200 on; the replaced mean, after rising with the kept one to 0.14 at step 100, falls back to 0.10 as the kept mean rises to 0.58. *[Corrected 2026-10-25: the replaced mean rose further, to 0.17 at step 200, before falling to 0.10 (`N13_EXPLORATORY.md`).]* The mechanism's claim was fixed to the wrong time, the same error as N11's dose check, caught this time before the run.
 - **Geometry followed function, where function was the same.** `n80-rw`'s inner softmax reads head A's directions at 0.80 and `n80-mix`'s at 0.81; `n80-w02`'s at 0.33 and `n80`'s at 0.31. The same training signal gave the same directions, to within the noise between implementations.
 - **A replicate floor of zero, and what it does not measure.** The pipeline is deterministic: the replicate differed from the original by nothing. So the replicate floor measured determinism, not the noise between two implementations of the same mathematics, which was 0.005 nats in Δ_A and 0.09–0.10 nats per position. That per-position divergence between `n80-rw` and `n80-mix`, two models with the same aggregate behaviour, is of the same order as the divergence between `n80-w02` and `n80`, two models trained with different losses (0.016 at the inner softmax and 0.138 at head A), and at the inner softmax six times larger. *A conjecture about why:* the two losses are computed by different arithmetic, their gradients differ at the eighth significant figure, and training amplifies that into different parameters with the same statistics. Comparisons across models must be made on aggregates; a per-position divergence between models cannot tell a different learning signal from a different rounding.
 
@@ -104,3 +142,14 @@ So the explanation now reads: *the standard noisy head drifts because it is trai
 Patrini, G., Rozza, A., Krishna Menon, A., Nock, R., & Qu, L. (2017). Making deep neural networks robust to label noise: A loss correction approach. In *2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)* (pp. 2233–2241). IEEE. https://doi.org/10.1109/cvpr.2017.240
 
 Yang, Z., Dai, Z., Salakhutdinov, R., & Cohen, W. W. (2017). *Breaking the softmax bottleneck: A high-rank RNN language model* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1711.03953
+
+## Records
+
+- **Raw results:** `results/n13/`, from Colab run `n13_signal/20261022-004948`.
+- **Code commit:** fa14e3b, whose job code is identical to the calibrated commit 122c955.
+- **Analysis:** `n13_analyze.py` writes `N13_RESULTS.md` from those records and N12's, and `n13_exploratory.py` writes `N13_EXPLORATORY.md`; the job is `n13_signal.py`.
+
+**How the run went.**
+- **One session:** an NVIDIA A100 (80 GB) with PyTorch 2.11, the GPU N12 ran on. It trained the 15 models, re-measured N12's 15 saved models and ran the 15 cross-model comparisons in 35 minutes, about 2 minutes per training run.
+- **No problems:** no resumes, no Drive failures, no 16-bit steps skipped, every training draw before the held-out boundary, and every fingerprint equal to N12's `n80`'s.
+- **The records arrived by the usual route,** uploaded to the results branch and committed under `results/n13/`.

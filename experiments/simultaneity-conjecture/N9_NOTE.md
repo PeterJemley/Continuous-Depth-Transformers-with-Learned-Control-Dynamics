@@ -1,6 +1,42 @@
 # Result note: N9
 
-Date: 2026-10-10    Preregistration: `N9_PREREGISTRATION.md`, with amendment A1 (512 windows)    Generated report: `N9_RESULTS.md`    Raw results: `results/n9/` and `results/n9_log.txt`, from `colab-results` branch `n9_noisycopy/20261010-185851`. Code commit 5c83254.
+Date: 2026-10-10    Preregistration: `N9_PREREGISTRATION.md`, with amendment A1 (512 windows)    Generated report: `N9_RESULTS.md`
+
+## In brief
+
+N8 left two explanations for why the head trained on scrambled answers reads different directions from the clean head: it learned a different reading, or the measure cannot recognise a noisy copy of a reading as the same reading. N9 built, from each clean head and without training, its ideal noisy copy: the head whose prediction is exactly 0.2 of the clean prediction plus 0.8 of the word frequencies. The measure recognised that copy as the same reading in all 5 models (agreement ratios of 0.955 to 0.995), so N9a is supported. The trained head was not close to the copy (0.305 to 0.349), so N9b is refuted, and the note concludes that training on scrambled answers made the head learn a different, weaker reading.
+
+## The heads and measures
+
+N9 trained nothing. It measured all 20 of N7's models; the claims use its five `noisy` models (seeds 3801 to 3805), and S4 the other 15. In each, two heads read the same final internal state through their own readouts of 64 directions. Head A, *the clean head*, predicts the next word from the real answers. Head B, *the trained noisy head*, predicts it from scrambled answers: in training, 80% of its answers were replaced by words drawn at random in proportion to how common they are. N9 also built new heads from each head A, without training, and compared them all with N8's target-free measure.
+
+| Head | What it is | Role |
+|---|---|---|
+| Head A, the clean head | Trained on the real next words | The reading to be matched |
+| Head B, the trained noisy head | Trained on 80% scrambled answers, in N7's `noisy` arm | Tested by N9b |
+| The ideal noisy copy | Built from head A: its prediction is exactly 0.2 of head A's plus 0.8 of the word frequencies. It is the best possible prediction of 80% scrambled answers, the plain summary's perfect noisy copy | Tested by N9a, and the yardstick for N9b |
+| Copies at other noise rates | The same construction with ρ = 0, 0.2, 0.5 and 0.95. At ρ = 0 the copy is head A itself, routed through the same code | S1; the copy at ρ = 0 is the must-match control |
+| The rotated control | Head A reading a randomly rotated copy of the state, so it reads different directions by construction | The must-differ control |
+
+- **Symbols.** ρ is the share of answers replaced, and "noise" or "the noise rate" means ρ. A copy's prediction is q = (1 − ρ)·p_A + ρ·u, where p_A is head A's prediction and u is the word frequencies of the training text, the distribution N7's scrambled answers were drawn from.
+- **Measurement windows:** 512 fixed passages of the WikiText-103 test text (windows 769 to 1280), which no earlier measurement had used.
+- **The measure:** N8's target-free agreement ratio. For each head, it finds the 16 directions of the internal state that most change the head's predictions. Each answer is drawn from the head's own predicted distribution, so the real answers play no part. Two heads' directions are compared across independent halves of the passages, and the result is corrected for measurement noise by each head's *split-half stability*, which says how well its directions agree with themselves across the halves. It is 1 for the same directions, and random directions score about 0.06. The *overlap* is the same comparison without the correction.
+- **The secondary measures,** which decide nothing:
+  - *S1:* head A against its copy at each noise rate;
+  - *S2:* comparisons of what the heads predict, not which directions they read. These are the *KL divergence* from the trained noisy head's prediction to each copy's, which says how far apart two predicted distributions are, in nats per position, and is 0 when they are the same; and losses against the real next words (*clean targets*) and against scrambled answers (*noisy targets*);
+  - *S3:* head A against the trained noisy head, N8's comparison on new windows;
+  - *S4:* head A against its copy in N7's other 15 models, whose head A is also a clean head.
+- **N9a (primary)** claims that the measure recognises an ideal noisy copy. **N9b** claims that the trained noisy head is close to the ideal copy. Each is judged by the agreement ratio with the copy at ρ = 0.8. A claim is *supported* if that ratio is at least 0.85 in at least 4 of 5 models, *refuted* if it is at most 0.60 in at least 4 of 5, and *intermediate* otherwise. Both are count rules, so no interval is used.
+- **Preconditions,** without which the claims would be *untestable*:
+  - *the estimator works on mixtures:* on a small model whose Fisher can be computed exactly (the *analytic check*), the estimate's top directions overlap the exact ones by at least 0.98, and identical heads score exactly 1;
+  - *must match:* the copy at ρ = 0 scores at least 0.999 with head A in every model;
+  - *must differ:* the rotated control scores at most 0.60 in at least 4 of 5 models;
+  - *the right models are loaded:* head A's overlap with the trained noisy head lies within 0.05 of the value N8 recorded;
+  - *stability:* head A, the trained noisy head and the copy at ρ = 0.8 each have a split-half stability of at least 0.80.
+- **Amendment A1,** approved before any real run, doubled the measurement windows from 256 to 512. Calibration had put the copy's stability within 0.05 of the 0.80 threshold.
+- **Other names.** N4, N7 and N8 are earlier tests in this folder, each with its own note. N7 trained these models, and N8 first measured them with the target-free measure. *The distance ladder* is the earlier finding that the overlap with the next-word head falls the further ahead a head reads. Runs were saved to Google Drive and measured in a Google Colab session.
+
+*The summary, this key and the records section at the end were added on 2026-10-25 so that the note can be read on its own. Apart from the corrections dated 2026-10-25, nothing else was changed.*
 
 **How the run went.** One Colab session measured all 20 models, with no resumes and no Drive failures. Nothing was changed after amendment A1 was approved.
 
@@ -33,7 +69,7 @@ All five preconditions held:
 - **Must match.** The copy at zero noise matched the clean head at 0.99999 to 1.00000 in all 20 models.
 - **Must differ.** The rotated control scored 0.119 to 0.133.
 - **The right models were loaded.** The clean and noisy heads' overlap reproduced N8's to within 0.023 on N9's new windows.
-- **Stability.** Every head in the comparison scored at least 0.91. Amendment A1's extra windows turned out not to be needed: the copies in trained models were more stable than calibration on untrained ones suggested.
+- **Stability.** Every head in the comparison scored at least 0.91. Amendment A1's extra windows turned out not to be needed: the copies in trained models were more stable than calibration on untrained ones suggested. *[Corrected 2026-10-25: the lowest was 0.907 (the copy at ρ = 0.8, seed 3805). N9 measured only at 512 windows, so whether 256 would have been enough was not measured; the trained copies' stability at 512 supports the guess without testing it.]*
 
 ## What this teaches
 
@@ -84,3 +120,8 @@ All five preconditions held:
 ## References
 
 Patrini, G., Rozza, A., Menon, A. K., et al. (2017). Making deep neural networks robust to label noise: A loss correction approach. *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition*, 2233–2241. https://doi.org/10.1109/cvpr.2017.240
+
+## Records
+
+- **Raw results:** `results/n9/` and `results/n9_log.txt`, from the `colab-results` branch, run `n9_noisycopy/20261010-185851`.
+- **Code:** commit 5c83254. `n9_analyze.py` writes `N9_RESULTS.md` from those records; the job is `n9_noisycopy.py`.
