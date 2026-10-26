@@ -59,6 +59,7 @@ Each row links to the test's note, the account to read first.
 | N14 | Do scrambled answers leave a trace in the directions that accuracy does not show? | Inconclusive, intermediate, refuted; the numbers favoured no trace | [N14](N14_NOTE.md) |
 | N15 | Would a sharper discount remove the remaining shortfall? | Withdrawn before any real run | [plan](N15_PREREGISTRATION.md) |
 | N16 | Is the remaining shortfall in who judges the answers? | Three supported, one inconclusive: judged by the clean head, the shortfall vanished; whether independence, accuracy or sharpness matters is open | [N16](N16_NOTE.md) |
+| N17 | Was it the judge's accuracy, or the loop of a head judging answers by its own predictions? | Some effect, size unclear; one untestable: interpolated between two judges with no loop, one as accurate as the head itself would recover a third of the shortfall; what makes up the third is not separated | [N17](N17_NOTE.md) |
 
 **Gaps and oddities in the numbering.**
 - **There is no N3.** It was planned in [`PATHS_AND_UNDERSTANDING.md`](PATHS_AND_UNDERSTANDING.md) as control that multiplies parts of the flow instead of adding to it (G3 in `CONJECTURE.md`), and N2's note named it as the test to run before leaving the dynamics. It was not run.

@@ -1,0 +1,269 @@
+{
+  "checks": {
+    "batch": {
+      "targets_are_i+1_to_i+8": true,
+      "input_end": " ) of land and 1 @,@ 281 square",
+      "target_i+1_end": " of land and 1 @,@ 281 square miles",
+      "target_i+2_end": " land and 1 @,@ 281 square miles (",
+      "target_i+4_end": " 1 @,@ 281 square miles ( 3 @",
+      "target_i+8_end": " 281 square miles ( 3 @,@ 188 km"
+    },
+    "batch_g1": {
+      "targets_are_i+1_and_i+2": true,
+      "tasks_in_first_batch": [
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "next_example": {
+        "input_end": " section 3 of the Indecent Representation of Women (",
+        "target_end": " 3 of the Indecent Representation of Women ( Prohibition"
+      },
+      "skip_example": {
+        "input_end": " Geography = = \n\n Oklahoma is the 20th largest",
+        "target_end": " = = \n\n Oklahoma is the 20th largest state in"
+      }
+    },
+    "same_model": [
+      {
+        "seed": 3001,
+        "loss_rel_diff": 0.0,
+        "downstream_cos": 0.9999999999999999,
+        "same_initial_weights": true,
+        "pass": true
+      }
+    ],
+    "windows_shifted": true,
+    "analytic": {
+      "positions": 2048,
+      "vocab": 2000,
+      "rho": 0.8,
+      "eigengap_R_over_R+1": 1.8586657569057248,
+      "sampled": {
+        "top_subspace_overlap": 0.993960768795485,
+        "relative_error": 0.2552684326203977
+      },
+      "targets_from_p": {
+        "top_subspace_overlap": 0.9984972829828537,
+        "relative_error": 0.16654861663951354
+      },
+      "head_A_fisher": {
+        "top_subspace_overlap": 0.7967084748193125,
+        "relative_error": 0.45547995255557955
+      },
+      "pass": true
+    },
+    "identical_heads": {
+      "seed": 3001,
+      "agreement_ratio": 0.9999999999999999,
+      "overlap_AB": 1.0000000002120435,
+      "pass": true
+    },
+    "weight_identity": {
+      "max_relative_difference": 4.357082445949345e-07,
+      "pass": true
+    },
+    "forward_identity": {
+      "pass": true
+    },
+    "detachment": {
+      "peer": {
+        "head_C_from_head_B_loss": true,
+        "main_from_head_C_loss": true,
+        "head_B_loss_reaches_main": true
+      },
+      "loop_free": {
+        "head_C_from_head_B_loss": true,
+        "main_from_head_C_loss": true,
+        "head_B_loss_reaches_main": true
+      },
+      "pass": true
+    },
+    "judge_source": {
+      "equals_head_C_weight": true,
+      "max_difference_from_own_discount": 0.3390759825706482,
+      "pass": true
+    },
+    "passenger": {
+      "steps": 20,
+      "identical": true,
+      "max_difference": 0.0,
+      "pass": true
+    },
+    "copied_peer": {
+      "steps": 20,
+      "main_identical": true,
+      "max_main_difference": 0.0,
+      "head_C_equals_head_B": true,
+      "max_head_C_difference": 0.0,
+      "pass": true
+    },
+    "overflow": {
+      "C": {
+        "main_skipped": false,
+        "head_C_skipped": true,
+        "main_moved": true,
+        "head_C_moved": false,
+        "scale_before": 65536.0,
+        "scale_after": 65536.0
+      },
+      "main": {
+        "main_skipped": true,
+        "head_C_skipped": true,
+        "main_moved": false,
+        "head_C_moved": false,
+        "scale_before": 65536.0,
+        "scale_after": 32768.0
+      },
+      "pass": true
+    },
+    "nesting": {
+      "inside_K": true,
+      "nested": true,
+      "top_rung_is_K": true,
+      "fractions": {
+        "rw-j20": 0.195068359375,
+        "rw-j10": 0.099365234375,
+        "rw-j05": 0.048583984375,
+        "rw-j025": 0.023681640625,
+        "rw-j0125": 0.0126953125
+      },
+      "pass": true
+    },
+    "unigram": {
+      "sum": 1.0,
+      "zeros": 3391,
+      "from_tokens": 116740938
+    }
+  },
+  "mode": "calibration",
+  "held_out": {
+    "cut_fraction": 0.99,
+    "cut_token": 116740938,
+    "training_tokens": 117920140,
+    "tail_tokens": 1179202,
+    "tail_windows": 9212,
+    "measure": [
+      513,
+      1024
+    ]
+  },
+  "arms": {
+    "rw-peer": {
+      "c": "self",
+      "judge": "C",
+      "frac": null
+    },
+    "rw-j20": {
+      "c": "clean",
+      "judge": "C",
+      "frac": 0.2
+    },
+    "rw-j10": {
+      "c": "clean",
+      "judge": "C",
+      "frac": 0.1
+    },
+    "rw-j05": {
+      "c": "clean",
+      "judge": "C",
+      "frac": 0.05
+    },
+    "rw-j025": {
+      "c": "clean",
+      "judge": "C",
+      "frac": 0.025
+    },
+    "rw-j0125": {
+      "c": "clean",
+      "judge": "C",
+      "frac": 0.0125
+    },
+    "rw-b1-plain": {
+      "c": null,
+      "judge": "B",
+      "frac": null
+    },
+    "rw-b1-passenger": {
+      "c": "self",
+      "judge": "B",
+      "frac": null
+    }
+  },
+  "references": {
+    "rw-b1": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n13_calib",
+      "tag": "n80-rw",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n13_calib"
+    },
+    "rw-oracle": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n15_calib",
+      "tag": "rw-oracle",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n15_calib"
+    },
+    "sub20": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n12_calib",
+      "tag": "sub20",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n12_calib"
+    },
+    "clean": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n12_calib",
+      "tag": "clean",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n12_calib"
+    },
+    "sub10": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n14_calib",
+      "tag": "sub10",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n14_calib"
+    },
+    "sub05": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n14_calib",
+      "tag": "sub05",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n14_calib"
+    },
+    "sub025": {
+      "folder": "/content/drive/MyDrive/cdt-colab/n14_calib",
+      "tag": "sub025",
+      "records": "/content/repo/experiments/simultaneity-conjecture/results/n14_calib"
+    }
+  },
+  "seeds": [
+    3001
+  ],
+  "readout_rank": 64,
+  "subspace_rank": 16,
+  "passenger_pair": {
+    "seed": 3001,
+    "identical": true,
+    "max_difference": 0.0
+  }
+}
