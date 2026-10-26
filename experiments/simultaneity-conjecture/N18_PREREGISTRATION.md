@@ -1,10 +1,10 @@
-# Preregistration N18: the loop, or what the judge is trained on
+# Preregistration N18: the loop, with the judge's data held fixed
 
 Date: 2026-10-26    Status: **draft for the author's approval.** Not built, not run. Nothing in this file is a finding.
 
-Type: confirmatory for N18a, the single claim, decided on two accuracy axes that must agree. It uses one new judge trained for this test, compared with N17's saved judges and with loop-free judges trained as N17's were. A second new judge, `rw-nfree`, is exploratory, with no claim. Everything else is secondary or exploratory and labelled so.
+Type: confirmatory for N18a, the single claim. It uses one new judge trained for this test, `rw-cloop`, compared with a judge of N17's design trained on the same targets, `rw-j20`, and with N17's saved peer. A second new judge, `rw-nfree`, is exploratory, with no claim. Everything else is secondary or exploratory and labelled so.
 
-Parent documents: `N17_NOTE.md` (next conjecture 1; "Limitations"), `N17_PREREGISTRATION.md` (the third head, its checks and the loop-free line), `N14_NOTE.md` (`sub20-rw`, the self-judged weighting of clean targets alone), `N13_NOTE.md` (the discount as the mixture head's learning signal), `N12_NOTE.md` (the standard head on noisy targets).
+Parent documents: `N17_NOTE.md` (next conjecture 1; "Limitations"), `N17_PREREGISTRATION.md` (the third head, its checks and the loop-free line), `N16_NOTE.md` (the two-by-two of judge and random targets), `N14_NOTE.md` (`sub20-rw`, the self-judged weighting of clean targets alone), `N13_NOTE.md` (the discount as the mixture head's learning signal), `N12_NOTE.md` (the standard head on noisy targets).
 
 **Relation to earlier results.**
 - **The shortfall.** Head B, trained on 80%-scrambled next-word targets and weighted by its own discount (N13's `n80-rw`, called `rw-b1` here), ends 0.337 nats from head A on clean targets. The oracle mask `sub20` ends at 0.163. The shortfall between them, G, is 0.165–0.179 by seed.
@@ -14,48 +14,69 @@ Parent documents: `N17_NOTE.md` (next conjecture 1; "Limitations"), `N17_PREREGI
   - It fell short of a loop-free judge of its accuracy by d = −0.290, 95% interval [−0.315, −0.265] (description; N17b was untestable).
 - **What N17 left open.** The loop-free judges and the peer differ in two ways at once.
   - *The loop:* the peer weights its own targets by its own prediction; the loop-free judges train at full weight.
-  - *The training data:* the loop-free judges train on clean targets only, chosen with the true mask; the peer trains on head B's targets, 80% of them random.
+  - *The training data:* the loop-free judges train on clean targets only, chosen with the true mask; the peer trains on head B's targets at every position, 80% of them random.
 
   The course of training and sharpness during it also differ.
-- **What "as accurate as" means is not one thing.** A self-judging head is trained by exactly the gradient of the mixture-form likelihood, −log(0.2 p + 0.8 u) (N13's identity). Judged on that likelihood, it can look more accurate than heads that are far more accurate on plain cross-entropy.
-  - N14's `sub20-rw`, the self-judged weighting of clean targets alone, ended 0.72–0.76 nats behind head A on plain cross-entropy, against `sub20`'s 0.16.
-  - In mixture form it ended 0.042–0.053 behind the ideal copy, ahead of `sub20`'s 0.112–0.123.
-  - So a comparison "at matched accuracy" depends on which accuracy is matched. N18 matches on both, and decides only where they agree.
-- **What stands regardless.** Every earlier verdict stands. N18 asks how the gap N17 described divides. It does not re-decide N17.
+- **What N16 found about the loop without random targets** (exploratory). Weighting the clean targets of the kept 20% by head B's own discount, with no random targets (N14's `sub20-rw`), left head B 0.57 nats further from head A than the same targets at full weight (`sub20`). Adding the random targets improved the self-judged head by 0.40 nats. So the loop is costly on clean targets alone, and the random targets may temper it.
+- **Why N18 compares directly, not at matched accuracy.** An earlier draft compared a self-judging judge on clean targets with loop-free judges of the same accuracy, as N17 compared the peer. A fresh reader's check found that comparison ill-posed for this judge.
+  - N14's `sub20-rw` ended 0.72–0.76 nats behind head A on plain cross-entropy, at the inaccurate end of N17's loop-free judges.
+  - In mixture form, the form its discount is computed from, it ended 0.042–0.053 behind its copy, ahead of `sub20`'s 0.112–0.123.
+  - If the new judge sits likewise, the two measures place it at opposite ends of the loop-free line, and "a loop-free judge of the same accuracy" names two different judges.
+  - The loop is also what makes this judge inaccurate on plain cross-entropy, so matching on it would remove part of the effect under test.
+
+  N18 therefore compares the judge with the loop against the loop-free judge trained on the same targets at the same positions, and reports the matched comparisons as description (S8).
+- **What stands regardless.** Every earlier verdict stands. N18 asks whether the loop is enough to produce the shortfall N17 described. It does not re-decide N17.
 
 ## The conjecture
 
-**The gap between a self-judging judge and a loop-free judge of the same accuracy is the loop's, not the training data's. A judge with the loop but trained on clean targets only falls short of the loop-free line by most of the peer's gap, on either measure of accuracy.**
+**The loop alone is enough to produce most of the peer's shortfall. Given the same clean targets at the same positions, a judge that weights them by its own discount leaves head B with at least two thirds of the shortfall the peer leaves, both measured from the judge trained on those targets at full weight.**
 
 - **The mechanism.** A judge that weights its own targets by its own prediction gives little weight to the targets it predicts poorly, and so goes on predicting them poorly, whatever data it is given. This would be analogous to the confirmation bias described in self-training (Arazo et al., 2020). A judge trained at full weight has no such loop.
-- **What it forbids.** The self-judging judge on clean data falling short of the line by a third of the peer's gap or less, on both axes.
-- **The rivals it is built to exclude.**
-  - *The training data (D, N17's R5).* What matters is that the peer trains on noisy targets. A self-judging judge on clean data then sits near the line. It predicts N18a refuted.
-  - *Both, in part (B).* The loop and the data each account for part of the gap. It predicts the ratio between its margins.
-  - *The axis (A).* "Matched accuracy" means different things on the two axes, and a self-judging judge's standing depends on which is used. It predicts the two axes disagreeing. That outcome is preregistered as "depends on the axis", and N14's records make it plausible.
-  - *The course of training (R4).* A self-judging judge starts slowly, because its discount weights every target alike at first, and the gap is that slow start. The slow start is the loop's own doing, so R4 predicts what the conjecture predicts, and N18 does not separate them. S3 reports the course.
-  - *Sharpness (R3).* Judges of equal accuracy can differ in how far apart they put clean and random targets. S2 reports it over training.
+- **What it forbids.** The judge with the loop on clean targets costing head B a third of the peer's shortfall or less.
+- **What a support would not show.**
+  - It would show that the loop is enough to produce the shortfall, with the data fixed. It would not show that the peer's own shortfall is the loop's. With random targets present the loop may act differently (rival I).
+  - It would not say whether the loop costs through the judge's plain accuracy or beyond it (rival P).
+  - It would not decide the matched-accuracy comparison N17 left open.
+
+**The rivals it is built to exclude, and readings it does not separate.**
+- *The training data (D, N17's R5).* What makes the peer fall short is its noisy targets. A judge with the loop on clean targets then costs head B little more than `rw-j20` does: R near 0, refuted.
+- *The mixture form (M).* A judge's usefulness follows how well it predicts in mixture form, the quantity its weights are computed from. On that measure a self-judging judge on clean targets may beat the loop-free one, as `sub20-rw` beat `sub20`. Then `rw-cloop` helps head B more than `rw-j20` does: R below 0, refuted.
+- *Both, in part (B).* R between a third and two thirds.
+- *The random targets temper the loop (I), from N16's two-by-two.* The loop costs more on clean targets alone than with random targets present: R above 1, a support. I predicts what the conjecture predicts, and more.
+- *Plain accuracy (P), not separated.*
+  - P says a judge's usefulness follows its plain accuracy, whoever trains it.
+  - If `rw-cloop` is as inaccurate as `sub20-rw`, it then sits near N17's loop-free line at its plain accuracy. In N17's calibration seed the line lay near F = −0.65 at x = 0.74. That gives R near 2, a support.
+  - P and the conjecture predict the same verdict, and N18 does not separate them. N17 already found the peer below the line at its plain accuracy, against P for the peer. S8 describes where `rw-cloop` sits.
+- *The course of training (R4), not separated.*
+  - A self-judging judge's weights start low, since its prediction starts poor, and the low weights slow its own learning.
+  - N17 found the peer slow to start, partly by the loop's own doing.
+  - The course is part of what the loop does here, and N18 does not separate them. S3 reports it.
+- *Sharpness (R3).* Judges can differ in how far apart they put clean and random targets. S2 reports it over training.
 
 ## The judges
 
-N18 fills in N17's two-by-two of judges by the loop and the training data. `rw-cloop` is the claim's judge; `rw-nfree` is exploratory.
+N18 fills in N17's two-by-two of judges by the loop and the training data. The claim compares the clean row; the noisy row is exploratory.
 
 | | No loop: trained at full weight | The loop: trained by its own discount |
 |---|---|---|
-| **Clean targets only** | The rungs: the loop-free line | **`rw-cloop`** (new, N18a): clean targets at K, the same positions as `rw-j20`, weighted by its own discount |
-| **Head B's targets, 80% random** | **`rw-nfree`** (new, exploratory): head B's targets at every position, at full weight, its prediction unmixed | `rw-peer` (N17's, saved) |
+| **Clean targets at K** | **`rw-j20`** (N17's design, trained on the real seeds for N18) | **`rw-cloop`** (new): the same targets at the same positions, each weighted by head C's own discount |
+| **Head B's targets, 80% random, at every position** | **`rw-nfree`** (new, exploratory): at full weight, its prediction unmixed | `rw-peer` (N17's, saved) |
 
-`rw-cloop` and `rw-j20` are the same cell but for the loop: the same positions, the same clean targets, weighted or not. The test does not compare them directly. It compares `rw-cloop` with the loop-free line at `rw-cloop`'s own accuracy, as N17 compared the peer.
+- **The claim's comparison, the clean row.** `rw-cloop` and `rw-j20` share the positions K, the clean targets, and the normalisation of head C's loss, summed over K and divided by all positions. Head B's weight is computed from head C's prediction in the same way in both. They differ only in the weight on each term of head C's own loss: 1 in `rw-j20`, head C's own discount in `rw-cloop`.
+- **The noisy row's comparison** (`rw-nfree` against `rw-peer`) also changes the estimator, since `rw-nfree` must unmix its prediction, and is exploratory.
+- **"The training data"** here changes the noise and the count together: head B's targets at every position, against clean targets at 20% of them.
 
 ## Competing hypotheses
 
-| Hypothesis | N18a on N17's axis x: R_loop | N18a on the mixture axis x_m: R_loop | `rw-nfree` (exploratory) |
-|---|---|---|---|
-| **The conjecture:** the loop | Above two thirds | Above two thirds | Near the line |
-| D: the training data | Below a third | Below a third | Below the line |
-| B: both, in part | Between | Between | Between |
-| A: the axis | One side | The other side | Any |
-| R4: the course of training | As the conjecture | As the conjecture | Follows `rw-nfree`'s own course (S3) |
+| Hypothesis | R (N18a) | Head B under `rw-cloop`, against under `rw-j20` |
+|---|---|---|
+| **The conjecture:** the loop is enough | Above two thirds | Much further from head A |
+| I: the random targets temper the loop | Above 1 | Further from head A than under the peer |
+| P: plain accuracy (not separated) | Near 2, if `rw-cloop` is as inaccurate as `sub20-rw` | Much further from head A |
+| B: both, in part | Between a third and two thirds | Somewhat further |
+| D: the training data | Near 0 | About the same |
+| M: the mixture form | Below 0 | Closer to head A |
+| R4: the course of training | As the conjecture | As the conjecture |
 
 ## The arms
 
@@ -65,164 +86,164 @@ Each new arm adds **head C**, the judge, exactly as in N17. It is a third 64-dir
 
 | Arm | Head C's targets | Head C's loss | Head B's weight w(y) | Trained for N18? |
 |---|---|---|---|---|
-| `rw-cloop` | Clean targets at K (n80's kept 20%), the positions of `rw-j20` and N12's `sub20` | Each target weighted by head C's own discount, summed over K and divided by all positions: N14's convention for `sub20-rw` | 0.2 p_C / (0.2 p_C + 0.8 u), from head C's prediction | Yes |
-| `rw-nfree` (exploratory) | Head B's targets at every position | Plain cross-entropy at full weight, as N12's `n80` head | max(1 − 0.8 u / q_C, 0), the unmixed weight (below) | Yes |
-| `rw-j100` (a rung) | The clean target at every position | Plain cross-entropy at full weight | 0.2 p_C / (0.2 p_C + 0.8 u) | Only if the calibration's rule names it |
-| `rw-j20`, `rw-j025`, `rw-j0125` (rungs) | As in N17: clean targets at N14's nested positions | As in N17 | As in N17 | Only if the rule names them; N17's real run did not train them |
+| `rw-cloop` | Clean targets at K, the kept 20% | Each target's cross-entropy weighted by head C's own discount on it, without gradient through the weight, summed over K and divided by all positions: N14's convention for `sub20-rw` | 0.2 p_C / (0.2 p_C + 0.8 u), from head C's prediction, as in N17 | Yes |
+| `rw-j20` | Clean targets at K: N17's rung at 20%, whose nested draw keeps every position of K | Full weight, summed over K and divided by all positions, as in N17 | As in `rw-cloop` | Yes, on the real seeds, since N17's real run did not train it; in the calibration, again on seed 3001, as a check against N17's |
+| `rw-nfree` (exploratory) | Head B's targets at every position | Plain cross-entropy at full weight, the mean over positions: N12's `n80` loss | max(1 − 0.8 u / q_C, 0), the unmixed weight (below) | Yes |
 | `rw-peer`, `rw-j10`, `rw-j05` | As in N17 | As in N17 | As in N17 | No: N17's saved models |
 | `rw-b1`, `rw-oracle`, `sub20`, `clean`, `sub10` … `sub0125` | — | — | — | No: N13's, N16's, N12's and N14's saved models |
 
-`rw-j100` is needed because, on the mixture axis, a self-judging judge on clean data may be more accurate than every rung N17 used. `rw-j100` trains on more clean data than K, so it is a rung of the loop-free line, not a cell of the two-by-two.
+Head C's own discount in `rw-cloop` is computed from its prediction of the clean target at each position of K, by N15's weight function, which N17 uses for head B's weight. It is a different quantity from head B's weight, which head C computes on head B's targets at every position.
 
 **The unmixed weight** (`rw-nfree`).
 - A head trained at full weight on head B's targets learns their distribution, q ≈ 0.2 p + 0.8 u, with p the clean prediction.
 - Under that noise model, the probability that a target y is clean is 1 − 0.8 u(y) / q(y). Where q(y) is below 0.8 u(y), the weight is set to 0.
 - This inverts the known noise model, the idea behind one of the loss corrections of Patrini et al. (2017).
 
-N12 found that a single softmax trained on noisy targets matches their distribution poorly: its mixture-form gap to the ideal copy was 0.48–0.50 nats. So `rw-nfree`'s weights are likely to be poor, and many of its clean targets floored at 0. A shortfall from it could not tell the training data from the estimator. That is why it carries no claim.
+N12 found that a single softmax trained on noisy targets fits their distribution poorly. Its clean-target loss ended 0.48–0.50 nats above the copy's mixture-form loss, and placing it in the mixture form doubled that gap (N13b). So `rw-nfree`'s weights may be poor, with many clean targets weighted 0. A shortfall from it could not tell the training data from the estimator. That is why it carries no claim.
 
-The rungs and the oracle need clean labels, as in N17; they are diagnostics. `rw-nfree` needs none.
+`rw-cloop` and `rw-j20` train on clean targets chosen with the true mask, as N17's rungs did. They are diagnostics, not methods. `rw-nfree` needs no clean labels.
 
 ## The measures
 
-- **Δ_A, F, G and a,** as in N17.
-- **Two accuracy axes for a judge,** each at the end of training, on the measurement windows' clean targets, relative to head A:
-  - **x, N17's:** the judge's plain cross-entropy minus head A's.
-  - **x_m, the mixture axis:** the mean of −log m(y) minus the same for head A, where m(y) is the judge's mixture-form probability of y. For a judge with a clean prediction p, m(y) = 0.2 p(y) + 0.8 u(y); for `rw-nfree`, m(y) = max(q(y), 0.8 u(y)). Every judge's weight is w(y) = 1 − 0.8 u(y) / m(y), so x_m summarises the quantity the weights are computed from.
-
-  x_m is not a neutral measure. It is the objective a self-judging judge is trained on, so it favours such judges. Since 1 − w = 0.8 u / m, it is driven by targets with weight near 1 and nearly blind to targets with weight near 0, the neglected targets the conjecture names. A judge that optimises it can score below 0, ahead of head A.
-
-  x is defined for every judge except `rw-nfree`. For `rw-nfree` it is reported as description only, with the clean estimate max(q − 0.8 u, 0.01 u) / 0.2, renormalised.
-- **The loop-free line, on each axis:** within seed, the rungs' points (axis value, F), sorted and joined by straight lines. F_lf is its value between the rungs; outside them it gives nothing.
-- **d(J) = F(J) − F_lf(judge J's axis value)**, on each axis: how far judge J falls short of a loop-free clean-trained judge of its accuracy.
-- **R_loop = d(`rw-cloop`) / d(`rw-peer`),** within seed and on each axis: the share of the peer's gap that the loop alone reproduces.
-
-The margins are set on the ratio, not on d itself: N17's lesson that a margin on a difference should be relative to the quantity it is a difference from.
+- **Δ_A, F, G and a,** as in N17. Δ_A is head B's clean-target loss minus head A's.
+- **R = (Δ_A(`rw-cloop`) − Δ_A(`rw-j20`)) / (Δ_A(`rw-peer`) − Δ_A(`rw-j20`)),** within seed.
+  - R is the share of the peer's shortfall from `rw-j20` that the loop alone reproduces on clean targets.
+  - It equals (F(`rw-j20`) − F(`rw-cloop`)) / (F(`rw-j20`) − F(`rw-peer`)). G cancels, so R does not depend on `rw-b1` or `sub20`.
+  - 1 − R is the share that changing the data does with the loop present, from `rw-cloop` to the peer.
+- **For description only (S8): two accuracy axes and the loop-free line.** Each is measured at the end of training, on the measurement windows' clean targets, against the same model's head A.
+  - **x, N17's:** the judge's plain cross-entropy minus head A's. It is not defined for `rw-nfree`, which has no clean prediction.
+  - **x_m, the mixture axis:** the mean of −log m(y) minus the mean of −log(0.2 p_A(y) + 0.8 u(y)), where m is the judge's mixture-form prediction.
+    - For a judge with a clean prediction p, m = 0.2 p + 0.8 u.
+    - For `rw-nfree`, m = max(q, 0.8 u), normalised to sum to 1. Unnormalised, it sums to more than 1 wherever a weight is floored, and its loss would be biased in its favour.
+    - x_m is the objective a self-judging judge is trained on, so it favours such judges. It is driven by targets with weight near 1 and nearly blind to targets with weight near 0.
+  - **The loop-free line, and d:** within seed, the rungs' points (axis value, F), sorted and joined by straight lines, with nothing outside them. d(J) = F(J) − the line at judge J's axis value, where the line reaches.
 
 ## The claim
 
-**N18a: the loop alone reproduces most of the gap.** The interval for R_loop lies wholly above 0.67 on both axes.
+**N18a: the loop is enough to produce most of the shortfall.** The interval for R lies wholly above 0.67.
 
 ## Refuting result
 
-**N18a** is refuted if the interval for R_loop lies wholly below 0.33 on both axes, with a standard deviation of at most 0.25 on each. A self-judging judge on clean data then falls short of the line by a third of the peer's gap or less, however accuracy is matched.
+**N18a** is refuted if the interval for R lies wholly below 0.33, with a standard deviation of at most 0.25. A judge with the loop on clean targets then costs head B a third of the peer's shortfall or less. If the interval also lies wholly below 0, the loop helped on clean targets, as M predicts, and the report says so.
 
 ## Design
 
-- **Runs:**
-  - 10 training runs: `rw-cloop` and `rw-nfree` on seeds 4101–4105.
-  - Up to 20 more, for the rungs the calibration's rule names that N17's real run did not train (`rw-j100`, `rw-j20`, `rw-j025`, `rw-j0125`).
-  - The measurements of those models, and re-measurements of the saved models, each checked against its committed record:
-    - N17's `rw-peer`, `rw-j10` and `rw-j05`, with their head C;
-    - N13's `n80-rw`, N16's `rw-oracle`, and N12's `sub20` and `clean`;
-    - N14's `sub10` … `sub0125`, for S6.
-- **Saved models** are loaded from the `n17_loop`, `n13_signal`, `n16_judge`, `n12_bottleneck` and `n14_dose` Drive folders.
-- **Code:** `n18_loop.py`, built on `n17_loop.py`'s head C, forward pass, one-way tie, setup checks and judge measures. It adds `rw-cloop`, `rw-nfree` and `rw-j100`, both axes, and `rw-nfree`'s diagnostics. `n18_analyze.py` applies the rule.
+- **Runs:** 15 training runs, `rw-cloop`, `rw-j20` and `rw-nfree` on seeds 4101–4105.
+- **Measurements:** those models, and re-measurements of the saved models, each checked against its committed record:
+  - N17's `rw-peer`, `rw-j10` and `rw-j05`, with their head C;
+  - N13's `n80-rw`, N16's `rw-oracle`, and N12's `sub20` and `clean`;
+  - N14's `sub10` … `sub0125`, for S6.
+- **Saved models** are loaded from the `n17_loop`, `n13_signal`, `n16_judge`, `n12_bottleneck` and `n14_dose` Drive folders. The calibration's come from `n17_calib`, `n13_signal`, `n15_sharpen`, `n12_bottleneck` and `n14_dose`.
+- **Code:** `n18_loop.py`, built on `n17_loop.py`'s head C, forward pass, one-way tie, setup checks and judge measures. It adds `rw-cloop` and `rw-nfree`, the mixture axis, `rw-nfree`'s diagnostics and the new checks. `n18_analyze.py` applies the rule.
 
 ## Decision rule
 
 **Preconditions:**
 1. **Setup.**
-   - N17's checks: batch, same-model, identical-heads, analytic, the weight identity, the forward identity, the passenger check, the copied-peer check, the overflow test, the nesting, the windows, and no training draw in the held-out tail.
-   - Detachment, run for each of the three new specs.
+   - N17's checks: batch, same-model, identical-heads, analytic, the weight identity, the forward identity, the passenger check, the copied-peer check, the overflow test, the windows, and no training draw in the held-out tail.
+   - Detachment, run for `rw-cloop` and `rw-nfree`.
    - **The judge-source check for each new spec, with head C at its own initial values.** The weight in head B's loss must equal, bit for bit, the weight from head C's logits by that spec's formula, and must differ from head B's own discount.
-   - **The clean-loop loss form.** `rw-cloop`'s head C loss term, before the factor of 0.5 both losses carry, computed from head B's logits instead of head C's, equals N14's `sub20-rw` loss on the same batch: the largest difference over the largest loss at most 10⁻⁶. N14's discount and N15's weight differ by up to 4 × 10⁻⁷.
-   - **The noisy-loss form.** `rw-nfree`'s head C loss term, computed from head B's logits instead, equals N12's `n80` head B loss on the same batch, in the same way.
-   - **The unmixing identity.** For a constructed judge whose q is exactly 0.2 p_A + 0.8 u, computed in float64, the unmixed weight equals the discount from p_A: the largest difference over the largest weight at most 10⁻⁶, N15's convention. This is algebra; it checks the code, not the real head.
-   - Each new run's fingerprints and noise fraction at step 0 equal N12's `n80`'s, and `rw-cloop`'s positions are K.
-2. **Must match.** Re-measuring the saved models reproduces their records: losses within 0.001 and ratios within 0.01. The constructed mixture check passes, and the zero-noise copy scores at least 0.999, in every model.
-3. **Must differ.** The rotated control scores at most 0.60 in at least 4 of 5 models of each arm.
-4. **Head B trained.** In each new arm, Δ_A of head B is at most 1.0 in at least 4 of 5 seeds. Head C carries no training criterion, since a self-judging judge on clean data may collapse on plain cross-entropy, as N14's `sub20-rw` did. Precondition 6 asks only that the line reach it.
-5. **The shortfall exists.** G is at least 0.10 nats in every seed.
-6. **The line reaches the judges, on each axis.** In at least 4 of 5 seeds, the rungs are ordered by fraction on that axis, at least the axis's gap apart, and bracket both the peer's and `rw-cloop`'s values. The gap is 0.05 on x and 0.03 on x_m.
-7. **The peer's gap exists, on each axis.** d(`rw-peer`) is at most −0.10 on x, and at most −0.06 on x_m, in at least 4 of 5 seeds. That keeps the ratio's denominator well away from 0.
+   - **The clean-loop loss form.** `rw-cloop`'s head C loss term, before the factor of 0.5 both losses carry, is computed once from head B's logits instead of head C's. It must equal N14's `sub20-rw` loss on the same batch, with a relative difference of at most 10⁻⁶: the largest absolute difference divided by the largest absolute value. N14's discount and N15's weight differ by up to 4 × 10⁻⁷.
+   - **The clean-loop gradient.** On the same batch, the gradient of that term with respect to the logits must equal the gradient of N14's `sub20-rw` loss, by the same relative measure. A weight left with its gradient attached would fail this check, though not the check on the loss.
+   - **The noisy-loss form.** `rw-nfree`'s head C loss term, computed from head B's logits instead, must equal N12's `n80` head B loss on the same batch, by the same measure.
+   - **The unmixing identity.** Take a constructed judge whose q is exactly 0.2 p_A + 0.8 u, computed in float64. Its unmixed weight must equal the discount from p_A, by the same measure, N15's convention. This is algebra; it checks the code, not the real head.
+   - **Positions.** Each new run's fingerprints and noise fraction at step 0 must equal N12's `n80`'s. Head C's positions in `rw-cloop` and in `rw-j20` must be exactly K.
+   - **Code identity, checked in the calibration.** N18's `rw-j20` of seed 3001 must reproduce N17's calibration record of `rw-j20`: head B's Δ_A and head C's x within 0.001, agreement within 0.01. The largest difference between its weights and N17's saved model is reported; it is expected to be 0 if the GPU and the PyTorch version match.
+2. **Must match.** Re-measuring the saved models reproduces their records: losses within 0.001 and ratios within 0.01. The constructed mixture check passes, and the zero-noise copy scores at least 0.999, in every model. x_m of the saved judges is measured afresh and has no record to match.
+3. **Must differ.** The rotated control scores at most 0.60 in at least 4 of 5 models of `rw-cloop`, `rw-j20` and the re-measured `rw-peer`.
+4. **The runs trained.**
+   - In every seed, `rw-j20`'s head B Δ_A and head C x are each at most 1.0, as N17's rungs had to be.
+   - `rw-cloop` carries no criterion on how well its heads predict, since their failure is a possible effect of the loop. N14's `sub20-rw` reached 0.72–0.76 on plain cross-entropy.
+   - Every logged loss of `rw-cloop` and `rw-j20` is finite.
+   - `rw-nfree` enters no precondition.
+5. **The peer's shortfall from `rw-j20` exists.** Δ_A(`rw-peer`) − Δ_A(`rw-j20`) is at least 0.05 nats in every seed. That keeps R's denominator well away from 0.
 
-The x_m thresholds are about 0.6 of x's. In N12's and N13's records, head B's x_m was about 0.7 of its x for `sub20`, a head without the loop, and about 0.53 for `n80-rw`, a head with it. N17's records hold x only. On each axis the claim pools the seeds that axis's precondition 6 brackets. Precondition 7 is a condition on testability, not a filter on seeds. A pooled seed with a small d(`rw-peer`) widens the interval, which makes a verdict harder, not easier.
+Preconditions 4 and 5 hold in every seed, not in 4 of 5, so that no seed is dropped on a condition involving `rw-j20`, which enters both sides of R.
 
-**The outcome, from the two axes:**
+**The outcome:**
 
 | Outcome | Condition |
 |---|---|
-| Supported | R_loop's interval lies wholly above 0.67 on both axes |
-| Refuted | It lies wholly below 0.33 on both axes, with a standard deviation of at most 0.25 on each |
-| Depends on the axis | It lies wholly above 0.67 on one axis and wholly below 0.33 on the other |
-| Some effect, size unclear | None of the above, and both intervals exclude 0 |
+| Supported | R's interval lies wholly above 0.67 |
+| Refuted | It lies wholly below 0.33, with a standard deviation of at most 0.25 |
+| Some effect, size unclear | Neither, and the interval lies wholly above 0 |
 | Inconclusive | Everything else |
+| Untestable | A precondition fails |
 
-If precondition 6 or 7 fails on one axis only, the claim is **untestable**, not decided on the other axis alone. The other axis's interval is reported as description.
-
-**Intervals.** Each axis uses a two-sided 95% t-interval over the pooled seeds, with 4 degrees of freedom, or 3 if one seed is not bracketed. A support or a refutation needs both axes to agree, so the chance of a wrong one is no greater than on one axis alone. That is why no correction for the two axes is applied.
+**Interval:** a two-sided 95% t-interval over the five seeds, with 4 degrees of freedom. There is one claim, so no correction applies.
 
 **Why these thresholds.**
-- **Two thirds and a third** of the peer's gap. Two thirds is "most of it" and a third is "little of it". Between them, both the loop and something else contribute.
-- **A standard deviation cap of 0.25** on refutation. A ratio is noisier than a difference. In N17, d(`rw-peer`) on x varied across seeds by 0.02 around −0.29, so a numerator varying by 0.03 gives a ratio varying by about 0.1.
+- **Two thirds and a third** of the peer's shortfall. Two thirds is "most of it" and a third is "little of it". Between them, both the loop and the data contribute.
+- **The denominator's floor, 0.05 nats,** is about half the denominator's expected size.
+  - In N17's calibration seed, Δ_A(`rw-peer`) − Δ_A(`rw-j20`) was 0.123.
+  - In N17's real run, Δ_A(`rw-peer`) was 0.323–0.338, and Δ_A(`rw-j10`) was 0.252–0.265. `rw-j20` trains on twice `rw-j10`'s targets, so it should lie lower still, and the denominator should be about 0.10.
+- **A standard deviation cap of 0.25** on refutation, as a ratio is noisier than a difference.
 - **What the design can detect.**
-  - If the ratio varies by about 0.1 across seeds, the 95% half-width is about 0.12 with five seeds and about 0.16 with four.
-  - A ratio is then decisive on an axis above about 0.79 or below about 0.21.
-  - Where the axes disagree, the verdict is "depends on the axis".
-  - Both outcomes, the claim falling between its margins and the axes disagreeing, are within the design's limits, stated now.
+  - In N17's real run, within-seed differences of head B's Δ_A between arms varied across seeds with a standard deviation of 0.004–0.008 nats.
+  - If R's numerator varies that much, R's standard deviation is about 0.05–0.1. If it varies as `sub20-rw`'s own accuracy did, by 0.02, it is about 0.2.
+  - With five seeds, the 95% half-width is then 0.06–0.25.
+  - So an interval clears a margin when R lies above about 0.73–0.92 or below about 0.08–0.27. P predicts about 2 and M below 0, both well beyond either margin.
 
 ## Secondary and exploratory outcomes
 
-- **S1: each new judge's own recovery,** F, beside its x and x_m.
-- **S2: each judge's sharpness and random share,** at the steps 300, 500, 1000, 2000 and 2850, interpolated along the rungs to each judge's accuracy on each axis. N17 found the loop-free judges sharper during training and matched only at the end.
-- **S3: each judge's accuracy over training,** from the batch records: the judge's plain cross-entropy minus head A's, for every arm, and the mixture-form loss for the new arms. N17's saved arms recorded only the plain loss.
+- **S1: each judge's own recovery,** F, with its Δ_A, x and x_m.
+- **S2: each judge's sharpness and random share,** at the steps 300, 500, 1000, 2000 and 2850, compared directly between `rw-cloop` and `rw-j20`, and between `rw-nfree` and `rw-peer`.
+- **S3: each judge's accuracy over training,** from the batch records. For every arm, the judge's plain cross-entropy minus head A's; for the new arms, the mixture-form loss as well. N17's saved arms recorded only the plain loss.
 - **S4: the blind spots,** as in N17: the clean targets each judge ignores (weight below 0.01), measured both ways against head B's own discount, with their set sizes.
 - **S5: head A's cost** in each new arm against `clean`.
 - **S6: geometry** against the clean-target ladder, as in N17.
 - **S7: `rw-nfree`, the loop-free judge on noisy data** (exploratory, no rule):
-  - its F;
-  - its x_m, and x with the stated floor;
-  - d on each axis, and d / d(`rw-peer`) on each axis;
+  - its F, and its x_m;
   - the fraction of clean targets its weight floors at 0;
-  - its mixture-form gap to the ideal copy.
-
-  Expected now, from N12's records: a large floored fraction, a gap to the copy near N12's 0.48–0.50, and a shortfall that cannot tell the data from the estimator.
+  - its mixture-form gap to the ideal copy;
+  - the other contrasts of the two-by-two: Δ_A(`rw-nfree`) − Δ_A(`rw-peer`), the loop with noisy data; and Δ_A(`rw-nfree`) − Δ_A(`rw-j20`), the data without the loop. Each also changes the estimator.
+- **S8: the matched-accuracy comparisons** (description).
+  - Each judge's x and x_m are placed against the loop-free line on each axis, with d where the line reaches it.
+  - In the calibration seed, all five of N17's rungs exist. In the real seeds, the line runs through `rw-j20`, `rw-j10` and `rw-j05` only, so it may not reach `rw-cloop` on either axis.
+  - This is where P and M would show. P puts `rw-cloop` near the line on x; M puts it near the line on x_m.
 
 ## Necessity audit, at drafting (`NECESSITY_AUDIT.md`)
 
 | Claim the design relies on | Features and ground | The check, and whether it works at the boundary |
 |---|---|---|
-| `rw-cloop` has the loop and clean data only | Definitional: its weights come from its own prediction, and its targets are K's clean ones | The code; the clean-loop loss-form check; the judge-source check with head C at its own values, which a bug taking head B's logits would fail |
-| The two axes place a self-judging judge sensibly | A present mechanism, from N14's records | They may not agree. `sub20-rw` sat 0.72–0.76 behind head A on x and 0.042–0.053 behind the copy in mixture form, ahead of `sub20`. So on x_m `rw-cloop` may sit at the accurate end, beyond every rung but `rw-j100`, and on x at the inaccurate end, near `rw-j0125`. Precondition 6 is per axis, and disagreement has its own outcome |
-| x_m is the accuracy that matters for judging | Reply 4: hold the argument to its modest conclusion | Every weight is a function of m / u, but x_m is the self-judging judges' own objective, and it is blind to the neglected targets. It is one of two axes, not the axis |
-| The ratio is well defined on each axis | Reply 8 at the boundary: a small d(`rw-peer`) makes it unstable | Precondition 7, per axis. A pooled seed with a small gap widens the interval instead of biasing it |
-| The rungs reach both judges on both axes | A present mechanism | The calibration's rule chooses rungs per axis, and the real run trains their union. A judge beyond the rungs on either axis makes the claim untestable, not refuted |
-| "The loop" is separated from the course of training | Reply 3 | No. The slow start is the loop's own doing (R4). A support is read as "the loop, with the course it causes" |
+| `rw-cloop` and `rw-j20` differ only in the loop | Definitional: the same positions, targets, normalisation and head B weight; only head C's own weight differs | The code; the positions check; the clean-loop loss and gradient checks, which a weight with its gradient attached would fail; the judge-source check with head C at its own values, which a bug taking head B's logits would fail |
+| N18's code trains `rw-j20` as N17's did | A present mechanism | The code-identity check in the calibration, against N17's saved calibration model and record |
+| The direct contrast measures the loop | Reply 3: what does it hold fixed? | It holds the data fixed and changes the loop, including what the loop does to the judge's accuracy (P) and course (R4). It is read as "the loop, with what it does", not as the loop beyond accuracy |
+| The result transfers to the peer | Reply 3 | No: the loop may act differently with random targets present (I; N16's two-by-two). A support says the loop is enough, not that the peer's shortfall is the loop's |
+| The ratio is well defined | Reply 8 at the boundary: a small denominator makes it unstable | Precondition 5, in every seed. The denominator was 0.123 in N17's calibration seed |
 | `rw-nfree` tests the training data | Reply 3 | No: it also changes the estimator, which N12's records suggest is poor. It is exploratory for that reason |
 | Reused models and seeds measure as before | A present mechanism; N17's records | Precondition 2 |
-| The test can fail | Reply 8 | It is refuted if `rw-cloop` sits near the line on both axes, as D predicts. If the axes disagree, as A predicts, the verdict says so |
+| The test can fail | Reply 8 | It is refuted if `rw-cloop` costs head B little more than `rw-j20` does, as D predicts, or helps it, as M predicts. P and M predict opposite sides of both margins, and N14's records do not say which holds |
 
-**The critic's strongest objection, two moves deep:** *"Matching on accuracy is ill-defined for a self-judging judge, so neither axis compares like with like."*
-- *The reply:* that is why both axes are used and a verdict needs them to agree. A support then holds however accuracy is matched.
-- *The critic's answer:* the two axes are only two of many, and agreement between them does not make the matching neutral.
-- *The next move:* accepted. A support is reported as "on both axes N17 and N18 use", not as matched in every sense. If the axes disagree, that is reported as a finding about the matching, not explained away. The blind spots (S4) and the course (S3) are reported beside it.
+**The critic's strongest objection, two moves deep:** *"N17 left open whether the peer's shortfall at matched accuracy is the loop's. The direct contrast does not answer that."*
+- *The reply:* true, and stated. For a self-judging judge on clean targets the matched comparison is ill-posed. N14's records suggest the two measures of accuracy would place it at opposite ends of the loop-free line, and the loop is what makes it inaccurate. The direct contrast is the comparison that is well defined.
+- *The critic's answer:* then N18 asks a different question from the one N17 left.
+- *The next move:* accepted in part. N18 asks whether the loop, with the data fixed, is enough to produce a shortfall of the peer's size, which N17 could not ask. The matched comparisons are reported as description (S8). A verdict is not read as dividing N17's d.
 
 ## Calibration before queuing, including a full-length run
 
 - **A full-length calibration run on the A100,** as its own Colab job, on seed 3001 and the calibration windows 513–1024.
-  - **It trains:** `rw-cloop`, `rw-nfree` and `rw-j100`.
+  - **It trains:** `rw-cloop`, `rw-nfree`, and `rw-j20` again, for the code-identity check.
   - **It re-measures:**
-    - N17's calibration models: `rw-peer` and the five rungs, from the `n17_calib` Drive folder;
+    - N17's calibration models: `rw-peer` and the five rungs, for S8 on both axes;
     - N13's `n80-rw`, N12's `sub20` and `clean`, N15's calibration `rw-oracle`, and N14's `sub10`, `sub05` and `sub025` of seed 3001.
   - **It reports:**
-    - every judge's x, x_m, F and d on each axis;
-    - R_loop for seed 3001;
-    - the setup checks;
-    - `rw-nfree`'s diagnostics.
+    - R for seed 3001;
+    - every judge's Δ_A, F, x and x_m;
+    - d on each axis where the line reaches;
+    - the setup checks and the code-identity check;
+    - `rw-nfree`'s diagnostics, and the timings.
 
   The values will be seen and recorded in the deviation log, with what they imply for the claim, before the real run.
-- **What the calibration may change:** only which rungs the real run uses, by this rule.
-  - **On each axis separately:** take the shortest run of adjacent rungs from `rw-j100`, `rw-j20`, `rw-j10`, `rw-j05`, `rw-j025` and `rw-j0125` that, in seed 3001, is ordered by fraction and spans both the peer and `rw-cloop` with room to spare at each end: 0.03 on x, 0.02 on x_m.
-  - **Ties** go to the run nearer `rw-j10` and `rw-j05`. A run may have any length.
-  - **The real run trains the union** of the two axes' runs, less the rungs N17's real run already trained (`rw-j10`, `rw-j05`).
-  - **If no run spans the peer on either axis,** the real run is not queued, and the calibration's values go to the author.
-  - **If no run spans `rw-cloop` on an axis,** the claim is recorded as likely untestable, and the real run is not queued; the values go to the author.
-- **Nothing else changes in response to the calibration.**
+- **What the calibration may change:** nothing in the design. The real run is not queued, and the values go to the author, if any of these happens:
+  - a setup check or the code-identity check fails;
+  - precondition 4 or 5 fails in seed 3001;
+  - a loss in `rw-cloop` is not finite.
 - **Also:**
   - the untrained checks;
+  - planted bugs that the checks must catch: a weight with its gradient attached in `rw-cloop`, head C judging from head B's logits, `rw-cloop` on every position, and `rw-nfree`'s weight left without its floor;
   - the tiny end-to-end run, and the rerun and resume tests;
-  - synthetic records for every branch of the rule, both axes, and every precondition;
+  - synthetic records for every branch of the rule and every precondition;
   - an independent review of the code against this preregistration before the real run (N17's lesson 16).
 
 ## Sanity checks before trusting results
@@ -235,28 +256,28 @@ If precondition 6 or 7 fails on one axis only, the claim is **untestable**, not 
 ## Compute, where it runs, and stopping rule
 
 - **Where:** one Colab job, `n18_data`, on an A100, resumable. It runs after the calibration job, `n18_calib`.
-- **Cost:**
-  - Training: 10 runs at about 2.5 minutes each, and up to 20 more for the rungs.
-  - About 80 measurements and 55 model loads.
-  - In all, 45 to 105 minutes. The calibration job takes about 25 minutes.
+- **Cost:** 15 training runs at about 2.5 minutes each, with the measurements and model loads. N17's real run, with the same number of training runs, took 45 minutes, so about 45–60 minutes. The calibration job takes about 25 minutes.
 - **Stopping rule:** exactly these runs and measurements, each once. Nothing is added after seeing results except as a dated, exploratory entry in the deviation log.
 
 ## What each outcome would teach
 
 | N18a | What we would learn | Next |
 |---|---|---|
-| Supported | Consistent with the loop, with the course it causes, carrying most of the gap: a judge with the loop falls short even on clean data, however its accuracy is matched on these two axes. The training data is not needed for the gap. | Break the loop without a clean head: a floor on the discount |
-| Refuted | A self-judging judge on clean data sits near the loop-free line on both axes: the loop alone does not make the gap, and the noisy training data, or what it does to the judge, is needed. | Separate the data from the estimator: a noisy-trained judge with a better model of the noisy distribution than `rw-nfree`'s single softmax |
-| Depends on the axis | Whether a judge with the loop falls short depends on what "as accurate as" means. A self-judging judge trades plain accuracy on the targets it neglects for mixture-form accuracy on the rest, so matching judges by one number of accuracy cannot settle the question. | Compare judges target by target, by the weights they give, instead of by one summary of accuracy (S4) |
-| Some effect or inconclusive | The loop accounts for part of the gap, or the design's limits, as stated. | More seeds, or rungs nearer `rw-cloop` |
-| Untestable | A judge lay outside the rungs on an axis, or the peer's gap vanished on one. | Recalibrate the rungs, or report the decided axis as description |
+| Supported | With the data held at clean targets, a judge's own loop is enough to cost head B most of what the peer costs it. The noisy data is not needed for a shortfall of that size. An interval wholly above 1 would fit the random targets tempering the loop (I). Whether the loop costs through the judge's plain accuracy or beyond it stays open (P; S8). | Break the loop without a clean head: a floor on the discount |
+| Refuted, interval above 0 | With the data fixed, the loop costs head B little, so the peer's shortfall needs its noisy data, or what the noise does with the loop. This is consistent with D. | Separate the data from the estimator: a noisy-trained judge with a better model of the noisy distribution than `rw-nfree`'s single softmax |
+| Refuted, interval below 0 | The loop helped on clean targets, as M predicts: a judge trained by its own discount was the better judge. Its usefulness would then follow its mixture-form accuracy more than its plain accuracy. | Test M directly, across judges, by the accuracy that predicts their usefulness |
+| Some effect | The loop accounts for part of the shortfall, by between a third and two thirds, or by an amount the design cannot place. | More seeds |
+| Inconclusive | The design's limits, as stated. | More seeds |
+| Untestable | The peer's shortfall from `rw-j20` vanished, or a run failed to train. | Inspect the failed precondition |
 
 ## Limitations known now
 
-- **The loop is not separated from the course of training it causes** (R4).
-- **Matching on accuracy is axis-dependent** (rival A). Two axes are used, and agreement is required; neither is neutral.
-- **The training data's own role is tested only through `rw-nfree`,** whose estimator is likely poor. It is exploratory.
-- **The rungs and the oracle need clean labels.** `rw-nfree` does not.
+- **The loop is changed on clean targets only.** With random targets present it may act differently (I; N16's two-by-two). A support shows the loop is enough, not that the peer's shortfall is the loop's.
+- **The direct contrast includes what the loop does to the judge's accuracy and course** (P and R4).
+- **The matched-accuracy question N17 left is not decided.** S8 describes it.
+- **"The training data" changes noise and count together:** head B's targets at every position, against clean targets at 20%.
+- **The training data's own role is tested only through `rw-nfree`,** whose estimator may be poor. It is exploratory.
+- **`rw-cloop` and `rw-j20` need clean labels.** They are diagnostics, not methods. `rw-nfree` does not need clean labels.
 - **Reused seeds and models,** by necessity and declared. Five seeds.
 - **One noise rate, one readout width, one scale, 10% of the budget.** The discounts and the unmixing are told the noise.
 
