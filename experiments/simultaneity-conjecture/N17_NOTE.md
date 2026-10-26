@@ -4,13 +4,13 @@ Date: 2026-10-26    Preregistration: `N17_PREREGISTRATION.md`    Generated repor
 
 ## In brief
 
-N16 found that a head trained on 80%-scrambled next-word answers, each weighted by its own estimate that the answer is genuine, does as well as a head given only the genuine answers when the clean head, head A, makes that estimate instead. But head A differs from the head as a judge in at least three ways: it is not caught in a loop of judging by its own predictions, it predicts better, and its judgement is sharper. N17 asked which of the first two carried the result, using a third head as the judge.
+N16 found that a head trained on 80%-scrambled next-word answers, each weighted by its own estimate that the answer is genuine, does as well as a head given only the genuine answers when the clean head, head A, makes that estimate instead. But as a judge, head A differs from the scrambled-answer head in at least three ways: it is not caught in a loop of judging by its own predictions, it predicts better, and its judgement is sharper. N17 asked which of the first two carried the result, using a third head as the judge.
 
 - **N17a (primary): some effect, size unclear.** A judge with no loop, interpolated to the scrambled-answer head's own accuracy, recovered a third of the shortfall: 0.334, 97.5% interval [0.318, 0.349]. That is neither the three quarters the conjecture required nor the quarter or less that would have refuted it.
 - **N17b: untestable.** Precondition 6b failed in every seed, so the rule could not compare the peer with a loop-free judge.
 - **The peer, as description.** A second head that judges itself, as accurate as the scrambled-answer head, recovered almost none of the shortfall (0.04).
 
-On this evidence, the judge's accuracy carries most of N16's result, and something about a judge trained the way the scrambled-answer head is trained costs a further third of the shortfall at equal accuracy. The design does not separate that third into the loop itself, what the judge is trained on, or how fast it improves.
+So the judge's accuracy at the end of training does not account for N16's result on its own. At equal accuracy, a judge trained at full weight on clean targets recovers a third more of the shortfall than a judge trained the way the scrambled-answer head is. The design does not separate that third into the loop itself, what the judge is trained on, how fast it improves, or how sharp it is during training. How the rest of N16's result divides is description only, since head A's point lies outside the loop-free judges' range.
 
 ## The arms and measures
 
@@ -37,17 +37,21 @@ The loop-free judges are told which targets are clean, as head A is. Like N16's 
 |---|---|
 | Nats | The unit of prediction loss |
 | Δ_A | A head's loss on the clean targets minus head A's, in nats. Lower is closer to the clean head |
-| x, the judge's accuracy | The judge's Δ_A at the end of training. x_self = Δ_A(`rw-b1`), head B judging itself; x_peer is the peer's; x = 0 for head A |
+| x, the judge's accuracy | The judge's Δ_A at the end of training, on the measurement windows: a loss gap, so higher means less accurate. x_self = Δ_A(`rw-b1`), head B judging itself; x_peer is the peer's; x = 0 for head A |
+| The rungs | The loop-free judges, `rw-j10` and `rw-j05`, named after the rungs of N14's clean-target ladder whose positions they train on |
 | G, the shortfall | Δ_A(`rw-b1`) − Δ_A(`sub20`), within a seed |
 | F, the recovered fraction | (Δ_A(`rw-b1`) − Δ_A(head B in the arm)) / G. 0 is head B judging itself; 1 is the whole shortfall recovered |
 | The loop-free line | Within a seed, the points (x, F) of the loop-free judges joined by a straight line. F_lf(x) is its value at accuracy x, between the rungs only |
 | F* | F_lf(x_self): what a loop-free judge exactly as accurate as head B would recover |
 | d | F(`rw-peer`) − F_lf(x_peer): how far the peer falls short of a loop-free judge of its own accuracy |
-| Sharpness | The mean weight on clean targets over the mean on random ones, at the end of training |
-| Share, s | The random targets' share of head B's summed weight at the end of training |
-| Ignored | A clean target is ignored when its weight is below 0.01 |
+| Sharpness | The mean weight on clean targets over the mean on random ones, from the training batch at the last logged step (2850) |
+| Share, s | The random targets' share of head B's summed weight, from the same batch |
+| Ignored, blind spot | A clean target is ignored when its weight is below 0.01. A judge's blind spot is the set of clean targets it ignores. Head B's own discount is the weight head B's own prediction would give, measured even where head C is the judge |
+| The clean-target ladder, â, b | N14's yardstick: heads trained on fewer and fewer clean targets and no random ones. â is the ladder's agreement at a head's Δ_A, and b = â − a; positive means the head reads head A's directions slightly worse than its accuracy predicts |
 | a, the agreement | How far head B's predictions depend on the same directions of the trunk's state as head A's, corrected for noise; 1 for the same directions |
 | R1–R5 | The preregistration's rivals: R1 the judge's accuracy; R2 the judge being head B itself; R3 sharpness; R4 the judge's course over training; R5 what the judge is trained on |
+| S1–S7 | The preregistration's secondary measures, reported in `N17_RESULTS.md`; S1 is the peer's own recovery |
+| The oracle | Head A as the judge, N16's `rw-oracle`. N15's share mechanism was the conjecture that the shortfall is the random weight the discount leaves behind; N16 refuted it |
 | The necessity audit | `NECESSITY_AUDIT.md`: a check made before every run from N12 on. It lists each claim in the design of the form "this requires that", so that the cheapest criticism comes before the run |
 | Setup checks | Tests run before training. The ones new in N17: head C does not train the trunk; head B's weights come from head C; adding head C changes nothing else (the passenger check); a copy of head B as head C stays identical to it (the copied-peer check); an overflow in head C skips only its own step |
 
@@ -96,8 +100,8 @@ All other preconditions held. Every setup check passed on the A100 with 16-bit t
 
 ## Which kind of result this is
 
-- **N17a's verdict is "some effect, size unclear", with a narrow interval.** It is ±0.016 wide and sits well clear of both margins. The conjecture's strong form, that the loop is most of the shortfall, did not survive its support margin. R1's strong form, that accuracy is all of it, did not survive its refuting margin. A loop-free judge as accurate as head B recovers about a third.
-- **N17b is untestable by its precondition, and the precondition did what it was added for.** The fresh reader's check of the draft had shown that, with the peer's F near or above 0, d cannot fall much below −F_lf(x_peer). With the loop-free line at 0.33 there, the support margin of −0.5 was out of reach whatever the mechanism, and the precondition turned that into an untestable verdict instead of a misleading one.
+- **N17a's verdict is "some effect, size unclear", with a narrow interval.** It is ±0.016 wide and sits well clear of both margins. The conjecture, that a loop-free judge as accurate as head B recovers most of the shortfall, was not supported. R1's prediction, F* near 0, failed. A loop-free judge as accurate as head B recovers about a third.
+- **N17b is untestable by its precondition.** With the peer's F near or above 0 (−0.007 to +0.071 by seed), d was unlikely to fall far below −F_lf(x_peer). With the loop-free line at 0.33 there, the support margin of −0.5 was out of reach whatever the mechanism. The height condition in precondition 6b was added after a fresh reader's check of the draft to make that case untestable. For the record, without it d's 97.5% interval would have been [−0.322, −0.258], "some effect, size unclear".
   - The margins were set in units of the shortfall, on the conjecture's own expectation that the loop-free line would be high at head B's accuracy. A margin relative to the line's height would have stayed reachable. That is a lesson about the design, recorded here, not a reason to read d against a different margin now.
 - **The calibration's warning held.** Both verdicts are what the calibration entry, committed before the real run, said they would most likely be.
 
@@ -105,15 +109,15 @@ All other preconditions held. Every setup check passed on the A100 with 16-bit t
 
 All of this is exploratory: it decides nothing, and N17b's quantities are reported as description.
 
-**Accuracy carries most of N16's result.** Along the loop-free judges, F falls steadily as the judge gets less accurate: 1.08 for head A (x = 0), 0.45 at x = 0.29, 0.12 at x = 0.43. At head B's own accuracy the line gives 0.33. On this reading, moving from head B's accuracy to head A's accounts for about 0.75 of the 1.08, and removing the loop at fixed accuracy for about 0.33. The split assumes the line is straight between the rungs, and matches accuracy at the end of training only.
+**The loop-free line.** Between the rungs, F falls as the judge gets less accurate: 0.45 at x = 0.29 and 0.12 at x = 0.43, so 0.33 at head B's own accuracy. Head A's point (x = 0, F = 1.08) lies outside that range. Head A is also a different kind of judge: it trains on every clean target, and it trains the trunk, which head C does not. So the 0.75 between head A's point and the line at head B's accuracy mixes accuracy with sharpness, the course of training and the kind of judge (S7, description only). Even between the rungs, accuracy is not separated from sharpness or course: the 10% judge is sharper than the 5% judge (5.78 against 5.38) and more accurate at every step of training.
 
-**A second self-judging head does about as badly as head B judging itself.** The peer was as accurate as head B (x 0.339 against 0.337) and recovered 0.041 of the shortfall (95% interval [0.003, 0.080]). Head B's Δ_A with the peer as judge was 0.007 nats lower than with its own judgement. The peer fell short of a loop-free judge of its accuracy by d = −0.290 [−0.315, −0.265], between −0.32 and −0.27 in every seed. R2 predicted d near 0. So what costs the further third is not head B judging itself as such: a different head with the same kind of training costs about the same.
+**A second self-judging head does nearly as badly as head B judging itself.** The peer was as accurate as head B (x 0.339 against 0.337) and recovered 0.041 of the shortfall (95% interval [0.003, 0.080]). Head B's Δ_A with the peer as judge was 0.007 nats lower than with its own judgement. That is far from what R2 predicted for the peer's own recovery, about what its accuracy gives (S1, secondary). Against a loop-free judge of the peer's accuracy, d = −0.290 [−0.315, −0.265], between −0.32 and −0.27 in every seed; d is description, since N17b was untestable. This is consistent with the shortfall not needing head B to judge itself. But the peer shares head B's trunk, targets and training, and may converge towards head B, so it does not show that.
 
-**At equal accuracy, the loop-free judges are no sharper and leave no less random weight.** Interpolated to head B's accuracy, the loop-free judges' sharpness is 5.64 [5.31, 5.97] and their random share 0.421 [0.413, 0.429]. The self-judge's are 5.64 and 0.422. So the third is not in *how much* weight the judges give clean against random targets, the quantities R3 names and N15's share mechanism named. It is in *which* clean targets they weight.
-- The peer's blind spot overlapped head B's more than a loop-free judge's did: it ignored 0.83 of the clean targets head B's own discount ignores, against 0.79 and 0.81 for the loop-free judges and 0.66 for head A.
-- On the targets each judge ignored, head B's loss was 13.6 nats with the peer as judge, against 12.1–12.2 with a loop-free judge.
+**At equal accuracy, sharpness and share match at the end of training only.** Interpolated to head B's accuracy, the loop-free judges' sharpness at the last logged step is 5.64 [5.31, 5.97] and their random share 0.421 [0.413, 0.429]; the self-judge's are 5.64 and 0.422. Earlier in training they were sharper and left less random weight: sharpness +0.16 [+0.06, +0.25] and share −0.016 [−0.029, −0.003] at step 500, sharpness +0.18 [+0.09, +0.27] at step 1000. So sharpness during training (R3, with R4) is not excluded as part of the third.
 
-**The self-judging peer was slow to start.** One step-100 reading, on a training batch, puts the peer's loss 1.33 nats above head A's, against 0.57 and 0.75 for the loop-free judges. From step 200 on, the peer tracked the 5% judge (0.36–0.48 against 0.38–0.47). This is the course difference R4 names. A self-judging head's slow start is partly the loop's own doing, at the start, when its discount weights clean and random targets alike, so the course cannot be separated from the loop here.
+**The blind spots differ less than they first appear.** The peer ignored more clean targets than the loop-free judges (1.04% against 0.77% and 0.87%), so it covers more of head B's own blind spot: 0.83 of it, against 0.79 and 0.81. Against the 5% judge that difference is within noise (+0.02 [−0.02, +0.06]). Measured the other way, as the share of the judge's own blind spot that head B's discount also ignores, the peer and head A rank together (0.76 and 0.74, against 0.72 and 0.66). These do not show the judges differing in which clean targets they ignore.
+
+**The self-judging peer was slow to start.** One step-100 reading, on a training batch, puts the peer's loss 1.33 nats above head A's, against 0.57 and 0.75 for the loop-free judges. From step 200 on, the peer lay between the two rungs (0.36–0.48, against 0.26–0.31 and 0.38–0.47). This is the course difference R4 names. A self-judging head's slow start is partly the loop's own doing, at the start, when its discount weights clean and random targets alike, so the course cannot be separated from the loop here.
 
 **Geometry stayed close to the ladder.** Against the clean-target ladder, head B's agreement with head A sat, on average, within 0.04 of what its accuracy predicts in every arm, though slightly below it. The residuals were +0.010 (`rw-b1`), +0.011 (`rw-oracle`), +0.021 (`rw-peer`), +0.018 (`rw-j10`) and +0.031 (`rw-j05`). The peer's and the 5% judge's 95% intervals exclude 0; the 10% judge's does not.
 
@@ -121,15 +125,15 @@ All of this is exploratory: it decides nothing, and N17b's quantities are report
 
 ## What this teaches
 
-- **A diagnostic that separates two causes can find that both matter.** N16 left three differences between its judges unseparated. N17 matched one of them, accuracy, and found it carries most of the effect. The remaining third is not zero (F*'s interval lies well above 0), but it is not the "most" the conjecture claimed either.
-- **Margins in the units of a quantity the conjecture expects to be large can go out of reach when it is not.** N17b's margins assumed a high loop-free line. The fresh reader's check of the draft caught the consequence before approval, and precondition 6b turned it into an untestable verdict, not a misleading one. Next time, a margin on a difference should be set relative to the quantity it is a difference from.
-- **A calibration that predicts its own verdicts is worth stating before the run.** The calibration entry said N17a would most likely be intermediate and N17b untestable; both happened. Recording that before the run kept the design from being changed to fit the calibration's values.
-- **Matched accuracy can hide a difference in which targets are weighted.** At equal accuracy, the judges matched in sharpness and share, the two summary quantities earlier tests used, and still differed by a third of the shortfall. The difference shows only in which clean targets each judge ignores.
+- **Matching one difference can leave a clear intermediate answer.** N16 left three differences between its judges unseparated. N17 matched one of them, accuracy at the end of training, and a loop-free judge so matched recovered a third of the shortfall: not zero (F*'s interval lies well above 0), and not the "most" the conjecture claimed. How the rest divides, the design does not say.
+- **Margins in the units of a quantity the conjecture expects to be large can go out of reach when it is not.** N17b's margins assumed a high loop-free line. A fresh reader's check of the draft caught the consequence before approval, and the height condition added to precondition 6b made the case untestable rather than leaving the support margin out of reach. Next time, a margin on a difference should be set relative to the quantity it is a difference from.
+- **A calibration that predicts its own verdicts is worth stating before the run.** The calibration entry said N17a would most likely land between its margins and N17b would most likely be untestable; both happened. Recording that before the run showed that the verdicts were foreseen.
+- **A match at one time is not a match.** At equal accuracy, the judges' sharpness and share matched at the end of training and differed during it. The audit's warning about conditions fixed to one time applies to the secondary measures too.
 
 ## What this does not change
 
-- **Every earlier verdict stands.** N16's three supported claims stand by their rules. N17 says how its result divides: mostly the judge's accuracy, and a third that is not accuracy at the end of training.
-- **N16c's label,** "self-reference is the mechanism", was already marked as saying more than its comparison separated. N17 finds that what costs the further third is not self-reference as such, since a different self-judging head costs about the same (exploratory).
+- **Every earlier verdict stands.** N16's three supported claims stand by their rules. N17 adds, by its primary rule, that a loop-free judge as accurate as head B recovers a third of N16's shortfall.
+- **N16c's label,** "self-reference is the mechanism", was already marked as saying more than its comparison separated. N17's peer, a different self-judging head, recovered almost none of the shortfall (secondary), consistent with self-reference as such not being what costs.
 
 ## Limitations
 
@@ -137,15 +141,15 @@ All of this is exploratory: it decides nothing, and N17b's quantities are report
 - **The loop-free judges train on clean targets only,** chosen with the true mask, while the self-judges train on head B's noisy targets (R5). The third that is not accuracy could come from the loop, from that difference in training, or from the course. N17 does not separate them.
 - **N17b was untestable,** so the comparison of the peer with a loop-free judge is description only.
 - **The loop-free line is straight between two rungs,** so F* is an interpolation.
-- **The loop-free judges and the oracle need clean labels.** Only the peer is a method, and it did not help (S1).
+- **The loop-free judges and the oracle need clean labels.** Only the peer is a method, and it helped little (0.04; S1).
 - **Five seeds, reused with the saved models,** by necessity and declared.
 - **One noise rate, one readout width, one scale, 10% of the budget.** The discounts are told the noise.
 
 ## Next conjectures
 
-1. **Separate the loop from what the judge is trained on.** A loop-free judge trained on head B's noisy targets, for example a standard head on those targets with its prediction unmixed from u, would have no loop and head B's training data. If it recovers the third, the loop is the cause. If it does not, the noisy training is.
+1. **Separate the loop from what the judge is trained on.** A loop-free judge trained on head B's noisy targets would have no loop and head B's training data: for example a standard head on those targets, with u's share subtracted from its prediction to estimate the clean one. If it recovers the third, that is consistent with the loop; if it does not, with the noisy training. Course and sharpness would still not be separated.
 2. **Break the loop without a clean head:** a floor on the self-judged discount, so that no clean target falls below a minimum weight (N16's next conjecture 2). That would be a method, aimed at the third that is not accuracy.
-3. **Improve the judge's accuracy without clean labels.** Since accuracy carries most of the effect, a judge more accurate than head B that needs no clean head would be the method to look for, for example one averaged over the head's own training.
+3. **Improve the judge's accuracy without clean labels.** Along the loop-free judges, F rose steeply with the judge's accuracy, so a judge more accurate than head B that needs no clean head would be worth testing, for example one averaged over the head's own training.
 4. **Return to N10's question with mixture heads** (carried from N12–N16).
 
 ## References
