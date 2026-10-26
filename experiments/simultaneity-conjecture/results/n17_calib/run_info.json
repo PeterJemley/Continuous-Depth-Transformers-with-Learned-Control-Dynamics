@@ -1,0 +1,11 @@
+{
+  "job": {
+    "job": "n17_calib",
+    "args": [],
+    "description": "N17, the loop, not the judge's accuracy: the calibration run, before any real run. On seed 3001 it trains the peer (rw-peer), all five loop-free judges (rw-j20, rw-j10, rw-j05, rw-j025, rw-j0125) and the passenger pair (rw-b1 retrained twice, once with a passenger head). It re-measures the saved calibration models of N12 to N15 (from the n12_calib, n13_calib, n14_calib and n15_calib Drive folders) on the held-out tail's windows 513-1024. It first runs the setup checks with 16-bit training on; if any fails, it stops before training. NEEDS AN A100: before Run all, choose Runtime > Change runtime type > A100 GPU. On any other GPU it stops before training. About 30 minutes. Resumable: if a session ends, choose Run all again and finished work is skipped.",
+    "expected_minutes": 30
+  },
+  "code_commit": "4e5015a0f7956e773c18abd64b7fbec7ecc6893f",
+  "run_id": "20261025-233741",
+  "gpu": "NVIDIA A100-SXM4-80GB"
+}

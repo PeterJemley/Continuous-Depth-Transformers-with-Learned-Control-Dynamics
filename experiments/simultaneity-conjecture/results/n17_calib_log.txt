@@ -1,0 +1,118 @@
+GPU check passed: NVIDIA A100-SXM4-80GB
+23:37:43 device: cuda | test mode: False | mode: calibration | study folder (data): /content/drive/MyDrive/cdt-colab/wt103_study | N17 folder: /content/drive/MyDrive/cdt-colab/n17_calib | local: /content/cdt_local/n17_calib
+23:37:43 arms trained: ['rw-peer', 'rw-j20', 'rw-j10', 'rw-j05', 'rw-j025', 'rw-j0125', 'rw-b1-plain', 'rw-b1-passenger'] | references: ['rw-b1', 'rw-oracle', 'sub20', 'clean', 'sub10', 'sub05', 'sub025'] | saved models from: {'n13': '/content/drive/MyDrive/cdt-colab/n13_calib', 'n15': '/content/drive/MyDrive/cdt-colab/n15_calib', 'n12': '/content/drive/MyDrive/cdt-colab/n12_calib', 'n14': '/content/drive/MyDrive/cdt-colab/n14_calib'}
+23:37:56 token files verified: {'train': 117920140, 'validation': 247289, 'test': 283287}
+23:37:57 training region: tokens 0-116740938 of 117920140; measured on the held-out tail's windows 513-1024
+23:37:57 setup checks: 20-step passenger and copied-peer runs, the overflow test
+23:37:57 next-task example: input ends ' section 3 of the Indecent Representation of Women ('; targets end ' 3 of the Indecent Representation of Women ( Prohibition'
+23:37:57 skip-task example: input ends ' Geography = = \n\n Oklahoma is the 20th largest'; targets end ' = = \n\n Oklahoma is the 20th largest state in'
+23:38:12 batch check: True | windows shifted: True | analytic: True | identical heads: True | weight_identity: True | forward_identity: True | detachment: True | judge_source: True | passenger: True | copied_peer: True | overflow: True | nesting: True
+23:38:12 same-model check: [True] | passenger largest difference: 0.0 | copied peer largest differences: 0.0 0.0
+23:38:24 r_rw-b1_seed3001: inner clean 5.562 | head A clean 5.210 | agreement with A 0.781 | judge B x +0.352 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 6 s
+23:38:34 r_rw-oracle_seed3001: inner clean 5.383 | head A clean 5.220 | agreement with A 0.871 | judge A x +0.000 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:38:45 r_sub20_seed3001: inner clean 5.404 | head A clean 5.238 | agreement with A 0.891 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:38:57 r_clean_seed3001: inner clean 5.204 | head A clean 5.206 | agreement with A 0.971 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:39:10 r_sub10_seed3001: inner clean 5.503 | head A clean 5.227 | agreement with A 0.846 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:39:26 r_sub05_seed3001: inner clean 5.637 | head A clean 5.212 | agreement with A 0.767 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:39:38 r_sub025_seed3001: inner clean 5.819 | head A clean 5.209 | agreement with A 0.724 | reproduces: True (loss 0.0e+00, ratio 0.0e+00) | 5 s
+23:39:38 rw-peer_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C judges itself (the peer), seed 3001
+23:39:57 rw-peer_seed3001: step 400/2879, validation loss head A 6.4439, head B 7.4164
+23:40:02 rw-peer_seed3001: step 500/2879, validation loss head A 6.2568, head B 7.4081
+23:40:17 rw-peer_seed3001: step 800/2879, validation loss head A 5.8986, head B 7.3817
+23:40:36 rw-peer_seed3001: step 1200/2879, validation loss head A 5.5831, head B 7.3582
+23:40:56 rw-peer_seed3001: step 1600/2879, validation loss head A 5.3684, head B 7.3305
+23:41:15 rw-peer_seed3001: step 2000/2879, validation loss head A 5.2120, head B 7.3094
+23:41:34 rw-peer_seed3001: step 2400/2879, validation loss head A 5.1100, head B 7.2969
+23:41:53 rw-peer_seed3001: step 2800/2879, validation loss head A 5.0530, head B 7.2891
+23:41:57 rw-peer_seed3001: step 2879/2879, validation loss head A 5.0467, head B 7.2886
+23:41:59 rw-peer_seed3001: finished in 0.04 h; head A 5.1301, head B 7.2825 (clean targets 6.2455, inner 5.4720); final share 0.380, ignored kept 0.009
+23:42:06 m_rw-peer_seed3001: inner clean 5.567 | head A clean 5.209 | agreement with A 0.795 | judge C x +0.369, ignores 0.012 (own 0.011) | rotated 0.135 | 5 s
+23:42:07 rw-j20_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C at full weight on 20.00% clean targets, seed 3001
+23:42:26 rw-j20_seed3001: step 400/2879, validation loss head A 6.4486, head B 7.4109
+23:42:31 rw-j20_seed3001: step 500/2879, validation loss head A 6.2697, head B 7.4026
+23:42:46 rw-j20_seed3001: step 800/2879, validation loss head A 5.9108, head B 7.3777
+23:43:05 rw-j20_seed3001: step 1200/2879, validation loss head A 5.5924, head B 7.3451
+23:43:25 rw-j20_seed3001: step 1600/2879, validation loss head A 5.3800, head B 7.3219
+23:43:44 rw-j20_seed3001: step 2000/2879, validation loss head A 5.2145, head B 7.3029
+23:44:04 rw-j20_seed3001: step 2400/2879, validation loss head A 5.1115, head B 7.2898
+23:44:23 rw-j20_seed3001: step 2800/2879, validation loss head A 5.0550, head B 7.2819
+23:44:27 rw-j20_seed3001: step 2879/2879, validation loss head A 5.0482, head B 7.2812
+23:44:29 rw-j20_seed3001: finished in 0.04 h; head A 5.1314, head B 7.2759 (clean targets 6.2072, inner 5.3566); final share 0.366, ignored kept 0.009
+23:44:36 m_rw-j20_seed3001: inner clean 5.447 | head A clean 5.212 | agreement with A 0.826 | judge C x +0.183, ignores 0.008 (own 0.008) | rotated 0.131 | 5 s
+23:44:36 rw-j10_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C at full weight on 10.00% clean targets, seed 3001
+23:44:56 rw-j10_seed3001: step 400/2879, validation loss head A 6.4485, head B 7.4120
+23:45:01 rw-j10_seed3001: step 500/2879, validation loss head A 6.2663, head B 7.4058
+23:45:16 rw-j10_seed3001: step 800/2879, validation loss head A 5.8992, head B 7.3769
+23:45:35 rw-j10_seed3001: step 1200/2879, validation loss head A 5.5863, head B 7.3490
+23:45:55 rw-j10_seed3001: step 1600/2879, validation loss head A 5.3732, head B 7.3254
+23:46:14 rw-j10_seed3001: step 2000/2879, validation loss head A 5.2154, head B 7.3066
+23:46:34 rw-j10_seed3001: step 2400/2879, validation loss head A 5.1122, head B 7.2936
+23:46:53 rw-j10_seed3001: step 2800/2879, validation loss head A 5.0557, head B 7.2863
+23:46:58 rw-j10_seed3001: step 2879/2879, validation loss head A 5.0488, head B 7.2854
+23:46:59 rw-j10_seed3001: finished in 0.04 h; head A 5.1352, head B 7.2809 (clean targets 6.2376, inner 5.4021); final share 0.380, ignored kept 0.009
+23:47:06 m_rw-j10_seed3001: inner clean 5.489 | head A clean 5.218 | agreement with A 0.821 | judge C x +0.284, ignores 0.009 (own 0.009) | rotated 0.133 | 5 s
+23:47:07 rw-j05_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C at full weight on 5.00% clean targets, seed 3001
+23:47:26 rw-j05_seed3001: step 400/2879, validation loss head A 6.4515, head B 7.4141
+23:47:31 rw-j05_seed3001: step 500/2879, validation loss head A 6.2748, head B 7.4069
+23:47:46 rw-j05_seed3001: step 800/2879, validation loss head A 5.9050, head B 7.3787
+23:48:05 rw-j05_seed3001: step 1200/2879, validation loss head A 5.5902, head B 7.3547
+23:48:25 rw-j05_seed3001: step 1600/2879, validation loss head A 5.3765, head B 7.3320
+23:48:44 rw-j05_seed3001: step 2000/2879, validation loss head A 5.2189, head B 7.3142
+23:49:04 rw-j05_seed3001: step 2400/2879, validation loss head A 5.1143, head B 7.3010
+23:49:23 rw-j05_seed3001: step 2800/2879, validation loss head A 5.0598, head B 7.2942
+23:49:27 rw-j05_seed3001: step 2879/2879, validation loss head A 5.0527, head B 7.2934
+23:49:29 rw-j05_seed3001: finished in 0.04 h; head A 5.1384, head B 7.2871 (clean targets 6.2817, inner 5.4654); final share 0.394, ignored kept 0.011
+23:49:36 m_rw-j05_seed3001: inner clean 5.551 | head A clean 5.222 | agreement with A 0.800 | judge C x +0.431, ignores 0.010 (own 0.007) | rotated 0.131 | 5 s
+23:49:37 rw-j025_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C at full weight on 2.50% clean targets, seed 3001
+23:49:56 rw-j025_seed3001: step 400/2879, validation loss head A 6.4520, head B 7.4195
+23:50:01 rw-j025_seed3001: step 500/2879, validation loss head A 6.2854, head B 7.4105
+23:50:16 rw-j025_seed3001: step 800/2879, validation loss head A 5.9176, head B 7.3878
+23:50:36 rw-j025_seed3001: step 1200/2879, validation loss head A 5.5964, head B 7.3601
+23:50:55 rw-j025_seed3001: step 1600/2879, validation loss head A 5.3800, head B 7.3377
+23:51:14 rw-j025_seed3001: step 2000/2879, validation loss head A 5.2167, head B 7.3211
+23:51:34 rw-j025_seed3001: step 2400/2879, validation loss head A 5.1142, head B 7.3089
+23:51:54 rw-j025_seed3001: step 2800/2879, validation loss head A 5.0563, head B 7.3011
+23:51:58 rw-j025_seed3001: step 2879/2879, validation loss head A 5.0490, head B 7.3001
+23:52:00 rw-j025_seed3001: finished in 0.04 h; head A 5.1317, head B 7.2937 (clean targets 6.3293, inner 5.5354); final share 0.418, ignored kept 0.013
+23:52:06 m_rw-j025_seed3001: inner clean 5.627 | head A clean 5.213 | agreement with A 0.791 | judge C x +0.618, ignores 0.013 (own 0.009) | rotated 0.133 | 5 s
+23:52:07 rw-j0125_seed3001: starting, noise 0.8, head B weighted by head C's prediction, head C at full weight on 1.25% clean targets, seed 3001
+23:52:27 rw-j0125_seed3001: step 400/2879, validation loss head A 6.4627, head B 7.4252
+23:52:32 rw-j0125_seed3001: step 500/2879, validation loss head A 6.2694, head B 7.4118
+23:52:46 rw-j0125_seed3001: step 800/2879, validation loss head A 5.9191, head B 7.3914
+23:53:06 rw-j0125_seed3001: step 1200/2879, validation loss head A 5.5939, head B 7.3679
+23:53:26 rw-j0125_seed3001: step 1600/2879, validation loss head A 5.3814, head B 7.3471
+23:53:45 rw-j0125_seed3001: step 2000/2879, validation loss head A 5.2210, head B 7.3303
+23:54:05 rw-j0125_seed3001: step 2400/2879, validation loss head A 5.1179, head B 7.3180
+23:54:24 rw-j0125_seed3001: step 2800/2879, validation loss head A 5.0624, head B 7.3116
+23:54:28 rw-j0125_seed3001: step 2879/2879, validation loss head A 5.0559, head B 7.3107
+23:54:30 rw-j0125_seed3001: finished in 0.04 h; head A 5.1411, head B 7.3033 (clean targets 6.3944, inner 5.6451); final share 0.444, ignored kept 0.013
+23:54:37 m_rw-j0125_seed3001: inner clean 5.738 | head A clean 5.223 | agreement with A 0.719 | judge C x +0.826, ignores 0.019 (own 0.009) | rotated 0.134 | 5 s
+23:54:37 rw-b1-plain_seed3001: starting, noise 0.8, head B weighted by head B's prediction, no head C, seed 3001
+23:54:54 rw-b1-plain_seed3001: step 400/2879, validation loss head A 6.4379, head B 7.4173
+23:54:58 rw-b1-plain_seed3001: step 500/2879, validation loss head A 6.2636, head B 7.4094
+23:55:10 rw-b1-plain_seed3001: step 800/2879, validation loss head A 5.8994, head B 7.3831
+23:55:26 rw-b1-plain_seed3001: step 1200/2879, validation loss head A 5.5838, head B 7.3531
+23:55:42 rw-b1-plain_seed3001: step 1600/2879, validation loss head A 5.3794, head B 7.3307
+23:55:58 rw-b1-plain_seed3001: step 2000/2879, validation loss head A 5.2184, head B 7.3090
+23:56:14 rw-b1-plain_seed3001: step 2400/2879, validation loss head A 5.1112, head B 7.2963
+23:56:29 rw-b1-plain_seed3001: step 2800/2879, validation loss head A 5.0555, head B 7.2885
+23:56:33 rw-b1-plain_seed3001: step 2879/2879, validation loss head A 5.0488, head B 7.2879
+23:56:35 rw-b1-plain_seed3001: finished in 0.03 h; head A 5.1339, head B 7.2825 (clean targets 6.2434, inner 5.4786); final share 0.386, ignored kept 0.013
+23:56:41 m_rw-b1-plain_seed3001: inner clean 5.565 | head A clean 5.215 | agreement with A 0.802 | judge B x +0.350, ignores 0.011 (own 0.011) | rotated 0.139 | 5 s
+23:56:42 rw-b1-passenger_seed3001: starting, noise 0.8, head B weighted by head B's prediction, head C judges itself (the peer), seed 3001
+23:57:03 rw-b1-passenger_seed3001: step 400/2879, validation loss head A 6.4379, head B 7.4173
+23:57:08 rw-b1-passenger_seed3001: step 500/2879, validation loss head A 6.2636, head B 7.4094
+23:57:24 rw-b1-passenger_seed3001: step 800/2879, validation loss head A 5.8994, head B 7.3831
+23:57:45 rw-b1-passenger_seed3001: step 1200/2879, validation loss head A 5.5838, head B 7.3531
+23:58:06 rw-b1-passenger_seed3001: step 1600/2879, validation loss head A 5.3794, head B 7.3307
+23:58:26 rw-b1-passenger_seed3001: step 2000/2879, validation loss head A 5.2184, head B 7.3090
+23:58:47 rw-b1-passenger_seed3001: step 2400/2879, validation loss head A 5.1112, head B 7.2963
+23:59:08 rw-b1-passenger_seed3001: step 2800/2879, validation loss head A 5.0555, head B 7.2885
+23:59:12 rw-b1-passenger_seed3001: step 2879/2879, validation loss head A 5.0488, head B 7.2879
+23:59:14 rw-b1-passenger_seed3001: finished in 0.04 h; head A 5.1339, head B 7.2825 (clean targets 6.2434, inner 5.4786); final share 0.386, ignored kept 0.013
+23:59:21 m_rw-b1-passenger_seed3001: inner clean 5.565 | head A clean 5.215 | agreement with A 0.802 | judge B x +0.350, ignores 0.011 (own 0.011) | rotated 0.139 | 5 s
+23:59:21 full-length passenger pair: bit-identical True, largest difference 0.0e+00
+23:59:21 N17 calibration complete: all runs and measurements finished
+23:59:21 copied 24 result files for upload
+23:59:21 waiting for background Drive saves to finish (up to 15 minutes)
+23:59:22 Drive saves finished
