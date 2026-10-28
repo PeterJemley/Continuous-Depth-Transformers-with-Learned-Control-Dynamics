@@ -345,6 +345,46 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
 ## Deviation log
 
 - **2026-10-27: approved** by the author as it stands at commit 5072625, after four fresh-reader checks of the draft. Nothing has been built or run.
+- **2026-10-28: built and tested.** `n18_loop.py`, `n18_analyze.py` and the wrappers `colab/jobs/n18_calib.py` and `colab/jobs/n18_data.py`. All tests ran on CPU in test mode, on the tiny data and the tiny saved models of N12–N17.
+  - **Readings fixed at build time.** None changes the design.
+    - The judge and the twin each have their own AdamW, and each skips only its own step on overflow.
+    - With one extra head, the generalised step performs N17's operations in N17's order.
+    - N14's module is imported only for its `sub20-rw` loss. The three things it changes on import, `n12.b_noisy`, `n12.head_b_loss` and `n12.ARMS`, are restored at once.
+    - `rw-nfree` trains last in each seed, in the calibration as in the real run. If it fails to train or be measured, the failure is recorded in `results/x_*.json` and the claim's runs go on. This applies to a crash the rule for a failed check concerning only `rw-nfree`.
+    - If N17's saved weights or training record cannot be found, the code-identity comparison is "unavailable". That fails precondition 1 and the calibration's gate, which is stricter than the text, which names only a failure where the environment matches.
+  - **The setup checks** all pass on the tiny data. The loss and gradient forms agree with N14's `sub20-rw`, N16's `sub20-oracle`, and N12's `sub20` and `n80` losses to a relative 5 × 10⁻⁷ or better, against 10⁻⁵. The unmixing identity holds to 4 × 10⁻¹⁵, and every constructed target below the floor is weighted exactly 0.
+  - **Twelve planted bugs, each caught by the check named for it:**
+    - a weight with its gradient attached;
+    - `rw-cloop`'s own weight from head B's logits;
+    - `rw-ctwin`'s from the judge's own;
+    - head B weighted by the twin;
+    - the twin weighted by its own discount;
+    - the twin receiving gradient from the judge's loss;
+    - a twin overflow that also skips the judge's step;
+    - a judge and twin on every position;
+    - the twin alone on every position;
+    - `rw-nfree`'s weight without its floor;
+    - head B weighted by its own prediction;
+    - an extra head's initialisation that disturbs the main random state.
+  - **The analysis:** 39 synthetic cases covering every outcome and reading of the rule, every precondition, the exploratory and secondary arms' failures (which leave N18a's verdict computed), missing records, and the calibration's gate. All gave the expected outcome.
+  - **The tiny end-to-end run, rerun and resume:**
+    - The tiny real run (two seeds, all seven arms) completed, and its report was written.
+    - A rerun reproduced all 53 records byte for byte and trained nothing.
+    - `rw-ctwin`, killed after a checkpoint at step 20 and resumed, ended bit-identical to the uninterrupted run in the trunk, head C and the twin, with an identical training record apart from timing.
+    - The tiny calibration completed. Its gate refused queuing, as it should on tiny models: precondition 5 fails at 60 steps, and see the code identity below.
+  - **The code identity.**
+    - *The preregistered build-time test passes.* N17's own code, run on the same machine as N18's, trained `rw-peer` of seed 4101 and `rw-j20` of seed 3001 to weights bit-identical to N18's (largest difference 0).
+    - *In the tiny runs, the comparison with N17's earlier tiny models failed* for `rw-peer` (largest differences 7.7 × 10⁻⁶ in seed 4101, 1.4 × 10⁻⁵ in 4102 and 1.0 × 10⁻⁵ in 3001). It held for `rw-j20` of seed 3001.
+    - *The cause is a change of host, not of code.* N17's code run now differs from N17's earlier tiny model by the same 7.7 × 10⁻⁶. Those models were trained in an earlier session on a different host, with the same PyTorch, on CPU. The environment record names PyTorch, the GPU, the device and the precision, not the CPU. So the record read "matches" when the hardware did not.
+    - The check is not changed. On the A100 the training arithmetic runs on the GPU, which the record names, and the comparison applies as preregistered. If the calibration's `rw-peer` is not bit-identical where the record matches, the gate refuses the real run and the values go to the author.
+  - **An independent review** of the code against this preregistration found nothing blocking, and confirmed that `rw-cloop` and `rw-ctwin` differ only in the source of the judge's own weight. It made six findings, all fixed before the tests above:
+    - precondition 2 had covered the exploratory and secondary arms;
+    - a missing exploratory or secondary record crashed the report;
+    - a missing N17 training record let the code identity pass;
+    - the calibration report lacked timings;
+    - S1 showed an x for `rw-nfree`;
+    - the finite-loss check omitted the validation losses.
+  - **Testing incidents, recorded for completeness.** Two attempts to run tests in parallel ran the 16 GB machine out of memory and were discarded. Every test reported above ran alone.
 
 ## References
 
