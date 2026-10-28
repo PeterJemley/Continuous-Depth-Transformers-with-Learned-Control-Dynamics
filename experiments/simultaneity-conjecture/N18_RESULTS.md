@@ -138,6 +138,10 @@ The loop-free line on x within seed through rw-j20, n17-rw-j10, n17-rw-j05, rw-j
 | rw-peer | +0.339 [+0.329, +0.349] | -0.290 [-0.315, -0.265] (5 of 5) | +0.182 [+0.177, +0.186] | -0.453 [-0.496, -0.411] (5 of 5) |
 | rw-j20 | +0.175 [+0.167, +0.184] | +0.000 [+0.000, +0.000] (5 of 5) | +0.126 [+0.122, +0.129] | +0.000 [+0.000, +0.000] (5 of 5) |
 
+Exploratory, not preregistered. The twin-weighted judge also falls below the line, so the loop's own part of the shortfall beyond plain accuracy is d(rw-cloop) − d(rw-ctwin): -0.277 [-0.342, -0.211], within seed. Since F(rw-ctwin) − F(rw-cloop) is the line's fall between the two judges' plain accuracies plus d(rw-ctwin) − d(rw-cloop), R splits into the part the loop-free line predicts from the judges' plain accuracies, +1.622 [+1.525, +1.718], and the rest, +0.446 [+0.317, +0.575] (5 of 5 seeds).
+
+Exploratory: the fraction of the kept (clean) targets of the last logged training batch to which the judge gave head B a weight below 0.01: rw-cloop 0.0856 [0.0624, 0.1088], rw-ctwin 0.0310 [0.0199, 0.0421], rw-j20 0.0077 [0.0049, 0.0106], rw-peer 0.0119 [0.0072, 0.0166].
+
 The line, means over seeds of (x, x_m, F): rw-j20 (+0.175, +0.126, +0.667); n17-rw-j10 (+0.288, +0.197, +0.449); n17-rw-j05 (+0.429, +0.284, +0.122); rw-j025 (+0.608, +0.383, -0.329); rw-j0125 (+0.810, +0.484, -0.867).
 
 ## The runs

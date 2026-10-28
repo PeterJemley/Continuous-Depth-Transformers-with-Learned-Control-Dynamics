@@ -397,6 +397,17 @@ def main():
             dm = [d_of(a, s, 'x_m') for s in seeds]
             L.append(f"| {a} | {fmt([jx(a, s) for s in seeds])} | {fmt(dx)} ({sum(v is not None for v in dx)} of {len(seeds)}) | "
                      f"{fmt([jx(a, s, 'x_m') for s in seeds])} | {fmt(dm)} ({sum(v is not None for v in dm)} of {len(seeds)}) |")
+        both = [s for s in seeds if d_of('rw-cloop', s) is not None and d_of('rw-ctwin', s) is not None] if {'rw-cloop', 'rw-ctwin'} <= set(new) else []
+        if both:
+            line_part = lambda s: ((interp(line(s, 'x'), jx('rw-ctwin', s)) - interp(line(s, 'x'), jx('rw-cloop', s))) * G(s) / den(s))
+            L += ['', 'Exploratory, not preregistered. The twin-weighted judge also falls below the line, so the loop\'s own part of the shortfall beyond plain '
+                  f"accuracy is d(rw-cloop) − d(rw-ctwin): {fmt([d_of('rw-cloop', s) - d_of('rw-ctwin', s) for s in both])}, within seed. "
+                  'Since F(rw-ctwin) − F(rw-cloop) is the line\'s fall between the two judges\' plain accuracies plus d(rw-ctwin) − d(rw-cloop), R splits into '
+                  f"the part the loop-free line predicts from the judges' plain accuracies, {fmt([line_part(s) for s in both])}, and the rest, "
+                  f"{fmt([R(s) - line_part(s) for s in both])} ({len(both)} of {len(seeds)} seeds)."]
+            kept_ign = lambda a, s: trn[(a, s)]['w_every_50'][-1][5]
+            L += ['', 'Exploratory: the fraction of the kept (clean) targets of the last logged training batch to which the judge gave head B a weight below 0.01: '
+                  + ', '.join(f"{a} {fmt([kept_ign(a, s) for s in seeds], 4, '')}" for a in ('rw-cloop', 'rw-ctwin', 'rw-j20', 'rw-peer') if a in new) + '.']
         off = [f'{a} seed {s}' for a in line_arms for s in seeds if have(a, s) and not on_line(a, s)]
         if off:
             L += ['', 'Left out of the line because their run checks (fingerprints, positions, held-out tail) failed: ' + ', '.join(off) + '.']
