@@ -202,6 +202,11 @@ def judge_data():
     return out
 
 
+def d_within(J, a):
+    """N18's d (S8): within each run, F minus the loop-free line through that run's rungs at the judge's x; the mean over runs."""
+    return st.mean(J[s][a]['F'] - line_at(sorted((J[s][r]['x'], J[s][r]['F']) for r, _ in LINE), J[s][a]['x']) for s in SEEDS12)
+
+
 def line_at(pts, xv):
     """The loop-free line through the rung means, read at x (None outside it)."""
     for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
@@ -215,9 +220,16 @@ KIND = {'supported': ('good', '✓', 'Supported'), 'refuted': ('critical', '✕'
 CHAPTERS = ('The paper', 'Ch. 1: the flow', 'Ch. 2: directions', 'Ch. 3: different or harder', 'Ch. 4: scrambled answers, the judge')
 
 
+VERDICT_WORDS = (('untestable', 'untestable'), ('refuted', 'refuted'), ('supported', 'supported'), ('inconclusive', 'inconclusive'),
+                 ('intermediate', 'unclear'), ('size unclear', 'unclear'))
+
+
 def kind_of(verdict):
     v = verdict.lower()
-    return next((k for k in ('untestable', 'refuted', 'supported', 'inconclusive') if k in v), 'unclear')
+    for word, kind in VERDICT_WORDS:
+        if word in v:
+            return kind
+    raise ValueError(f'a verdict make_figures.py does not know how to draw: {verdict!r}')
 
 
 def chapter_of(test):
@@ -230,22 +242,27 @@ def chapter_of(test):
 
 
 def ledger_data():
-    """(test, kind) in the ledger's order. A row naming two tests counts for each; N15, withdrawn, is kept as None."""
+    """(test, kind) in the ledger's order, and the tests taken from a note because the ledger lacks them. A row naming
+    two tests counts for each; N15, withdrawn, is kept as None."""
     section = (HERE / 'CRITICAL_REVIEW.md').read_text().split('## The ledger', 1)[1].split('\n## ', 1)[0]
     rows = []
     for line in section.splitlines():
         cells = [x.strip() for x in line.strip().strip('|').split('|')]
-        if len(cells) < 4 or not re.match(r'(WikiText|T\d|G1|N\d)', cells[0]):
+        if len(cells) < 4 or not re.match(r'(WikiText|T\d|G\d|N\d)', cells[0]):
             continue
         bold = re.search(r'\*\*(.+?)\*\*', cells[-1])
         name = {'WikiText-2 replication': 'WT-2', 'WikiText-103': 'WT-103'}.get(cells[0], cells[0])
+        if '–' in name or '-' in name.replace('WT-', ''):
+            raise ValueError(f'a ledger row naming a range of tests: {name!r}; list them, separated by commas')
         rows += [(t, kind_of(bold.group(1) if bold else cells[-1])) for t in name.split(', ')]
+    added = []
     if 'N18a' not in dict(rows):
         rows.append(('N18a', kind_of(re.search(r'\*\*N18a: (\w+)', (HERE / 'N18_NOTE.md').read_text()).group(1))))
+        added.append('N18a')
     if 'N15' not in dict(rows):
         at = max(i for i, (t, _) in enumerate(rows) if t.startswith('N14')) + 1
         rows.insert(at, ('N15', None))
-    return rows
+    return rows, added
 
 
 # ------------------------------------------------------------------ figures
@@ -415,15 +432,15 @@ def fig_shortcut(c, d):
     ax.set_yticks(ys); ax.set_yticklabels([r[1] for r in rows])
     ax.get_yticklabels()[0].set_fontweight('bold')
     ax.set_xlabel('Loss gap on held-out text (nats)', color=c['ink2'], fontsize=9.5)
-    titles(fig, c, 'Most of the paper\'s gap came from a training shortcut',
-           'Model A against the baseline at a tenth of the WikiText-103 budget, five-run means (T1). The first\nthree pieces add up to the whole gap; the missing weights are a separate contrast.')
+    titles(fig, c, 'Most of Model A\'s gap at this budget came from the training shortcut',
+           'Model A against the baseline at a tenth of the WikiText-103 budget, five-run means (T1); at the full\nbudget the gap was 1.10 nats. The first three pieces add up to the whole gap; the missing weights\nare a separate contrast. The paper\'s refuted claims stay refuted.')
     return fig
 
 
 def fig_flow(c, d):
     rows = (('G1', 'Curvature (G1)'), ('N2', 'Pull, per reading (N2)'), ('G1c', 'Pull, whole state (G1c)'))
     fig, ax = figure(c, h=3.6)
-    fig.subplots_adjust(left=0.24, right=0.96, top=0.7, bottom=0.17)
+    fig.subplots_adjust(left=0.24, right=0.96, top=0.64, bottom=0.17)
     ax.set_xscale('log', base=2); ax.set_xlim(0.9, 12); ax.set_ylim(2.6, -0.6)
     ax.axvspan(0.9, 1.25, color=c['critical'], alpha=0.08, linewidth=0, zorder=0)
     for v, s, ha in ((1.25, 'refuted below 1.25 ', 'right'), (2, ' predicted 2', 'left')):
@@ -436,15 +453,15 @@ def fig_flow(c, d):
     ax.spines['left'].set_visible(False)
     ax.set_xticks([1, 2, 4, 8]); ax.set_xticklabels(['1×', '2×', '4×', '8×']); ax.minorticks_off()
     ax.set_xlabel('Ratio between the two readings, one dot per model (1 = no difference)', color=c['ink2'], fontsize=9.5)
-    titles(fig, c, 'Here, the flow\'s bend and per-reading pull did not differ as predicted',
-           f'Over the whole state the pull did differ, 4 to 10 times; capping it cost the farther task no more\nthan the nearer (G1d: {sgn(st.mean(d["G1d"]))} nats). With the control added into the flow, at a tenth of the training.')
+    titles(fig, c, 'The flow\'s bend and per-reading pull differed only slightly, not twice',
+           f'Over the whole state the pull did differ, 4 to 10 times (G1c); capping it cost the farther task no\nmore than the nearer (G1d: {sgn(st.mean(d["G1d"]))} nats). G1, G1c and G1d added a control signal into the\nflow; N2\'s model had none. All at a tenth of the training budget.')
     return fig
 
 
 def fig_angles(c, data):
     ladder, noisy, rand, rotated = data
-    items = [('the same word', ladder[1], c['s2']), ('2 words ahead', ladder[2], c['s2']), ('4 words ahead', ladder[4], c['s2']),
-             ('8 words ahead', ladder[8], c['s2']), ('next word, 80% scrambled', noisy, c['s3']),
+    items = [('the same word', ladder[1], c['s1']), ('2 words ahead', ladder[2], c['s1']), ('4 words ahead', ladder[4], c['s1']),
+             ('8 words ahead', ladder[8], c['s1']), ('next word, 80% scrambled', noisy, c['s2']),
              ('a mismatched head', rotated, c['muted']), ('random directions', [rand], c['muted'])]
     ang = lambda o: math.acos(math.sqrt(o))
     fig = plt.figure(figsize=(7.2, 5.0), dpi=DPI_DISPLAY)
@@ -458,7 +475,7 @@ def fig_angles(c, data):
             ax.text(1.05 * math.cos(r), 1.05 * math.sin(r), f'{deg}°', color=c['muted'], fontsize=8.5, ha='left' if deg < 90 else 'center', va='center')
     t = np.linspace(0, math.pi / 2, 200)
     ax.plot(np.cos(t), np.sin(t), color=c['axis'], linewidth=1 * PX, zorder=1)
-    ax.plot([0, 1], [0, 0], color=c['s1'], linewidth=3 * PX, solid_capstyle='round', zorder=3)
+    ax.plot([0, 1], [0, 0], color=c['ink2'], linewidth=3 * PX, solid_capstyle='round', zorder=3)
     ax.text(1.0, -0.04, 'the next-word reading', color=c['ink2'], fontsize=8.5, ha='right', va='top')
     fig.canvas.draw()
     to_fig = lambda x, y: fig.transFigure.inverted().transform(ax.transData.transform((x, y)))
@@ -482,14 +499,14 @@ def fig_angles(c, data):
 
 def fig_judges(c, J):
     fig, ax = figure(c, h=5.2)
-    fig.subplots_adjust(left=0.1, right=0.97, top=0.79, bottom=0.12)
+    fig.subplots_adjust(left=0.1, right=0.97, top=0.77, bottom=0.12)
     m = lambda a, k: st.mean(J[s][a][k] for s in SEEDS12)
     pts = [(m(a, 'x'), m(a, 'F')) for a, _ in LINE]
     ax.set_xlim(-0.03, 0.88); ax.set_ylim(-1.4, 1.3)
     ax.axhline(0, color=c['axis'], linewidth=1 * PX, zorder=1)
     lab = dict(color=c['ink2'], fontsize=8.5)
     ax.plot(*zip(*pts), color=c['ink2'], linewidth=2 * PX, solid_joinstyle='round', zorder=2,
-            label='Full weight on 20% to 1.25% of genuine answers: the loop-free line')
+            label='The loop-free line: full weight, genuine\nanswers at 20% to 1.25% of positions')
     ax.scatter(*zip(*pts), s=(6 * PX) ** 2, color=c['ink2'], zorder=3)
     for (x, y), (_, s) in zip(pts, LINE):
         ax.text(x + 0.012, y + 0.05, s, ha='left', va='bottom', **lab)
@@ -502,7 +519,7 @@ def fig_judges(c, J):
             ax.plot([x, x], [ln, y], color=c['muted'], linewidth=1 * PX, zorder=1)
         ax.scatter([J[s][a]['x'] for s in SEEDS12], [J[s][a]['F'] for s in SEEDS12], s=(4 * PX) ** 2, color=col, alpha=c['faint'], linewidths=0, marker=mk, zorder=3)
         ax.scatter([x], [y], s=(9 * PX) ** 2, color=col, edgecolors=c['surface'], linewidths=2 * PX, marker=mk, zorder=4)
-    d = lambda a: m(a, 'F') - line_at(pts, m(a, 'x'))
+    d = lambda a: d_within(J, a)
     lead = dict(arrowstyle='-', color=c['muted'], linewidth=1 * PX, shrinkA=2, shrinkB=6)
     ax.text(m('rw-oracle', 'x') + 0.02, m('rw-oracle', 'F'), 'the clean head judges (N16)', va='center', **lab)
     for i, (a, txt) in enumerate((('rw-ctwin', f'weighted by a loop-free twin · d = {sgn(d("rw-ctwin"), 2)}'),
@@ -517,8 +534,8 @@ def fig_judges(c, J):
     ax.legend(loc='lower left', frameon=False, fontsize=8.5, labelcolor=c['ink2'], handletextpad=0.4, borderaxespad=0.6)
     ax.set_xlabel('The judge\'s own loss gap behind the clean head (nats)', color=c['ink2'], fontsize=9.5)
     ax.set_ylabel('Share of the shortfall its head recovered', color=c['ink2'], fontsize=9.5)
-    titles(fig, c, 'On genuine answers alone, the self-weighting judge fell furthest below the line',
-           'Five-run means (N18); faint marks are the runs. d is each judge\'s distance below the line. The\nloop-free twin fell below it too, by less. The peer\'s judge also weights itself, on scrambled answers.')
+    titles(fig, c, 'The self-weighting judge fell furthest below the loop-free line',
+           'Five-run means (N18); faint marks are the runs. d is the distance below the line within each run (S8,\nsecondary). The loop-free twin fell below it too, by less. The peer\'s judge also weights itself, on\nscrambled answers; the self-weighting judge trained on genuine answers only.')
     return fig
 
 
@@ -542,14 +559,15 @@ def fig_steps(c, J):
         t.set_fontweight('bold')
     ax.set_xlabel('Head B\'s gap behind the clean head on the genuine answers (Δ_A, nats)', color=c['ink2'], fontsize=9.5)
     titles(fig, c, f'On genuine answers alone, the loop cost about twice the peer\'s gap',
-           f'Five-run means (N18). The peer\'s gap: {peer:.2f} − {j20:.2f} = {peer - j20:.2f} nats. The run does not show that the\npeer\'s own gap is the loop\'s: adding the scrambled answers took most of the loop\'s cost back.')
+           f'Five-run means (N18). The peer\'s gap: {peer:.2f} − {j20:.2f} = {peer - j20:.2f} nats. Each step\'s size depends on\nthe steps before it. Adding the scrambled answers lowered the gap by {cl - peer:.2f} nats; N18 cannot\nsay how much of that is the loop tempered, nor that the peer\'s own gap is the loop\'s.')
     return fig
 
 
-def fig_ledger(c, rows):
-    fig = plt.figure(figsize=(7.2, 3.6), dpi=DPI_DISPLAY)
+def fig_ledger(c, led):
+    rows, added = led
+    fig = plt.figure(figsize=(7.2, 3.8), dpi=DPI_DISPLAY)
     fig.patch.set_facecolor(c['surface'])
-    ax = fig.add_axes([0.03, 0.03, 0.94, 0.6])
+    ax = fig.add_axes([0.03, 0.03, 0.94, 0.55])
     ax.axis('off')
     n = max(sum(chapter_of(t) == g for t, _ in rows) for g in range(len(CHAPTERS)))
     ax.set_xlim(-13.2, n + 0.2); ax.set_ylim(len(CHAPTERS) * 1.3, -0.2); ax.set_aspect('equal'); ax.set_anchor('N')
@@ -566,7 +584,7 @@ def fig_ledger(c, rows):
             ax.text(i + 0.45, y, glyph, color='#0b0b0b' if k == 'unclear' else '#ffffff', fontsize=8, fontweight='bold', ha='center', va='center')
     counts = {k: sum(kk == k for _, kk in rows) for k in KIND}
     renderer = fig.canvas.get_renderer()
-    x, y = 0.075, 0.735
+    x, y = 0.075, 0.69
     for k, (col, glyph, name) in KIND.items():
         t = fig.text(x + 0.02, y, f'{glyph} {name} · {counts[k]}', color=c['ink2'], fontsize=8.5, va='center')
         w = t.get_window_extent(renderer).width / fig.bbox.width
@@ -575,23 +593,24 @@ def fig_ledger(c, rows):
             t.set_position((x + 0.02, y))
         fig.patches.append(plt.Rectangle((x, y - 0.013), 0.014, 0.026, transform=fig.transFigure, facecolor=c[col], edgecolor='none'))
         x += 0.02 + w + 0.03
-    titles(fig, c, f'{sum(counts.values())} preregistered verdicts, in order',
-           'Every verdict in CRITICAL_REVIEW.md\'s ledger, with N18a; a row naming two tests counts for each.\nN15, withdrawn before its real run, is drawn hollow and not counted.')
+    extra = f', with {" and ".join(added)} from {"its note" if len(added) == 1 else "their notes"}' if added else ''
+    titles(fig, c, f'{sum(counts.values())} verdicts in the ledger\'s main rows, in order',
+           f'The main claims in CRITICAL_REVIEW.md\'s ledger{extra}; secondary claims and T1\'s rivals are in the\nnotes. A row naming two tests counts for each. WT-2 is "mostly refuted". N15, withdrawn before its\nreal run, is drawn hollow and not counted.')
     return fig
 
 
 # The imagined jigsaw: each piece a finding (glued where its verdict decided something, half where it decided part,
 # loose where it did not), the empty centre the project's starting idea, and four imagined threads. Nothing here is measured.
-PIECES = {(0, 0): ('The shortcut, not the design', 'T1', 'glued'), (0, 1): ('The flow differs a little, not twice', 'G1, N2', 'glued'),
-          (0, 2): ('The flow’s pull: real, not needed', 'G1c, G1d', 'glued'), (0, 3): ('A fixed shift suffices to switch', 'N1', 'glued'),
+PIECES = {(0, 0): ('The paper refuted; the gap mostly the shortcut', 'WT-2, WT-103, T1', 'glued'), (0, 1): ('The flow differs a little, not twice', 'G1, N2', 'glued'),
+          (0, 2): ('The flow’s pull: real; not needed, by this test', 'G1c, G1d', 'glued'), (0, 3): ('A fixed shift suffices to switch', 'N1', 'glued'),
           (1, 0): ('Sharing directions costs accuracy', 'N4', 'glued'), (1, 3): ('Why apart? a competition?', 'N5', 'loose'),
-          (2, 0): ('Further ahead, more separate', 'N6r', 'glued'), (2, 3): ('Not a noisy copy: a different reading', 'N7–N9', 'glued'),
-          (3, 0): ('The remedy weighs each answer', 'N12, N13', 'glued'), (3, 1): ('Directions follow accuracy?', 'N14, N16d', 'loose'),
+          (2, 0): ('Further ahead, more separate', 'N6r', 'glued'), (2, 3): ('Not a noisy copy: a different reading', 'N7–N11', 'glued'),
+          (3, 0): ('The remedy weighs each answer', 'N12, N13', 'glued'), (3, 1): ('Directions follow accuracy?', 'N14a, N16d', 'loose'),
           (3, 2): ('Who judges matters', 'N16', 'glued'), (3, 3): ('A judge that grades itself', 'N17, N18', 'half')}
 THREADS = (((2, 0), 'C', 'Two readings already behave a little like separate voices: the further ahead a reading looks, the less its directions overlap the next-word reading’s, and forcing them together costs accuracy. A many-voiced model might hold each voice in directions of its own.'),
            ((2, 3), (3, 3), 'A head trained on scrambled answers came to read differently, not as a noisy copy of the right reading; a judge that weights its own training is a head shaping its own answers. Perhaps the two are one phenomenon seen twice.'),
-           ((0, 1), (1, 0), 'At this scale, with the control added into the flow, the readings did not show in how the flow bends or how fast it pulls along each reading’s directions. If they live anywhere here, it may be in which directions each one uses.'),
-           ((3, 2), 'C', 'The best remedy tested let the clean head judge which answers were genuine (N16), and a judge weighting its own training did harm (N18a); whether independence or accuracy helped is not separated. Perhaps many readings could check one another.'))
+           ((0, 1), (1, 0), 'At this scale the flow’s bend and per-reading pull differed only slightly (G1, N2), and its 4- to 10-fold difference in whole-state pull was not needed (G1c, G1d). If the readings live anywhere here, it may be in which directions each one uses.'),
+           ((3, 2), 'C', 'With the clean head as judge, a diagnostic rather than a method, the shortfall closed (N16); a judge weighting its own training did harm when it trained on genuine answers alone (N18a). Whether independence or accuracy helped is not separated. Perhaps many readings could check one another.'))
 
 
 def mix(a, b, t):
@@ -605,8 +624,8 @@ def fig_jigsaw(c):
     W, H = gx * 2 + cell * 4, gy * 2 + ch * 4
     fig = plt.figure(figsize=(7.2, 9.4), dpi=DPI_DISPLAY)
     fig.patch.set_facecolor(c['surface'])
-    ax = fig.add_axes([0.07, 0.325, 0.86, 0.86 * 7.2 / 9.4 * H / W])
-    ax.set_xlim(0, W); ax.set_ylim(H, 0); ax.axis('off')   # y runs down the board
+    ax = fig.add_axes([0.07, 0.31, 0.86, 0.86 * 7.2 / 9.4 * (H + 34) / (W + 28)])
+    ax.set_xlim(-14, W + 14); ax.set_ylim(H + 26, -8); ax.axis('off')   # y runs down the board; the margin holds the tilted pieces
     h = [[1, -1, 1, -1], [-1, 1, -1, 1], [1, 1, -1, -1]]   # knob directions between rows, then between columns
     v = [[1, -1, 1], [-1, 1, -1], [1, -1, 1], [-1, 1, -1]]
 
@@ -629,7 +648,7 @@ def fig_jigsaw(c):
         verts.append((x, y)); codes.append(MPath.CLOSEPOLY)
         return MPath([place(p) for p in verts], codes)
 
-    glued = mix(c['surface'], c['ink'], 0.09)
+    glued, half = mix(c['surface'], c['ink'], 0.09), mix(c['surface'], c['ink'], 0.045)
     centres, words = {}, []
     for r in range(4):
         for col in range(4):
@@ -643,7 +662,7 @@ def fig_jigsaw(c):
             dxo = off * (1 if col > 1 else -1)
             place = lambda p, cx=cx, cy=cy, tilt=tilt, dxo=dxo, off=off: (cx + (p[0] - cx) * math.cos(tilt) - (p[1] - cy) * math.sin(tilt) + dxo,
                                                                          cy + (p[0] - cx) * math.sin(tilt) + (p[1] - cy) * math.cos(tilt) + off)
-            ax.add_patch(PathPatch(piece(r, col, place), facecolor=glued if state == 'glued' else c['surface'],
+            ax.add_patch(PathPatch(piece(r, col, place), facecolor={'glued': glued, 'half': half}.get(state, c['surface']),
                                    edgecolor=c['ink2'] if state == 'glued' else c['muted'], linewidth=(1.2 if state == 'glued' else 1.4) * PX))
             lines = textwrap.wrap(title, 16)
             centres[(r, col)] = (cx, cy, 62, (len(lines) * 16 + 16) / 2 + 8)
@@ -665,7 +684,7 @@ def fig_jigsaw(c):
         ax.scatter([s0[0], e0[0]], [s0[1], e0[1]], s=(5 * PX) ** 2, color=c['imagined'], linewidths=0, zorder=3)
         nums.append((0.25 * s0[0] + 0.5 * qx + 0.25 * e0[0], 0.25 * s0[1] + 0.5 * qy + 0.25 * e0[1]))
     for lines, tests, state, place, cx, cy, tilt in words:
-        halo = [pe.withStroke(linewidth=3, foreground=glued if state == 'glued' else c['surface'])]
+        halo = [pe.withStroke(linewidth=3, foreground={'glued': glued, 'half': half}.get(state, c['surface']))]
         y0 = cy - (len(lines) * 16 + 16) / 2 + 8
         for i, ln in enumerate(lines + [tests]):
             tx, ty = place((cx, y0 + i * 16 + (4 if i == len(lines) else 0)))
@@ -685,13 +704,13 @@ def fig_jigsaw(c):
         fig.text(0.075, y, wrapped, color=c['ink2'], fontsize=8.5, va='top', linespacing=1.35)
         y -= 0.0172 * (wrapped.count('\n') + 1) + 0.013
     titles(fig, c, 'Imagined: the findings as a jigsaw, the centre still empty',
-           'Not a result. A piece is glued where its verdict decided something, tilted where it decided part or\nnothing; untestable verdicts have no piece. The violet threads are imagined connections.')
+           'Not a result. Each piece gathers the tests named on it: filled where they decided something,\nhalf-filled where they decided part, empty and tilted where they did not. The threads are imagined.')
     return fig
 
 
 def write_data(dist, acc, tb, sc, fl, jd, led):
     ladder, noisy, rand, rotated = dist
-    L = ['# Figure data', '', 'Every value plotted in the figures, by run. Generated by `make_figures.py` from the records in `results/` (T1\'s in `../too-linear-conjecture/results/t1/`) and, for figure 9, the ledger in `CRITICAL_REVIEW.md`. Figures 1 to 3 appear in the plain summary. Figure 10 is imagined and plots no measurement.', '',
+    L = ['# Figure data', '', 'Every value plotted in the figures, by run. Generated by `make_figures.py` from the records in `results/` (T1\'s in `../too-linear-conjecture/results/t1/`) and, for figure 9, the ledger in `CRITICAL_REVIEW.md` (with N18a\'s verdict from `N18_NOTE.md` until the ledger has it). Figures 1 to 3 appear in the plain summary. Figure 10 is imagined and plots no measurement.', '',
          '## Figure 1: the distance ladder', '',
          f'Target-free overlap of the directions head B and the next-word head A depend on (N8). Random directions, in theory: {rand:.4f}. '
          f'The deliberately mismatched head (N8\'s rotated control on N6r\'s same-word models): ' + ', '.join(f'{v:.3f}' for v in rotated) + '. '
@@ -745,14 +764,15 @@ def write_data(dist, acc, tb, sc, fl, jd, led):
     L += ['', '## Figures 7 and 8: N18\'s judges and steps', '',
           f'Seeds {SEEDS12[0]}–{SEEDS12[-1]}, from `results/n18/` (`m_*` where present, else `r_*`). x: the judge\'s plain cross-entropy on the '
           'genuine answers minus head A\'s (head A judging: 0; head B judging itself: its own Δ_A). F = (Δ_A(rw-b1) − Δ_A(arm)) / '
-          '(Δ_A(rw-b1) − Δ_A(sub20)). d: the mean F minus the loop-free line, through the rung means, at the mean x.', '',
+          '(Δ_A(rw-b1) − Δ_A(sub20)). d (S8, secondary): within each run, F minus the loop-free line through that run\'s five rungs at the judge\'s x, then the mean over runs, as `n18_analyze.py` computes it. The drawn drops run from the line through the rung means to the mean F.', '',
           '| Arm | x by run | F by run | Δ_A by run | Mean x | Mean F | Mean Δ_A | d |', '|---|---|---|---|---|---|---|---|']
     for a in [a for a, _ in LINE] + list(JUDGED):
-        dd = line_at(pts, jm(a, 'x')) if a in ('rw-ctwin', 'rw-peer', 'rw-cloop') else None
+        dd = d_within(jd, a) if a in ('rw-ctwin', 'rw-peer', 'rw-cloop') else None
         L.append(f'| `{a}` | ' + ', '.join(f'{jd[s][a]["x"]:.3f}' for s in SEEDS12) + ' | ' + ', '.join(f'{jd[s][a]["F"]:+.3f}' for s in SEEDS12) + ' | '
                  + ', '.join(f'{jd[s][a]["dA"]:.3f}' for s in SEEDS12) + f' | {jm(a, "x"):.3f} | {jm(a, "F"):+.3f} | {jm(a, "dA"):.3f} | '
-                 + (f'{jm(a, "F") - dd:+.3f}' if dd is not None else '') + ' |')
-    L += ['', '## Figure 9: the ledger', '', 'In the ledger\'s order. N15 was withdrawn before its real run and is not counted.', '',
+                 + (f'{dd:+.3f}' if dd is not None else '') + ' |')
+    led, added = led
+    L += ['', '## Figure 9: the ledger', '', 'The main rows of the ledger, in its order' + (f', with {", ".join(added)} from its note' if added else '') + '. Secondary claims and T1\'s rivals are in the notes. N15 was withdrawn before its real run and is not counted.', '',
           '| Chapter | Tests and verdicts |', '|---|---|']
     for g, name in enumerate(CHAPTERS):
         L.append(f'| {name} | ' + ', '.join(f'{t} {KIND[k][2].lower() if k else "withdrawn"}' for t, k in led if chapter_of(t) == g) + ' |')
