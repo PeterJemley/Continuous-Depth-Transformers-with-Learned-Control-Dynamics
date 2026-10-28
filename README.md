@@ -24,6 +24,45 @@ This repository holds a January 2026 paper by Peter Jemley, the code behind it, 
 
 **Why it fell short** ([T1](experiments/too-linear-conjecture/T1_NOTE.md)). The block was trained with a memory-saving shortcut for computing its learning signal, the adjoint method. At a tenth of the training budget, where Model A trailed the ordinary transformer by 0.83 nats, training with the shortcut accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind at that budget. So, at that budget, most of the loss gap came from how the model was trained, not from its design. T1 does not explain the latency or steering results, and the model has not been trained with exact gradients on the full budget.
 
+### In pictures
+
+Drawn by [`make_figures.py`](experiments/simultaneity-conjecture/make_figures.py): the first five from the saved records, with every plotted value by run in [`FIGURE_DATA.md`](experiments/simultaneity-conjecture/figures/FIGURE_DATA.md), and the sixth from the ledger in [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md). The tests behind them are described in the next section and in their notes; N18, the latest, is in [`N18_NOTE.md`](experiments/simultaneity-conjecture/N18_NOTE.md). The last figure is imagined: a picture of how the findings might fit together, not a result.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/shortcut_gap_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/shortcut_gap_light.png" width="720" alt="Horizontal bar chart. At a tenth of the WikiText-103 budget, Model A trailed the baseline by 0.83 nats. Training with exact gradients closed 0.79 of that; the continuous form cost 0.035 nats, size unclear, and reusing one block four times 0.007. Separately, losing one block's weights cost 0.020. A line marks the 0.05 margin.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/flow_ratios_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/flow_ratios_light.png" width="720" alt="Dot plot on a doubling scale, one dot per model. The ratio between the two readings was 1.08 to 1.27 for the flow's curvature (G1) and 1.14 to 1.25 for its pull along each reading's directions (N2), against a prediction of 2 and a refutation threshold of 1.25. Over the whole state the pull differed 4.1 to 10.2 times (G1c).">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/angle_fan_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/angle_fan_light.png" width="720" alt="A quarter-circle fan of rays from a horizontal ray for the next-word reading. Each ray sits at the angle whose squared cosine is its overlap with the next-word reading: the same word 14 degrees, two words ahead 49, the next word with 80% scrambled answers 56, four words ahead 60, eight words ahead 64, a mismatched head 67, random directions 76.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/judges_and_the_line_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/judges_and_the_line_light.png" width="720" alt="Scatter of the share of the shortfall each judge's head recovered against the judge's own loss gap. A descending loop-free line runs from 0.67 at 0.18 nats to minus 0.87 at 0.81 nats. The clean head as judge recovers 1.08. The loop-free twin sits 0.18 below the line, the peer 0.29 below, and the self-weighting judge, at 0.75 nats and minus 1.16, 0.46 below.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/n18_steps_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/n18_steps_light.png" width="720" alt="Waterfall of head B's gap behind the clean head, in nats. The judge at full weight: 0.221. The weighting from a loop-free twin adds 0.093, the judge's own loop adds 0.224, and adding the scrambled answers takes away 0.209, ending at the peer's 0.330.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/ledger_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/ledger_light.png" width="720" alt="A grid of 43 coloured squares, one for each verdict in the ledger's main rows, grouped by chapter: 19 supported, 10 refuted, 4 intermediate or of unclear size, 3 inconclusive and 7 untestable, with the withdrawn N15 drawn hollow.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/imagined_jigsaw_dark.png">
+  <img src="experiments/simultaneity-conjecture/figures/imagined_jigsaw_light.png" width="720" alt="Imagined, not a result: a jigsaw of twelve pieces, each naming a finding and its tests, around an empty two-by-two centre labelled 'Several readings held at once: the idea, untested', with four numbered violet threads joining pieces and a caption for each.">
+</picture>
+
 ## What the later tests found
 
 The project's own aim, the author's, goes beyond the paper. When we listen to music we follow several voices at once; a reader likewise holds characters, arguments and tone together while the words arrive one at a time. The question is whether a model can hold its readings of a text that way, and whether continuous dynamics like the paper's block help it to. The tests in [`experiments/simultaneity-conjecture/`](experiments/simultaneity-conjecture/) start small: they ask how one model holds two readings at once, such as predicting the next word and the word after it, as a stand-in for the many strands a reader follows. They used the paper's Model A, trained with exact gradients on WikiText-103 at a tenth of the full budget with one learning rate: about 30 million parameters, or 23 to 43 million with two reading heads. Most of that is the tables that map words to vectors and back: in the base model, 25.7 of 30.5 million. The plan, the decision rules and the result that would count against each claim were fixed in advance. The readings tested are close relatives, words one to eight places ahead. What has survived testing so far:
