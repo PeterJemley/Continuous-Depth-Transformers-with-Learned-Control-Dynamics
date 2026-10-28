@@ -68,7 +68,7 @@ SPECS = {'rw-cloop': {**_base, 'c': 'clean', 'frac': FRAC_K, 'cw': 'self'},
          'rw-b1-passenger2': {**_base, 'c': 'self', 'judge': 'B', 'twin': True}}
 CLAIM_ARMS = ('rw-cloop', 'rw-ctwin', 'rw-j20', 'rw-peer')
 REAL_ARMS = ('rw-cloop', 'rw-ctwin', 'rw-j20', 'rw-peer', 'rw-j025', 'rw-j0125', 'rw-nfree')
-CALIB_ARMS = ('rw-cloop', 'rw-ctwin', 'rw-nfree', 'rw-j20', 'rw-peer')
+CALIB_ARMS = ('rw-cloop', 'rw-ctwin', 'rw-j20', 'rw-peer', 'rw-nfree')     # rw-nfree last: an exploratory arm's failure cannot delay the claim's
 IDENTITY = {'real': ('rw-peer',), 'calibration': ('rw-j20', 'rw-peer')}   # compared with N17's saved models of the same seed
 N17_REAL = ('rw-peer', 'rw-j10', 'rw-j05')
 N17_CALIB = ('rw-peer', 'rw-j20', 'rw-j10', 'rw-j05', 'rw-j025', 'rw-j0125')
@@ -578,7 +578,7 @@ def train_n18(store, meta, arm, seed, tag, train, probs, log_u):
             with torch.no_grad():
                 k = keep.reshape(-1)
                 sk, sr = w[k].sum().item(), w[~k].sum().item()
-                state['w'].append([step, w.mean().item(), w[k].mean().item(), w[~k].mean().item(), sr / (sr + sk), (w[k] < IGNORED).float().mean().item()])
+                state['w'].append([step, w.mean().item(), w[k].mean().item(), w[~k].mean().item(), sr / (sr + sk) if sr + sk > 0 else None, (w[k] < IGNORED).float().mean().item()])
                 if spec['c'] == 'clean' and r_c is not None:
                     kc_ = keep_c.reshape(-1)
                     state['own_w'].append([step, r_c[kc_].mean().item(), (r_c[kc_] < IGNORED).float().mean().item()])
@@ -619,8 +619,9 @@ def train_n18(store, meta, arm, seed, tag, train, probs, log_u):
     fx, fys = n6.windows(study.load_tokens(store, meta, 'validation'), limit=g.FINAL_LIMIT)
     l_a, l_b, l_b_clean, l_inner = n12.val_losses(model, fx, fys[0], n10.fixed_noisy(fys[0], probs, RHO, n12.VAL_NOISE_SEED), 'rw', log_u)
     last = state['w'][-1]
-    finite = all(math.isfinite(v) for e in state['train_loss'] for v in e[1:]) and all(
-        v is None or math.isfinite(v) for e in state['judge'] for v in e[1:])
+    finite = (all(math.isfinite(v) for e in state['train_loss'] + state['val'] for v in e[1:])
+              and all(v is None or math.isfinite(v) for e in state['judge'] for v in e[1:])
+              and all(math.isfinite(v) for v in (l_a, l_b, l_b_clean, l_inner)))
     result = {'tag': tag, 'arm': arm, 'seed': seed, 'rho': RHO, **{f'spec_{k}': v for k, v in spec.items()}, 'head_b': 'rw', 'readout_rank': n4.RANK,
               'final_loss_A': l_a, 'final_loss_B': l_b, 'final_loss_B_clean_targets': l_b_clean, 'final_loss_B_inner_clean': l_inner,
               'final_val_windows': len(fx), 'val_curve': state['val'], 'train_loss_every_50': state['train_loss'],
@@ -644,7 +645,7 @@ def train_n18(store, meta, arm, seed, tag, train, probs, log_u):
     res_path.write_text(json.dumps(result, indent=2))
     store.push(f'results/{tag}.json')
     log(f'{tag}: finished in {state["seconds"] / 3600:.2f} h; head A {l_a:.4f}, head B {l_b:.4f} (clean targets {l_b_clean:.4f}, inner {l_inner:.4f}); '
-        f'final share {last[4]:.3f}, ignored kept {last[5]:.3f}')
+        f"final share {'n/a' if last[4] is None else f'{last[4]:.3f}'}, ignored kept {last[5]:.3f}")
     return result
 
 
@@ -668,9 +669,11 @@ def code_identity(store, n17_store, n17_records, arm, seed):
     theirs = {**{f'main.{k}': v for k, v in torch.load(n17_store.L(f'final/{tag}.pt'), map_location='cpu', weights_only=False).items()},
               **{f'head_C.{k}': v for k, v in torch.load(n17_store.L(f'final/{tag}_headC.pt'), map_location='cpu', weights_only=False).items()}}
     rec_path = n17_records / f'{tag}.json'
-    env_n17 = json.loads(rec_path.read_text())['environment'] if rec_path.exists() else None
+    if not rec_path.exists():
+        return {'tag': tag, 'available': False, 'missing': str(rec_path)}
+    env_n17 = json.loads(rec_path.read_text())['environment']
     env = study.env_record()
-    match = env_n17 is not None and all(env.get(k) == env_n17.get(k) for k in ('torch', 'gpu', 'device', 'amp_fp16'))
+    match = all(env.get(k) == env_n17.get(k) for k in ('torch', 'gpu', 'device', 'amp_fp16'))
     same_keys = set(mine) == set(theirs)
     identical = same_keys and all(torch.equal(mine[k], theirs[k]) for k in mine)
     return {'tag': tag, 'available': True, 'environment_this': env, 'environment_n17': env_n17, 'environment_matches': match,
@@ -833,8 +836,21 @@ def main():
             for arm in new_arms:
                 spec = SPECS[arm]
                 tag = f'{arm}_seed{seed}'
-                train_n18(store, meta, arm, seed, tag, train, probs, log_u)
                 rel = f'results/m_{tag}.json'
+                if arm == 'rw-nfree':                                     # exploratory: a failure is recorded, and the claim's runs go on
+                    try:
+                        train_n18(store, meta, arm, seed, tag, train, probs, log_u)
+                        if not store.L(rel).exists():
+                            m = n13.load_model(store, tag, seed)
+                            res = measure_all(m, arm, tag, 'C', load_head(store, tag, seed, 'headC'), spec['bw'])
+                            save_json(rel, res)
+                            log(f"m_{tag}: inner clean {res['functional']['B_inner_clean']:.3f} | judge x_m {res['judge_measure']['x_m']:+.3f}, "
+                                f"floored {res['judge_measure']['floored_fraction']:.3f} | {res['seconds']:.0f} s")
+                    except Exception as e:                                # noqa: BLE001
+                        save_json(f'results/x_{tag}.json', {'tag': tag, 'failed': f'{type(e).__name__}: {e}'[:2000]})
+                        log(f'{tag}: FAILED ({type(e).__name__}: {e}); recorded in results/x_{tag}.json; the other arms go on')
+                    continue
+                train_n18(store, meta, arm, seed, tag, train, probs, log_u)
                 if not store.L(rel).exists():
                     m = n13.load_model(store, tag, seed)
                     hc = load_head(store, tag, seed, 'headC')

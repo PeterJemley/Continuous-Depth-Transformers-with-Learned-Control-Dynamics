@@ -183,7 +183,7 @@ def main():
     claim_setup, nfree_setup = setup_parts(c)
     ident_ok = lambda s: all(cid[(a, s)].get('available') and cid[(a, s)].get('pass') for a in identity_arms)
     claim_new = [a for a in CLAIM if a in new]
-    measured = [rec(a, s) for a in new + refs for s in seeds if rec(a, s) is not None]
+    measured = [rec(a, s) for a in claim_new + refs for s in seeds if rec(a, s) is not None]     # rw-nfree, rw-j025 and rw-j0125 enter no precondition
     n_needed = min(NEEDED, len(want))
     pre = {
         '1. Setup: batch, same-model, identical-heads and analytic checks; the weight identity; the forward identity; the passenger check with two '
@@ -275,8 +275,10 @@ def main():
 
     if seeds:
         def mean(f, over=None):
-            xs = [v for v in (f(s) for s in (over or seeds)) if v is not None]
+            xs = [v for v in (f(s) for s in (seeds if over is None else over)) if v is not None]
             return st.mean(xs) if xs else float('nan')
+
+        on = lambda a: [s for s in seeds if have(a, s)]                   # the seeds with this arm's records
 
         cell = lambda v, k=3: 'n/a' if v is None else f'{v:+.{k}f}'
         L += ['', '## By seed', '',
@@ -299,9 +301,15 @@ def main():
               '| Arm | Judge | The judge trained on | x | x_m | Δ_A of head B | F | a: agreement with head A | Head A, minus clean | Rotated |',
               '|---|---|---|---|---|---|---|---|---|---|']
         for a in shown:
-            L.append(f"| {a} | {judge_name.get(a, 'head C')} | {trained_on.get(a, '—')} | {mean(lambda s: jx(a, s)):+.3f} | {mean(lambda s: jx(a, s, 'x_m')):+.3f} | "
-                     f"{mean(lambda s: dA(a, s)):+.3f} | {mean(lambda s: Fv(a, s)):+.3f} | {mean(lambda s: a_of(a, s)):.3f} | "
-                     f"{mean(lambda s: rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean']):+.4f} | {mean(lambda s: ratio(rec(a, s), 'rotated_control')):.3f} |")
+            o = on(a)
+            if not o:
+                L.append(f"| {a} | {judge_name.get(a, 'head C')} | {trained_on.get(a, '—')} | no records |  |  |  |  |  |  |")
+                continue
+            x_cell = '—' if a == EXPLORATORY_ARM else f"{mean(lambda s: jx(a, s), o):+.3f}"          # x is not defined for rw-nfree
+            L.append(f"| {a} | {judge_name.get(a, 'head C')} | {trained_on.get(a, '—')} | {x_cell} | {mean(lambda s: jx(a, s, 'x_m'), o):+.3f} | "
+                     f"{mean(lambda s: dA(a, s), o):+.3f} | {mean(lambda s: Fv(a, s), o):+.3f} | {mean(lambda s: a_of(a, s), o):.3f} | "
+                     f"{mean(lambda s: rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean'], o):+.4f} | {mean(lambda s: ratio(rec(a, s), 'rotated_control'), o):.3f} |"
+                     + (f' ({len(o)} of {len(seeds)} seeds)' if len(o) < len(seeds) else ''))
         for a in ladder_arms:
             L.append(f"| {a} | — | — | — | — | {mean(lambda s: dA(a, s)):+.3f} | {mean(lambda s: Fv(a, s)):+.3f} | {mean(lambda s: a_of(a, s)):.3f} | "
                      f"{mean(lambda s: rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean']):+.4f} | {mean(lambda s: ratio(rec(a, s), 'rotated_control')):.3f} |")
@@ -345,11 +353,12 @@ def main():
               '| Arm | Judge ignores | Head B\'s own discount ignores | Share of own also judge-ignored | Share of judge-ignored also own | Head B\'s loss on judge-ignored / own-ignored |',
               '|---|---|---|---|---|---|']
         for a in ['rw-b1', 'rw-oracle'] + new:
-            L.append(f"| {a} | {mean(lambda s: jm(a, s, 'judge_ignored_fraction')):.4f} | {mean(lambda s: jm(a, s, 'own_ignored_fraction')):.4f} | "
-                     f"{mean(lambda s: jm(a, s, 'share_of_own_ignored_also_judge_ignored')):.3f} | {mean(lambda s: jm(a, s, 'share_of_judge_ignored_also_own_ignored')):.3f} | "
-                     f"{mean(lambda s: jm(a, s, 'loss_B_on_judge_ignored')):.2f} / {mean(lambda s: jm(a, s, 'loss_B_on_own_ignored')):.2f} |")
+            o = on(a)
+            L.append(f"| {a} | {mean(lambda s: jm(a, s, 'judge_ignored_fraction'), o):.4f} | {mean(lambda s: jm(a, s, 'own_ignored_fraction'), o):.4f} | "
+                     f"{mean(lambda s: jm(a, s, 'share_of_own_ignored_also_judge_ignored'), o):.3f} | {mean(lambda s: jm(a, s, 'share_of_judge_ignored_also_own_ignored'), o):.3f} | "
+                     f"{mean(lambda s: jm(a, s, 'loss_B_on_judge_ignored'), o):.2f} / {mean(lambda s: jm(a, s, 'loss_B_on_own_ignored'), o):.2f} |")
         L += ['', '### S5: head A\'s cost', '',
-              'Head A against clean (same seed): ' + ', '.join(f"{a} {fmt([rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean'] for s in seeds], 4)}"
+              'Head A against clean (same seed): ' + ', '.join(f"{a} {fmt([rec(a, s)['functional']['A_clean'] - r[('clean', s)]['functional']['A_clean'] for s in on(a)], 4)}"
                                                            for a in new) + '.']
 
         def a_hat(s, x_):
@@ -357,17 +366,24 @@ def main():
         b_of = lambda a, s: None if a_hat(s, dA(a, s)) is None else a_hat(s, dA(a, s)) - a_of(a, s)
         L += ['', '### S6: geometry against the clean-target ladder', '',
               'b = â − a, with â the ladder\'s agreement at head B\'s Δ_A (straight lines between the rungs either side; ' + ', '.join(ladder_arms) + '): '
-              + ', '.join(f"{a} {fmt([b_of(a, s) for s in seeds], 4)} ({sum(b_of(a, s) is not None for s in seeds)} of {len(seeds)} bracketed)" for a in new) + '.']
+              + ', '.join(f"{a} {fmt([b_of(a, s) for s in on(a)], 4)} ({sum(b_of(a, s) is not None for s in on(a))} of {len(on(a))} bracketed)" for a in new) + '.']
         L += ['', '### S7: rw-nfree, the loop-free judge on noisy data (exploratory)', '']
-        if EXPLORATORY_ARM in new and all(m.get((EXPLORATORY_ARM, s)) for s in seeds):
+        failed_nf = {s: load(RES, f'x_{EXPLORATORY_ARM}_seed{s}') for s in want}
+        failed_nf = {s: v for s, v in failed_nf.items() if v}
+        if failed_nf:
+            L.append('**rw-nfree failed to train or be measured** in ' + '; '.join(f"seed {s} ({v['failed'][:200]})" for s, v in failed_nf.items())
+                     + '. By the design, the other arms went on.')
+        if EXPLORATORY_ARM in new and on(EXPLORATORY_ARM):
             if not nfree_ok:
-                L.append('**A check concerning rw-nfree failed, so its results are unreportable** (by the preregistration). The values below are not to be read.')
+                L.append('**A check concerning rw-nfree failed, or it lacks records in some seeds, so its results are unreportable** (by the preregistration). '
+                         'The values below are not to be read.')
             nf = EXPLORATORY_ARM
-            L.append(f"F {fmt([Fv(nf, s) for s in seeds])}; x_m, its mixture-form gap to head A's copy on the clean targets, {fmt([jx(nf, s, 'x_m') for s in seeds])}; "
-                     f"the fraction of clean targets its weight floors at 0, {fmt([jx(nf, s, 'floored_fraction') for s in seeds], 4, '')}; "
-                     f"the mean mass of max(q, 0.8 u) before normalisation, {fmt([jx(nf, s, 'mean_mass_before_normalisation') for s in seeds], 4, '')}. "
-                     f"Δ_A(rw-nfree) − Δ_A(rw-peer), the loop with noisy data: {fmt([dA(nf, s) - dA('rw-peer', s) for s in seeds], 4)}; "
-                     f"Δ_A(rw-nfree) − Δ_A(rw-j20), the data without the loop: {fmt([dA(nf, s) - dA('rw-j20', s) for s in seeds], 4)}. "
+            seeds_nf = on(nf)
+            L.append(f"F {fmt([Fv(nf, s) for s in seeds_nf])}; x_m, its mixture-form gap to head A's copy on the clean targets, {fmt([jx(nf, s, 'x_m') for s in seeds_nf])}; "
+                     f"the fraction of clean targets its weight floors at 0, {fmt([jx(nf, s, 'floored_fraction') for s in seeds_nf], 4, '')}; "
+                     f"the mean mass of max(q, 0.8 u) before normalisation, {fmt([jx(nf, s, 'mean_mass_before_normalisation') for s in seeds_nf], 4, '')}. "
+                     f"Δ_A(rw-nfree) − Δ_A(rw-peer), the loop with noisy data: {fmt([dA(nf, s) - dA('rw-peer', s) for s in seeds_nf], 4)}; "
+                     f"Δ_A(rw-nfree) − Δ_A(rw-j20), the data without the loop: {fmt([dA(nf, s) - dA('rw-j20', s) for s in seeds_nf], 4)}. "
                      'Each of these also changes the estimator.')
         else:
             L.append('No records.')
@@ -392,7 +408,10 @@ def main():
         t_only = {a: sum(trn[(a, s)].get('twin_only_skipped_steps', 0) for s in seeds if trn.get((a, s))) for a in new}
         L += ['', '## The runs', '', '16-bit steps skipped by the main group, by head C alone and by the twin alone, summed over seeds: '
               + ', '.join(f'{a} {skipped[a]} / {c_only[a]} / {t_only[a]}' for a in new) + '. Resumes: '
-              + ', '.join(f"{a} {sum(trn[(a, s)]['resumes'] for s in seeds if trn.get((a, s)))}" for a in new) + '.']
+              + ', '.join(f"{a} {sum(trn[(a, s)]['resumes'] for s in seeds if trn.get((a, s)))}" for a in new) + '.',
+              '', 'Timings, means over seeds: training ' + ', '.join(
+                  f"{a} {mean(lambda s: trn[(a, s)]['train_seconds'] / 60 if trn.get((a, s)) and trn[(a, s)].get('train_seconds') is not None else None):.1f} min" for a in new)
+              + '; measuring ' + ', '.join(f"{a} {mean(lambda s: rec(a, s).get('seconds') if rec(a, s) else None):.0f} s" for a in new + ['n17-rw-peer']) + '.']
         envs = sorted({(x['environment']['gpu'] or 'cpu', x['environment']['torch'], x['environment']['code_commit'][:7])
                        for x in measured + [trn[(a, s)] for a in new for s in seeds if trn.get((a, s))]})
         L += ['', '## Run environment', ''] + [f'- {gpu}, PyTorch {v}, code {cm}' for gpu, v, cm in envs] + ['']
