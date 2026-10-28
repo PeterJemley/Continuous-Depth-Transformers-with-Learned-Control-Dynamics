@@ -128,6 +128,10 @@ RUNG_LABEL = {'clean': 'all', 'sub20': '20%', 'sub10': '10%', 'sub05': '5%', 'su
 SCRAMBLED = {'r10': ('n14', 'm_r10'), 'r20': ('n14', 'm_r20'), 'r40': ('n14', 'm_r40'), 'n80-mix': ('n14', 'r_n80-mix'),
              'rw-oracle': ('n16', 'm_rw-oracle')}
 NOSCRAMBLE = {'sub20-rw': ('n16', 'r_sub20-rw'), 'sub20-oracle': ('n16', 'm_sub20-oracle')}
+ACC_NAMES = {'clean': 'every genuine answer', 'sub20': '20% genuine answers', 'sub10': '10%', 'sub05': '5%', 'sub025': '2.5%', 'sub0125': '1.25%',
+             'r10': '10% scrambled + 20% genuine (N14)', 'r20': '20% scrambled + 20% genuine (N14)', 'r40': '40% scrambled + 20% genuine (N14)',
+             'n80-mix': 'blended head, 80% scrambled (N12)', 'rw-oracle': 'discounted, clean head judges, 80% scrambled (N16)',
+             'sub20-rw': 'discounted, judges itself, no scrambled (N14)', 'sub20-oracle': 'discounted, clean head judges, no scrambled (N16)'}
 
 
 def accuracy_data():
@@ -723,13 +727,9 @@ def write_data(dist, acc, tb, sc, fl, jd, led):
     L += ['', '## Figure 2: the accuracy ladder', '',
           'Δ_A: how much worse than the clean head the head predicts the genuine answers, in nats; a: its agreement with the clean head\'s directions. Runs are seeds 4101–4105; ladder rungs and `sub20-rw` from `results/n16/r_*`, N16\'s heads from `results/n16/m_*`, N14\'s doses from `results/n14/m_*`, the blended head from `results/n14/r_n80-mix_*`.', '',
           '| Head | ' + ' | '.join(f'run {i + 1} (Δ_A, a)' for i in range(5)) + ' | Mean |', '|---|' + '---|' * 6]
-    names = {'clean': 'every genuine answer', 'sub20': '20% genuine answers', 'sub10': '10%', 'sub05': '5%', 'sub025': '2.5%', 'sub0125': '1.25%',
-             'r10': '10% scrambled + 20% genuine (N14)', 'r20': '20% scrambled + 20% genuine (N14)', 'r40': '40% scrambled + 20% genuine (N14)',
-             'n80-mix': 'blended head, 80% scrambled (N12)', 'rw-oracle': 'discounted, clean head judges, 80% scrambled (N16)',
-             'sub20-rw': 'discounted, judges itself, no scrambled (N14)', 'sub20-oracle': 'discounted, clean head judges, no scrambled (N16)'}
     for a in list(RUNGS) + list(SCRAMBLED) + list(NOSCRAMBLE):
         p = acc[a]
-        L.append(f'| {names[a]} | ' + ' | '.join(f'({x:.3f}, {y:.3f})' for x, y in p) + f' | ({st.mean(x for x, _ in p):.3f}, {st.mean(y for _, y in p):.3f}) |')
+        L.append(f'| {ACC_NAMES[a]} | ' + ' | '.join(f'({x:.3f}, {y:.3f})' for x, y in p) + f' | ({st.mean(x for x, _ in p):.3f}, {st.mean(y for _, y in p):.3f}) |')
     L += ['', '## Figure 3: N16\'s two-by-two', '', 'Δ_A in nats, seeds 4101–4105, from `results/n16/`.', '',
           '| Head | ' + ' | '.join(f'run {i + 1}' for i in range(5)) + ' | Mean |', '|---|' + '---|' * 6]
     for a, name in (('sub20-rw', 'judges itself, genuine answers only'), ('rw-b1', 'judges itself, plus scrambled answers'),
