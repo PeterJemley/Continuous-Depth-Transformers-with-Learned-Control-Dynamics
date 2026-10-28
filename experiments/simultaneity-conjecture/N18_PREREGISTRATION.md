@@ -1,6 +1,6 @@
 # Preregistration N18: the loop, with the judge's data and weighting held fixed
 
-Date: 2026-10-26    Status: **approved by the author, 2026-10-27.** Being built and tested; not run. Nothing in this file is a finding.
+Date: 2026-10-26    Status: **approved by the author, 2026-10-27; run 2026-10-28.** The results are in `N18_RESULTS.md`; this file states the design, and nothing in it above the deviation log is a finding.
 
 Type: confirmatory for N18a, the single claim. It compares two new judges trained for this test, `rw-cloop` and `rw-ctwin`. It scales their difference by the gap between N17's peer, trained again here, and N17's loop-free judge at 20%, trained here for the first time on the real seeds. A further new judge, `rw-nfree`, is exploratory, with no claim. Everything else is secondary or exploratory and labelled so.
 
@@ -408,6 +408,14 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
     - Its Δ_A was 0.597.
     - Head A was 0.27 nats worse than in `clean`, by far the largest cost to head A of any arm.
   - **Nothing changes in response.** The real run, `n18_data`, is queued. At about 2.5 minutes per arm, its 35 runs should take about 100 minutes.
+- **2026-10-28: the real run** (`n18_data`, run 20261028-120244, code 115aa15; A100, PyTorch 2.11.0+cu130; `N18_RESULTS.md`, records in `results/n18/`).
+  - **The run.**
+    - All 35 training runs and the measurements finished, in 108 minutes, with no resume and no 16-bit step skipped.
+    - Every setup check passed.
+    - N18's `rw-peer` is bit-identical to N17's saved peer in all five seeds.
+    - All five preconditions held.
+  - **N18a: supported.** R = +2.07, 95% interval [+1.85, +2.29], standard deviation 0.18, 5 seeds. The interval lies wholly above 1.
+  - The verdict, and every number behind it, is computed by `n18_analyze.py` from the records. The note, `N18_NOTE.md`, reads them.
 
 ## References
 
