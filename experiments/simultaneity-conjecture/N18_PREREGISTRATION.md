@@ -385,6 +385,29 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
     - S1 showed an x for `rw-nfree`;
     - the finite-loss check omitted the validation losses.
   - **Testing incidents, recorded for completeness.** Two attempts to run tests in parallel ran the 16 GB machine out of memory and were discarded. Every test reported above ran alone.
+- **2026-10-28: the calibration run** (`n18_calib`, run 20261028-113321, code b9b8f0c; A100, PyTorch 2.11.0+cu130; `N18_CALIBRATION.md`, records in `results/n18_calib/`).
+  - **The checks.**
+    - Every setup check passed.
+    - The code identity held: N18's `rw-j20` and `rw-peer` of seed 3001 are bit-identical to N17's saved calibration models (largest difference 0), where the environment matches. So the tiny runs' mismatch was the host's.
+    - Preconditions 2–5 held in seed 3001. No 16-bit step was skipped.
+    - The gate: the real run may be queued.
+    - The run took 17 minutes, about 2.5 minutes of training per arm.
+  - **Seed 3001's values** (they decide nothing):
+    - Δ_A of head B: `rw-cloop` 0.610, `rw-ctwin` 0.351, `rw-j20` 0.235, `rw-peer` 0.358. The denominator was 0.123 nats.
+    - R = +2.10, W = +0.94, 1 − R − W = −2.04.
+    - The judges' x: 0.828, 0.388, 0.183 and 0.369. Their x_m: 0.089, 0.060, 0.135 and 0.201. The twin's x was 0.185.
+  - **What they would imply, if the real seeds sat likewise:**
+    - R's interval would lie wholly above 0.67, and above 1: a support, read as the loop on clean targets costing head B more than the peer's whole gap. P and I both predict that, and it would not separate them.
+    - W near 0.94 would be larger than P's estimate of 0.3–0.5. The twin-weighted judge was less accurate than assumed (x 0.388, against 0.29–0.35), and it fell below the loop-free line at its own x (d = −0.21).
+    - W above 0 would be against M's prediction. The twin-weighted judge was more accurate in mixture form than `rw-j20` but less useful to head B.
+    - The data's share with the loop present, −2.04, would mean that with random targets the peer did far better than a self-weighting judge on clean targets. That is consistent with I and with N16's two-by-two.
+  - **S8.** `rw-cloop`'s x (0.828) lay just beyond the least accurate rung (`rw-j0125`, 0.826), so in this seed the line did not reach it. In the real run S8 may not reach it in some seeds. The peer's d on x was −0.288, as in N17's calibration.
+  - **`rw-nfree`.**
+    - Its x_m was 0.495.
+    - 10% of clean targets were floored at 0. That is fewer than the "many" stated as expected at drafting.
+    - Its Δ_A was 0.597.
+    - Head A was 0.27 nats worse than in `clean`, by far the largest cost to head A of any arm.
+  - **Nothing changes in response.** The real run, `n18_data`, is queued. At about 2.5 minutes per arm, its 35 runs should take about 100 minutes.
 
 ## References
 
