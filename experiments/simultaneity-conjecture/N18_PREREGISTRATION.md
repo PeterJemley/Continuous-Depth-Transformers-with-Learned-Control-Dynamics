@@ -1,6 +1,6 @@
 # Preregistration N18: the loop, with the judge's data and weighting held fixed
 
-Date: 2026-10-26    Status: **draft for the author's approval.** Not built, not run. Nothing in this file is a finding.
+Date: 2026-10-26    Status: **approved by the author, 2026-10-27.** Being built and tested; not run. Nothing in this file is a finding.
 
 Type: confirmatory for N18a, the single claim. It compares two new judges trained for this test, `rw-cloop` and `rw-ctwin`. It scales their difference by the gap between N17's peer, trained again here, and N17's loop-free judge at 20%, trained here for the first time on the real seeds. A further new judge, `rw-nfree`, is exploratory, with no claim. Everything else is secondary or exploratory and labelled so.
 
@@ -344,7 +344,7 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
 
 ## Deviation log
 
-*Empty: the preregistration has not been approved.*
+- **2026-10-27: approved** by the author as it stands at commit 5072625, after four fresh-reader checks of the draft. Nothing has been built or run.
 
 ## References
 
