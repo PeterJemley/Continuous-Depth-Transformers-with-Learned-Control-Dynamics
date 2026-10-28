@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The simultaneity conjecture's tests drawn as geometry: the ideal, what was measured to scale, the errors met and made, and imagined connections between them.">
+<title>Voices and Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one reading column (~66ch) on engraved-score paper; figures step out to a wider measure; imagined material wears violet. */
+:root {
+  --paper: #f6f7f9;      /* page and chart surface: cool score paper */
+  --ink: #141820;        /* primary ink */
+  --ink-2: #4a505c;      /* secondary ink */
+  --ink-3: #7d8390;      /* muted: axes, captions */
+  --rule: #dfe2e8;       /* hairlines, gridlines */
+  --axis: #c3c7d0;       /* baselines */
+  --raised: #ffffff;     /* tooltip, table */
+  --imagined: #6250d6;   /* the imagined layer only */
+  --imagined-wash: rgba(98, 80, 214, 0.08);
+  --s1: #2a78d6;         /* series 1: blue, the clean head and readings like it */
+  --s2: #eb6834;         /* series 2: orange, a judge with a loop */
+  --s3: #1baf7a;         /* series 3: aqua, a judge without a loop */
+  --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b; --none: #9aa0ab;
+  --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --f-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --glued: color-mix(in srgb, var(--ink) 9%, var(--paper));   /* fill of a glued jigsaw piece */
+  --half: color-mix(in srgb, var(--ink) 4.5%, var(--paper));   /* fill of a half-glued piece */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14171d; --ink: #eceef2; --ink-2: #c3c7d0; --ink-3: #8b919d; --rule: #2a2f38; --axis: #3a404b; --raised: #1d2129;
+    --imagined: #9085e9; --imagined-wash: rgba(144, 133, 233, 0.10);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --none: #6f7581;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14171d; --ink: #eceef2; --ink-2: #c3c7d0; --ink-3: #8b919d; --rule: #2a2f38; --axis: #3a404b; --raised: #1d2129;
+  --imagined: #9085e9; --imagined-wash: rgba(144, 133, 233, 0.10);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --none: #6f7581;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 40px 96px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.prose { max-width: 66ch; }
+h1, h2 { font-family: var(--f-display); font-weight: 500; text-wrap: balance; letter-spacing: -0.01em; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.02; }
+h2 { font-size: clamp(26px, 3.6vw, 36px); line-height: 1.15; }
+h3 { font-family: var(--f-ui); font-size: 15px; font-weight: 600; margin: 0; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-ui); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); }
+section { display: grid; gap: 18px; padding-block: 56px 8px; border-top: 1px solid var(--rule); margin-top: 56px; }
+.hero { display: grid; gap: 22px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.02em;
+  padding: 3px 9px; border-radius: 999px; width: fit-content; }
+.chip.measured { color: var(--ink-2); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.chip.imagined { color: var(--imagined); background: var(--imagined-wash); }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.imagined-block { border-left: 3px solid var(--imagined); padding-left: 16px; }
+figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.chart { width: 100%; min-width: 0; position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+figcaption { font-family: var(--f-ui); font-size: 13px; line-height: 1.5; color: var(--ink-3); max-width: 80ch; }
+figcaption b { color: var(--ink-2); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--f-ui); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend i.line { width: 16px; height: 2px; border-radius: 1px; }
+.legend i.sq { border-radius: 3px; }
+svg text { font-family: var(--f-ui); fill: var(--ink-2); }
+svg .tick { font-size: 11px; fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+svg .lab { font-size: 12px; fill: var(--ink-2); }
+svg .lab-strong { font-size: 12px; font-weight: 600; fill: var(--ink); }
+svg .axis-title { font-size: 12px; fill: var(--ink-3); }
+/* a paper-coloured halo keeps labels legible where a line or gridline passes behind them */
+.chart svg text, .board text { paint-order: stroke fill; stroke: var(--paper); stroke-width: 3.5px; stroke-linejoin: round; }
+.board text.on-glued { stroke: var(--glued); }
+.board text.on-half { stroke: var(--half); }
+svg .grid { stroke: var(--rule); stroke-width: 1; }
+svg .base { stroke: var(--axis); stroke-width: 1; }
+svg .hit { fill: transparent; cursor: pointer; }
+svg .hit:focus { outline: none; }
+svg g.mark:focus-visible .ring, svg g.mark.hot .ring { stroke: var(--ink); stroke-width: 2; }
+svg g.mark:focus { outline: none; }
+canvas { display: block; width: 100%; }
+#ideal { height: 260px; border-radius: 6px; background: var(--imagined-wash); }
+details { font-family: var(--f-ui); font-size: 13px; color: var(--ink-2); }
+summary { cursor: pointer; color: var(--ink-3); width: fit-content; }
+summary:focus-visible, button:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+.tablewrap { overflow-x: auto; margin-top: 8px; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 100%; }
+th, td { text-align: left; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-weight: 600; color: var(--ink-2); }
+#tip { position: fixed; z-index: 20; pointer-events: none; background: var(--raised); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 8px 10px; font-family: var(--f-ui); font-size: 12.5px; line-height: 1.45; max-width: 280px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12); display: grid; gap: 3px; }
+.tip-title { font-weight: 600; color: var(--ink); }
+.tip-row { display: flex; gap: 8px; align-items: baseline; color: var(--ink-3); }
+.tip-row strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tip-key { width: 12px; height: 2px; border-radius: 1px; align-self: center; flex: none; }
+.ledger { display: grid; gap: 14px; }
+.ledger-row { display: grid; grid-template-columns: minmax(120px, 210px) 1fr; gap: 6px 16px; align-items: center; }
+.ledger-row .name { font-family: var(--f-ui); font-size: 13px; color: var(--ink-2); }
+.cells { display: flex; flex-wrap: wrap; gap: 3px; }
+.cell { width: 26px; height: 26px; border-radius: 4px; border: 0; padding: 0; display: grid; place-items: center; cursor: pointer;
+  font-family: var(--f-ui); font-size: 13px; font-weight: 600; color: #fff; }
+.cell[data-kind="warning"] { color: #0b0b0b; }
+.cell.withdrawn { background: transparent; color: var(--ink-3); box-shadow: inset 0 0 0 1.5px var(--none); }
+.cell:hover, .cell:focus-visible { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); }
+@media (max-width: 560px) { .ledger-row { grid-template-columns: 1fr; } }
+.mistakes { display: grid; gap: 0; }
+.mistake { display: grid; grid-template-columns: 92px 1fr; gap: 4px 18px; padding-block: 14px; border-bottom: 1px solid var(--rule); }
+.mistake .tag { font-family: var(--f-ui); font-size: 13px; font-weight: 600; color: var(--ink); }
+.mistake .what { display: grid; gap: 4px; min-width: 0; }
+.mistake .caught { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); }
+@media (max-width: 560px) { .mistake { grid-template-columns: 1fr; } }
+.board { overflow-x: auto; }
+.board svg { min-width: 720px; display: block; }
+.scrollhint { display: none; font-family: var(--f-ui); font-size: 12px; color: var(--ink-3); }
+@media (max-width: 780px) { .scrollhint { display: block; } }
+.threads { display: grid; gap: 10px; counter-reset: none; }
+.thread { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+.thread .num { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-ui); font-size: 12px; font-weight: 600;
+  color: var(--imagined); box-shadow: inset 0 0 0 1.5px var(--imagined); }
+.closing { display: grid; gap: 14px; }
+.foot { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); }
+.foot a { color: var(--ink-2); text-underline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">The simultaneity conjecture · tests G1 to N18 · drawn from their records</p>
+    <h1>Voices and Directions</h1>
+    <p class="lede prose">A listener follows several voices in music at once, each a continuous line. The project asked whether a language model could hold several readings of a text the same way. These drawings set the idea beside what the tests measured, where things went wrong, and some connections that are imagined rather than shown.</p>
+    <div class="legend" aria-label="How to read the page">
+      <span class="chip measured">Measured: drawn to scale from the records</span>
+      <span class="chip imagined">Imagined: a picture of an idea, not a measurement</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-ideal" class="imagined-block">
+    <p class="eyebrow">The ideal · untested</p>
+    <h2 id="h-ideal">Several readings, each its own line</h2>
+    <span class="chip imagined">Imagined</span>
+    <figure>
+      <canvas id="ideal" role="img" aria-label="Five smooth coloured lines drift left to right, never merging: an imagined picture of several readings of a text held at once, each a continuous voice."></canvas>
+      <figcaption>The author's conjecture, drawn as a score: words arrive in order from left to right, and each line is one reading the model holds while they arrive. Nothing here is measured. The tests below start much smaller, with <b>two readings</b>: the next word, and a word further ahead.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-gap">
+    <p class="eyebrow">The paper · replications, T1</p>
+    <h2 id="h-gap">At this budget, most of the gap came from a shortcut</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">The paper's model put a continuous block inside a transformer. Trained the paper's way, it trailed an ordinary transformer. At a tenth of the training budget, changing one difference at a time showed where the gap came from: about 95% of it was the memory-saving shortcut used to compute the block's learning signal. The paper's refuted claims stay refuted.</p>
+    <figure>
+      <div class="chart" id="c-gap"></div>
+      <figcaption>Nats of loss on held-out text at a tenth of the full WikiText-103 training budget, means over five runs. The line at 0.05 nats is the test's margin of practical importance. The first three pieces add up to the whole gap (0.792 + 0.035 + 0.007 = 0.834); the missing weights are a separate contrast. At the full budget, the model as built trailed by 1.10 nats. Source: <b>too-linear-conjecture/T1_NOTE.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-gap"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-flow">
+    <p class="eyebrow">Chapter 1 · G1, G1c, G1d, N1, N2</p>
+    <h2 id="h-flow">Here, the flow did not carry the readings</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">If the continuous block carried the readings, its paths should bend about twice as differently under each reading (G1), and pull nearby states together about twice as fast along the farther reading's directions (N2). They differed only slightly, by 8 to 27% and by 14 to 25%. Over the whole state, the block did pull 4 to 10 times harder under the farther reading (G1c). But capping most of that pull cost the farther task no more than the nearer one, −0.002 nats on average (G1d): real, but not, by this test, needed. G1, G1c and G1d added a control signal into the flow; N2's model had none. All ran at a tenth of the training, and multiplicative control and longer training were not tested.</p>
+    <figure>
+      <div class="chart" id="c-flow"></div>
+      <div class="legend"><span><i style="background:var(--s1)"></i>One trained model</span><span><i class="line" style="background:var(--ink-3)"></i>Refuted below 1.25 · predicted 2</span></div>
+      <figcaption>Each dot is one model (five per test): the ratio between the two readings. Ratio 1 means no difference. The pull is the contraction rate: how strongly the flow draws nearby states together. Sources: <b>G1_NOTE.md, G1C_NOTE.md, G1D_NOTE.md, N2_NOTE.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-flow"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-dir">
+    <p class="eyebrow">Chapters 2 and 3 · N4 to N9</p>
+    <h2 id="h-dir">The readings live in directions</h2>
+    <span class="chip measured">Measured geometry</span>
+    <p class="prose">The model's internal state has 256 directions. We describe each reading by the 16 directions its loss is most sensitive to. The further ahead a reading looks, the less those directions overlap with the next-word reading's. Forcing two readings into the same directions cost 0.088 nats (N4).</p>
+    <figure>
+      <div class="chart" id="c-fan"></div>
+      <div class="legend"><span><i class="line" style="background:var(--s1)"></i>The next-word reading</span><span><i style="background:var(--s2)"></i>A second reading</span><span><i style="background:var(--s3)"></i>The next word, trained on 80% scrambled answers</span><span><i style="background:var(--none)"></i>Controls</span></div>
+      <figcaption>The overlap between two sets of 16 directions is the mean squared cosine of the 16 angles between them: 1 when they coincide, 0.0625 for random sets. Each ray is drawn at the one angle whose squared cosine equals the measured overlap, so <b>the angle is to scale</b>, though one angle stands for sixteen. The dots on the arc are the five runs. Measured with the right answers left out (N8, on N6r's and N7's models). Source: <b>figures/FIGURE_DATA.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-fan"></div></details>
+    </figure>
+    <p class="prose">The scrambled-answer head is the surprise. It reads the same word as the clean head, yet its directions overlap the clean head's nearly as little as a reading four words ahead does (0.31 against 0.25), far from the 0.95 of two heads reading the same word. Nor is it close to an ideal noisy copy of the right reading (N9b). Trained on noise, it reads differently.</p>
+  </section>
+
+  <section aria-labelledby="h-acc">
+    <p class="eyebrow">Chapter 4 · N12 to N18</p>
+    <h2 id="h-acc">Directions roughly follow accuracy</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">Heads given fewer and fewer genuine answers form a ladder: the worse a head predicts, the less it reads the clean head's directions. Mixture heads, trained on scrambled and genuine answers together, sit close to that ladder (N14). So do most heads whose answers were weighted by a judge; every N18 head drawn here stayed within 0.03 of it, the self-weighting judge's far down. The clear exception is N14's head weighted by its own discount, 0.10 above: it reads the clean head's directions better than its accuracy predicts. So the ladder is not a law.</p>
+    <figure>
+      <div class="chart" id="c-acc"></div>
+      <div class="legend"><span><i class="line" style="background:var(--ink-3)"></i>The ladder: genuine answers only, 100% to 1.25%</span><span><i style="background:var(--s1)"></i>Mixture heads, scrambled and genuine answers</span><span><i style="background:var(--s3)"></i>Weighted by a judge without a loop</span><span><i style="background:var(--s2)"></i>Weighted by a judge with a loop</span></div>
+      <figcaption>Horizontal: how much worse than the clean head the head predicts the genuine answers (Δ, nats). Vertical: its agreement with the clean head's directions (1 = the same). Means over five runs; hover for every run. Whether heads sit on the ladder got no verdict (N14a, N16d inconclusive). Sources: <b>figures/FIGURE_DATA.md</b>, <b>results/n18</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-acc"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-judge">
+    <p class="eyebrow">The error we kept chasing · N16 to N18</p>
+    <h2 id="h-judge">A judge that grades itself</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">The remedy for scrambled answers weights each one by a judge's estimate that it is genuine. When the clean head judges, the remaining shortfall vanishes (N16). Judges trained at full weight on fewer genuine answers form a line: the less accurate the judge, the less of the shortfall it recovers. Judges caught in a loop, weighting their own training by their own predictions, fall below that line. So does the loop-free twin, by less: d = −0.18, against −0.29 and −0.46.</p>
+    <figure>
+      <div class="chart" id="c-judge"></div>
+      <div class="legend"><span><i class="line" style="background:var(--ink-3)"></i>Judges at full weight, genuine answers at 20% to 1.25% of positions</span><span><i style="background:var(--s3)"></i>Judge without a loop</span><span><i style="background:var(--s2)"></i>Judge with a loop</span></div>
+      <figcaption>Horizontal: the judge's own accuracy, its loss on the genuine answers minus the clean head's (nats). Vertical: the share of the shortfall it recovers for the head it judges (0 = the head judging itself, 1 = dropping the scrambled answers exactly). The vertical drops are each judge's distance below the line, d (S8, secondary). Means over five runs (N18's real run). Source: <b>results/n18</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-judge"></div></details>
+    </figure>
+    <p class="prose">N18 then held everything fixed but the loop: the same genuine answers, the same weighting, and either the judge's own predictions or a loop-free twin's. Step by step from the judge at full weight to the peer:</p>
+    <figure>
+      <div class="chart" id="c-steps"></div>
+      <div class="legend"><span><i class="sq" style="background:var(--ink-3)"></i>A judged head's gap</span><span><i class="sq" style="background:var(--s3)"></i>The weighting, without a loop</span><span><i class="sq" style="background:var(--s2)"></i>The loop</span><span><i class="sq" style="background:var(--s1)"></i>Adding the scrambled answers</span></div>
+      <figcaption>Δ of the judged head, nats, means over five runs (hover for the range). The peer's gap is its distance from the full-weight judge's head: 0.330 − 0.221 = 0.11 nats. On genuine answers alone, the loop's step, 0.22 nats, is about twice that: R = 2.07 [1.85, 2.29], N18a, supported. The run does not show that the peer's own gap is the loop's. Adding the scrambled answers lowered the gap by 0.21 nats; N18 cannot say how much of that is the loop tempered, and each step's size depends on the steps before it. An exploratory split puts about 1.6 of the 2.07 through the judge's own loss of accuracy. Sources: <b>N18_NOTE.md</b>, <b>N18_RESULTS.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-steps"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-ledger">
+    <p class="eyebrow">The errors we made · every preregistered verdict</p>
+    <h2 id="h-ledger">Forty-three verdicts in the ledger</h2>
+    <span class="chip measured">From the records</span>
+    <p class="prose">Every test began as a guess that could fail, with its rule fixed before the run. Refuted guesses are not errors: they are the method working. The errors were in designs that could not decide what they set out to decide; the list below gives each, and what caught it.</p>
+    <div class="legend" id="ledger-legend"></div>
+    <div class="ledger" id="ledger"></div>
+    <p class="foot">Source: the main rows of the ledger in <b>CRITICAL_REVIEW.md</b>, with N18a added from its note; secondary claims and T1's rivals are in the notes. WT-2 is "mostly refuted". N15 was withdrawn before any real run and decided nothing; it is drawn hollow and not counted.</p>
+    <h3>Mistakes in our own designs, and what caught them</h3>
+    <div class="mistakes" id="mistakes"></div>
+  </section>
+
+  <section aria-labelledby="h-puzzle" class="imagined-block">
+    <p class="eyebrow">Imagined connections</p>
+    <h2 id="h-puzzle">The jigsaw, as it stands</h2>
+    <span class="chip imagined">Imagined</span>
+    <p class="prose">Each piece gathers the tests named on it: glued and filled where they decided something, half-filled where they decided part, loose where they did not. Untestable verdicts add nothing to a piece. The middle is still empty: it is the idea the project began with, which no test has reached. The violet threads are connections we imagine between pieces. They are not results.</p>
+    <figure>
+      <p class="scrollhint">Scroll sideways to see the whole board.</p>
+      <div class="board" id="board"></div>
+      <div class="legend"><span><i class="sq" style="background:var(--ink-2)"></i>Glued: decided</span><span><i class="sq" style="background:var(--half);box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Half-filled, slightly tilted: decided in part</span><span><i class="sq" style="background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Loose, tilted: inconclusive</span><span><i class="line" style="background:var(--imagined)"></i>An imagined thread</span></div>
+    </figure>
+    <div class="threads" id="threads"></div>
+  </section>
+
+  <section aria-labelledby="h-close" class="closing">
+    <p class="eyebrow">Where the picture stands</p>
+    <h2 id="h-close">A corner filled in, the centre still open</h2>
+    <p class="prose">The pieces glued down so far say that, at this scale, two readings occupy partly different directions and forcing them together costs accuracy, while the flow's bend and per-reading pull did not differ as the conjecture needed; and that a head trained on scrambled answers is not a noisy copy of the right reading. Half-glued: on genuine answers alone, a judge that weights its own training does harm on its own (N18a), and an exploratory split puts most of that through its own loss of accuracy. None of them yet tests a model holding several readings the way a listener holds several voices. Most tests used one model size and a tenth of the full training, and the judge tests one noise rate, 80%.</p>
+    <p class="foot">Built from the repository's records by <b>make_page.py</b>. Measured figures are drawn to scale from <b>results/</b>, <b>figures/FIGURE_DATA.md</b> and the result notes; imagined ones are marked in violet. The records, notes and code: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics">the repository on GitHub</a>.</p>
+  </section>
+</main>
+<div id="tip" role="tooltip" hidden></div>
+
+<script>
+const D = {"flow":{"curvature_G1":[1.0856735317528448,1.1194114456921718,1.0773079480307874,1.265515214075668,1.1963436331121353],"curvature_shuffled_range":[1.0033816583539115,1.0098539914775153],"pace_N2":[1.2441804182344816,1.2527711745535017,1.1439331832711461,1.2216154605062217,1.2468828415068915],"pace_same_target_range":[0.9950668973049208,0.999329427390526],"contraction_G1c":[7.2572550353618395,4.086900554538715,5.188778433885562,4.570502800881046,10.234934516114189],"contraction_removed_cost_G1d":[-0.006131445293534377,-0.0023512027845180583,-0.0057731008109858095,0.00032176605967393357,0.0017463529992758353],"predicted":2.0,"refute_below":1.25},"shortcut":{"gap":0.833793117023391,"training_method":0.7918339733753967,"ode_form":0.035147993975757255,"repeated_block":0.006811149672236993,"separate_weights":0.020084017610870752,"ci":{"gap":[0.7535347392248823,0.9140514948218996],"training_method":[0.6604617096680647,0.9232062370827288],"ode_form":[0.018098838735227368,0.05219714921628714],"repeated_block":[-0.0008693184324764696,0.014491617776950457],"separate_weights":[0.012164845859364318,0.02800318936237719]},"exact_trained_behind_baseline":0.041959143647994246,"full_budget_gap_as_built":1.099969860587714},"ladder_overlap":{"same word":[0.9600774975146612,0.9505313762960887,0.9492342331717493,0.9580526806637117,0.9093066835012393],"2 words ahead":[0.4543545297652179,0.4529754376980625,0.43818524265354036,0.43660794482594656,0.39712816883870994],"4 words ahead":[0.23831325454018804,0.23364060305428017,0.23370765642292352,0.27267641047702457,0.26534725140399307],"8 words ahead":[0.196635320654904,0.18699954233205884,0.18669673416190738,0.18380376673587134,0.18623345914077744],"next word, 80% scrambled":[0.29480593236457764,0.29984381183559755,0.33074250427264557,0.3246035006734116,0.3022511852414985],"mismatched control":[0.14465535490836468,0.175118227950865,0.15028230603433707,0.15133094094192429,0.13103315724835174],"random directions":[0.0625]},"accuracy_ladder":{"every genuine answer":[[0.0018926411867141724,0.9700964380521563],[-0.002533450722694397,0.9877476959550431],[-0.0013265460729599,0.9734052607332964],[-0.0002635568380355835,0.9699482127409511],[-0.0037303417921066284,0.9804114913079116]],"20% genuine answers":[[0.15519660711288452,0.8698610279525241],[0.16483700275421143,0.8876275675110444],[0.16245274245738983,0.9208787231563298],[0.1627153605222702,0.9050096556766624],[0.17214524745941162,0.8976209967556342]],"10%":[[0.2800969332456589,0.8308942489389154],[0.27763283252716064,0.8362655126481249],[0.2847142219543457,0.8407083956848412],[0.2861359864473343,0.8477043909832453],[0.28053659200668335,0.8355762468790848]],"5%":[[0.42731568217277527,0.7873177295860059],[0.4278341680765152,0.7491003668876072],[0.4312761425971985,0.7825549151078712],[0.42586132884025574,0.772183481436617],[0.4274268001317978,0.7824028633235477]],"2.5%":[[0.6177990734577179,0.7311864792941661],[0.6109069436788559,0.6899793280593104],[0.6010865569114685,0.7255310091259419],[0.612272173166275,0.6870919688128458],[0.6078005582094193,0.7038187070137999]],"1.25%":[[0.8377247601747513,0.6406634027597078],[0.8207848370075226,0.6072639706240947],[0.8150329142808914,0.6602644633039721],[0.8372662961483002,0.6310205440386318],[0.8104334026575089,0.6484383879173105]],"10% scrambled + 20% genuine (N14)":[[0.1978534311056137,0.867552992754764],[0.20111694931983948,0.8352702214460523],[0.20703016221523285,0.8526491834970276],[0.2099107801914215,0.8630016272228174],[0.21180374920368195,0.8627854427539268]],"20% scrambled + 20% genuine (N14)":[[0.2292662262916565,0.8582292913177427],[0.22507774829864502,0.8512212100770781],[0.2338862419128418,0.8380450895395698],[0.23048099875450134,0.8435693772131105],[0.2431868016719818,0.8793174797478359]],"40% scrambled + 20% genuine (N14)":[[0.2655760496854782,0.8634674761194489],[0.2639577090740204,0.7934663448594002],[0.2765626758337021,0.8260926900740727],[0.27329911291599274,0.8288674516807709],[0.27432607114315033,0.825812500662686]],"blended head, 80% scrambled (N12)":[[0.33880406618118286,0.7956400576814681],[0.33437471091747284,0.7923643650661801],[0.3388831913471222,0.8082837935219402],[0.3410046100616455,0.7776290361859883],[0.3378889709711075,0.8506837307729485]],"discounted, clean head judges, 80% scrambled (N16)":[[0.14537979662418365,0.879145006137845],[0.14718696475028992,0.8593840729433119],[0.14781683683395386,0.927836456238137],[0.1507689207792282,0.8986175992279118],[0.15649713575839996,0.8963940264412673]],"discounted, judges itself, no scrambled (N14)":[[0.7249370813369751,0.7732674158032832],[0.7166993916034698,0.7300212763681362],[0.7254435271024704,0.7726802419281208],[0.7641513645648956,0.7808753386352794],[0.7482738792896271,0.8013890753270947]],"discounted, clean head judges, no scrambled (N16)":[[0.28438176214694977,0.8438107505712811],[0.2794920653104782,0.8379758893212104],[0.28037287294864655,0.873585756485831],[0.2932628095149994,0.8465579296848282],[0.30020327866077423,0.8654294697909101]]},"accuracy_ladder_judged_heads":{"N18: judge weights itself, clean targets":[[0.5335419178009033,0.7530615047275345],[0.5136719942092896,0.7430944444410323],[0.5395921915769577,0.7590574068014201],[0.5594288408756256,0.7754296909611689],[0.5479042232036591,0.7806722921680157]],"N18: judge weighted by a loop-free twin":[[0.30981194972991943,0.8340987993657888],[0.3078161031007767,0.7838800398089695],[0.308913916349411,0.8418955393233455],[0.31283576786518097,0.8087252437810672],[0.3324454128742218,0.806633127351942]],"N18: judge at full weight, clean targets":[[0.21333172917366028,0.8497215844663051],[0.21697205305099487,0.8439063177228454],[0.22655673325061798,0.8546952206225313],[0.22351734340190887,0.8627824529846526],[0.22659540176391602,0.8316553666635866]],"N17/N18: the peer, judges itself on scrambled targets":[[0.32503642141819,0.8040058631493345],[0.3232945501804352,0.7893518147274456],[0.3360205143690109,0.809918369978074],[0.32813553512096405,0.7933279914682662],[0.3380327373743057,0.7862579045371474]]},"judges":{"4101":{"rw-j20":{"x":0.16489668190479279,"F":0.6741399444012391,"dA":0.21333172917366028},"n17-rw-j10":{"x":0.28190508484840393,"F":0.4418522875082198,"dA":0.2547730505466461},"n17-rw-j05":{"x":0.42203933000564575,"F":0.12488731532889892,"dA":0.3113212436437607},"rw-j025":{"x":0.6215741187334061,"F":-0.3861878766370025,"dA":0.4024997055530548},"rw-j0125":{"x":0.8251346349716187,"F":-0.885367459565278,"dA":0.49155592918395996},"rw-oracle":{"x":0.0,"F":1.0550253667362453,"dA":0.14537979662418365},"rw-ctwin":{"x":0.34248849749565125,"F":0.13334723733895373,"dA":0.30981194972991943},"rw-peer":{"x":0.3343132883310318,"F":0.048010748570336076,"dA":0.32503642141819},"rw-b1":{"x":0.33360178768634796,"F":0.0,"dA":0.33360178768634796},"rw-cloop":{"x":0.7406432926654816,"F":-1.1207080953135455,"dA":0.5335419178009033}},"4102":{"rw-j20":{"x":0.17280040681362152,"F":0.6941923962138749,"dA":0.21697205305099487},"n17-rw-j10":{"x":0.27969178557395935,"F":0.4889067603932966,"dA":0.2519697993993759},"n17-rw-j05":{"x":0.4279242157936096,"F":0.11807814258488732,"dA":0.31518983840942383},"rw-j025":{"x":0.5978014469146729,"F":-0.2898691295429428,"dA":0.3847379833459854},"rw-j0125":{"x":0.8043660521507263,"F":-0.8870745844831522,"dA":0.4865514636039734},"rw-oracle":{"x":0.0,"F":1.1035295026663912,"dA":0.14718696475028992},"rw-ctwin":{"x":0.33752213418483734,"F":0.16133012590233034,"dA":0.3078161031007767},"rw-peer":{"x":0.327498197555542,"F":0.07053848410251892,"dA":0.3232945501804352},"rw-b1":{"x":0.3353201746940613,"F":0.0,"dA":0.3353201746940613},"rw-cloop":{"x":0.71304951608181,"F":-1.0461549810802127,"dA":0.5136719942092896}},"4103":{"rw-j20":{"x":0.1782282143831253,"F":0.6423217054833968,"dA":0.22655673325061798},"n17-rw-j10":{"x":0.2940780222415924,"F":0.4291500826819258,"dA":0.26476188004016876},"n17-rw-j05":{"x":0.43191806972026825,"F":0.14411223956066377,"dA":0.3158470690250397},"rw-j025":{"x":0.6056433171033859,"F":-0.2875111921370981,"dA":0.3932036906480789},"rw-j0125":{"x":0.8062850683927536,"F":-0.828493183532258,"dA":0.4901598244905472},"rw-oracle":{"x":0.0,"F":1.0816633363589205,"dA":0.14781683683395386},"rw-ctwin":{"x":0.33503060042858124,"F":0.18279685488579966,"dA":0.308913916349411},"rw-peer":{"x":0.3449604660272598,"F":0.031551329765983835,"dA":0.3360205143690109},"rw-b1":{"x":0.3416752219200134,"F":0.0,"dA":0.3416752219200134},"rw-cloop":{"x":0.746694341301918,"F":-1.1043088470284186,"dA":0.5395921915769577}},"4104":{"rw-j20":{"x":0.17837251722812653,"F":0.6557814117076189,"dA":0.22351734340190887},"n17-rw-j10":{"x":0.29520151019096375,"F":0.43411541260993375,"dA":0.26267191767692566},"n17-rw-j05":{"x":0.43909406661987305,"F":0.08423744781910782,"dA":0.3244735598564148},"rw-j025":{"x":0.6139300018548965,"F":-0.336647951114379,"dA":0.3988177925348282},"rw-j0125":{"x":0.8188230097293854,"F":-0.8480983901070663,"dA":0.4891592264175415},"rw-oracle":{"x":0.0,"F":1.0676324427052033,"dA":0.1507689207792282},"rw-ctwin":{"x":0.3504834920167923,"F":0.15012254136931164,"dA":0.31283576786518097},"rw-peer":{"x":0.33847475051879883,"F":0.06350588782344055,"dA":0.32813553512096405},"rw-b1":{"x":0.3393530696630478,"F":0.0,"dA":0.3393530696630478},"rw-cloop":{"x":0.7720220237970352,"F":-1.245916131289841,"dA":0.5594288408756256}},"4105":{"rw-j20":{"x":0.18237872421741486,"F":0.6695363437057595,"dA":0.22659540176391602},"n17-rw-j10":{"x":0.28850072622299194,"F":0.4497074282353141,"dA":0.2628163844347},"n17-rw-j05":{"x":0.42160966992378235,"F":0.13625654286907532,"dA":0.3144633620977402},"rw-j025":{"x":0.6019256860017776,"F":-0.34385959232221364,"dA":0.393571600317955},"rw-j0125":{"x":0.7941413819789886,"F":-0.8880066286482843,"dA":0.4832301437854767},"rw-oracle":{"x":0.0,"F":1.09497001932994,"dA":0.15649713575839996},"rw-ctwin":{"x":0.36715424060821533,"F":0.027121604260219662,"dA":0.3324454128742218},"rw-peer":{"x":0.3475443869829178,"F":-0.006788449931259065,"dA":0.3380327373743057},"rw-b1":{"x":0.33691421151161194,"F":0.0,"dA":0.33691421151161194},"rw-cloop":{"x":0.7667090743780136,"F":-1.2805203510607954,"dA":0.5479042232036591}}},"n18_steps":{"4101":{"j20":0.21333172917366028,"ctwin":0.30981194972991943,"cloop":0.5335419178009033,"peer":0.32503642141819},"4102":{"j20":0.21697205305099487,"ctwin":0.3078161031007767,"cloop":0.5136719942092896,"peer":0.3232945501804352},"4103":{"j20":0.22655673325061798,"ctwin":0.308913916349411,"cloop":0.5395921915769577,"peer":0.3360205143690109},"4104":{"j20":0.22351734340190887,"ctwin":0.31283576786518097,"cloop":0.5594288408756256,"peer":0.32813553512096405},"4105":{"j20":0.22659540176391602,"ctwin":0.3324454128742218,"cloop":0.5479042232036591,"peer":0.3380327373743057}},"ledger":[{"test":"WT-2","guess":"The paper's claims: steering works, at no cost in accuracy or speed, with a learned scale near 0.065 and distinct flow regions","verdict":"Mostly refuted","kind":"refuted"},{"test":"WT-103","guess":"The model matches an ordinary transformer when properly trained","verdict":"Refuted: worse by 1.10 nats in 6 of 6 runs","kind":"refuted"},{"test":"T0","guess":"The training shortcut (the adjoint) gives a learning signal pointing well away from the exact one","verdict":"Untestable: the measurement was too noisy","kind":"untestable"},{"test":"T1","guess":"The shortcut, not the design, causes most of the gap","verdict":"Supported: about 95% of the gap","kind":"supported"},{"test":"G1","guess":"The control signal sends the flow through regions of different curvature","verdict":"Refuted","kind":"refuted"},{"test":"G1c","guess":"It sets how strongly the flow pulls nearby states together","verdict":"Supported, and it replicated","kind":"supported"},{"test":"G1d","guess":"The model needs that pull","verdict":"Refuted","kind":"refuted"},{"test":"N1","guess":"Switching readings needs only a fixed shift, not the dynamics","verdict":"Supported","kind":"supported"},{"test":"N2","guess":"Two readings held at once get different paces in the flow","verdict":"Refuted","kind":"refuted"},{"test":"N4","guess":"Readings are kept apart by direction, and the model needs that","verdict":"Supported","kind":"supported"},{"test":"N5","guess":"N4's cost is a competition for directions","verdict":"Inconclusive","kind":"inconclusive"},{"test":"N6","guess":"Sharing depends on how different the readings are","verdict":"Untestable: its control was set wrongly","kind":"untestable"},{"test":"N6r","guess":"The same, with the control fixed","verdict":"Supported","kind":"supported"},{"test":"N7","guess":"Sharing tracks how different readings are, not how hard","verdict":"Refuted","kind":"refuted"},{"test":"N8a","guess":"With mistakes left out of the measure, the harder copy shares and converges","verdict":"Refuted","kind":"refuted"},{"test":"N8b","guess":"With mistakes left out of the measure, the harder copy shares and converges","verdict":"Refuted","kind":"refuted"},{"test":"N8c","guess":"Readings further ahead use different directions, mistakes left out","verdict":"Supported","kind":"supported"},{"test":"N9a","guess":"The measure can recognise an ideal noisy copy of a reading","verdict":"Supported","kind":"supported"},{"test":"N9b","guess":"The trained noisy head is close to that ideal copy","verdict":"Refuted","kind":"refuted"},{"test":"N10a","guess":"A small functional payload preserves the reading under heavy noise","verdict":"Untestable: the payload did not take hold","kind":"untestable"},{"test":"N10b","guess":"Anchoring function beats pinning geometry","verdict":"Untestable, as N10a","kind":"untestable"},{"test":"N10c","guess":"Light noise does not change what a head reads","verdict":"Intermediate: 0.79\u20130.84, against 0.85","kind":"unclear"},{"test":"N10d","guess":"The change grows with the noise","verdict":"Supported","kind":"supported"},{"test":"N11a","guess":"A strong functional payload preserves the reading's function under heavy noise","verdict":"Untestable: the payload again failed its check","kind":"untestable"},{"test":"N11b","guess":"The effect grows with the payload's strength","verdict":"Supported, with sharply diminishing returns; its last step is within the GPU's own effect","kind":"supported"},{"test":"N11c","guess":"Anchoring function beats pinning geometry, each at full strength","verdict":"Untestable, as N11a","kind":"untestable"},{"test":"N12a","guess":"A head whose form can represent the noisy mixture keeps the reading, from the noisy targets alone","verdict":"Supported: 71%","kind":"supported"},{"test":"N12b","guess":"And reads the same directions as its ideal copy","verdict":"Intermediate: 0.79\u20130.85, under 0.85 in every seed","kind":"unclear"},{"test":"N12c","guess":"Scarcity of informative targets alone does not cause the drift","verdict":"Supported: 80%","kind":"supported"},{"test":"N12d","guess":"The single-softmax bottleneck is large","verdict":"Supported: 62%","kind":"supported"},{"test":"N13a","guess":"The pipeline follows the chain rule's identity: a single softmax trained with the discount is the mixture head's inner softmax","verdict":"Supported: within 0.005 in 5 of 5","kind":"supported"},{"test":"N13b","guess":"The mixture form, applied at readout to the standard head, closes none of the gap","verdict":"Supported: S = \u22121.01, the gap doubled","kind":"supported"},{"test":"N13c","guess":"The mixture head's gain is not from head B pulling less on the shared network","verdict":"Supported: D = +0.05, none of it","kind":"supported"},{"test":"N14a","guess":"Random targets move a head's directions beyond their cost to its clean-target prediction","verdict":"Inconclusive: +0.009 [\u22120.035, +0.052]; on the ladder within 0.02","kind":"inconclusive"},{"test":"N14b","guess":"And the trace grows with their number","verdict":"Intermediate: the smallest dose carried about half","kind":"unclear"},{"test":"N14c","guess":"The discount's reweighting of the kept targets is not the trace","verdict":"Refuted: 0.125, with the control's function collapsed","kind":"refuted"},{"test":"N16a","guess":"The mixture head's shortfall against the oracle mask is in its self-judged discount: a discount judged by head A recovers it","verdict":"Supported: 108% [104%, 112%]","kind":"supported"},{"test":"N16b","guess":"The random weight the discount leaves is not the cause","verdict":"Supported: a tenth removed","kind":"supported"},{"test":"N16c","guess":"Self-reference is the mechanism: on clean targets alone, head A's judgement costs far less than head B's own","verdict":"Supported: 0.45 nats less; the design does not separate self-reference from head A's accuracy","kind":"supported"},{"test":"N16d","guess":"The recovered head's directions follow its function along the clean-target ladder","verdict":"Inconclusive: +0.011 [\u22120.022, +0.043], the design's stated limit","kind":"inconclusive"},{"test":"N17a","guess":"Without the self-confirming loop, a judge as accurate as head B recovers most of the shortfall","verdict":"Some effect, size unclear: a third, 0.334 [0.318, 0.349]","kind":"unclear"},{"test":"N17b","guess":"A judge that is not head B but has its own loop does far worse than a loop-free judge of its accuracy","verdict":"Untestable: the loop-free line at the peer's accuracy was too low for the rule to apply","kind":"untestable"},{"test":"N18a","guess":"With the data and the weighting fixed, the judge's own loop is enough to produce most of the peer's gap","verdict":"Supported","kind":"supported"}],"ledger_counts":{"supported":19,"refuted":10,"unclear":4,"inconclusive":3,"untestable":7}};
+const NS = 'http://www.w3.org/2000/svg';
+const S = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const T = (parent, x, y, str, cls = 'lab', anchor = 'start', extra = {}) => { const e = S('text', { x, y, class: cls, 'text-anchor': anchor, ...extra }, parent); e.textContent = str; return e; };
+const lin = (d0, d1, r0, r1) => v => r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+const f = (v, k = 3) => (v < 0 ? '−' : '') + Math.abs(v).toFixed(k);
+const fs = (v, k = 3) => (v < 0 ? '−' : '+') + Math.abs(v).toFixed(k);
+
+/* ---------- tooltip ---------- */
+const tip = document.getElementById('tip');
+function place(ev) {
+  let x, y;
+  if (ev && typeof ev.clientX === 'number' && ev.type && ev.type.startsWith('pointer')) { x = ev.clientX; y = ev.clientY; }
+  else { const r = (ev.currentTarget || ev.target).getBoundingClientRect(); x = r.left + r.width / 2; y = r.top; }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let L = x + 14, Tp = y + 14;
+  if (L + w > innerWidth - 8) L = x - w - 14;
+  if (Tp + h > innerHeight - 8) Tp = y - h - 14;
+  tip.style.left = Math.max(8, L) + 'px'; tip.style.top = Math.max(8, Tp) + 'px';
+}
+function bindTip(node, title, rows) {
+  node.setAttribute('tabindex', '0');
+  node.setAttribute('aria-label', title + ': ' + rows.map(r => r.value + ' ' + r.label).join('; '));
+  const show = ev => {
+    tip.replaceChildren();
+    const h = document.createElement('div'); h.className = 'tip-title'; h.textContent = title; tip.append(h);
+    for (const r of rows) {
+      const row = document.createElement('div'); row.className = 'tip-row';
+      if (r.key) { const k = document.createElement('span'); k.className = 'tip-key'; k.style.background = `var(${r.key})`; row.append(k); }
+      const v = document.createElement('strong'); v.textContent = r.value;
+      const l = document.createElement('span'); l.textContent = r.label;
+      row.append(v, l); tip.append(row);
+    }
+    tip.hidden = false; place(ev); node.classList.add('hot');
+  };
+  const hide = () => { tip.hidden = true; node.classList.remove('hot'); };
+  node.addEventListener('pointerenter', show); node.addEventListener('pointermove', place);
+  node.addEventListener('pointerleave', hide); node.addEventListener('focus', show); node.addEventListener('blur', hide);
+}
+function table(id, head, rows) {
+  const t = document.createElement('table');
+  const tr = document.createElement('tr'); head.forEach(h => { const th = document.createElement('th'); th.textContent = h; tr.append(th); }); t.append(tr);
+  rows.forEach(r => { const row = document.createElement('tr'); r.forEach(c => { const td = document.createElement('td'); td.textContent = c; row.append(td); }); t.append(row); });
+  document.getElementById(id).replaceChildren(t);
+}
+function dot(g, x, y, color, r = 4.5) { S('circle', { cx: x, cy: y, r: r + 2, fill: 'var(--paper)' }, g); return S('circle', { cx: x, cy: y, r, fill: `var(${color})`, class: 'ring', stroke: 'transparent' }, g); }
+function charts() { return [...document.querySelectorAll('.chart')]; }
+// a label set off a point in one of six directions
+// (flipped left or right when it would run past the chart's edge, W)
+function labelAt(svg, px, py, s, pos, W) {
+  const P = { ne: [9, -8, 'start'], se: [9, 16, 'start'], nw: [-9, -8, 'end'], sw: [-9, 16, 'end'], e: [9, 4, 'start'], w: [-9, 4, 'end'], n: [0, -10, 'middle'], s: [0, 18, 'middle'] };
+  const width = s.length * 6.4, flip = { ne: 'nw', se: 'sw', e: 'w', nw: 'ne', sw: 'se', w: 'e', n: 'n', s: 's' };
+  let [dx, dy, anchor] = P[pos];
+  if ((anchor === 'start' && px + dx + width > W - 4) || (anchor === 'end' && px + dx - width < 4)) [dx, dy, anchor] = P[flip[pos]];
+  T(svg, px + dx, py + dy, s, 'lab', anchor);
+}
+// a stack of labels in open space, each tied to its point by a leader drawn into `under` (beneath the marks)
+function callouts(svg, under, items, X, Y, anchor, rowH = 17) {
+  items.forEach((it, i) => {
+    const ty = Y + i * rowH, lx = anchor === 'start' ? X - 4 : X + 4, ly = ty - 4;
+    const dx = it.px - lx, dy = it.py - ly, L = Math.hypot(dx, dy), k = Math.max(0, (L - 8) / L);
+    S('line', { x1: lx, y1: ly, x2: lx + dx * k, y2: ly + dy * k, stroke: 'var(--ink-3)', 'stroke-width': 1 }, under);
+    T(svg, X, ty, it.s, 'lab', anchor);
+  });
+}
+
+/* ---------- 1. the ideal (imagined) ---------- */
+(function ideal() {
+  const cv = document.getElementById('ideal'); const ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const voices = [0, 1, 2, 3, 4].map(i => ({ base: 0.16 + i * 0.17, a: 0.035 + 0.012 * ((i * 7) % 3), w: 0.9 + 0.37 * i, p: i * 1.7, w2: 2.3 + 0.5 * i }));
+  let t0 = 0;
+  function color() { return getComputedStyle(document.documentElement).getPropertyValue('--imagined').trim() || '#6250d6'; }
+  function draw(t) {
+    const W = cv.clientWidth, H = cv.clientHeight, dpr = devicePixelRatio || 1;
+    if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+    const c = color();
+    ctx.strokeStyle = c; ctx.globalAlpha = 0.12; ctx.lineWidth = 1;
+    for (let k = 0; k < 5; k++) { const y = H * (0.18 + k * 0.16); ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    voices.forEach((v, i) => {
+      ctx.globalAlpha = 0.35 + 0.13 * i; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.beginPath();
+      for (let x = 0; x <= W; x += 4) {
+        const u = x / W * 6 + t * 0.00025;
+        const y = H * (v.base + v.a * Math.sin(v.w * u + v.p) + 0.5 * v.a * Math.sin(v.w2 * u + 2 * v.p));
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+  }
+  function loop(ts) { draw(ts); if (!reduce && document.visibilityState !== 'hidden') requestAnimationFrame(loop); }
+  draw(0);
+  if (!reduce) requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => { if (!reduce && document.visibilityState === 'visible') requestAnimationFrame(loop); });
+  new ResizeObserver(() => draw(t0)).observe(cv);
+})();
+
+/* ---------- 2. the paper's gap ---------- */
+function drawGap(el) {
+  const W = el.clientWidth, narrow = W < 560;
+  const g = D.shortcut;
+  const rows = [
+    { k: 'The whole gap, as trained', v: g.gap, ci: g.ci.gap, c: '--ink-3', note: 'exploratory interval' },
+    { k: 'Closed by training with exact gradients', v: g.training_method, ci: g.ci.training_method, c: '--s1', note: 'G: material' },
+    { k: 'The continuous form (size unclear)', v: g.ode_form, ci: g.ci.ode_form, c: '--s1', note: 'F: some effect, size unclear' },
+    { k: 'Reusing one block four times', v: g.repeated_block, ci: g.ci.repeated_block, c: '--s1', note: 'C2: negligible' },
+    { k: 'Separately: one block’s missing weights', v: g.separate_weights, ci: g.ci.separate_weights, c: '--s1', note: 'P: negligible' }];
+  const lw = narrow ? 0 : 250, top = narrow ? 8 : 6, rowH = narrow ? 50 : 34, H = top + rows.length * rowH + 30;
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Bar chart of the paper model’s gap and its sources' });
+  const x = lin(0, 0.9, lw + (narrow ? 12 : 6), W - 54);
+  [0, 0.2, 0.4, 0.6, 0.8].forEach(v => { S('line', { x1: x(v), x2: x(v), y1: top, y2: H - 26, class: 'grid' }, svg); T(svg, x(v), H - 10, v.toFixed(1), 'tick', 'middle'); });
+  S('line', { x1: x(0.05), x2: x(0.05), y1: top, y2: H - 26, stroke: 'var(--ink-3)', 'stroke-width': 1 }, svg);
+  T(svg, x(0.05) + 4, H - 28, 'margin 0.05', 'tick');
+  rows.forEach((r, i) => {
+    const yb = top + i * rowH + (narrow ? 20 : 6), bh = 18;
+    T(svg, narrow ? lw + 6 : lw, narrow ? yb - 6 : yb + 13, r.k, i === 0 ? 'lab-strong' : 'lab', narrow ? 'start' : 'end');
+    const gmark = S('g', { class: 'mark' }, svg);
+    const wpx = Math.max(0, x(r.v) - x(0));
+    if (wpx > 0) S('path', { d: `M${x(0)},${yb} h${Math.max(0, wpx - 4)} a4,4 0 0 1 4,4 v${bh - 8} a4,4 0 0 1 -4,4 h${-Math.max(0, wpx - 4)} z`, fill: `var(${r.c})`, class: 'ring' }, gmark);
+    T(svg, Math.max(x(r.v), x(0.05)) + 6, yb + 13, r.v.toFixed(r.v < 0.1 ? 3 : 2) + ' nats', 'lab');
+    const hit = S('rect', { x: x(0), y: yb - 4, width: Math.max(40, wpx + 50), height: bh + 8, class: 'hit' }, gmark);
+    bindTip(gmark, r.k, [{ value: r.v.toFixed(3) + ' nats', label: 'mean of five runs' }, { value: `${f(r.ci[0], 4)} to ${f(r.ci[1], 4)}`, label: r.c === '--ink-3' ? '95% interval, unadjusted' : '98.75% interval, corrected for four contrasts' }, { value: '', label: r.note }]);
+  });
+  el.replaceChildren(svg);
+}
+
+/* ---------- 3. the flow ---------- */
+function drawFlow(el) {
+  const W = el.clientWidth, narrow = W < 560, F = D.flow;
+  const rows = [
+    { k: 'Curvature (G1)', v: F.curvature_G1, verdict: 'refuted' },
+    { k: 'Pull, per reading (N2)', v: F.pace_N2, verdict: 'refuted' },
+    { k: 'Pull, whole state (G1c)', v: F.contraction_G1c, verdict: 'supported; not, by G1d’s test, needed' }];
+  const lw = narrow ? 0 : 180, top = narrow ? 40 : 26, rowH = narrow ? 58 : 46, H = top + rows.length * rowH + 34;
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Dot plot of the ratio between the two readings for three properties of the flow' });
+  const L0 = Math.log(0.9), L1 = Math.log(12), x = v => (lw + 10) + (Math.log(v) - L0) / (L1 - L0) * (W - lw - 24);
+  S('rect', { x: x(0.9), y: top - 6, width: x(1.25) - x(0.9), height: rows.length * rowH + 2, fill: 'var(--critical)', opacity: 0.07 }, svg);
+  [1, 2, 4, 8].forEach(v => { S('line', { x1: x(v), x2: x(v), y1: top - 6, y2: H - 28, class: 'grid' }, svg); T(svg, x(v), H - 12, v + '×', 'tick', 'middle'); });
+  [[1.25, 'refuted below 1.25'], [2, 'predicted 2']].forEach(([v, s], i) => {
+    S('line', { x1: x(v), x2: x(v), y1: top - 6, y2: H - 28, stroke: 'var(--ink-3)', 'stroke-width': 1 }, svg);
+    // on a phone both labels sit right of their lines, on two rows, so neither runs off the left edge
+    if (narrow) T(svg, x(v) + 4, top - (i ? 10 : 24), s, 'tick', 'start');
+    else T(svg, x(v) + (i ? 4 : -4), top - 12, s, 'tick', i ? 'start' : 'end');
+  });
+  rows.forEach((r, i) => {
+    const y = top + i * rowH + (narrow ? 30 : rowH / 2);
+    T(svg, narrow ? lw + 10 : lw, narrow ? y - 18 : y + 4, r.k, 'lab-strong', narrow ? 'start' : 'end');
+    S('line', { x1: x(0.9), x2: W - 14, y1: y, y2: y, class: 'grid' }, svg);
+    r.v.forEach((v, j) => {
+      const gm = S('g', { class: 'mark' }, svg);
+      dot(gm, x(v), y, '--s1', 4.5);
+      S('circle', { cx: x(v), cy: y, r: 12, class: 'hit' }, gm);
+      bindTip(gm, r.k + ', model ' + (j + 1), [{ value: v.toFixed(2) + '×', label: 'between the two readings' }, { value: r.verdict, label: '' }]);
+    });
+  });
+  el.replaceChildren(svg);
+}
+
+/* ---------- 4. the angle fan ---------- */
+const FAN = [
+  { k: 'the same word', short: 'same word', v: D.ladder_overlap['same word'], c: '--s2', note: 'two heads reading the same word' },
+  { k: '2 words ahead', short: '2 ahead', v: D.ladder_overlap['2 words ahead'], c: '--s2' },
+  { k: '4 words ahead', short: '4 ahead', v: D.ladder_overlap['4 words ahead'], c: '--s2' },
+  { k: '8 words ahead', short: '8 ahead', v: D.ladder_overlap['8 words ahead'], c: '--s2' },
+  { k: 'next word, 80% scrambled', short: '80% scrambled', v: D.ladder_overlap['next word, 80% scrambled'], c: '--s3' },
+  { k: 'mismatched control', short: 'mismatched', v: D.ladder_overlap['mismatched control'], c: '--none' },
+  { k: 'random directions', short: 'random', v: D.ladder_overlap['random directions'], c: '--none' }];
+const ang = o => Math.acos(Math.sqrt(o)) * 180 / Math.PI;
+function drawFan(el) {
+  const W = el.clientWidth, side = Math.min(W * 0.56, 380), pad = 26, H = side + 40;
+  const cx = pad, cy = side + 10, R = side - pad - 6;
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Fan of rays at the angles equivalent to each reading’s overlap with the next-word reading' });
+  for (let a = 0; a <= 90; a += 15) {
+    const r = a * Math.PI / 180;
+    S('line', { x1: cx, y1: cy, x2: cx + R * Math.cos(r), y2: cy - R * Math.sin(r), class: 'grid' }, svg);
+    // 60° is left unlabelled: the 4-words-ahead ray lands on it, and its own label names the angle
+    if (a % 30 === 0 && a !== 60) T(svg, cx + (R + 12) * Math.cos(r), cy - (R + 12) * Math.sin(r) + 4, a + '°', 'tick', a === 90 ? 'middle' : 'start');
+  }
+  S('path', { d: `M${cx + R},${cy} A${R},${R} 0 0 0 ${cx},${cy - R}`, fill: 'none', class: 'base' }, svg);
+  S('line', { x1: cx, y1: cy, x2: cx + R, y2: cy, stroke: 'var(--s1)', 'stroke-width': 3, 'stroke-linecap': 'round' }, svg);
+  const items = FAN.map(it => ({ ...it, m: mean(it.v), a: ang(mean(it.v)) })).sort((p, q) => p.a - q.a);
+  const colX = cx + R + 30, avail = W - colX - 4;
+  const ys = items.map(it => cy - R * Math.sin(it.a * Math.PI / 180));
+  // spread label rows so they do not collide, keeping the angle order (top = largest angle)
+  const order = items.map((it, i) => i).sort((i, j) => ys[i] - ys[j]);
+  const ly = new Array(items.length); let prev = -Infinity;
+  order.forEach(i => { ly[i] = Math.max(ys[i], prev + 30); prev = ly[i]; });
+  const over = prev - (cy - 4); if (over > 0) order.forEach(i => ly[i] -= over);
+  items.forEach((it, i) => {
+    const r = it.a * Math.PI / 180, ex = cx + R * Math.cos(r), ey = cy - R * Math.sin(r);
+    const gm = S('g', { class: 'mark' }, svg);
+    S('line', { x1: cx, y1: cy, x2: ex, y2: ey, stroke: `var(${it.c})`, 'stroke-width': 2, 'stroke-linecap': 'round' }, gm);
+    it.v.forEach(o => { const rr = ang(o) * Math.PI / 180; S('circle', { cx: cx + R * Math.cos(rr), cy: cy - R * Math.sin(rr), r: 2.6, fill: `var(${it.c})` }, gm); });
+    dot(gm, ex, ey, it.c, 4.5);
+    S('path', { d: `M${ex + 6},${ey} L${colX - 6},${ly[i]}`, stroke: 'var(--rule)', 'stroke-width': 1, fill: 'none' }, svg);
+    const lab = avail > 300 ? `${it.k} · ${it.m.toFixed(2)} · ${Math.round(it.a)}°` : avail > 200 ? `${it.k} · ${it.m.toFixed(2)}` : avail > 150 ? it.k : it.short;
+    T(svg, colX, ly[i] + 4, lab, 'lab');
+    S('line', { x1: cx, y1: cy, x2: ex, y2: ey, stroke: 'transparent', 'stroke-width': 16, class: 'hit' }, gm);
+    bindTip(gm, it.k, [{ value: it.m.toFixed(3), label: 'overlap, mean of ' + it.v.length + (it.v.length > 1 ? ' runs' : ' (theory)'), key: it.c }, { value: it.a.toFixed(1) + '°', label: 'the equivalent angle' }]);
+  });
+  T(svg, cx + R - 2, cy + 18, 'the next-word reading', 'lab', 'end');
+  el.replaceChildren(svg);
+}
+
+/* ---------- 5. the accuracy ladder ---------- */
+function accGroups() {
+  const A = D.accuracy_ladder, J = D.accuracy_ladder_judged_heads;
+  const rungs = ['every genuine answer', '20% genuine answers', '10%', '5%', '2.5%', '1.25%'];
+  return {
+    rungs: rungs.map(k => ({ k: k === 'every genuine answer' ? 'every genuine answer' : (k.replace(' genuine answers', '') + ' of genuine answers'), pts: A[k] })),
+    groups: [
+      { c: '--s1', name: 'Mixture heads, scrambled and genuine answers', items: [
+        { k: '10% scrambled + 20% genuine (N14)', pts: A['10% scrambled + 20% genuine (N14)'] },
+        { k: '20% scrambled + 20% genuine (N14)', pts: A['20% scrambled + 20% genuine (N14)'] },
+        { k: '40% scrambled + 20% genuine (N14)', pts: A['40% scrambled + 20% genuine (N14)'] },
+        { k: 'blended head, 80% scrambled (N12)', pts: A['blended head, 80% scrambled (N12)'], label: 'blended head (N12)', call: 2, nar: { s: 'blended (N12)', call: 3 } }] },
+      { c: '--s3', name: 'Weighted by a judge without a loop', items: [
+        { k: 'clean head judges, 80% scrambled (N16)', pts: A['discounted, clean head judges, 80% scrambled (N16)'], label: 'clean head judges', pos: 'sw', nar: { call: 0 } },
+        { k: 'clean head judges, genuine answers only (N16)', pts: A['discounted, clean head judges, no scrambled (N16)'] },
+        { k: 'judge at full weight, genuine only (N18 rw-j20)', pts: J['N18: judge at full weight, clean targets'] },
+        { k: 'judge weighted by a loop-free twin (N18 rw-ctwin)', pts: J['N18: judge weighted by a loop-free twin'], label: 'twin-weighted judge (N18)', call: 0, nar: { s: 'twin-weighted (N18)', call: 1 } }] },
+      { c: '--s2', name: 'Weighted by a judge with a loop', items: [
+        { k: 'head judges itself, genuine answers only (N14)', pts: A['discounted, judges itself, no scrambled (N14)'], label: 'judges itself (N14)', pos: 'ne', nar: { s: 'judges itself', pos: 'n' } },
+        { k: 'the peer judges, 80% scrambled (N18 rw-peer)', pts: J['N17/N18: the peer, judges itself on scrambled targets'], label: 'the peer (N17, N18)', call: 1, nar: { s: 'peer (N17, N18)', call: 2 } },
+        { k: 'judge weights itself, genuine only (N18 rw-cloop)', pts: J['N18: judge weights itself, clean targets'], label: 'self-weighting judge', pos: 'ne', nar: { s: 'self-weighting', pos: 'se' } }] },
+    ]};
+}
+function drawAcc(el) {
+  const W = el.clientWidth, narrow = W < 560, H = narrow ? 400 : Math.max(300, Math.min(460, W * 0.62)), m = { l: 46, r: 16, t: 14, b: 40 };
+  const x = lin(-0.02, 0.9, m.l, W - m.r), y = lin(0.6, 1.0, H - m.b, m.t);
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Scatter of agreement with the clean head against loss gap' });
+  [0, 0.2, 0.4, 0.6, 0.8].forEach(v => { S('line', { x1: x(v), x2: x(v), y1: m.t, y2: H - m.b, class: 'grid' }, svg); T(svg, x(v), H - m.b + 16, v.toFixed(1), 'tick', 'middle'); });
+  [0.6, 0.7, 0.8, 0.9, 1.0].forEach(v => { S('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: 'grid' }, svg); T(svg, m.l - 8, y(v) + 4, v.toFixed(1), 'tick', 'end'); });
+  T(svg, W - m.r, H - 6, 'Δ: worse than the clean head (nats) →', 'axis-title', 'end');
+  T(svg, m.l, m.t - 2 < 10 ? 10 : m.t - 2, '↑ agreement with the clean head’s directions', 'axis-title', 'start', { transform: '' });
+  const G = accGroups();
+  const rp = G.rungs.map(r => [mean(r.pts.map(p => p[0])), mean(r.pts.map(p => p[1]))]);
+  const under = S('g', {}, svg);
+  S('path', { d: 'M' + rp.map(p => x(p[0]) + ',' + y(p[1])).join(' L'), fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 2, 'stroke-linejoin': 'round' }, svg);
+  G.rungs.forEach((r, i) => {
+    const gm = S('g', { class: 'mark' }, svg);
+    S('circle', { cx: x(rp[i][0]), cy: y(rp[i][1]), r: 3.5, fill: 'var(--ink-3)', class: 'ring' }, gm);
+    S('circle', { cx: x(rp[i][0]), cy: y(rp[i][1]), r: 12, class: 'hit' }, gm);
+    bindTip(gm, 'Ladder: ' + r.k, [{ value: rp[i][0].toFixed(3), label: 'Δ, nats' }, { value: rp[i][1].toFixed(3), label: 'agreement' }]);
+  });
+  const labs = [];
+  G.groups.forEach(gr => gr.items.forEach(it => {
+    const mx = mean(it.pts.map(p => p[0])), my = mean(it.pts.map(p => p[1]));
+    const gm = S('g', { class: 'mark' }, svg);
+    it.pts.forEach(p => S('circle', { cx: x(p[0]), cy: y(p[1]), r: 2, fill: `var(${gr.c})`, opacity: 0.35 }, gm));
+    dot(gm, x(mx), y(my), gr.c, 5);
+    S('circle', { cx: x(mx), cy: y(my), r: 13, class: 'hit' }, gm);
+    const xs = it.pts.map(p => p[0]), as = it.pts.map(p => p[1]);
+    bindTip(gm, it.k, [{ value: mx.toFixed(3), label: `Δ, nats (runs ${Math.min(...xs).toFixed(3)} to ${Math.max(...xs).toFixed(3)})`, key: gr.c },
+                       { value: my.toFixed(3), label: `agreement (runs ${Math.min(...as).toFixed(3)} to ${Math.max(...as).toFixed(3)})` }]);
+    if (it.label) { const o = narrow && it.nar ? it.nar : {}; labs.push({ px: x(mx), py: y(my), s: o.s || it.label, pos: o.call !== undefined ? undefined : (o.pos || it.pos), call: o.pos ? undefined : (o.call !== undefined ? o.call : it.call) }); }
+  }));
+  // the three heads crowded near Δ 0.33 are labelled from the open space above the ladder, just right of them
+  labs.filter(l => l.pos).forEach(l => labelAt(svg, l.px, l.py, l.s, l.pos, W));
+  callouts(svg, under, labs.filter(l => l.call !== undefined).sort((p, q) => p.call - q.call), narrow ? x(0.45) : x(0.38), narrow ? y(0.97) : y(0.865), 'start');
+  el.replaceChildren(svg);
+}
+
+/* ---------- 6. the judges ---------- */
+const SEEDS = Object.keys(D.judges);
+const jm = (arm, key) => mean(SEEDS.map(s => D.judges[s][arm][key]));
+function drawJudge(el) {
+  const W = el.clientWidth, narrow = W < 560, H = Math.max(320, Math.min(480, W * 0.64)), m = { l: 46, r: 16, t: 16, b: 40 };
+  const x = lin(-0.02, 0.86, m.l, W - m.r), y = lin(-1.35, 1.3, H - m.b, m.t);
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Scatter of each judge’s recovered share against its own accuracy, with the loop-free line' });
+  [0, 0.2, 0.4, 0.6, 0.8].forEach(v => { S('line', { x1: x(v), x2: x(v), y1: m.t, y2: H - m.b, class: 'grid' }, svg); T(svg, x(v), H - m.b + 16, v.toFixed(1), 'tick', 'middle'); });
+  [-1, -0.5, 0, 0.5, 1].forEach(v => { S('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: v === 0 ? 'base' : 'grid' }, svg); T(svg, m.l - 8, y(v) + 4, (v < 0 ? '−' : '') + Math.abs(v).toFixed(1), 'tick', 'end'); });
+  T(svg, W - m.r, H - 6, 'the judge’s own loss gap (nats) →', 'axis-title', 'end');
+  T(svg, m.l + 4, m.t + 10, '↑ share of the shortfall recovered', 'axis-title');
+  const rungs = [['rw-j20', '20%'], ['n17-rw-j10', '10%'], ['n17-rw-j05', '5%'], ['rw-j025', '2.5%'], ['rw-j0125', '1.25%']];
+  const rp = rungs.map(([a]) => [jm(a, 'x'), jm(a, 'F')]);
+  const under = S('g', {}, svg);
+  S('path', { d: 'M' + rp.map(p => x(p[0]) + ',' + y(p[1])).join(' L'), fill: 'none', stroke: 'var(--ink-3)', 'stroke-width': 2, 'stroke-linejoin': 'round' }, svg);
+  rungs.forEach(([a, s], i) => {
+    const gm = S('g', { class: 'mark' }, svg);
+    S('circle', { cx: x(rp[i][0]), cy: y(rp[i][1]), r: 3.5, fill: 'var(--ink-3)', class: 'ring' }, gm);
+    S('circle', { cx: x(rp[i][0]), cy: y(rp[i][1]), r: 12, class: 'hit' }, gm);
+    const fits = x(rp[i][0]) + 7 + s.length * 6.2 < W - 2;
+    // where the label would run off the right edge it goes beneath its point, clear of the rung line and the drop
+    if (fits) T(svg, x(rp[i][0]) + 7, y(rp[i][1]) - 7, s, 'tick'); else T(svg, x(rp[i][0]), y(rp[i][1]) + 18, s, 'tick', 'middle');
+    bindTip(gm, 'Full weight on ' + s + ' of genuine answers', [{ value: rp[i][0].toFixed(3), label: 'judge’s loss gap' }, { value: fs(rp[i][1]), label: 'share recovered' }]);
+  });
+  const lineAt = xv => { for (let i = 0; i < rp.length - 1; i++) if (rp[i][0] <= xv && xv <= rp[i + 1][0]) return rp[i][1] + (rp[i + 1][1] - rp[i][1]) * (xv - rp[i][0]) / (rp[i + 1][0] - rp[i][0]); return null; };
+  // the twin, the peer and the self-judging head sit within 0.01 nats of each other, so they are labelled by callout (call: row order)
+  const pts = [
+    { a: 'rw-oracle', k: 'The clean head judges (N16)', c: '--s3', label: 'clean head', pos: 'se' },
+    { a: 'rw-ctwin', k: 'Judge weighted by a loop-free twin (N18)', c: '--s3', label: narrow ? 'twin' : 'twin-weighted judge', drop: true, call: 0 },
+    { a: 'rw-peer', k: 'The peer judges: a second self-judging head (N17, N18)', c: '--s2', label: 'peer', drop: true, call: 1 },
+    { a: 'rw-b1', k: 'The head judges itself (N13)', c: '--s2', label: narrow ? 'judges itself' : 'head judges itself (0 by definition)', call: 2 },
+    { a: 'rw-cloop', k: 'Judge weights itself, genuine answers only (N18)', c: '--s2', label: 'self-weighting judge', drop: true, pos: 'sw' }];
+  const calls = [];
+  pts.forEach(p => {
+    const mx = jm(p.a, 'x'), my = jm(p.a, 'F');
+    const gm = S('g', { class: 'mark' }, svg);
+    const ln = p.drop ? lineAt(mx) : null;
+    if (ln !== null) {
+      S('line', { x1: x(mx), x2: x(mx), y1: y(ln), y2: y(my), stroke: 'var(--ink-3)', 'stroke-width': 1 }, gm);
+      const fits = x(mx) + 7 + 56 < W - 2;
+      if (p.call === undefined) T(svg, x(mx) + (fits ? 7 : -7), (y(ln) + y(my)) / 2 + 4, 'd = ' + fs(my - ln, 2), 'tick', fits ? 'start' : 'end');
+    }
+    SEEDS.forEach(s => S('circle', { cx: x(D.judges[s][p.a].x), cy: y(D.judges[s][p.a].F), r: 2, fill: `var(${p.c})`, opacity: 0.35 }, gm));
+    dot(gm, x(mx), y(my), p.c, 5);
+    S('circle', { cx: x(mx), cy: y(my), r: 13, class: 'hit' }, gm);
+    const rows = [{ value: mx.toFixed(3), label: 'judge’s loss gap, nats', key: p.c }, { value: fs(my), label: 'share of the shortfall recovered' }];
+    if (ln !== null) rows.push({ value: fs(my - ln), label: 'd: distance below the loop-free line' });
+    bindTip(gm, p.k, rows);
+    if (p.call === undefined) labelAt(svg, x(mx), y(my), p.label, p.pos, W);
+    else calls[p.call] = { px: x(mx), py: y(my), s: ln !== null ? `${p.label} · d = ${fs(my - ln, 2)}` : p.label };
+  });
+  // stacked to the left of the cluster, starting level with its highest point, below the loop-free line
+  callouts(svg, under, calls, x(0.30), calls[0].py + 4, 'end');
+  el.replaceChildren(svg);
+}
+
+/* ---------- 7. N18's steps ---------- */
+function drawSteps(el) {
+  const W = el.clientWidth, narrow = W < 560, st = D.n18_steps, ss = Object.keys(st);
+  const mv = k => mean(ss.map(s => st[s][k])), rng = k => [Math.min(...ss.map(s => st[s][k])), Math.max(...ss.map(s => st[s][k]))];
+  const dr = (a, b) => { const v = ss.map(s => st[s][b] - st[s][a]); return [Math.min(...v), Math.max(...v)]; };
+  const j20 = mv('j20'), ct = mv('ctwin'), cl = mv('cloop'), pe = mv('peer');
+  const rows = [
+    { k: 'Judge at full weight (rw-j20)', a: 0, b: j20, c: '--ink-3', tipv: j20, r: rng('j20'), kind: 'gap' },
+    { k: '+ the weighting, from a loop-free twin', a: j20, b: ct, c: '--s3', tipv: ct - j20, r: dr('j20', 'ctwin'), kind: 'step' },
+    { k: '+ the loop: weights from itself', a: ct, b: cl, c: '--s2', tipv: cl - ct, r: dr('ctwin', 'cloop'), kind: 'step' },
+    { k: '+ the scrambled answers (the peer’s training)', a: cl, b: pe, c: '--s1', tipv: pe - cl, r: dr('cloop', 'peer'), kind: 'step' },
+    { k: '= the peer (rw-peer)', a: 0, b: pe, c: '--ink-3', tipv: pe, r: rng('peer'), kind: 'gap' }];
+  const lw = narrow ? 0 : 290, top = 4, rowH = narrow ? 52 : 36, H = top + rows.length * rowH + 30;
+  const x = lin(0, 0.62, lw + (narrow ? 12 : 6), W - 60);
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Waterfall from the judge at full weight to the peer' });
+  [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6].forEach(v => { S('line', { x1: x(v), x2: x(v), y1: top, y2: H - 26, class: 'grid' }, svg); T(svg, x(v), H - 10, v.toFixed(1), 'tick', 'middle'); });
+  rows.forEach((r, i) => {
+    const yb = top + i * rowH + (narrow ? 22 : 8), bh = 18, x0 = x(Math.min(r.a, r.b)), x1 = x(Math.max(r.a, r.b));
+    T(svg, narrow ? lw + 6 : lw, narrow ? yb - 6 : yb + 13, r.k, r.kind === 'gap' ? 'lab-strong' : 'lab', narrow ? 'start' : 'end');
+    const gm = S('g', { class: 'mark' }, svg);
+    S('rect', { x: x0, y: yb, width: Math.max(2, x1 - x0), height: bh, rx: 4, fill: `var(${r.c})`, class: 'ring' }, gm);
+    if (i > 0 && i < rows.length - 1) S('line', { x1: x(r.a), x2: x(r.a), y1: yb - rowH + bh + (narrow ? 0 : 0), y2: yb, stroke: 'var(--axis)', 'stroke-width': 1 }, svg);
+    T(svg, x1 + 6, yb + 13, r.kind === 'gap' ? r.tipv.toFixed(3) : fs(r.tipv), 'lab');
+    S('rect', { x: x0 - 6, y: yb - 6, width: Math.max(30, x1 - x0 + 12), height: bh + 12, class: 'hit' }, gm);
+    bindTip(gm, r.k, [{ value: r.kind === 'gap' ? r.tipv.toFixed(3) : fs(r.tipv), label: 'nats, mean of five runs', key: r.c }, { value: `${f(r.r[0])} to ${f(r.r[1])}`, label: 'range over runs' }]);
+  });
+  el.replaceChildren(svg);
+}
+
+/* ---------- 8. the ledger ---------- */
+const KIND = {
+  supported: { c: '--good', g: '✓', name: 'Supported' }, refuted: { c: '--critical', g: '✕', name: 'Refuted' },
+  unclear: { c: '--warning', g: '~', name: 'Intermediate or unclear size', text: 'warning' }, inconclusive: { c: '--serious', g: '?', name: 'Inconclusive' },
+  untestable: { c: '--none', g: '∅', name: 'Untestable' } };
+const GROUPS = [
+  ['The paper', ['WT-2', 'WT-103', 'T0', 'T1']],
+  ['Chapter 1 · the flow', ['G1', 'G1c', 'G1d', 'N1', 'N2']],
+  ['Chapter 2 · directions', ['N4', 'N5', 'N6', 'N6r']],
+  ['Chapter 3 · different or harder', ['N7', 'N8a', 'N8b', 'N8c', 'N9a', 'N9b']],
+  ['Chapter 4 · scrambled answers and the judge', ['N10a', 'N10b', 'N10c', 'N10d', 'N11a', 'N11b', 'N11c', 'N12a', 'N12b', 'N12c', 'N12d', 'N13a', 'N13b', 'N13c', 'N14a', 'N14b', 'N14c', 'N15', 'N16a', 'N16b', 'N16c', 'N16d', 'N17a', 'N17b', 'N18a']]];
+function drawLedger() {
+  const byTest = Object.fromEntries(D.ledger.map(r => [r.test, r]));
+  const leg = document.getElementById('ledger-legend');
+  for (const [k, v] of Object.entries(KIND)) {
+    const s = document.createElement('span');
+    const i = document.createElement('i'); i.className = 'sq'; i.style.background = `var(${v.c})`;
+    s.append(i, document.createTextNode(`${v.g} ${v.name} · ${D.ledger_counts[k]}`)); leg.append(s);
+  }
+  const box = document.getElementById('ledger');
+  GROUPS.forEach(([name, tests]) => {
+    const row = document.createElement('div'); row.className = 'ledger-row';
+    const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = name;
+    const cells = document.createElement('div'); cells.className = 'cells';
+    tests.forEach(t => {
+      const b = document.createElement('button'); b.className = 'cell'; b.type = 'button';
+      const r = byTest[t];
+      if (!r) { b.classList.add('withdrawn'); b.textContent = '—'; bindTip(b, 'N15, withdrawn', [{ value: 'no verdict', label: 'its calibration showed the design could not be applied' }]); }
+      else { const k = KIND[r.kind]; b.style.background = `var(${k.c})`; b.dataset.kind = k.text || ''; b.textContent = k.g; bindTip(b, r.test + ' · ' + r.verdict.replace(/\[\^\d+\]/g, ''), [{ value: k.name, label: '' }, { value: '', label: r.guess }]); }
+      b.removeAttribute('tabindex');
+      cells.append(b);
+    });
+    row.append(nm, cells); box.append(row);
+  });
+  const M = [
+    ['G1', 'The rule as first approved used a statistic that could not tell a trained model from an untrained nudge. Under it, the verdict would have been "supported".', 'Caught before the run, from untrained models; replaced by a ratio (amendment A1).'],
+    ['T0', 'The measurement of how far the shortcut’s learning signal points from the exact one was too noisy to decide anything.', 'The verdict: untestable.'],
+    ['N5', 'It assumed runs would vary as little as they had in N4. At other widths they varied 3 to 24 times more.', 'The verdict: inconclusive.'],
+    ['N6', 'A control’s threshold was carried over from a test measured on almost twice as many passages.', 'Untestable; redone with the control fixed as N6r, which was supported.'],
+    ['N10, N11', 'The payloads meant to protect the reading never took hold, so the claims about them could not be judged.', 'Their own checks: four claims untestable.'],
+    ['N15', 'Its design could not be applied to the models as trained.', 'Its calibration run, before any real run; withdrawn and replaced by N16.'],
+    ['N17b', 'Its margins were set in units the conjecture expected to be large; the loop-free line was too low for them.', 'A fresh reader before approval, who had the case made untestable rather than unreachable.'],
+    ['N18 drafts', 'Matching judges on accuracy was ill-posed (two measures of accuracy pointed opposite ways); refutation was out of reach; the loop was confounded with the weighting; one rival’s prediction was mis-derived.', 'Four fresh-reader checks before approval; the twin was added.'],
+    ['N18 note', 'The loop’s cost beyond accuracy was over-credited: 0.46 of the shortfall, when the loop-free twin also fell 0.18 below the line.', 'A fresh reader after the run; corrected to 0.28 (exploratory).']];
+  const mk = document.getElementById('mistakes');
+  M.forEach(([tag, what, caught]) => {
+    const d = document.createElement('div'); d.className = 'mistake';
+    const t = document.createElement('div'); t.className = 'tag'; t.textContent = tag;
+    const w = document.createElement('div'); w.className = 'what';
+    const p = document.createElement('p'); p.textContent = what;
+    const c = document.createElement('p'); c.className = 'caught'; c.textContent = 'What caught it: ' + caught;
+    w.append(p, c); d.append(t, w); mk.append(d);
+  });
+}
+
+/* ---------- 9. the jigsaw (imagined) ---------- */
+function drawBoard() {
+  const W = 760, cell = 180, gx = 20, gy = 14, H = gy * 2 + cell * 4 * 0.78;
+  const ch = cell * 0.78;
+  const svg = S('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'An imagined jigsaw of the findings around an empty centre' });
+  // edge types: h[r][c] between rows r and r+1; v[r][c] between columns c and c+1
+  const h = [[1, -1, 1, -1], [-1, 1, -1, 1], [1, 1, -1, -1]], v = [[1, -1, 1], [-1, 1, -1], [1, -1, 1], [-1, 1, -1]];
+  function edge(x0, y0, x1, y1, ty) {
+    if (!ty) return `L${x1},${y1}`;
+    const dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len, nx = uy * ty, ny = -ux * ty, k = Math.min(len, 105);
+    const P = (a, b) => `${(x0 + ux * len * a + nx * k * b).toFixed(1)},${(y0 + uy * len * a + ny * k * b).toFixed(1)}`;
+    return `L${P(0.36, 0)} C${P(0.42, 0.12)} ${P(0.30, 0.24)} ${P(0.5, 0.24)} C${P(0.70, 0.24)} ${P(0.58, 0.12)} ${P(0.64, 0)} L${x1},${y1}`;
+  }
+  function piece(r, c) {
+    const x = gx + c * cell, y = gy + r * ch, w = cell, hh = ch;
+    const top = r > 0 ? -h[r - 1][c] : 0, bottom = r < 3 ? h[r][c] : 0, left = c > 0 ? -v[r][c - 1] : 0, right = c < 3 ? v[r][c] : 0;
+    return `M${x},${y} ${edge(x, y, x + w, y, top)} ${edge(x + w, y, x + w, y + hh, right)} ${edge(x + w, y + hh, x, y + hh, bottom)} ${edge(x, y + hh, x, y, left)} Z`;
+  }
+  const P = {
+    '0,0': ['The paper refuted; the gap mostly the shortcut', 'WT-2, WT-103, T1', 'glued'], '0,1': ['The flow differs a little, not twice', 'G1, N2', 'glued'],
+    '0,2': ['The flow’s pull: real; not needed, by this test', 'G1c, G1d', 'glued'], '0,3': ['A fixed shift suffices to switch', 'N1', 'glued'],
+    '1,0': ['Sharing directions costs accuracy', 'N4', 'glued'], '1,3': ['Why apart? a competition?', 'N5', 'loose'],
+    '2,0': ['Further ahead, more separate', 'N6r', 'glued'], '2,3': ['Not a noisy copy: a different reading', 'N7–N11', 'glued'],
+    '3,0': ['The remedy weighs each answer', 'N12, N13', 'glued'], '3,1': ['Directions follow accuracy?', 'N14a, N16d', 'loose'],
+    '3,2': ['Who judges matters', 'N16', 'glued'], '3,3': ['A judge that grades itself', 'N17, N18', 'half'] };
+  const centres = {}, pieceText = [];
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+    const key = r + ',' + c, cx = gx + c * cell + cell / 2, cy = gy + r * ch + ch / 2;
+    if (!P[key]) { S('path', { d: piece(r, c), fill: 'none', stroke: 'var(--rule)', 'stroke-width': 1, 'stroke-dasharray': '3 4' }, svg); continue; }
+    const [title, tests, state] = P[key];
+    const tilt = state === 'loose' ? (c > 1 ? 5 : -5) : state === 'half' ? 2.5 : 0;
+    const off = state === 'loose' ? 10 : state === 'half' ? 4 : 0;
+    const transform = `translate(${off * (c > 1 ? 1 : -1)},${off}) rotate(${tilt} ${cx} ${cy})`;
+    S('path', { d: piece(r, c), transform, fill: state === 'glued' ? 'var(--glued)' : state === 'half' ? 'var(--half)' : 'var(--paper)',
+                stroke: state === 'glued' ? 'var(--ink-2)' : 'var(--ink-3)', 'stroke-width': state === 'glued' ? 1.2 : 1.4, 'stroke-linejoin': 'round' }, svg);
+    const lines = []; let cur = '';
+    title.split(' ').forEach(w => { if ((cur + ' ' + w).trim().length > 17) { lines.push(cur.trim()); cur = w; } else cur += ' ' + w; }); lines.push(cur.trim());
+    centres[key] = [cx, cy, 62, (lines.length * 16 + 16) / 2 + 8];
+    pieceText.push({ lines, tests, state, cx, cy, transform });
+  }
+  const mx = gx + 2 * cell, my = gy + 2 * ch;
+  // the threads go beneath the words: each runs between the edges of two text blocks, not through them
+  const block = k => k === 'C' ? [mx, my, 86, 46] : centres[k];
+  const clip = ([cx, cy, hw, hh], tx, ty) => { const dx = tx - cx, dy = ty - cy, k = Math.min(hw / Math.max(Math.abs(dx), 1e-6), hh / Math.max(Math.abs(dy), 1e-6)); return [cx + dx * k, cy + dy * k]; };
+  const TH = [['2,0', 'C'], ['2,3', '3,3'], ['0,1', '1,0'], ['3,2', 'C']], nums = [];
+  TH.forEach(([a, b]) => {
+    const A = block(a), B = block(b), [x1, y1] = A, [x2, y2] = B;
+    const qx = (x1 + x2) / 2 + (y2 - y1) * 0.25, qy = (y1 + y2) / 2 - (x2 - x1) * 0.25;
+    const [sx, sy] = clip(A, qx, qy), [ex, ey] = clip(B, qx, qy);
+    S('path', { d: `M${sx},${sy} Q${qx},${qy} ${ex},${ey}`, fill: 'none', stroke: 'var(--imagined)', 'stroke-width': 1.6, 'stroke-linecap': 'round' }, svg);
+    [[sx, sy], [ex, ey]].forEach(([px, py]) => S('circle', { cx: px, cy: py, r: 3, fill: 'var(--imagined)' }, svg));
+    nums.push([0.25 * sx + 0.5 * qx + 0.25 * ex, 0.25 * sy + 0.5 * qy + 0.25 * ey]);
+  });
+  pieceText.forEach(({ lines, tests, state, cx, cy, transform }) => {
+    const g = S('g', { transform }, svg), cls = state === 'glued' ? ' on-glued' : state === 'half' ? ' on-half' : '';
+    const y0 = cy - (lines.length * 16 + 16) / 2 + 12;
+    lines.forEach((ln, i) => T(g, cx, y0 + i * 16, ln, 'lab-strong' + cls, 'middle'));
+    T(g, cx, y0 + lines.length * 16 + 4, tests, 'tick' + cls, 'middle');
+  });
+  T(svg, mx, my - 18, 'Several readings', 'lab-strong', 'middle', { style: 'font-family:var(--f-display);font-size:19px;fill:var(--imagined)' });
+  T(svg, mx, my + 4, 'held at once', 'lab-strong', 'middle', { style: 'font-family:var(--f-display);font-size:19px;fill:var(--imagined)' });
+  T(svg, mx, my + 26, 'the idea · untested', 'tick', 'middle');
+  nums.forEach(([bx, by], i) => {
+    S('circle', { cx: bx, cy: by, r: 11, fill: 'var(--paper)', stroke: 'var(--imagined)', 'stroke-width': 1.5 }, svg);
+    T(svg, bx, by + 4, String(i + 1), 'lab-strong', 'middle', { style: 'fill:var(--imagined)' });
+  });
+  document.getElementById('board').replaceChildren(svg);
+  const words = [
+    'Two readings already behave a little like separate voices: the further ahead a reading looks, the less its directions overlap the next-word reading’s, and forcing them together costs accuracy. A many-voiced model might hold each voice in directions of its own.',
+    'A head trained on scrambled answers came to read differently, not as a noisy copy of the right reading; a judge that weights its own training is a head shaping its own answers. Perhaps the two are one phenomenon seen twice: training that changes what a head reads, folded back on itself.',
+    'At this scale the flow’s bend and per-reading pull differed only slightly (G1, N2), and its 4- to 10-fold difference in whole-state pull was not needed (G1c, G1d). If the readings live anywhere here, it may be in which directions each one uses, and the continuous block may be the wrong place to look for simultaneity.',
+    'With the clean head as judge, a diagnostic rather than a method, the shortfall closed (N16); a judge weighting its own training did harm when it trained on genuine answers alone (N18a). Whether the clean head helped by being independent or by being more accurate is not yet separated. Perhaps a model holding many readings could let them check one another, rather than each grading itself.'];
+  const box = document.getElementById('threads');
+  words.forEach((w, i) => {
+    const d = document.createElement('div'); d.className = 'thread';
+    const n = document.createElement('div'); n.className = 'num'; n.textContent = String(i + 1);
+    const p = document.createElement('p'); p.className = 'prose'; p.textContent = w;
+    d.append(n, p); box.append(d);
+  });
+}
+
+/* ---------- tables ---------- */
+function tables() {
+  const g = D.shortcut;
+  const ci = k => `${f(g.ci[k][0], 4)} to ${f(g.ci[k][1], 4)}`;
+  table('t-gap', ['Contrast', 'Nats', 'Interval'], [['The whole gap, as trained (AA − B6)', g.gap.toFixed(3), ci('gap') + ' (95%, unadjusted, exploratory)'], ['G: closed by exact training (AA − AX)', g.training_method.toFixed(3), ci('training_method') + ' (98.75%)'], ['F: the block’s continuous form (AX − T4)', g.ode_form.toFixed(3), ci('ode_form') + ' (98.75%)'], ['C2: reusing one block four times (T4 − B6)', g.repeated_block.toFixed(3), ci('repeated_block') + ' (98.75%)'], ['P, separately: one block’s missing weights (B5 − B6)', g.separate_weights.toFixed(3), ci('separate_weights') + ' (98.75%)'], ['Exact-trained model, behind the baseline', g.exact_trained_behind_baseline.toFixed(2), ''], ['Full budget, the model as built', g.full_budget_gap_as_built.toFixed(2), '']]);
+  const F = D.flow;
+  table('t-flow', ['Measure', 'Model 1', '2', '3', '4', '5', 'Control'], [
+    ['Curvature (G1)', ...F.curvature_G1.map(v => v.toFixed(2)), F.curvature_shuffled_range.map(v => v.toFixed(3)).join('–') + ' shuffled'],
+    ['Pull, per reading (N2)', ...F.pace_N2.map(v => v.toFixed(2)), F.pace_same_target_range.map(v => v.toFixed(3)).join('–') + ' same target'],
+    ['Pull, whole state (G1c)', ...F.contraction_G1c.map(v => v.toFixed(1)), ''],
+    ['G1d: capping it, farther task’s cost minus nearer’s, nats', ...F.contraction_removed_cost_G1d.map(v => fs(v)), '']]);
+  table('t-fan', ['Second reading', 'Overlap by run', 'Mean', 'Equivalent angle'], FAN.map(it => [it.k, it.v.map(v => v.toFixed(3)).join(', '), mean(it.v).toFixed(3), ang(mean(it.v)).toFixed(1) + '°']));
+  const G = accGroups();
+  const rowsA = G.rungs.map(r => ['Ladder: ' + r.k, mean(r.pts.map(p => p[0])).toFixed(3), mean(r.pts.map(p => p[1])).toFixed(3)]);
+  G.groups.forEach(gr => gr.items.forEach(it => rowsA.push([it.k, mean(it.pts.map(p => p[0])).toFixed(3), mean(it.pts.map(p => p[1])).toFixed(3)])));
+  table('t-acc', ['Head', 'Δ (nats)', 'Agreement'], rowsA);
+  const arms = [['rw-oracle', 'Clean head judges'], ['rw-j20', 'Full weight, 20%'], ['n17-rw-j10', 'Full weight, 10%'], ['n17-rw-j05', 'Full weight, 5%'], ['rw-j025', 'Full weight, 2.5%'], ['rw-j0125', 'Full weight, 1.25%'], ['rw-ctwin', 'Twin-weighted'], ['rw-b1', 'Head judges itself'], ['rw-peer', 'The peer'], ['rw-cloop', 'Self-weighting judge']];
+  table('t-judge', ['Judge', 'Loss gap (nats)', 'Share recovered'], arms.map(([a, k]) => [k, jm(a, 'x').toFixed(3), fs(jm(a, 'F'))]));
+  const st = D.n18_steps;
+  table('t-steps', ['Run', 'rw-j20', 'rw-ctwin', 'rw-cloop', 'rw-peer'], Object.keys(st).map(s => [s, st[s].j20.toFixed(4), st[s].ctwin.toFixed(4), st[s].cloop.toFixed(4), st[s].peer.toFixed(4)]));
+}
+
+/* ---------- boot ---------- */
+const R = { 'c-gap': drawGap, 'c-flow': drawFlow, 'c-fan': drawFan, 'c-acc': drawAcc, 'c-judge': drawJudge, 'c-steps': drawSteps };
+function renderAll() { for (const [id, fn] of Object.entries(R)) { const el = document.getElementById(id); if (el.clientWidth) fn(el); } }
+renderAll(); drawLedger(); drawBoard(); tables();
+let rz; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(renderAll, 120); }).observe(document.querySelector('.wrap'));
+</script>
+</body>
+</html>

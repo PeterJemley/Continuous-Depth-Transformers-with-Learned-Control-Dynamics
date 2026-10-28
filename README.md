@@ -28,6 +28,8 @@ This repository holds a January 2026 paper by Peter Jemley, the code behind it, 
 
 Drawn by [`make_figures.py`](experiments/simultaneity-conjecture/make_figures.py): the first five from the saved records, with every plotted value by run in [`FIGURE_DATA.md`](experiments/simultaneity-conjecture/figures/FIGURE_DATA.md), and the sixth from the ledger in [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md). The tests behind them are described in the next section and in their notes; N18, the latest, is in [`N18_NOTE.md`](experiments/simultaneity-conjecture/N18_NOTE.md). The last figure is imagined: a picture of how the findings might fit together, not a result.
 
+**[An interactive version](https://peterjemley.github.io/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/)** shows the same findings with every value on hover and a table under each figure. It is built from the same records by [`make_page.py`](experiments/simultaneity-conjecture/make_page.py) into [`docs/`](docs/), which GitHub Pages serves.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="experiments/simultaneity-conjecture/figures/shortcut_gap_dark.png">
   <img src="experiments/simultaneity-conjecture/figures/shortcut_gap_light.png" width="720" alt="Horizontal bar chart. At a tenth of the WikiText-103 budget, Model A trailed the baseline by 0.83 nats. Training with exact gradients closed 0.79 of that; the continuous form cost 0.035 nats, size unclear, and reusing one block four times 0.007. Separately, losing one block's weights cost 0.020. A line marks the 0.05 margin.">
@@ -111,6 +113,7 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 │   ├── too-linear-conjecture/                              # Why the model fell short: the author asked whether the design was "too linear"; T1 traced the gap to the training shortcut
 │   └── simultaneity-conjecture/                            # The tests of several readings at once (see its README.md)
 ├── colab/                                                  # Runs GPU jobs on Colab (see colab/README.md)
+├── docs/                                                   # The interactive page, served by GitHub Pages (built by experiments/simultaneity-conjecture/make_page.py)
 ├── figures/                                                # The paper's figures
 ├── PAPER.md                                                # The January 2026 paper, unchanged, with a status note
 ├── continuous_depth_transformer_falsification_test.ipynb   # The paper's solver test and linear probes
