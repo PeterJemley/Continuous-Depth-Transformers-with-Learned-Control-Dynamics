@@ -318,7 +318,7 @@ On Deutsch's view, problems are what knowledge grows from. These are the ones th
 
 [^4]: **T0 and T1.**
     - *T0* was untestable for two reasons. A must-match control (a cosine of at least 0.999) failed in 5 of 6 models, at 0.9982 to 0.9990. Noise between dropout masks was far larger than planned. Its exploratory observation, that the shortcut's gradient for the learned scale has the opposite sign to the exact one, has not been tested as a claim.
-    - *T1*, adjoint minus exact training: +0.792 nats, 95% interval [+0.661, +0.923], about 95% of the whole gap of +0.834 at 10% of the budget. Rival P (missing weights): +0.020, refuted. C2 (rigidity of a repeated block): +0.007, refuted at this scale. F (the ODE form): +0.035, some effect, size unclear.
+    - *T1*, adjoint minus exact training: +0.792 nats, 95% interval [+0.661, +0.923] *[Corrected 2026-10-30: a Bonferroni-corrected 98.75% interval, [+0.660, +0.923]; see `T1_NOTE.md`]*, about 95% of the whole gap of +0.834 at 10% of the budget. Rival P (missing weights): +0.020, refuted. C2 (rigidity of a repeated block): +0.007, refuted at this scale. F (the ODE form): +0.035, some effect, size unclear.
 
     Sources: `../too-linear-conjecture/T0_NOTE.md`, `../too-linear-conjecture/T1_NOTE.md`.
 
