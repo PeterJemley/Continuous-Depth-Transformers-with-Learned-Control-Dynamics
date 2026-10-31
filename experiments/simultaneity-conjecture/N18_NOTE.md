@@ -102,7 +102,7 @@ Saved models were re-measured:
 
 **Why the comparison is direct.** An earlier draft compared a self-weighting judge on clean targets with loop-free judges of the same accuracy. A fresh reader's check found that ill-posed.
 - N14's head trained this way was very inaccurate on plain cross-entropy but very accurate in mixture form, so "a loop-free judge of the same accuracy" named two different judges.
-- A second check found that a comparison with `rw-j20` alone would change two things: weighting the clean targets by the discount, which N16 found costly even with head A computing it, and taking the weight from the judge itself.
+- A second check found that a comparison with `rw-j20` alone would change two things *[Corrected 2026-10-31: it was the third of the four checks; the second found that requiring both measures of accuracy to agree made the claim close to unrefutable, and led to the direct comparison with `rw-j20`]*: weighting the clean targets by the discount, which N16 found costly even with head A computing it, and taking the weight from the judge itself.
 - The twin keeps the first and removes the second.
 
 **The conjecture.** A judge that weights its own targets by its own prediction gives little weight to the targets it predicts poorly, and so goes on predicting them poorly. This would be analogous to the confirmation bias described in self-training (Arazo et al., 2020). With the data and weighting fixed, the loop alone would cost head B at least two thirds of the peer's gap.
