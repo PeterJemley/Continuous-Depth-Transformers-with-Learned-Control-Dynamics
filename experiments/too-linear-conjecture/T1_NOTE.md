@@ -44,10 +44,12 @@ All four passed, so the confirmatory contrasts count as preregistered.
 
 | Contrast | Result | Preregistered outcome |
 |---|---|---|
-| **G: AA − AX (primary)** | +0.792, interval [+0.661, +0.923] | **Material: adjoint training is worse** |
+| **G: AA − AX (primary)** | +0.792, interval [+0.661, +0.923] *[Corrected 2026-10-30: [+0.660, +0.923]]* | **Material: adjoint training is worse** |
 | P: B5 − B6 | +0.020, interval [+0.012, +0.028] | Negligible, and rival P is refuted: about 2% of the whole gap, against a predicted half or more |
-| C2: T4 − B6 | +0.007, interval [−0.001, +0.015] | Negligible: C2's forbidden case happened, so **C2 is refuted at this scale** |
+| C2: T4 − B6 | +0.007, interval [−0.001, +0.015] *[Corrected 2026-10-30: [−0.001, +0.014]]* | Negligible: C2's forbidden case happened, so **C2 is refuted at this scale** |
 | F: AX − T4 | +0.035, interval [+0.018, +0.052] | Some effect, size unclear |
+
+*[Corrected 2026-10-30: two interval ends in this table were rounded twice. `T1_RESULTS.md` gives them to four places, as +0.6605 and +0.0145, and this note rounded those again to three. The exact values from the records, +0.66046 and +0.01449, round to +0.660 and +0.014. Neither verdict changes: G's interval still lies wholly beyond the 0.05 margin, and C2's wholly within it.]*
 
 The whole gap at this budget, AA − B6, was +0.834 (exploratory, unadjusted interval [+0.754, +0.914]). The primary contrast G accounts for about 95% of it.
 
