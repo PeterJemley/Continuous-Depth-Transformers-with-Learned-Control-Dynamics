@@ -60,6 +60,7 @@ Each row links to the test's note, the account to read first.
 | N15 | Would a sharper discount remove the remaining shortfall? | Withdrawn before any real run | [plan](N15_PREREGISTRATION.md) |
 | N16 | Is the remaining shortfall in who judges the answers? | Three supported, one inconclusive: judged by the clean head, the shortfall vanished; whether independence, accuracy or sharpness matters is open | [N16](N16_NOTE.md) |
 | N17 | Was it the judge's accuracy, or the loop of a head judging answers by its own predictions? | Some effect, size unclear; one untestable: interpolated between two judges with no loop, one as accurate as the head itself would recover a third of the shortfall; what makes up the third is not separated | [N17](N17_NOTE.md) |
+| N18 | With the judge's data and weighting held fixed, is its own loop enough to produce the peer's gap? | Supported: on genuine answers alone the loop cost about twice the peer's gap, mostly, on an exploratory reading, through the judge's own accuracy; whether the peer's own gap is the loop's is not shown | [N18](N18_NOTE.md) |
 
 **Gaps and oddities in the numbering.**
 - **There is no N3.** It was planned in [`PATHS_AND_UNDERSTANDING.md`](PATHS_AND_UNDERSTANDING.md) as control that multiplies parts of the flow instead of adding to it (G3 in `CONJECTURE.md`), and N2's note named it as the test to run before leaving the dynamics. It was not run.
@@ -88,4 +89,5 @@ Other documents:
 - [`PATHS_AND_UNDERSTANDING.md`](PATHS_AND_UNDERSTANDING.md): a note written while G1d ran; its section "After G1d" plans N1–N4. With result lines.
 - [`NECESSITY_AUDIT.md`](NECESSITY_AUDIT.md): from N12 on, a check of what each design relies on, made before the real run (for N12 after approval, from N13 at drafting).
 - `N11_HARDWARE.md`: N11's runs on a T4 GPU against its runs on an A100, exploratory.
-- [`make_figures.py`](make_figures.py) and [`figures/`](figures/): the plain summary's figures, drawn from the records, with every plotted value in [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md).
+- [`make_figures.py`](make_figures.py) and [`figures/`](figures/): figures drawn from the records, with every plotted value in [`figures/FIGURE_DATA.md`](figures/FIGURE_DATA.md). Figures 1 to 3 appear in the plain summary, and 4 to 10 in the [root README](../../README.md).
+- [`make_page.py`](make_page.py) and [`page/`](page/): the interactive page, built from the same records into [`../../docs/`](../../docs/) and served by GitHub Pages at https://peterjemley.github.io/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/.
