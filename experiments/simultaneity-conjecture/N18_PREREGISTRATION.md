@@ -416,6 +416,10 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
     - All five preconditions held.
   - **N18a: supported.** R = +2.07, 95% interval [+1.85, +2.29], standard deviation 0.18, 5 seeds. The interval lies wholly above 1.
   - The verdict, and every number behind it, is computed by `n18_analyze.py` from the records. The note, `N18_NOTE.md`, reads them.
+- **2026-11-02: a correction to the background, approved by the author.** "Why a twin" says that *a second* fresh reader's check found that a direct comparison with `rw-j20` would change two things at once. It was the third of the four checks (commit 9756782).
+  - The first check (1ef4a88) led to a rule requiring both measures of accuracy to agree.
+  - The second (3d7c73c) found that rule close to unrefutable, and led to the direct comparison with `rw-j20`.
+  - The background text stays as approved. Nothing in the design, the claim, its rule or the verdict changes. `N18_NOTE.md` carries the same correction, dated 2026-10-31.
 
 ## References
 
