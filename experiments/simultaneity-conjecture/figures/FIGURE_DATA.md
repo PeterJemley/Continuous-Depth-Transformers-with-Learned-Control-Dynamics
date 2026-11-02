@@ -102,7 +102,7 @@ Seeds 4101–4105, from `results/n18/` (`m_*` where present, else `r_*`). x: the
 
 ## Figure 9: the ledger
 
-The main rows of the ledger, in its order, with N18a from its note. Secondary claims and T1's rivals are in the notes. N15 was withdrawn before its real run and is not counted.
+The main rows of the ledger, in its order. Secondary claims and T1's rivals are in the notes. N15 was withdrawn before its real run and is not counted.
 
 | Chapter | Tests and verdicts |
 |---|---|
