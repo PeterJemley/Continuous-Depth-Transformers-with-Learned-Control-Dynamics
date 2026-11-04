@@ -10,7 +10,7 @@ Each job is prepared in this repository. You run it on a Colab GPU with one fixe
 2. At the bottom of the left sidebar, click **Developer settings**, then **Personal access tokens**, then **Fine-grained tokens**, then **Generate new token**.
 3. Name it `colab-runner` and set **Expiration** to 30 days.
 4. Under **Repository access**, choose **Only select repositories** and pick `Continuous-Depth-Transformers-with-Learned-Control-Dynamics`.
-5. Under **Permissions**, click **+ Add permissions**, choose **Contents**, and set its access to **Read and write**. GitHub may add **Metadata** as read-only by itself; leave it. Leave the **Account** tab at 0.
+5. Under **Permissions**, first click the **Repositories** tab: Contents is a repository permission, and searching for it on the **Account** tab finds nothing. Then click **+ Add permissions**, choose **Contents**, and set its access to **Read and write**. GitHub may add **Metadata** as read-only by itself; leave it. Leave the **Account** tab at 0.
 6. Click **Generate token** and copy it. GitHub shows it only once.
 
 The token works only on this one repository and expires on its own. You can revoke it at any time on the same page. The notebook needs the token to upload results. The repository is now public, so downloading the code works without it, but the notebook uses the token for the download too when it is set.
