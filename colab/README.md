@@ -1,6 +1,6 @@
 # Running jobs on Colab
 
-Each job is prepared in this repository. You run it on a Colab GPU with one fixed notebook, `colab/runner.ipynb`. The notebook downloads the latest code, runs whichever job `colab/NEXT_JOB.json` names, and uploads the results to the `colab-results` branch, where they are analysed.
+Each job is prepared in this repository. You run it on a Colab GPU with one fixed notebook, `colab/runner.ipynb`. The notebook downloads the latest code, runs whichever job `colab/NEXT_JOB.json` names, and uploads the results to the `colab-results` branch, where they are analysed. When no job is queued, the file names `none`, which runs nothing: the notebook says so near its top, and there is nothing to run until a new job is named.
 
 ## One-time setup
 
