@@ -82,6 +82,8 @@ The project's own aim, the author's, goes beyond the paper. When we listen to mu
 
 **The conjecture itself is untested.** No test has yet built the model it is about, one with separate, interacting continuous strands, and compared it with a matched ordinary transformer (V2 in [`CONJECTURE.md`](experiments/simultaneity-conjecture/CONJECTURE.md)) or with its own coupling switched off (V3).
 
+**A second line, also the author's, is a conjecture only.** [`experiments/curved-meaning/`](experiments/curved-meaning/) asks two things. Can a curved readout represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic, prevent most of the damage a model suffers when it is trained on generated text, while the meanings it protects stay correctable through dated review? Nothing in it has been run.
+
 ## Who did what
 
 The January 2026 paper is Peter Jemley's. The audit, the replications and the tests under [`experiments/`](experiments/) were designed, run and written up by Claude, an AI model made by Anthropic, working with the author, who approved every plan before it ran. Where those documents say "I", the writer is Claude.
@@ -111,7 +113,8 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 │   │   └── results/                                        # One JSON record per run
 │   ├── wikitext103-training/                               # The same model trained on WikiText-103 at the full budget
 │   ├── too-linear-conjecture/                              # Why the model fell short: the author asked whether the design was "too linear"; T1 traced the gap to the training shortcut
-│   └── simultaneity-conjecture/                            # The tests of several readings at once (see its README.md)
+│   ├── simultaneity-conjecture/                            # The tests of several readings at once (see its README.md)
+│   └── curved-meaning/                                     # A conjecture, untested: curved heads, and a protected record against collapse (see its README.md)
 ├── colab/                                                  # Runs GPU jobs on Colab (see colab/README.md)
 ├── docs/                                                   # The interactive page, served by GitHub Pages (built by experiments/simultaneity-conjecture/make_page.py)
 ├── figures/                                                # The paper's figures
