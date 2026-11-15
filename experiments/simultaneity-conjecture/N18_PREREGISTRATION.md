@@ -423,6 +423,6 @@ R above 1, the loop on clean targets costing more than the peer's whole gap, cou
 
 ## References
 
-Arazo, E., Ortego, D., O'Connor, N. E., & McGuinness, K. (2020). Pseudo-labeling and confirmation bias in deep semi-supervised learning. In *2020 International Joint Conference on Neural Networks (IJCNN)* (pp. 1–8). IEEE. https://doi.org/10.1109/ijcnn48605.2020.9207304
+Arazo, E., Ortego, D., O'Connor, N. E., & McGuinness, K. (2020). Pseudo-labeling and confirmation bias in deep semi-supervised learning. In *2020 International Joint Conference on Neural Networks (IJCNN)* (pp. 1–8). IEEE. https://doi.org/10.1109/ijcnn48605.2020.9207304 *[Corrected 2026-11-13: this entry leaves out the paper's third author, Paul Albert. The author list is Arazo, E., Ortego, D., Albert, P., O'Connor, N. E., & McGuinness, K. Found by checking the entry against Scite's record of the paper. The in-text citation, Arazo et al. (2020), and everything that relies on the paper are unchanged.]*
 
 Patrini, G., Rozza, A., Krishna Menon, A., Nock, R., & Qu, L. (2017). Making deep neural networks robust to label noise: A loss correction approach. In *2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)* (pp. 2233–2241). IEEE. https://doi.org/10.1109/cvpr.2017.240

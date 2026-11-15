@@ -361,7 +361,7 @@ Both are as the calibration entry said they would most likely be.
 
 ## References
 
-Arazo, E., Ortego, D., O'Connor, N. E., & McGuinness, K. (2020). Pseudo-labeling and confirmation bias in deep semi-supervised learning. In *2020 International Joint Conference on Neural Networks (IJCNN)* (pp. 1–8). IEEE. https://doi.org/10.1109/ijcnn48605.2020.9207304
+Arazo, E., Ortego, D., O'Connor, N. E., & McGuinness, K. (2020). Pseudo-labeling and confirmation bias in deep semi-supervised learning. In *2020 International Joint Conference on Neural Networks (IJCNN)* (pp. 1–8). IEEE. https://doi.org/10.1109/ijcnn48605.2020.9207304 *[Corrected 2026-11-13: this entry leaves out the paper's third author, Paul Albert. The author list is Arazo, E., Ortego, D., Albert, P., O'Connor, N. E., & McGuinness, K. Found by checking the entry against Scite's record of the paper. The in-text citation, Arazo et al. (2020), and everything that relies on the paper are unchanged.]*
 
 Han, B., Yao, Q., Yu, X., Niu, G., Xu, M., Hu, W., Tsang, I., & Sugiyama, M. (2018). *Co-teaching: Robust training of deep neural networks with extremely noisy labels* [Preprint]. arXiv. https://doi.org/10.48550/arxiv.1804.06872
 
