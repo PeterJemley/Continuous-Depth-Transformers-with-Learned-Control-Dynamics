@@ -2,9 +2,9 @@
 
 A second line of work, the author's (Peter Jemley's), begun on 2026-11-11. It is a conjecture only: nothing here has been run, and its tests are a sketch, not yet ready for preregistration.
 
-It asks two questions:
+Claude's restatement of the author's ideas asks two questions:
 - Can a model represent meanings more cheaply with curved geometry than with flat geometry? It starts with a single readout head.
-- Can a small, protected record of original data, used as a critic, prevent most of the damage a model suffers when it is trained on its predecessors' generated text (collapse)? And can it do so while the meanings it protects stay correctable through dated review?
+- Can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on its predecessors' generated text (collapse)? And can it do so while the meanings it protects stay correctable through review?
 
 | File | What it is |
 |---|---|

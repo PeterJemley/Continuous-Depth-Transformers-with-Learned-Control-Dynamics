@@ -5,6 +5,7 @@
 - Revised on 2026-11-13 with the author's answers on compression and on which data are mission-critical.
 - Revised again the same day after a second fresh reader's check, which made 30 findings.
 - Revised on 2026-11-15 with the author's answers on lossless compression and on the tension in the design, which add C5.
+- Revised again the same day after a third fresh reader's check of the newest parts, which made 11 findings, chiefly in C5's design.
 
 **Status:** conjecture, untested. Nothing here has been run. The tests are a sketch: the design is not ready for preregistration.
 
@@ -98,7 +99,8 @@ These shape what is tested. They are philosophical arguments, held as guides, no
      - Which types count is decided per use case, in context, by weighing that case's risks. The design does not fix a list.
      - Changes to mission-critical knowledge are checked against the records, to stop the curse of recursion. This applies to mission-critical data only.
    - *Claude's, which the author accepted:* the records' role is to criticise, not to be the knowledge.
-   - *The author's, 2026-11-15:* the compression is lossless, so the exact records can always be recovered. It saves storage and changes nothing the critic sees, so the tests below do not test it.
+   - *The author's, 2026-11-15:* the compression is lossless, so the exact records can always be recovered.
+   - *Claude's inference:* it then saves storage and changes nothing the critic sees, so the tests below do not test it.
 2. **The inexplicit layer** (the author's).
    - It is the curved or folded geometry of meanings. It stays changeable and learns by being criticised.
    - The records stay fixed; what they are taken to mean, and how they relate to other ideas, can change.
@@ -125,13 +127,15 @@ So whether any criticism can protect as well as Son's while leaving the records'
 
 ### The author's answer: meaning tied to purpose and time, reviewed for future cases
 
-The author, 2026-11-15: the choice is not either-or. A record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases". That preserves the original mission-critical data and still lets meanings change.
+The author, 2026-11-15: "This can't be dichotomous: 'specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases' allows both original mission-critical data to be preserved and for meanings to change."
 
 *Claude's reading of how this would work in a model:*
-- **Held still between reviews.** For its specified purposes, a record's meaning is held still as of the time it was specified. That is what the critic does, with generation 0 standing for the time of specification. It protects against change that nobody reviewed, which is what collapse is.
+- **Held still between reviews.** For its specified purposes, a record's meaning is held still as of the time it was specified. That is what the critic does, with generation 0 standing for the time of specification. It protects against change that nobody reviewed, of which collapse is one kind. It also blocks good change on the record, such as learning from fresh genuine data; a review is what admits that.
 - **Changeable through review.** For future cases, the meaning is reviewed. A review that accepts a change makes the reviewed model the critic's new reference from then on, and the earlier reference is kept on record.
   - This repository already works the same way: a dated correction is added beside the original text, which stays in place.
-- **The review must not be the model judging itself.** In N18, a judge that weighted its own training by its own predictions did harm. So a review needs criticism from outside the model, either genuine data the model did not generate or a person. This is Claude's inference.
+- **The review should not be the model judging itself.** This is Claude's inference, which N18 does not establish.
+  - In N18, a judge that weighted its own training by its own predictions did harm. But N18's loop weights training; it does not accept or refuse a model.
+  - C5's mechanism check tests the inference: a review needs criticism from outside the model, either genuine data the model did not generate or a person.
 - **Still open:** what triggers a review, what it checks, and how a purpose is specified so that a model can tell one purpose's context from another's.
 
 C5, below, puts this to a test.
@@ -279,20 +283,41 @@ This is the device's detector role, a claim of its own. It does not gate C2.
   - An undamaged model is trained for the same number of steps on fresh genuine text.
 - *The risk:* Son found that fresh real data also moved an early signal, so false alarms are a real possibility.
 
-### C5. A review judged on outside data lets errors inside the record be corrected, while keeping the protection
+### C5. A dated reference, reviewed on outside data, lets errors inside the record be corrected while keeping the protection
 
-This is the author's resolution of the tension, put in testable form by Claude.
-- *What a review is here:* at a fixed point in training, the current model is put forward as the critic's new reference.
-  - It is accepted only if it does better than the current reference on a review set: held-out genuine text for the record's purpose, which the model is never trained on.
-  - If accepted, it becomes the reference from then on.
-- *Mechanism:* between reviews, the critic blocks change that nobody reviewed. A review admits change that outside data support.
-- *Consequences:*
-  - After a review, an error inside the record is corrected by at least a set fraction of the correction seen with no critic.
-  - Under collapse, a critic with reviews keeps a share of the damage prevented (S, defined under C2) within a set margin of the critic without reviews, because a review judged on genuine text should refuse a collapsed model.
-- *It forbids:*
-  - no correction inside the record after an accepted review;
-  - reviews letting collapse back in, so that S falls by more than the margin.
-- *Mechanism check:* a review judged by the model itself, for example by its own loss on its own samples, should accept collapsed models. If it refuses them as well as the outside review does, outside criticism is not what makes the review safe.
+This is the author's resolution of the tension. Claude put it in testable form.
+- The review's timing and its review set are Claude's placeholders for open question 7.
+- One topic stands in for a "purpose" (open question 8).
+
+**What a review is here**
+- *A candidate.* Alongside the protected model, a copy is trained from the same starting point on the same data for the same steps, but without the critic. The candidate is free to change where the critic holds the protected model still.
+- *The review.* At a fixed point, the candidate is compared with the current reference on a review set.
+  - The review set is a small set of held-out genuine text of the record's type, the same size as the record.
+  - It is kept apart from the text S is measured on, and nothing is trained on it.
+- *If the candidate does better,* its predictions on the record become the critic's reference from then on, and the earlier reference is kept on record. The protected model is then pulled towards the candidate's predictions on the record.
+
+**Mechanism.** Between reviews, the critic blocks change on the record that nobody reviewed. A review admits change that outside data support.
+
+**Consequences**
+- *Without collapse (test 2):* after an accepted review, an error inside the record is corrected by at least a set fraction of the correction seen with no critic.
+- *Under collapse (test 1):* a critic with reviews keeps S within a set margin of the critic without reviews.
+
+**It forbids**
+- an accepted review followed by less than that fraction of correction;
+- reviews letting collapse back in, so that S falls below the plain critic's by more than the margin.
+
+**Preconditions.** If one fails, that half of C5 is *untestable*.
+- *In test 2:* the review is accepted, and the accepted candidate prefers the true completion by a set margin.
+- *In test 1:* at least one candidate offered for review is collapsed, with held-out loss worse than the reference's by a set margin, so that the review has something to refuse.
+
+**What can fail, and how strongly.**
+- The correction half can fail. The review set might be too small to show the candidate's correction, or the pull towards the new reference might not move the protected model.
+- The collapse half is weaker. The review set is the same kind of text S is measured on, so with a large review set, refusing a collapsed candidate would be close to guaranteed. What it tests is whether a review set as small as the record is enough.
+
+**Mechanism check (must differ):** the same review arm, but with every candidate accepted.
+- This stands in for a review with no outside criticism.
+- *Claude's reasoning:* a review that judged a candidate only on text the models generate themselves would have nothing from outside. One natural version scores the candidate on its own samples against the reference on the same samples, and in expectation that always favours the candidate (Gibbs' inequality). So it would accept every candidate.
+- *What it must show:* under this arm, S must fall towards arm A's. If it keeps the protection as well as the outside review does, the review's criterion is not what keeps collapse out.
 
 ## Rivals
 
@@ -303,7 +328,7 @@ This is the author's resolution of the tension, put in testable form by Claude.
 | 3. Curvature helps only hierarchy | C1a holds and C1b fails | Test 3, both kinds of data |
 | 4. Tuning or optimisation differences (curved heads are harder to optimise) | The ranking changes when each arm gets its own best learning rate | Test 3's learning-rate sweep |
 | 5. The critic freezes errors beyond the record | C3 fails | Test 2 |
-| 6. Review lets collapse back in | A critic with reviews protects no better than no critic | Test 1, the review arm |
+| 6. Review lets collapse back in | A critic with reviews protects less than the plain critic, by more than the margin | Test 1, the review arm |
 
 ## Prior art
 
@@ -316,11 +341,12 @@ This is the author's resolution of the tension, put in testable form by Claude.
 **Not yet searched:**
 - compression of training data for continual learning (rehearsal, replay buffers, coresets), and self-distillation as a guard against forgetting. Both are close to the micro container.
 - knowledge editing, which changes specific facts in a trained model. It is close to C5's review.
+- updating a teacher model, or choosing a checkpoint, only when it does better on held-out data, as in self-distillation and mean-teacher methods. This is the nearest known practice to C5's review.
 
 **So neither the critic record nor its role should be called new.** Pending those searches, this note may add:
 - the test of whether protecting records freezes errors outside them (C3);
 - a detector judged by its hit and false-alarm rates (C4);
-- dated review of protected meanings, judged on outside data (C5);
+- review of protected meanings, judged on outside data, as a resolution of the tension between protection and correctability (C5);
 - the pairing with curved geometry.
 
 ## Proposed tests, in order
@@ -362,8 +388,10 @@ A sketch. Exact weights, sizes, rates, thresholds and decision rules belong in a
 If the predecessor protects as well as the matched model, being outside the loop is not what protects. As in N17, the match can only be approximate.
 
 **Review arms, for C5 and rival 6.**
-- The critic with a review every set number of generations, judged on a review set of held-out genuine text of the record's type.
-- The same, with the review judged by the model itself (its own loss on its own samples). This is C5's mechanism check.
+- *The critic with reviews:* a review every set number of generations, as C5 describes.
+  - Each candidate is trained without the critic on the same generated text.
+  - Each is judged on a review set of held-out genuine text of the record's type, kept apart from the text S is measured on.
+- *The mechanism check:* the same arm, with every candidate accepted.
 
 ### Test 2. C3: a seeded error, without collapse
 
@@ -376,7 +404,9 @@ If the predecessor protects as well as the matched model, being outside the loop
 - *The critic,* with a record chosen to exclude every sequence that mentions the swapped family. This is checked by search, not assumed.
 - *No critic.*
 - *Manipulation check:* the critic with the swapped family inside its record. It must keep the error. If it does not, the penalty is not acting, and C3 cannot be decided.
-- *For C5:* the critic with the swapped family inside its record, and one review at a fixed point. The review set holds held-out sentences stating the true relationships.
+- *For C5:* the critic with the swapped family inside its record, and one review at a fixed point.
+  - Its candidate is trained without the critic on the same genuine data, so it is free to learn the true relationships.
+  - The review set holds held-out sentences stating the true relationships, kept apart from the probe sentences.
 
 **Precondition.** Generation 0 must favour the swapped completion by a set margin on held-out probe sentences. If it never learned the swap, there is nothing to correct.
 
@@ -416,10 +446,10 @@ The damaged and undamaged models described under C4, several of each, scored by 
 | Predecessor protects as well as the matched outside model | Accuracy, not being outside the loop, is what protects (rival 2) | Which property of the reference does the work |
 | C3 holds | Protecting records leaves what lies outside them correctable | Whether errors inside the records need their own correction procedure |
 | C3 fails | The critic freezes errors beyond the record, through shared parameters | A critic acting on fewer parameters |
-| C5 holds | Meaning tied to purpose and time, with review, keeps both the protection and correctability | What should trigger a review, and how purposes are specified |
-| C5 fails: the error stays after review | The review set is too weak to move the reference, or the critic acts beyond its reference | A stronger review set, or a review that also edits the model directly |
-| C5 fails: reviews let collapse back in | Outside data on the review set do not catch collapse at this scale | A review that also uses the detector (C4) |
-| The self-judged review refuses collapsed models too | Outside criticism is not what makes the review safe | Which property of the review set does the work |
+| C5 holds | A dated reference, reviewed on outside data, keeps both the protection and correctability at this scale | What should trigger a review, and how purposes are specified |
+| C5 fails: the error stays after an accepted review | Moving the reference does not move the protected model enough | A stronger pull towards the new reference, or a review that also edits the model directly |
+| C5 fails: reviews let collapse back in | A review set as small as the record does not catch collapse at this scale | A larger review set, or a review that also uses the detector (C4) |
+| The accept-all review keeps the protection too | The review's criterion is not what keeps collapse out | What does: perhaps the candidates' own training |
 | C4 holds | Drift on the record tells damage from learning | Whether it warns earlier than held-out loss |
 | C4 fails | Drift on the record moves with ordinary learning too | Anchoring geometry prevented little in Son's study; whether a geometric detector does better is open |
 | C1a holds, C1b fails | A curved head buys width only for hierarchy | A mixed geometry: curved for hierarchy, flat for the rest |
@@ -430,7 +460,7 @@ The damaged and undamaged models described under C4, several of each, scored by 
 
 - Nothing here is a finding. Every conjecture is untested.
 - The Deutsch arguments are guiding principles, not results.
-- The compression is lossless, and is not tested.
+- The author specifies lossless compression. It is not tested.
 - No list of mission-critical data types is proposed: the design leaves that to each use case. The tests use one topic only as a stand-in.
 - The marker role is not tested. In these tests, which data are generated is known by construction. The marker matters only where provenance is unknown.
 - The author's claim that fixing relationships in memory saves compute is not tested.
@@ -445,7 +475,7 @@ The damaged and undamaged models described under C4, several of each, scored by 
 
 **Answered on 2026-11-15**
 3. *Is the compression lossless?* Yes.
-4. *Should the design hold the records' meanings still, or keep them changeable?* Neither alone: "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases". This is C5.
+4. *Should the design hold the records' meanings still, or keep them changeable?* "This can't be dichotomous: 'specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases' allows both original mission-critical data to be preserved and for meanings to change." This is C5.
 5. *Where should this line of work live?* In its own folder on `main`, `experiments/curved-meaning/`.
 
 **Open**

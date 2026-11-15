@@ -82,7 +82,7 @@ The project's own aim, the author's, goes beyond the paper. When we listen to mu
 
 **The conjecture itself is untested.** No test has yet built the model it is about, one with separate, interacting continuous strands, and compared it with a matched ordinary transformer (V2 in [`CONJECTURE.md`](experiments/simultaneity-conjecture/CONJECTURE.md)) or with its own coupling switched off (V3).
 
-**A second line, also the author's, is a conjecture only.** [`experiments/curved-meaning/`](experiments/curved-meaning/) asks two things. Can a curved readout represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic, prevent most of the damage a model suffers when it is trained on generated text, while the meanings it protects stay correctable through dated review? Nothing in it has been run.
+**A second line, from the author's ideas, is a conjecture only.** In [`experiments/curved-meaning/`](experiments/curved-meaning/), Claude's restatement of those ideas asks two things. Can a curved readout represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on generated text, while the meanings it protects stay correctable through review? Nothing in it has been run.
 
 ## Who did what
 
