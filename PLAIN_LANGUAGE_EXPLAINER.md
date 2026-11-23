@@ -6,7 +6,7 @@
 > - the model was 7–11% slower than the baseline, not at parity;
 > - properly trained, it was 1.10 nats worse than the baseline.
 >
-> It is kept as a record of what was claimed. For a current plain-language account, read [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). The README's status note summarises what was found.
+> It is kept as a record of what was claimed. For a current plain-language account, read [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). The README's status note summarises what was found. *[Updated 2026-11-23: the README is now arranged newest first. What its status note said is now in its sections dated [3 and 4 October 2026](README.md#3-and-4-october-2026-the-audit-and-the-replications) (the audit, the replications and T1), and the paper's own summary is in the January 2026 section at the bottom.]*
 
 A section-by-section guide to the technical project, written for readers without a machine learning background.
 

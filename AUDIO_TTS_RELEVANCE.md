@@ -1,6 +1,6 @@
 # Relevance to Audio Generation and TTS
 
-> **Obsolete, October 2026.** This note rests on the paper's 98%/88% steering result, which did not hold up. The target labelled " good" was GPT-2 token 220, a space, and in a replication steering held in only 5 of 8 seeds. The argument for audio may still be worth making, but not on this evidence. See the README's status note and [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md).
+> **Obsolete, October 2026.** This note rests on the paper's 98%/88% steering result, which did not hold up. The target labelled " good" was GPT-2 token 220, a space, and in a replication steering held in only 5 of 8 seeds. The argument for audio may still be worth making, but not on this evidence. See the README's status note and [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md). *[Updated 2026-11-23: the README is now arranged newest first. What its status note said is now in its sections dated [3 and 4 October 2026](README.md#3-and-4-october-2026-the-audit-and-the-replications) (the audit, the replications and T1), and the paper's own summary is in the January 2026 section at the bottom.]*
 
 This research on continuous-depth transformers directly addresses a fundamental problem in controllable audio generation: **how to control model outputs at inference time without retraining**.
 
