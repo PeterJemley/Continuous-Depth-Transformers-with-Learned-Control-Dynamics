@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The simultaneity conjecture's tests drawn as geometry: the ideal, what was measured to scale, the errors met and made, and imagined connections between them.">
+<meta name="description" content="Newest first: a second line of work, still a conjecture; then the simultaneity conjecture's tests drawn as geometry, with what was measured to scale, the errors met and made, and imagined connections; then the replications, T1 and the January 2026 paper.">
 <title>Voices and Directions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,6 +130,13 @@ th { font-weight: 600; color: var(--ink-2); }
 .thread .num { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-ui); font-size: 12px; font-weight: 600;
   color: var(--imagined); box-shadow: inset 0 0 0 1.5px var(--imagined); }
 .closing { display: grid; gap: 14px; }
+.timeline { font-family: var(--f-ui); font-size: 14px; }
+.timeline ol { list-style: none; margin: 0; padding: 0 0 0 14px; display: grid; gap: 6px; border-left: 2px solid var(--rule); }
+.timeline a { color: var(--ink); text-underline-offset: 2px; }
+.timeline .when { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 8px; }
+.order-note { font-family: var(--f-ui); font-size: 14px; color: var(--ink-2); }
+.pagefoot { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 24px; }
+.prose a { color: var(--ink); text-underline-offset: 2px; }
 .foot { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); }
 .foot a { color: var(--ink-2); text-underline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
@@ -139,82 +146,71 @@ th { font-weight: 600; color: var(--ink-2); }
 
 <main class="wrap">
   <header class="hero">
-    <p class="eyebrow">The simultaneity conjecture · tests G1 to N18 · drawn from their records</p>
+    <p class="eyebrow">Newest first · November 2026 back to January 2026 · drawn from the records</p>
     <h1>Voices and Directions</h1>
-    <p class="lede prose">A listener follows several voices in music at once, each a continuous line. The project asked whether a language model could hold several readings of a text the same way. These drawings set the idea beside what the tests measured, where things went wrong, and some connections that are imagined rather than shown.</p>
+    <p class="lede prose">A listener follows several voices in music at once, each a continuous line. The project asked whether a language model could hold several readings of a text the same way. These drawings set the idea beside what the tests measured, where things went wrong, and some connections that are imagined rather than shown. Since November, a second line of work asks a different question, so far without tests.</p>
+    <p class="order-note prose"><b>This page runs newest first</b>, like the repository's README: the latest work is at the top, and the paper whose claims were tested is at the bottom. Read from the bottom up for the story in the order it happened.</p>
+    <nav class="timeline" aria-label="Timeline, newest first">
+      <ol>
+        <li><span class="when">November 2026</span><a href="#h-nov">A second line of work, untested</a></li>
+        <li><span class="when">28 October</span><a href="#h-close">Where the several-readings tests stand</a></li>
+        <li><span class="when">5 to 28 October</span><a href="#h-judge">The tests, newest first</a></li>
+        <li><span class="when">5 October</span><a href="#h-ideal">The starting idea</a></li>
+        <li><span class="when">3 and 4 October</span><a href="#h-gap">The replications and T1</a></li>
+        <li><span class="when">January 2026</span><a href="#h-jan">The original paper</a></li>
+      </ol>
+    </nav>
     <div class="legend" aria-label="How to read the page">
       <span class="chip measured">Measured: drawn to scale from the records</span>
       <span class="chip imagined">Imagined: a picture of an idea, not a measurement</span>
     </div>
   </header>
 
-  <section aria-labelledby="h-ideal" class="imagined-block">
-    <p class="eyebrow">The ideal · untested</p>
-    <h2 id="h-ideal">Several readings, each its own line</h2>
+  <section aria-labelledby="h-nov" class="imagined-block">
+    <p class="eyebrow">November 2026 · a second line of work · untested</p>
+    <h2 id="h-nov">Curved meanings, and a protected record</h2>
+    <span class="chip imagined">A conjecture: nothing has been run</span>
+    <p class="prose">From the author's ideas, Claude's restatement asks two things. Can a curved (hyperbolic) readout represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on text that models generated (collapse), while the meanings it protects stay correctable through review?</p>
+    <p class="prose">The note records a tension in the design, which Claude raised and the author resolved. The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's resolution is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases". That study, a 2026 preprint already cited in the repository, found that anchoring one small model's predictions on 64 real passages prevented nearly all collapse damage in one generation, so neither the protected record nor its use as a critic is claimed as new.</p>
+    <p class="prose">Next: if the author approves a direction, a preregistration would be written, and nothing runs until the author approves that too. The note: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/blob/main/experiments/curved-meaning/CONJECTURE.md">curved-meaning/CONJECTURE.md</a>.</p>
+  </section>
+
+  <section aria-labelledby="h-close" class="closing">
+    <p class="eyebrow">28 October 2026 · where the several-readings tests stand</p>
+    <h2 id="h-close">A corner filled in, the centre still open</h2>
+    <p class="prose">The pieces glued down so far, in the jigsaw just below, say that, at this scale, two readings occupy partly different directions and forcing them together costs accuracy, while the flow's bend and per-reading pull did not differ as the conjecture needed; and that a head trained on scrambled answers is not a noisy copy of the right reading. Half-glued: on genuine answers alone, a judge that weights its own training does harm on its own (N18a), and an exploratory split puts most of that through its own loss of accuracy. None of them yet tests a model holding several readings the way a listener holds several voices. Most tests used one model size and a tenth of the full training, and the judge tests one noise rate, 80%.</p>
+  </section>
+
+  <section aria-labelledby="h-puzzle" class="imagined-block">
+    <p class="eyebrow">28 October · imagined connections</p>
+    <h2 id="h-puzzle">The jigsaw, as it stands</h2>
     <span class="chip imagined">Imagined</span>
+    <p class="prose">Each piece gathers the tests named on it: glued and filled where they decided something, half-filled where they decided part, loose where they did not. Untestable verdicts add nothing to a piece. The middle is still empty: it is the idea the project began with, which no test has reached. The violet threads are connections we imagine between pieces. They are not results.</p>
     <figure>
-      <canvas id="ideal" role="img" aria-label="Five smooth coloured lines drift left to right, never merging: an imagined picture of several readings of a text held at once, each a continuous voice."></canvas>
-      <figcaption>The author's conjecture, drawn as a score: words arrive in order from left to right, and each line is one reading the model holds while they arrive. Nothing here is measured. The tests below start much smaller, with <b>two readings</b>: the next word, and a word further ahead.</figcaption>
+      <p class="scrollhint">Scroll sideways to see the whole board.</p>
+      <div class="board" id="board"></div>
+      <div class="legend"><span><i class="sq" style="background:var(--ink-2)"></i>Glued: decided</span><span><i class="sq" style="background:var(--half);box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Half-filled, slightly tilted: decided in part</span><span><i class="sq" style="background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Loose, tilted: inconclusive</span><span><i class="line" style="background:var(--imagined)"></i>An imagined thread</span></div>
     </figure>
+    <div class="threads" id="threads"></div>
   </section>
 
-  <section aria-labelledby="h-gap">
-    <p class="eyebrow">The paper · replications, T1</p>
-    <h2 id="h-gap">At this budget, most of the gap came from a shortcut</h2>
-    <span class="chip measured">Measured</span>
-    <p class="prose">The paper's model put a continuous block inside a transformer. Trained the paper's way, it trailed an ordinary transformer. At a tenth of the training budget, changing one difference at a time showed where the gap came from: about 95% of it was the memory-saving shortcut used to compute the block's learning signal. The paper's refuted claims stay refuted.</p>
-    <figure>
-      <div class="chart" id="c-gap"></div>
-      <figcaption>Nats of loss on held-out text at a tenth of the full WikiText-103 training budget, means over five runs. The line at 0.05 nats is the test's margin of practical importance. The first three pieces add up to the whole gap (0.792 + 0.035 + 0.007 = 0.834); the missing weights are a separate contrast. At the full budget, the model as built trailed by 1.10 nats. Source: <b>too-linear-conjecture/T1_NOTE.md</b>.</figcaption>
-      <details><summary>Show the values</summary><div class="tablewrap" id="t-gap"></div></details>
-    </figure>
-  </section>
-
-  <section aria-labelledby="h-flow">
-    <p class="eyebrow">Chapter 1 · G1, G1c, G1d, N1, N2</p>
-    <h2 id="h-flow">Here, the flow did not carry the readings</h2>
-    <span class="chip measured">Measured</span>
-    <p class="prose">If the continuous block carried the readings, its paths should bend about twice as differently under each reading (G1), and pull nearby states together about twice as fast along the farther reading's directions (N2). They differed only slightly, by 8 to 27% and by 14 to 25%. Over the whole state, the block did pull 4 to 10 times harder under the farther reading (G1c). But capping most of that pull cost the farther task no more than the nearer one, −0.002 nats on average (G1d): real, but not, by this test, needed. G1, G1c and G1d added a control signal into the flow; N2's model had none. All ran at a tenth of the training, and multiplicative control and longer training were not tested.</p>
-    <figure>
-      <div class="chart" id="c-flow"></div>
-      <div class="legend"><span><i style="background:var(--s1)"></i>One trained model</span><span><i class="line" style="background:var(--ink-3)"></i>Refuted below 1.25 · predicted 2</span></div>
-      <figcaption>Each dot is one model (five per test): the ratio between the two readings. Ratio 1 means no difference. The pull is the contraction rate: how strongly the flow draws nearby states together. Sources: <b>G1_NOTE.md, G1C_NOTE.md, G1D_NOTE.md, N2_NOTE.md</b>.</figcaption>
-      <details><summary>Show the values</summary><div class="tablewrap" id="t-flow"></div></details>
-    </figure>
-  </section>
-
-  <section aria-labelledby="h-dir">
-    <p class="eyebrow">Chapters 2 and 3 · N4 to N9</p>
-    <h2 id="h-dir">The readings live in directions</h2>
-    <span class="chip measured">Measured geometry</span>
-    <p class="prose">The model's internal state has 256 directions. We describe each reading by the 16 directions its loss is most sensitive to. The further ahead a reading looks, the less those directions overlap with the next-word reading's. Forcing two readings into the same directions cost 0.088 nats (N4).</p>
-    <figure>
-      <div class="chart" id="c-fan"></div>
-      <div class="legend"><span><i class="line" style="background:var(--s1)"></i>The next-word reading</span><span><i style="background:var(--s2)"></i>A second reading</span><span><i style="background:var(--s3)"></i>The next word, trained on 80% scrambled answers</span><span><i style="background:var(--none)"></i>Controls</span></div>
-      <figcaption>The overlap between two sets of 16 directions is the mean squared cosine of the 16 angles between them: 1 when they coincide, 0.0625 for random sets. Each ray is drawn at the one angle whose squared cosine equals the measured overlap, so <b>the angle is to scale</b>, though one angle stands for sixteen. The dots on the arc are the five runs. Measured with the right answers left out (N8, on N6r's and N7's models). Source: <b>figures/FIGURE_DATA.md</b>.</figcaption>
-      <details><summary>Show the values</summary><div class="tablewrap" id="t-fan"></div></details>
-    </figure>
-    <p class="prose">The scrambled-answer head is the surprise. It reads the same word as the clean head, yet its directions overlap the clean head's nearly as little as a reading four words ahead does (0.31 against 0.25), far from the 0.95 of two heads reading the same word. Nor is it close to an ideal noisy copy of the right reading (N9b). Trained on noise, it reads differently.</p>
-  </section>
-
-  <section aria-labelledby="h-acc">
-    <p class="eyebrow">Chapter 4 · N12 to N18</p>
-    <h2 id="h-acc">Directions roughly follow accuracy</h2>
-    <span class="chip measured">Measured</span>
-    <p class="prose">Heads given fewer and fewer genuine answers form a ladder: the worse a head predicts, the less it reads the clean head's directions. Mixture heads, trained on scrambled and genuine answers together, sit close to that ladder (N14). So do most heads whose answers were weighted by a judge; every N18 head drawn here stayed within 0.03 of it, the self-weighting judge's far down. The clear exception is N14's head weighted by its own discount, 0.10 above: it reads the clean head's directions better than its accuracy predicts. So the ladder is not a law.</p>
-    <figure>
-      <div class="chart" id="c-acc"></div>
-      <div class="legend"><span><i class="line" style="background:var(--ink-3)"></i>The ladder: genuine answers only, 100% to 1.25%</span><span><i style="background:var(--s1)"></i>Mixture heads, scrambled and genuine answers</span><span><i style="background:var(--s3)"></i>Weighted by a judge without a loop</span><span><i style="background:var(--s2)"></i>Weighted by a judge with a loop</span></div>
-      <figcaption>Horizontal: how much worse than the clean head the head predicts the genuine answers (Δ, nats). Vertical: its agreement with the clean head's directions (1 = the same). Means over five runs; hover for every run. Whether heads sit on the ladder got no verdict (N14a, N16d inconclusive). Sources: <b>figures/FIGURE_DATA.md</b>, <b>results/n18</b>.</figcaption>
-      <details><summary>Show the values</summary><div class="tablewrap" id="t-acc"></div></details>
-    </figure>
+  <section aria-labelledby="h-ledger">
+    <p class="eyebrow">Through 31 October · the errors we made · every preregistered verdict</p>
+    <h2 id="h-ledger">Forty-three verdicts in the ledger</h2>
+    <span class="chip measured">From the records</span>
+    <p class="prose">Every test began as a guess that could fail, with its rule fixed before the run. Refuted guesses are not errors: they are the method working. The errors were in designs that could not decide what they set out to decide; the list below gives each, and what caught it.</p>
+    <div class="legend" id="ledger-legend"></div>
+    <div class="ledger" id="ledger"></div>
+    <p class="foot">Source: the main rows of the ledger in <b>CRITICAL_REVIEW.md</b>; secondary claims and T1's rivals are in the notes. WT-2 is "mostly refuted". N15 was withdrawn before any real run and decided nothing; it is drawn hollow and not counted.</p>
+    <h3>Mistakes in our own designs, and what caught them</h3>
+    <div class="mistakes" id="mistakes"></div>
   </section>
 
   <section aria-labelledby="h-judge">
-    <p class="eyebrow">The error we kept chasing · N16 to N18</p>
+    <p class="eyebrow">22 to 28 October · the error we kept chasing · N16 to N18</p>
     <h2 id="h-judge">A judge that grades itself</h2>
     <span class="chip measured">Measured</span>
-    <p class="prose">The remedy for scrambled answers weights each one by a judge's estimate that it is genuine. When the clean head judges, the remaining shortfall vanishes (N16). Judges trained at full weight on fewer genuine answers form a line: the less accurate the judge, the less of the shortfall it recovers. Judges caught in a loop, weighting their own training by their own predictions, fall below that line. So does the loop-free twin, by less: d = −0.18, against −0.29 and −0.46.</p>
+    <p class="prose">For a head trained on scrambled answers (introduced further down, under chapters 2 and 3), the remedy weights each answer by a judge's estimate that it is genuine. When the clean head judges, the remaining shortfall vanishes (N16). Judges trained at full weight on fewer genuine answers form a line: the less accurate the judge, the less of the shortfall it recovers. Judges caught in a loop, weighting their own training by their own predictions, fall below that line. So does the loop-free twin, by less: d = −0.18, against −0.29 and −0.46.</p>
     <figure>
       <div class="chart" id="c-judge"></div>
       <div class="legend"><span><i class="line" style="background:var(--ink-3)"></i>Judges at full weight, genuine answers at 20% to 1.25% of positions</span><span><i style="background:var(--s3)"></i>Judge without a loop</span><span><i style="background:var(--s2)"></i>Judge with a loop</span></div>
@@ -230,37 +226,77 @@ th { font-weight: 600; color: var(--ink-2); }
     </figure>
   </section>
 
-  <section aria-labelledby="h-ledger">
-    <p class="eyebrow">The errors we made · every preregistered verdict</p>
-    <h2 id="h-ledger">Forty-three verdicts in the ledger</h2>
-    <span class="chip measured">From the records</span>
-    <p class="prose">Every test began as a guess that could fail, with its rule fixed before the run. Refuted guesses are not errors: they are the method working. The errors were in designs that could not decide what they set out to decide; the list below gives each, and what caught it.</p>
-    <div class="legend" id="ledger-legend"></div>
-    <div class="ledger" id="ledger"></div>
-    <p class="foot">Source: the main rows of the ledger in <b>CRITICAL_REVIEW.md</b>; secondary claims and T1's rivals are in the notes. WT-2 is "mostly refuted". N15 was withdrawn before any real run and decided nothing; it is drawn hollow and not counted.</p>
-    <h3>Mistakes in our own designs, and what caught them</h3>
-    <div class="mistakes" id="mistakes"></div>
-  </section>
-
-  <section aria-labelledby="h-puzzle" class="imagined-block">
-    <p class="eyebrow">Imagined connections</p>
-    <h2 id="h-puzzle">The jigsaw, as it stands</h2>
-    <span class="chip imagined">Imagined</span>
-    <p class="prose">Each piece gathers the tests named on it: glued and filled where they decided something, half-filled where they decided part, loose where they did not. Untestable verdicts add nothing to a piece. The middle is still empty: it is the idea the project began with, which no test has reached. The violet threads are connections we imagine between pieces. They are not results.</p>
+  <section aria-labelledby="h-acc">
+    <p class="eyebrow">21 to 28 October · chapter 4 · N12 to N18</p>
+    <h2 id="h-acc">Directions roughly follow accuracy</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">Heads given fewer and fewer genuine answers form a ladder: the worse a head predicts, the less it reads the clean head's directions. Mixture heads, trained on scrambled and genuine answers together, sit close to that ladder (N14). So do most heads whose answers were weighted by a judge; every N18 head drawn here stayed within 0.03 of it, the self-weighting judge's far down. The clear exception is N14's head weighted by its own discount, 0.10 above: it reads the clean head's directions better than its accuracy predicts. So the ladder is not a law.</p>
     <figure>
-      <p class="scrollhint">Scroll sideways to see the whole board.</p>
-      <div class="board" id="board"></div>
-      <div class="legend"><span><i class="sq" style="background:var(--ink-2)"></i>Glued: decided</span><span><i class="sq" style="background:var(--half);box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Half-filled, slightly tilted: decided in part</span><span><i class="sq" style="background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-3)"></i>Loose, tilted: inconclusive</span><span><i class="line" style="background:var(--imagined)"></i>An imagined thread</span></div>
+      <div class="chart" id="c-acc"></div>
+      <div class="legend"><span><i class="line" style="background:var(--ink-3)"></i>The ladder: genuine answers only, 100% to 1.25%</span><span><i style="background:var(--s1)"></i>Mixture heads, scrambled and genuine answers</span><span><i style="background:var(--s3)"></i>Weighted by a judge without a loop</span><span><i style="background:var(--s2)"></i>Weighted by a judge with a loop</span></div>
+      <figcaption>Horizontal: how much worse than the clean head the head predicts the genuine answers (Δ, nats). Vertical: its agreement with the clean head's directions (1 = the same). Means over five runs; hover for every run. Whether heads sit on the ladder got no verdict (N14a, N16d inconclusive). Sources: <b>figures/FIGURE_DATA.md</b>, <b>results/n18</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-acc"></div></details>
     </figure>
-    <div class="threads" id="threads"></div>
   </section>
 
-  <section aria-labelledby="h-close" class="closing">
-    <p class="eyebrow">Where the picture stands</p>
-    <h2 id="h-close">A corner filled in, the centre still open</h2>
-    <p class="prose">The pieces glued down so far say that, at this scale, two readings occupy partly different directions and forcing them together costs accuracy, while the flow's bend and per-reading pull did not differ as the conjecture needed; and that a head trained on scrambled answers is not a noisy copy of the right reading. Half-glued: on genuine answers alone, a judge that weights its own training does harm on its own (N18a), and an exploratory split puts most of that through its own loss of accuracy. None of them yet tests a model holding several readings the way a listener holds several voices. Most tests used one model size and a tenth of the full training, and the judge tests one noise rate, 80%.</p>
-    <p class="foot">Built from the repository's records by <b>make_page.py</b>. Measured figures are drawn to scale from <b>results/</b>, <b>figures/FIGURE_DATA.md</b> and the result notes; imagined ones are marked in violet. The records, notes and code: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics">the repository on GitHub</a>.</p>
+  <section aria-labelledby="h-dir">
+    <p class="eyebrow">6 to 10 October · chapters 2 and 3 · N4 to N9</p>
+    <h2 id="h-dir">The readings live in directions</h2>
+    <span class="chip measured">Measured geometry</span>
+    <p class="prose">The model's internal state has 256 directions. We describe each reading by the 16 directions its loss is most sensitive to. The further ahead a reading looks, the less those directions overlap with the next-word reading's. Forcing two readings into the same directions cost 0.088 nats (N4).</p>
+    <figure>
+      <div class="chart" id="c-fan"></div>
+      <div class="legend"><span><i class="line" style="background:var(--s1)"></i>The next-word reading</span><span><i style="background:var(--s2)"></i>A second reading</span><span><i style="background:var(--s3)"></i>The next word, trained on 80% scrambled answers</span><span><i style="background:var(--none)"></i>Controls</span></div>
+      <figcaption>The overlap between two sets of 16 directions is the mean squared cosine of the 16 angles between them: 1 when they coincide, 0.0625 for random sets. Each ray is drawn at the one angle whose squared cosine equals the measured overlap, so <b>the angle is to scale</b>, though one angle stands for sixteen. The dots on the arc are the five runs. Measured with the right answers left out (N8, on N6r's and N7's models). Source: <b>figures/FIGURE_DATA.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-fan"></div></details>
+    </figure>
+    <p class="prose">The scrambled-answer head is the surprise. It reads the same word as the clean head, yet its directions overlap the clean head's nearly as little as a reading four words ahead does (0.31 against 0.25), far from the 0.95 of two heads reading the same word. Nor is it close to an ideal noisy copy of the right reading (N9b). Trained on noise, it reads differently.</p>
   </section>
+
+  <section aria-labelledby="h-flow">
+    <p class="eyebrow">5 and 6 October · chapter 1 · G1, G1c, G1d, N1, N2</p>
+    <h2 id="h-flow">Here, the flow did not carry the readings</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">If the continuous block carried the readings, its paths should bend about twice as differently under each reading (G1), and pull nearby states together about twice as fast along the farther reading's directions (N2). They differed only slightly, by 8 to 27% and by 14 to 25%. Over the whole state, the block did pull 4 to 10 times harder under the farther reading (G1c). But capping most of that pull cost the farther task no more than the nearer one, −0.002 nats on average (G1d): real, but not, by this test, needed. G1, G1c and G1d added a control signal into the flow; N2's model had none. All ran at a tenth of the training, and multiplicative control and longer training were not tested.</p>
+    <figure>
+      <div class="chart" id="c-flow"></div>
+      <div class="legend"><span><i style="background:var(--s1)"></i>One trained model</span><span><i class="line" style="background:var(--ink-3)"></i>Refuted below 1.25 · predicted 2</span></div>
+      <figcaption>Each dot is one model (five per test): the ratio between the two readings. Ratio 1 means no difference. The pull is the contraction rate: how strongly the flow draws nearby states together. Sources: <b>G1_NOTE.md, G1C_NOTE.md, G1D_NOTE.md, N2_NOTE.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-flow"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-ideal" class="imagined-block">
+    <p class="eyebrow">5 October · the starting idea · untested</p>
+    <h2 id="h-ideal">Several readings, each its own line</h2>
+    <span class="chip imagined">Imagined</span>
+    <figure>
+      <canvas id="ideal" role="img" aria-label="Five smooth coloured lines drift left to right, never merging: an imagined picture of several readings of a text held at once, each a continuous voice."></canvas>
+      <figcaption>The author's conjecture, drawn as a score: words arrive in order from left to right, and each line is one reading the model holds while they arrive. Nothing here is measured. The tests above start much smaller, with <b>two readings</b>: the next word, and a word further ahead.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-gap">
+    <p class="eyebrow">3 and 4 October · the replications and T1</p>
+    <h2 id="h-gap">At this budget, most of the gap came from a shortcut</h2>
+    <span class="chip measured">Measured</span>
+    <p class="prose">The paper's model put a continuous block inside a transformer. Trained the paper's way, it trailed an ordinary transformer. At a tenth of the training budget, changing one difference at a time showed where the gap came from: about 95% of it was the memory-saving shortcut used to compute the block's learning signal. The paper's refuted claims stay refuted.</p>
+    <figure>
+      <div class="chart" id="c-gap"></div>
+      <figcaption>Nats of loss on held-out text at a tenth of the full WikiText-103 training budget, means over five runs. The line at 0.05 nats is the test's margin of practical importance. The first three pieces add up to the whole gap (0.792 + 0.035 + 0.007 = 0.834); the missing weights are a separate contrast. At the full budget, the model as built trailed by 1.10 nats. Source: <b>too-linear-conjecture/T1_NOTE.md</b>.</figcaption>
+      <details><summary>Show the values</summary><div class="tablewrap" id="t-gap"></div></details>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-jan">
+    <p class="eyebrow">January 2026 · the original paper · superseded</p>
+    <h2 id="h-jan">Where it began</h2>
+    <p class="prose">The paper put a continuous block, a neural ordinary differential equation, in place of two middle layers of a small transformer, with a control signal to steer the flow through it. It claimed the signal could steer the output toward positive or negative sentiment (98% and 88% on one prompt), at the speed of an ordinary transformer, with the two sentiments in geometrically distinct regions of the flow. An audit and preregistered replications found most of these claims did not hold up: the target labelled " good" was a space, steering held in 5 of 8 replication seeds, and the model was 7–11% slower. The paper is kept unchanged as the record of what was claimed: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/blob/main/PAPER.md">PAPER.md</a>.</p>
+  </section>
+
+  <footer class="pagefoot">
+    <p class="foot">Built from the repository's records by <b>make_page.py</b>. Measured figures are drawn to scale from <b>results/</b>, <b>figures/FIGURE_DATA.md</b> and the result notes; imagined ones are marked in violet. The records, notes and code: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics">the repository on GitHub</a>.</p>
+  </footer>
 </main>
 <div id="tip" role="tooltip" hidden></div>
 
