@@ -135,6 +135,10 @@ th { font-weight: 600; color: var(--ink-2); }
 .timeline a { color: var(--ink); text-underline-offset: 2px; }
 .timeline .when { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 8px; }
 .order-note { font-family: var(--f-ui); font-size: 14px; color: var(--ink-2); }
+.terms dl { margin: 10px 0 0; display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 16px; max-width: 80ch; }
+.terms dt { font-weight: 600; color: var(--ink); }
+.terms dd { margin: 0; }
+@media (max-width: 560px) { .terms dl { grid-template-columns: 1fr; gap: 2px; } .terms dd { margin-bottom: 8px; } }
 .pagefoot { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 24px; }
 .prose a { color: var(--ink); text-underline-offset: 2px; }
 .foot { font-family: var(--f-ui); font-size: 13px; color: var(--ink-3); }
@@ -146,20 +150,35 @@ th { font-weight: 600; color: var(--ink-2); }
 
 <main class="wrap">
   <header class="hero">
-    <p class="eyebrow">Newest first · November 2026 back to January 2026 · drawn from the records</p>
+    <p class="eyebrow">Newest first · the simultaneity conjecture, tests G1 to N18, and a new line of work · drawn from the records</p>
     <h1>Voices and Directions</h1>
-    <p class="lede prose">A listener follows several voices in music at once, each a continuous line. The project asked whether a language model could hold several readings of a text the same way. These drawings set the idea beside what the tests measured, where things went wrong, and some connections that are imagined rather than shown. Since November, a second line of work asks a different question, so far without tests.</p>
+    <p class="lede prose">A listener follows several voices in music at once, each a continuous line. The project asked whether a language model could hold several readings of a text the same way. These drawings set the idea beside what the tests measured, where things went wrong, and some connections that are imagined rather than shown. Since November, a second line of work asks two further questions, so far without tests.</p>
     <p class="order-note prose"><b>This page runs newest first</b>, like the repository's README: the latest work is at the top, and the paper whose claims were tested is at the bottom. Read from the bottom up for the story in the order it happened.</p>
     <nav class="timeline" aria-label="Timeline, newest first">
       <ol>
         <li><span class="when">November 2026</span><a href="#h-nov">A second line of work, untested</a></li>
         <li><span class="when">28 October</span><a href="#h-close">Where the several-readings tests stand</a></li>
         <li><span class="when">5 to 28 October</span><a href="#h-judge">The tests, newest first</a></li>
-        <li><span class="when">5 October</span><a href="#h-ideal">The starting idea</a></li>
+        <li><span class="when">5 October</span><a href="#h-ideal">The starting idea, written down</a></li>
         <li><span class="when">3 and 4 October</span><a href="#h-gap">The replications and T1</a></li>
         <li><span class="when">January 2026</span><a href="#h-jan">The original paper</a></li>
       </ol>
     </nav>
+    <details class="terms">
+      <summary>Terms used on this page, for a reader starting here</summary>
+      <dl>
+        <dt>Model A, the continuous block</dt><dd>The paper's model: a small transformer whose two middle layers are replaced by a continuous block, a neural ordinary differential equation, through which each word's representation flows. A control signal steers the flow.</dd>
+        <dt>The flow's bend and pull</dt><dd>How sharply the paths through the block curve, and how strongly the block draws nearby states together.</dd>
+        <dt>A reading, a head</dt><dd>What the model extracts from its state for one task, such as predicting the next word or a word further ahead. A head is the readout that makes that prediction.</dd>
+        <dt>Directions</dt><dd>The model's state is a list of 256 numbers, a point in a space with 256 directions. Each reading is described by the 16 directions its loss is most sensitive to.</dd>
+        <dt>Scrambled answers, the noise rate</dt><dd>From N7 on, some heads were trained on answers a share of which were replaced at random: usually 80%, though N10 also tried 20% and 50%. That share is the noise rate.</dd>
+        <dt>A judge</dt><dd>Something that estimates, for each training answer, the chance that it is genuine, so that training can weight it.</dd>
+        <dt>A tenth of the training</dt><dd>Most tests trained for a tenth of the full WikiText-103 training budget.</dd>
+        <dt>Nats</dt><dd>The unit of prediction loss. Lower is better.</dd>
+        <dt>WT-2, WT-103, T1</dt><dd>The replications on the WikiText-2 and WikiText-103 datasets, and the test of why the model fell short: 3 and 4 October, near the bottom.</dd>
+        <dt>Claude</dt><dd>An AI model made by Anthropic. It designed, ran and wrote up the tests, working with the author, who approved every plan before it ran.</dd>
+      </dl>
+    </details>
     <div class="legend" aria-label="How to read the page">
       <span class="chip measured">Measured: drawn to scale from the records</span>
       <span class="chip imagined">Imagined: a picture of an idea, not a measurement</span>
@@ -170,8 +189,8 @@ th { font-weight: 600; color: var(--ink-2); }
     <p class="eyebrow">November 2026 · a second line of work · untested</p>
     <h2 id="h-nov">Curved meanings, and a protected record</h2>
     <span class="chip imagined">A conjecture: nothing has been run</span>
-    <p class="prose">From the author's ideas, Claude's restatement asks two things. Can a curved (hyperbolic) readout represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on text that models generated (collapse), while the meanings it protects stay correctable through review?</p>
-    <p class="prose">The note records a tension in the design, which Claude raised and the author resolved. The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's resolution is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases". That study, a 2026 preprint already cited in the repository, found that anchoring one small model's predictions on 64 real passages prevented nearly all collapse damage in one generation, so neither the protected record nor its use as a critic is claimed as new.</p>
+    <p class="prose">From the author's ideas, Claude's restatement asks two things. Can a curved (hyperbolic) readout, the part of the model that turns its state into a prediction, represent meanings more cheaply than a flat one? And can a small, protected record of original data, used as a critic (a fixed standard the model's predictions are checked against), mitigate the damage a model suffers when it is trained on text that models generated (collapse), while the meanings it protects stay correctable through review?</p>
+    <p class="prose">The conjecture note, linked below, records a tension in the design, which Claude raised and the author resolved. The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's resolution is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases", and the note turns that into a testable conjecture, C5, which no test has yet tried. That study, a 2026 preprint already cited in the repository, found that anchoring one small model's predictions on 64 real passages prevented nearly all collapse damage in one generation, so neither the protected record nor its use as a critic is claimed as new.</p>
     <p class="prose">Next: if the author approves a direction, a preregistration would be written, and nothing runs until the author approves that too. The note: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/blob/main/experiments/curved-meaning/CONJECTURE.md">curved-meaning/CONJECTURE.md</a>.</p>
   </section>
 
@@ -195,7 +214,7 @@ th { font-weight: 600; color: var(--ink-2); }
   </section>
 
   <section aria-labelledby="h-ledger">
-    <p class="eyebrow">Through 31 October · the errors we made · every preregistered verdict</p>
+    <p class="eyebrow">28 October · the errors we made · every preregistered verdict</p>
     <h2 id="h-ledger">Forty-three verdicts in the ledger</h2>
     <span class="chip measured">From the records</span>
     <p class="prose">Every test began as a guess that could fail, with its rule fixed before the run. Refuted guesses are not errors: they are the method working. The errors were in designs that could not decide what they set out to decide; the list below gives each, and what caught it.</p>
@@ -267,7 +286,7 @@ th { font-weight: 600; color: var(--ink-2); }
   </section>
 
   <section aria-labelledby="h-ideal" class="imagined-block">
-    <p class="eyebrow">5 October · the starting idea · untested</p>
+    <p class="eyebrow">5 October · the starting idea, written down · untested</p>
     <h2 id="h-ideal">Several readings, each its own line</h2>
     <span class="chip imagined">Imagined</span>
     <figure>
@@ -280,7 +299,7 @@ th { font-weight: 600; color: var(--ink-2); }
     <p class="eyebrow">3 and 4 October · the replications and T1</p>
     <h2 id="h-gap">At this budget, most of the gap came from a shortcut</h2>
     <span class="chip measured">Measured</span>
-    <p class="prose">The paper's model put a continuous block inside a transformer. Trained the paper's way, it trailed an ordinary transformer. At a tenth of the training budget, changing one difference at a time showed where the gap came from: about 95% of it was the memory-saving shortcut used to compute the block's learning signal. The paper's refuted claims stay refuted.</p>
+    <p class="prose">The paper's model put a continuous block inside a transformer. Trained the paper's way, it trailed an ordinary transformer. At a tenth of the training budget, changing one difference at a time showed where the gap came from: about 95% of it was the memory-saving shortcut used to compute the block's learning signal. The paper's refuted claims, listed in the next section, stay refuted.</p>
     <figure>
       <div class="chart" id="c-gap"></div>
       <figcaption>Nats of loss on held-out text at a tenth of the full WikiText-103 training budget, means over five runs. The line at 0.05 nats is the test's margin of practical importance. The first three pieces add up to the whole gap (0.792 + 0.035 + 0.007 = 0.834); the missing weights are a separate contrast. At the full budget, the model as built trailed by 1.10 nats. Source: <b>too-linear-conjecture/T1_NOTE.md</b>.</figcaption>
@@ -291,7 +310,7 @@ th { font-weight: 600; color: var(--ink-2); }
   <section aria-labelledby="h-jan">
     <p class="eyebrow">January 2026 · the original paper · superseded</p>
     <h2 id="h-jan">Where it began</h2>
-    <p class="prose">The paper put a continuous block, a neural ordinary differential equation, in place of two middle layers of a small transformer, with a control signal to steer the flow through it. It claimed the signal could steer the output toward positive or negative sentiment (98% and 88% on one prompt), at the speed of an ordinary transformer, with the two sentiments in geometrically distinct regions of the flow. An audit and preregistered replications found most of these claims did not hold up: the target labelled " good" was a space, steering held in 5 of 8 replication seeds, and the model was 7–11% slower. The paper is kept unchanged as the record of what was claimed: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/blob/main/PAPER.md">PAPER.md</a>.</p>
+    <p class="prose">The paper put a continuous block, a neural ordinary differential equation, in place of two middle layers of a small transformer, with a control signal to steer the flow through it. It claimed the signal could steer the output toward positive or negative sentiment (98% and 88% on one prompt), at the speed of an ordinary transformer, with the two sentiments in geometrically distinct regions of the flow. An audit and preregistered replications found most of these claims did not hold up: the target labelled " good" was a space, with the corrected target, steering held in 5 of 8 replication seeds, and the model was 7–11% slower. The paper is kept unchanged as the record of what was claimed: <a href="https://github.com/PeterJemley/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/blob/main/PAPER.md">PAPER.md</a>.</p>
   </section>
 
   <footer class="pagefoot">
