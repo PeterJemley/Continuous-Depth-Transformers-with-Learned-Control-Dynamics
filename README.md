@@ -111,7 +111,7 @@ logits_adaptive = model(input_ids, control, use_adaptive=True)  # Adaptive Dopri
 - Can a curved (hyperbolic) readout represent meanings more cheaply than a flat one?
 - Can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on generated text (collapse)? Can it do so while the meanings it protects stay correctable through review?
 
-The note points out a tension in the design (Claude's observation). The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's answer is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases", and the note turns that into a testable conjecture (C5).
+The note records a tension in the design, which Claude raised and the author resolved. The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's resolution is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases", and the note turns that into a testable conjecture (C5).
 
 The closest prior art to two of the note's conjectures is that study, a 2026 preprint already cited in this repository. On one small model, anchoring the model's predictions on 64 real passages prevented nearly all collapse damage in one generation (Son, 2026). So neither the protected record nor its use as a critic is claimed as new.
 
