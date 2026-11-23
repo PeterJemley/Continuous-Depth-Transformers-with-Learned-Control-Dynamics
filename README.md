@@ -1,6 +1,6 @@
 # Continuous-Depth Transformers with Learned Control Dynamics
 
-> **This page is arranged newest first.** The latest work is at the top, and each section is older than the one above it. The original January 2026 paper, whose headline claims mostly did not hold up, is at the bottom. To follow the story in the order it happened, read from the bottom up. *Rearranged on 2026-11-23: the sections were reordered and their headings dated; nothing was removed.*
+> **This page is arranged newest first.** After a short orientation, the latest work comes first, and each dated section is older than the one above it. The original January 2026 paper, whose headline claims mostly did not hold up, is at the bottom, followed only by the citation and license. To follow the story in the order it happened, read from the bottom up. *Rearranged on 2026-11-23. The sections were reordered and dated; a timeline, a list of terms and a longer account of the November work were added; and the code instructions moved into the orientation. Nothing was removed.*
 
 This repository holds a January 2026 paper by Peter Jemley, the code behind it, and what happened when its claims were tested: most of them did not hold up. It then follows the idea behind the paper, a model that reads a text in several ways at once, through a series of preregistered tests. Since November 2026 it also holds a second line of work from the author's ideas, so far a conjecture only. Every test's plan was written down and approved before it ran, together with the result that would count against it.
 
@@ -9,14 +9,19 @@ This repository holds a January 2026 paper by Peter Jemley, the code behind it, 
 | When | What happened | Section |
 |---|---|---|
 | November 2026 | A second line of work opened, a conjecture only: curved meanings, and a protected record against collapse. Nothing has been run | [November 2026](#november-2026-a-second-line-of-work-a-conjecture) |
-| 5–31 October 2026 | The tests of several readings at once, G1 to N18; on 28 October, figures and an interactive page | [October 2026](#october-2026-several-readings-at-once) |
+| 5–28 October 2026 | The tests of several readings at once, G1 to N18; on 28 October, figures and an interactive page | [October 2026](#october-2026-several-readings-at-once) |
 | 4 October 2026 | T1 traced most of the model's shortfall, at a tenth of the training budget, to a shortcut in how it was trained | [4 October 2026](#4-october-2026-why-the-model-fell-short-t1) |
-| 3 October 2026 | An audit of the paper's own materials, and preregistered replications on WikiText-2 and WikiText-103 | [3 October 2026](#3-october-2026-the-audit-and-the-replications) |
+| 3 and 4 October 2026 | An audit of the paper's own materials, and preregistered replications on WikiText-2 and WikiText-103 | [3 and 4 October 2026](#3-and-4-october-2026-the-audit-and-the-replications) |
 | January 2026 | The original paper | [January 2026](#january-2026-the-original-paper-superseded) |
 
-**Terms used throughout.**
-- **Model A** is the paper's main model: a small transformer whose two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). A control signal, u, steers the flow through the block. The paper is described at the bottom of the page.
+**Terms used throughout.** Each is explained more fully further down, where it first arose.
+- **Model A** is the paper's main model: a small transformer whose two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). A control signal, u, steers the flow through the block, and a learned scale, α (alpha), sets how far the block moves each word's representation.
+- **What the paper claimed:** u could steer the output toward positive or negative sentiment (98% and 88% on one prompt), at the speed of an ordinary transformer, with α settling at 0.065, and with the two sentiments in geometrically distinct regions of the flow. The January 2026 section at the bottom gives the paper's own account.
+- **The ordinary transformer** is a standard transformer of the same size, the baseline Model A was compared with.
+- **WikiText-2 and WikiText-103** are the two datasets; the second is about fifty times larger. **The full budget** is the full training length of the WikiText-103 study (3 and 4 October); most later tests trained for a tenth of it.
+- **Exact gradients:** the later tests trained Model A without the memory-saving shortcut, the adjoint method, that T1 found behind most of its shortfall at a tenth of the budget (4 October).
 - **Nats** measure prediction loss; lower is better. A difference of 0.05 nats is about a 5% change in how uncertain the model is about the next word.
+- **A fresh reader's check** is a review of a write-up by a reader who did not write it, looking for errors and overstatements.
 
 ## Who did what
 
@@ -24,8 +29,8 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 
 ## Start here
 
-1. [`experiments/curved-meaning/CONJECTURE.md`](experiments/curved-meaning/CONJECTURE.md): the newest line of work, a conjecture not yet tested.
-2. [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md): the story up to N18 in plain language.
+1. [`experiments/curved-meaning/README.md`](experiments/curved-meaning/README.md): the newest line of work, a conjecture not yet tested, with a link to its full note.
+2. [`experiments/simultaneity-conjecture/PLAIN_SUMMARY.md`](experiments/simultaneity-conjecture/PLAIN_SUMMARY.md): the several-readings tests so far, in plain language.
 3. [`experiments/simultaneity-conjecture/CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md): a ledger of every main claim tested, what it forbade and its verdict, and an account of where the method fell short.
 4. [`experiments/too-linear-conjecture/T1_NOTE.md`](experiments/too-linear-conjecture/T1_NOTE.md): why the paper's model fell short.
 5. [`experiments/simultaneity-conjecture/README.md`](experiments/simultaneity-conjecture/README.md): an index of the tests, with links to each one's note.
@@ -44,7 +49,7 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 │   ├── curved-meaning/                                     # November 2026. A conjecture, untested: curved heads, and a protected record against collapse (see its README.md)
 │   ├── simultaneity-conjecture/                            # October 2026. The tests of several readings at once (see its README.md)
 │   ├── too-linear-conjecture/                              # 4 October 2026. Why the model fell short: the author asked whether the design was "too linear"; T1 traced the gap to the training shortcut
-│   ├── wikitext103-training/                               # 3 October 2026. The same model trained on WikiText-103 at the full budget
+│   ├── wikitext103-training/                               # 3 and 4 October 2026. The same model trained on WikiText-103 at the full budget
 │   └── wikitext2-replication/                              # 3 October 2026. Preregistered replication of the paper's experiments
 │       ├── PREREGISTRATION.md                              # The plan, fixed before any run
 │       ├── RESULTS.md                                      # The verdicts
@@ -67,32 +72,65 @@ The January 2026 paper is Peter Jemley's. The audit, the replications and the te
 
 </details>
 
+<details>
+<summary><strong>Using the code</strong></summary>
+
+#### Installation
+
+```bash
+pip install torch torchdiffeq datasets tiktoken
+```
+
+#### Quick Start
+
+`model.py` defines the paper's second model: an ODE block without attention, with the control signal concatenated onto the state, which in January was trained only on random tokens. The falsification and benchmark notebooks import it, and download it automatically when opened in Colab. Model A, behind the paper's training and steering results and used by every replication and later test, is [`experiments/wikitext2-replication/paper_model.py`](experiments/wikitext2-replication/paper_model.py), restored verbatim from the original notebook.
+
+```python
+import torch
+from model import HybridTransformer, DEFAULT_CONFIG
+
+# Six layers, with the ODE block in place of layers 2-3
+model = HybridTransformer(DEFAULT_CONFIG)
+
+batch_size = 2
+input_ids = torch.randint(0, DEFAULT_CONFIG['vocab_size'], (batch_size, DEFAULT_CONFIG['seq_len']))
+
+# Control signal u: the paper claimed it steers sentiment after training; the replication found that unreliable
+control = torch.zeros(batch_size, DEFAULT_CONFIG['control_dim'])
+control[:, 0] = 1.0
+
+logits = model(input_ids, control)                              # Fixed 4-step Euler solver, as in training
+logits_adaptive = model(input_ids, control, use_adaptive=True)  # Adaptive Dopri5 solver
+```
+
+</details>
+
 ## November 2026: a second line of work (a conjecture)
 
 **Nothing in this line has been run.** In [`experiments/curved-meaning/`](experiments/curved-meaning/), Claude's restatement of the author's ideas asks two things:
 - Can a curved (hyperbolic) readout represent meanings more cheaply than a flat one?
 - Can a small, protected record of original data, used as a critic, mitigate the damage a model suffers when it is trained on generated text (collapse)? Can it do so while the meanings it protects stay correctable through review?
 
-The design has a tension. Protecting a record well seems to mean holding still what the model takes it to mean, yet the design wants meanings to stay changeable. The author's answer is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases", and the note turns that into a testable conjecture (C5).
+The note points out a tension in the design (Claude's observation). The most effective protection known, one study's method, holds still what the model takes a record to mean, yet the design wants meanings to stay changeable. The author's answer is that a record keeps "specific meaning(s) for specified purpose(s) at the time they were specified, but review for future cases", and the note turns that into a testable conjecture (C5).
 
-The closest prior work is a 2026 preprint already cited in this repository. On one small model, anchoring the model's predictions on 64 real passages prevented nearly all collapse damage in one generation (Son, 2026). So neither the protected record nor its use as a critic is claimed as new.
+The closest prior art to two of the note's conjectures is that study, a 2026 preprint already cited in this repository. On one small model, anchoring the model's predictions on 64 real passages prevented nearly all collapse damage in one generation (Son, 2026). So neither the protected record nor its use as a critic is claimed as new.
 
-The note, [`CONJECTURE.md`](experiments/curved-meaning/CONJECTURE.md), had three fresh readers' checks before it was merged. Its tests are a sketch, not yet a preregistration.
+The note, [`curved-meaning/CONJECTURE.md`](experiments/curved-meaning/CONJECTURE.md), had three fresh readers' checks before it was merged, the third on its newest parts only. Its tests are a sketch, not yet a preregistration.
 
-**Next:** a preregistration for this line, which the author must approve before anything runs. Three questions in the note need settling first:
+**Next:** if the author approves a direction, a preregistration would be written, and nothing runs until the author approves that too. The note lists open questions, among them:
 - what "fixing the relationships between ideas held in memory" would fix, and where;
-- what should trigger a review;
+- what should trigger a review, and what it should check;
 - how a purpose is specified.
 
 No Colab job is queued.
 
-**Also since late October:** dated corrections were added to T1's note (30 October), to N18's note and its preregistration's deviation log (31 October and 2 November), and to the reference lists of N17's and N18's notes and preregistrations (13 November). No verdict changed.
+**Corrections, 30 October to 13 November:** dated corrections were added to T1's note and the critical review (30 October: two interval ends, and one interval's level, 98.75%), to N18's note and its preregistration's deviation log (31 October and 2 November), and to the reference lists of N17's and N18's notes and preregistrations (13 November). No verdict changed.
 
 ## October 2026: several readings at once
 
 ### In pictures (28 October)
 
-Drawn by [`make_figures.py`](experiments/simultaneity-conjecture/make_figures.py): the first five from the saved records, with every plotted value by run in [`FIGURE_DATA.md`](experiments/simultaneity-conjecture/figures/FIGURE_DATA.md), and the sixth from the ledger in [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md). The first figure is T1's result, from 4 October (further down); the rest come from the tests in the next subsection, and each is described in its test's note. The last figure is imagined: a picture of how the findings might fit together, not a result.
+Drawn by [`make_figures.py`](experiments/simultaneity-conjecture/make_figures.py), with every plotted value by run in [`FIGURE_DATA.md`](experiments/simultaneity-conjecture/figures/FIGURE_DATA.md). The first figure is T1's result, from 4 October (further down). The next four come from the tests in the next subsection. The sixth tallies the verdicts in the ledger of [`CRITICAL_REVIEW.md`](experiments/simultaneity-conjecture/CRITICAL_REVIEW.md), across every chapter from the replications on. The last figure is imagined: a picture of how the findings might fit together, not a result.
 
 **[An interactive version](https://peterjemley.github.io/Continuous-Depth-Transformers-with-Learned-Control-Dynamics/)** shows the same findings with every value on hover and a table under each figure. It is built from the same records by [`make_page.py`](experiments/simultaneity-conjecture/make_page.py) into [`docs/`](docs/), which GitHub Pages serves.
 
@@ -150,9 +188,9 @@ The project's own aim, the author's, goes beyond the paper. When we listen to mu
 
 ## 4 October 2026: why the model fell short (T1)
 
-Full note: [`T1_NOTE.md`](experiments/too-linear-conjecture/T1_NOTE.md). The block was trained with a memory-saving shortcut for computing its learning signal, the adjoint method. At a tenth of the training budget, where Model A trailed the ordinary transformer by 0.83 nats, training with the shortcut accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind at that budget. So, at that budget, most of the loss gap came from how the model was trained, not from its design. T1 does not explain the latency or steering results, and the model has not been trained with exact gradients on the full budget.
+Full note: [`T1_NOTE.md`](experiments/too-linear-conjecture/T1_NOTE.md). T1 trained Model A on WikiText-103, the dataset of the study described under 3 and 4 October, below. The block was trained with a memory-saving shortcut for computing its learning signal, the adjoint method. At a tenth of the training budget, where Model A trailed the ordinary transformer by 0.83 nats, training with the shortcut accounted for about 95% of the gap (0.79 nats). Trained with exact gradients, the model was 0.04 nats behind at that budget. So, at that budget, most of the loss gap came from how the model was trained, not from its design. T1 does not explain the latency or steering results, and the model has not been trained with exact gradients on the full budget.
 
-## 3 October 2026: the audit and the replications
+## 3 and 4 October 2026: the audit and the replications
 
 ### What an audit of the paper's own materials found
 
@@ -175,9 +213,9 @@ Loss is measured in nats. A difference of 0.05 nats is about a 5% change in how 
 
 ## January 2026: the original paper (superseded)
 
-**What the paper proposed.** In a small transformer, two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). Instead of passing through a fixed number of layers, each word's internal representation flows smoothly through "depth", along a field the model learns, and a small control signal u steers the flow. The studies below call the paper's main model Model A. The paper claimed that u could steer the output toward positive or negative sentiment, assigning 98% and 88% probability to the target word on the one prompt steering was trained on, at the same speed as an ordinary transformer, with a learned scale α (alpha) settling at 0.065, and with the two sentiments occupying geometrically distinct regions of the flow, shown by how hard the solver had to work.
+**What the paper proposed.** In a small transformer, two middle layers are replaced by a continuous block, a neural ordinary differential equation (ODE). Instead of passing through a fixed number of layers, each word's internal representation flows smoothly through "depth", along a field the model learns, and a small control signal u steers the flow. The studies above call the paper's main model Model A. The paper claimed that u could steer the output toward positive or negative sentiment, assigning 98% and 88% probability to the target word on the one prompt steering was trained on, at the same speed as an ordinary transformer, with a learned scale α (alpha) settling at 0.065, and with the two sentiments occupying geometrically distinct regions of the flow, shown by how hard the solver had to work.
 
-> Everything below, down to *Using the code*, is the paper's own account as written in January 2026, kept unchanged as the record of what was claimed. Notes marked *October 2026* say where testing found otherwise; the sections above, from 3 October 2026 on, give the evidence.
+> Everything below in this section is the paper's own account as written in January 2026, kept unchanged as the record of what was claimed. Notes marked *October 2026* say where testing found otherwise; the sections above, from 3 October 2026 on, give the evidence.
 
 📄 **[Read the full paper](PAPER.md)** | 📓 **[Falsification Test](continuous_depth_transformer_falsification_test.ipynb)** | ⚡ **[Efficiency Benchmark](continuous_depth_transformer_efficiency_benchmark.ipynb)**
 
@@ -328,36 +366,6 @@ class InstrumentedODEFunc(ODEFunc):
     def forward(self, t, x):
         self.nfe += 1  # Count function evaluations
         return super().forward(t, x)
-```
-
-### Using the code
-
-#### Installation
-
-```bash
-pip install torch torchdiffeq datasets tiktoken
-```
-
-#### Quick Start
-
-`model.py` defines the paper's second model: an ODE block without attention, with the control signal concatenated onto the state, which in January was trained only on random tokens. The falsification and benchmark notebooks import it, and download it automatically when opened in Colab. Model A, behind the paper's training and steering results and used by every replication and later test, is [`experiments/wikitext2-replication/paper_model.py`](experiments/wikitext2-replication/paper_model.py), restored verbatim from the original notebook.
-
-```python
-import torch
-from model import HybridTransformer, DEFAULT_CONFIG
-
-# Six layers, with the ODE block in place of layers 2-3
-model = HybridTransformer(DEFAULT_CONFIG)
-
-batch_size = 2
-input_ids = torch.randint(0, DEFAULT_CONFIG['vocab_size'], (batch_size, DEFAULT_CONFIG['seq_len']))
-
-# Control signal u: the paper claimed it steers sentiment after training; the replication found that unreliable
-control = torch.zeros(batch_size, DEFAULT_CONFIG['control_dim'])
-control[:, 0] = 1.0
-
-logits = model(input_ids, control)                              # Fixed 4-step Euler solver, as in training
-logits_adaptive = model(input_ids, control, use_adaptive=True)  # Adaptive Dopri5 solver
 ```
 
 ## Citation
